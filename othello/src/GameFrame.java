@@ -1,5 +1,7 @@
 import java.util.Vector;
 
+//更新しましたよ
+
 
 public class GameFrame extends MyFrame{
 	public void run(){
@@ -40,7 +42,7 @@ public class GameFrame extends MyFrame{
 			CheckWinner();
 		}
 	}
-		
+
 	public void Remove(){
 		int size=GameWorld.tokens.size();
 		for(int i=0;i<size;i++){
@@ -109,7 +111,7 @@ public class GameFrame extends MyFrame{
 	public void SelectTurn(){
 		int r=GameWorld.range;
 		int SP=0;
-		
+
 		GameWorld.SelectPlayer=0;
 		GameWorld.player.x=2*r+2;
 		GameWorld.player.y=r+1;
@@ -172,7 +174,7 @@ public class GameFrame extends MyFrame{
 	public void SelectRange(){
 		int r=GameWorld.range;
 		int SP=0;
-		
+
 		GameWorld.SelectPlayer=0;
 		GameWorld.PushSpace=0;
 		GameWorld.player.x=2*r+2;
@@ -215,7 +217,7 @@ public class GameFrame extends MyFrame{
 		}
 		GameWorld.PushSpace=0;
 		GameWorld.oita=0;
-		
+
 	}
 	public void CheckRebirth(int l,int s,int m){
 		int k=l+s;
@@ -424,9 +426,9 @@ public class GameFrame extends MyFrame{
 			}
 		}
 		return lo;
-		
+
 	}
-	
+
 	public void CPU(int k){
 		int ma=0;
 		int lo=0;
@@ -470,7 +472,7 @@ public class GameFrame extends MyFrame{
 		SaveAfter();
 		Alldraw();
 	}
-	
+
 	public void CPU4(int k){
 		int r=GameWorld.range;
 		int o=0;
@@ -608,6 +610,6 @@ public class GameFrame extends MyFrame{
 			while(GameWorld.PushSpace==0);
 		}
 	}
-	
+
 
 }
