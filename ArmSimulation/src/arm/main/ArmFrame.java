@@ -27,11 +27,12 @@ public class ArmFrame extends JFrame{
 	//バッファストラテジ
 	BufferStrategy buffer;
 
+
 	//コンストラクタ
 	public ArmFrame(){
 		this.setTitle("ArmFrame");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000,700);
+		this.setSize(2000,1000);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
