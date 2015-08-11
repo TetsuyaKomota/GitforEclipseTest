@@ -27,12 +27,14 @@ public class ArmFrame extends JFrame{
 	//バッファストラテジ
 	BufferStrategy buffer;
 
+	//腕モデル
+	Hand hand;
 
 	//コンストラクタ
 	public ArmFrame(){
 		this.setTitle("ArmFrame");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(2000,1000);
+		this.setSize(1000,600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
@@ -42,6 +44,8 @@ public class ArmFrame extends JFrame{
 		this.setIgnoreRepaint(true);
 		this.buffer = this.getBufferStrategy();
 
+//		this.hand = new Hand(new MyVector(100,200),300,300);
+
 		Timer t = new Timer();
 		t.schedule(new RenderTask(), 0,16);
 	}
@@ -50,10 +54,11 @@ public class ArmFrame extends JFrame{
 	void render(){
 		System.out.println("render");
 		this.drawBackGround();
+//		this.hand.draw(this);
 		this.buffer.show();
 	}
 
-	//背景の描画。これは描画店の移動を行う前に実行する
+	//背景の描画。これは描画位置の移動を行う前に実行する
 	void drawBackGround(){
 		Graphics2D g = (Graphics2D)this.buffer.getDrawGraphics();
 		g.setColor(this.BGCOLOR);
