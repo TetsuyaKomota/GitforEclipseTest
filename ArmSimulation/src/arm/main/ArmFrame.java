@@ -8,6 +8,8 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
+import arm.libraries.MyVector;
+
 public class ArmFrame extends JFrame{
 
 	/**
@@ -25,7 +27,7 @@ public class ArmFrame extends JFrame{
 	final Color BGCOLOR = new Color(245,245,245);
 
 	//バッファストラテジ
-	BufferStrategy buffer;
+	public BufferStrategy buffer;
 
 	//腕モデル
 	Hand hand;
@@ -44,17 +46,32 @@ public class ArmFrame extends JFrame{
 		this.setIgnoreRepaint(true);
 		this.buffer = this.getBufferStrategy();
 
-//		this.hand = new Hand(new MyVector(100,200),300,300);
+		this.hand = new Hand(new MyVector(100,200),300,300);
 
 		Timer t = new Timer();
 		t.schedule(new RenderTask(), 0,16);
 	}
 
+	//Handのゲッター
+	public Hand getHand(){
+		return this.hand;
+	}
+
 
 	void render(){
 		System.out.println("render");
-		this.drawBackGround();
+		this.draw();
 //		this.hand.draw(this);
+	}
+
+	void draw(){
+		this.drawBackGround();
+		//描画位置の調節
+
+		//腕の描画
+		this.hand.draw(this);
+
+		//描画の出力
 		this.buffer.show();
 	}
 

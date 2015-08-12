@@ -26,7 +26,7 @@ public class Hand {
 	//関節点。とりあえず２自由度前提
 	MyObject[] joints;
 	//エンドエフェクタ。joints[HAND_END]のことだが、操作することが多いため特別に参照している
-	MyObject end_effector;
+	public MyObject end_effector;
 	//腕の長さ
 	double[] arms;
 
