@@ -80,6 +80,14 @@ public class ArmFrame extends JFrame{
 		Graphics2D g = (Graphics2D)this.buffer.getDrawGraphics();
 		g.setColor(this.BGCOLOR);
 		g.fillRect(0,0,this.getWidth(),this.getHeight());
+
+		g.setColor(new Color(100,100,100));
+		for(int i=0;i<20;i++){
+			int temp = 50*i;
+			g.drawLine(-this.getWidth()/2, temp, this.getWidth()/2, temp);
+			g.drawLine(temp, -this.getHeight()/2, temp, this.getHeight()/2);
+		}
+
 		g.dispose();
 	}
 
