@@ -101,6 +101,8 @@ public class MainFrame extends JFrame{
 	//Gを押した時に起こす処理
 	public void pushGoal(){
 		this.outputGoal();
+		this.selected = -1;
+		this.secondselected = -1;
 		this.initialize();
 	}
 
