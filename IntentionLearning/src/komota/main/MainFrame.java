@@ -234,6 +234,17 @@ public class MainFrame extends JFrame{
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_G){
 				MainFrame.this.pushGoal();
+			}else if(e.getKeyCode() == KeyEvent.VK_NUMPAD0
+					||e.getKeyCode() == KeyEvent.VK_NUMPAD1
+					||e.getKeyCode() == KeyEvent.VK_NUMPAD2
+					||e.getKeyCode() == KeyEvent.VK_NUMPAD3
+					||e.getKeyCode() == KeyEvent.VK_NUMPAD4
+					||e.getKeyCode() == KeyEvent.VK_NUMPAD5
+					||e.getKeyCode() == KeyEvent.VK_NUMPAD6
+					||e.getKeyCode() == KeyEvent.VK_NUMPAD7
+					||e.getKeyCode() == KeyEvent.VK_NUMPAD8
+					||e.getKeyCode() == KeyEvent.VK_NUMPAD9){
+				MainFrame.this.panels[MainFrame.this.selected].setStatus(e.getKeyCode() - KeyEvent.VK_NUMPAD0);
 			}
 
 		}
