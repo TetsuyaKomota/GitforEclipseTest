@@ -98,6 +98,27 @@ public class MainFrame extends JFrame{
 		this.initialize();
 	}
 
+	//出力先ファイル名を変更
+	public void setOutputFile(){
+		this.file = new File("log/"+file_name);
+		try {
+//			this.pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
+		      OutputStreamWriter osw = new OutputStreamWriter(fos);
+		      this.pw = new PrintWriter(osw);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+			System.out.println("ファイルなし");
+		}
+	}
+	public void setOutputFile(String file_name){
+		this.file_name = file_name;
+		setOutputFile();
+	}
+
+
+
 	//Gを押した時に起こす処理
 	public void pushGoal(){
 		this.outputGoal();
