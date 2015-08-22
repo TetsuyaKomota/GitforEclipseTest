@@ -229,7 +229,9 @@ public class MainFrame extends JFrame{
 					int temp = MainFrame.this.panels[selected].getStatus();
 					MainFrame.this.panels[selected].setStatus(MainFrame.this.panels[secondselected].getStatus());
 					MainFrame.this.panels[secondselected].setStatus(temp);
-					MainFrame.this.pw.println("  change:"+MainFrame.this.selected + ","+MainFrame.this.secondselected);
+					int[] fpanel = MainFrame.this.panels[selected].getPosition();
+					int[] spanel = MainFrame.this.panels[secondselected].getPosition();
+					MainFrame.this.pw.println("  change:"+ fpanel[0] + " " + fpanel[1] + "," + spanel[0] + " " + spanel[1]);
 					MainFrame.this.pw.println("status:"
 							+MainFrame.this.panels[0].status+","
 							+MainFrame.this.panels[1].status+","
@@ -286,10 +288,10 @@ public class MainFrame extends JFrame{
 			// TODO 自動生成されたメソッド・スタブ
 			for(int i=0;i<MainFrame.this.panels.length;i++){
 				if(MainFrame.this.panels[i].isClicked(e.getPoint().x, e.getPoint().y)){
-					if(MainFrame.this.selected == -1){
+					if(MainFrame.this.selected == -1 && MainFrame.this.panels[i].getStatus() != 0){
 						MainFrame.this.selected = i;
 					}
-					else if(MainFrame.this.secondselected == -1&&MainFrame.this.selected != i){
+					else if(MainFrame.this.secondselected == -1&&MainFrame.this.selected != i&&MainFrame.this.panels[i].getStatus() == 0){
 						MainFrame.this.secondselected = i;
 					}
 
