@@ -98,6 +98,19 @@ public class MainFrame extends JFrame{
 		this.initialize();
 	}
 
+	//各種セッター、ゲッター
+	public MyPanel[] getPanels(){
+		return this.panels;
+	}
+	public MainFrame setSelected(int selected){
+		this.selected = selected;
+		return this;
+	}
+	public MainFrame setSecondSelected(int selected){
+		this.secondselected = selected;
+		return this;
+	}
+
 	//出力先ファイル名を変更
 	public void setOutputFile(){
 		this.file = new File("log/"+file_name);
@@ -162,6 +175,20 @@ public class MainFrame extends JFrame{
 );
 	}
 
+	//各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	public void functionPlugin1(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPlugin2(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPlugin3(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPlugin4(){
+		System.out.println("No Function in This Key.");
+	}
+
 	//タイマータスク
 	class RenderTask extends TimerTask{
 
@@ -206,6 +233,7 @@ public class MainFrame extends JFrame{
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
+/*
 			if(e.getKeyCode() == KeyEvent.VK_0
 					||e.getKeyCode() == KeyEvent.VK_1
 					||e.getKeyCode() == KeyEvent.VK_2
@@ -224,7 +252,9 @@ public class MainFrame extends JFrame{
 				else if(MainFrame.this.secondselected == -1&&MainFrame.this.selected != e.getKeyCode() - KeyEvent.VK_0){
 					MainFrame.this.secondselected = e.getKeyCode() - KeyEvent.VK_0;
 				}
-			}else if(e.getKeyCode() == KeyEvent.VK_SPACE){
+			}else
+*/
+			if(e.getKeyCode() == KeyEvent.VK_SPACE){
 				if(MainFrame.this.secondselected != -1){
 					int temp = MainFrame.this.panels[selected].getStatus();
 					MainFrame.this.panels[selected].setStatus(MainFrame.this.panels[secondselected].getStatus());
@@ -257,7 +287,8 @@ public class MainFrame extends JFrame{
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_G){
 				MainFrame.this.pushGoal();
-			}else if(e.getKeyCode() == KeyEvent.VK_NUMPAD0
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_NUMPAD0
 					||e.getKeyCode() == KeyEvent.VK_NUMPAD1
 					||e.getKeyCode() == KeyEvent.VK_NUMPAD2
 					||e.getKeyCode() == KeyEvent.VK_NUMPAD3
@@ -269,7 +300,18 @@ public class MainFrame extends JFrame{
 					||e.getKeyCode() == KeyEvent.VK_NUMPAD9){
 				MainFrame.this.panels[MainFrame.this.selected].setStatus(e.getKeyCode() - KeyEvent.VK_NUMPAD0);
 			}
-
+			else if(e.getKeyCode() == KeyEvent.VK_1){
+				MainFrame.this.functionPlugin1();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_2){
+				MainFrame.this.functionPlugin2();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_3){
+				MainFrame.this.functionPlugin3();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_4){
+				MainFrame.this.functionPlugin4();
+			}
 		}
 
 		@Override

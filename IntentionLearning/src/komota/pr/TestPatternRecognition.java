@@ -8,13 +8,15 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import komota.main.MainFrame;
+
 public class TestPatternRecognition {
 
 	//定数
 	//絶対移動の閾値
 	final double THRESHOLD = 0.9;
 	//絶対移動ベクトルの学習率
-	final double rate = 0.3;
+	final double RATE = 0.3;
 
 	//フィールド
 	File file;
@@ -47,7 +49,7 @@ public class TestPatternRecognition {
 		}
 		this.vec = new double[2];
 		this.vec[0] = 0;
-		this.vec[1] = 1;
+		this.vec[1] = 0;
 	}
 
 	//クローズ処理
@@ -76,6 +78,26 @@ public class TestPatternRecognition {
 			}
 			else{
 				break;
+			}
+		}
+	}
+
+	//とりあえず、ゴールを出力するテスト
+	public void testConvert(MainFrame frame){
+		//vecを最も近い整数に変換する
+		int[] intvec = new int[2];
+		intvec[0] = (int)Math.round(vec[0]);
+		intvec[1] = (int)Math.round(vec[1]);
+		for(int i = 0;i<frame.getPanels().length;i++){
+			if(frame.getPanels()[i].getStatus() == 1){
+				if(
+					frame.getPanels()[i].getPosition()[0]+intvec[0] >= 0
+				&&	frame.getPanels()[i].getPosition()[0]+intvec[0] <= 2
+				&&	frame.getPanels()[i].getPosition()[1]+intvec[1] >= 0
+				&&	frame.getPanels()[i].getPosition()[1]+intvec[1] <= 2
+				){
+					frame.setSelected(i).setSecondSelected(i+intvec[1]*3 + intvec[0]);
+				}
 			}
 		}
 	}
@@ -109,14 +131,28 @@ public class TestPatternRecognition {
 			System.out.println("Matched.");
 			String temp = input.split(regex_change)[1];
 			String[] temp2 = temp.split(",");
+			String[] temppos1 = temp2[0].split(" ");
+			String[] temppos2 = temp2[1].split(" ");
+
 			System.out.println("picked out "+temp2[0] + " and "+ temp2[1]);
-			return temp2;
-		}
-		//次の行の「status:p,p,p,p,p,p,p,p,p」という文字列からtemp3に状態を格納する。
-		else if(m_status.find()){
-			String temp = input.split(regex_status)[1];
-			String[] temp2 = temp.split(",");
-			System.out.println("picked out "+temp2[0] + " and "+ temp2[1]);
+			System.out.println("temppos1 = " + temppos1[0] + " " + temppos1[1] + "  temppos2 = " + temppos2[0] + " " + temppos2[1]);
+
+			int[] pos1 = new int[2];
+			int[] pos2 = new int[2];
+
+			pos1[0] = Integer.parseInt(temppos1[0]);
+			pos1[1] = Integer.parseInt(temppos1[1]);
+			pos2[0] = Integer.parseInt(temppos2[0]);
+			pos2[1] = Integer.parseInt(temppos2[1]);
+
+			//changeで選択したマスのポジションを使ってベクトルを更新する
+			double[] tempvec = new double[2];
+			tempvec[0] = pos2[0] - pos1[0];
+			tempvec[1] = pos2[1] - pos1[1];
+
+			this.vec[0] = (1 - RATE)*vec[0] + RATE * tempvec[0];
+			this.vec[1] = (1 - RATE)*vec[1] + RATE * tempvec[1];
+			System.out.println("vec = ("+vec[0]+","+vec[1]+")");
 			return temp2;
 		}
 		//temp2のどっちからどっちに、temp3の「１」が移動しているかを取得し、移動後の「１」の位置をtemp4に格納する
