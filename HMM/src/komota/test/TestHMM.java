@@ -105,6 +105,7 @@ public class TestHMM {
 			temp += this.proinitial[idx];
 		}
 		this.curstatus = idx;
+		this.curoutput = -1;
 	}
 
 	//出力。
@@ -117,7 +118,8 @@ public class TestHMM {
 			idx++;
 			temp += this.prooutput[curstatus][idx];
 		}
-	return idx;
+		this.curoutput = idx;
+		return idx;
 	}
 
 	//状態遷移。
@@ -133,6 +135,14 @@ public class TestHMM {
 		this.curstatus = idx;
 	}
 
+	//ビタビ経路出力。
+	//出力列を引数とし、最も尤もらしい状態列を出力する
+	public int[] getBitabi(int[] outputs){
+		int[] statuses = null;
+		return statuses;
+	}
+
+
 
 	//「散歩」「洗濯」「読書」が「晴れ」「晴れ」「雨」から出力したことを推定する
 
@@ -140,7 +150,7 @@ public class TestHMM {
 
 	//ある出力oが出力するのに最も尤もらしい状態を推定する
 
-	//
+	//ビタビ経路を出力するメソッドまで作成した段階でmainパッケージに移行する
 
 /*
 ・HMMのシミュレーションについて
