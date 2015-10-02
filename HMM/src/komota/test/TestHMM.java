@@ -135,6 +135,29 @@ public class TestHMM {
 		this.curstatus = idx;
 	}
 
+	//引数の出力列に対する、引数の状態列の尤度を計算する
+	public double getLikelihood(int[] inputouts,int[] inputstas){
+		double output = -1;
+		//出力列と状態列の長さが違う場合、エラー出力
+		if(inputouts.length != inputstas.length){
+			System.out.println("[TestHMM]error:getLikelihood:not match the length.");
+			return output;
+		}
+		output = this.proinitial[inputstas[0]];
+
+
+		for(int i=0;i<inputouts.length;i++){
+			output *= this.prooutput[inputstas[i]][inputouts[i]];
+			if(i < inputouts.length - 1){
+				output *= this.protransition[inputstas[i]][inputstas[i+1]];
+			}
+		}
+
+
+		return output;
+	}
+
+
 	//ビタビ経路出力。
 	//出力列を引数とし、最も尤もらしい状態列を出力する
 	public int[] getBitabi(int[] outputs){
