@@ -23,9 +23,23 @@ public class testMain {
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 
+		/*
+		 * 以下テスト設定
+		 *・	状態	初期確率（事前確率）遷移握率	晴れ	曇り	雨	出力確率	散歩	読書
+		 *		0.晴れ	0.8								0.8		0.2		0.0				0.9		0.1
+		 *		1.曇り	0.15							0.0		0.2		0.8				0.5		0.5
+		 *		2.雨	0.05							0.8		0.2		0.0				0.0		1.0
+		 *
+		 *{0,0,1,0,0,1} (散歩、散歩、読書、散歩、散歩、読書)となるのに最も尤もらしい天気遷移を推定する
+		 *
+		 */
+
+
+
+
 		System.out.println("Hello HMM!");
 
-		TestHMM hmm = new TestHMM(3, 3);
+		TestHMM hmm = new TestHMM(3, 2);
 		//初期状態設定
 		double[] inits = {0.8,0.15,0.05};
 		hmm.setProInitial(inits);
@@ -41,16 +55,39 @@ public class testMain {
 		trans[2][1] = 0.2;
 		trans[2][2] = 0.0;
 		hmm.setProTransition(trans);
+		//出力確率設定
+		double[][] outp = new double[3][2];
+		outp[0][0] = 0.9;
+		outp[0][1] = 0.1;
+		outp[1][0] = 0.5;
+		outp[1][1] = 0.5;
+		outp[2][0] = 0.0;
+		outp[2][1] = 1.0;
+		hmm.setProOutput(outp);
+		//出力列
+		int[] test = {0,0,1,0,0,1};
+
 
 		//初期状態確率のテスト
 		System.out.println("Test for initialize");
+		int zero	 = 0;
+		int one		 = 0;
+		int two		 = 0;
 		for(int i=0;i<20;i++){
 			for(int j=0;j<20;j++){
 				hmm.initialize();
+				if(hmm.getCurStatus() == 0){
+					zero++;
+				}else if(hmm.getCurStatus() == 1){
+					one++;
+				}else if(hmm.getCurStatus() == 2){
+					two++;
+				}
 				System.out.print(hmm.getCurStatus()+" ");
 			}
 			System.out.println("");
 		}
+		System.out.println("Total   0(晴):"+zero+"  1(曇):"+one+"  2(雨):"+two);
 
 		//出力確率のテスト
 		System.out.println("Test for output");
@@ -75,6 +112,13 @@ public class testMain {
 			System.out.println("");
 		}
 
+		//ビタビ経路推定のテスト
+		System.out.println("Test for Bitabi");
+		int[] testbitabi = hmm.getBitabi(test);
+		for(int i=0;i<testbitabi.length;i++){
+			System.out.print(testbitabi[i] + "  ");
+		}
+		System.out.println("");
 	}
 
 }

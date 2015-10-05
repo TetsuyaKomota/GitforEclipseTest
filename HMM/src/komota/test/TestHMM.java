@@ -70,10 +70,24 @@ public class TestHMM {
 		for(int i=0;i<this.numstatus;i++){
 			double temp = 0;
 			for(int j=0;j<this.numstatus;j++){
-				temp += this.protransition[i][j];
+				temp += inputs[i][j];
 			}
 			for(int j=0;j<this.numstatus;j++){
 				this.protransition[i][j] = inputs[i][j]/temp;
+			}
+		}
+		return this;
+	}
+	//出力確率のセッター
+	public TestHMM setProOutput(double[][] inputs){
+		//正規化
+		for(int i=0;i<this.numstatus;i++){
+			double temp = 0;
+			for(int j=0;j<this.numoutput;j++){
+				temp += inputs[i][j];
+			}
+			for(int j=0;j<this.numoutput;j++){
+				this.prooutput[i][j] = inputs[i][j]/temp;
 			}
 		}
 		return this;
@@ -169,7 +183,7 @@ public class TestHMM {
 
 
 
-		int[] statuses = null;
+		int[] statuses = new int[outputs.length];
 		double tempmaxlikelihood = -1;
 
 		int tempcount = 0;
@@ -184,11 +198,19 @@ public class TestHMM {
 		while(tempcount < outputs.length){
 			//[0,0,0,…,0]から[s,0,0,…,0]まで
 			while(true){
+
+				System.out.println("[TestHMM]getBitabi:tempstatuses:"+tempstatuses[0]+" "+tempstatuses[1]+" "+tempstatuses[2]+" "+tempstatuses[3]+" "+tempstatuses[4]+" "+tempstatuses[5]);
+				System.out.println("[TestHMM]getBitabi:maxlikelihood:"+tempmaxlikelihood);
+				System.out.println("[TestHMM]getBitabi:getLikelihood:"+getLikelihood(outputs,tempstatuses));
+
+
 				if(getLikelihood(outputs,tempstatuses) > tempmaxlikelihood){
 					tempmaxlikelihood = getLikelihood(outputs,tempstatuses);
-					statuses = tempstatuses;
+					for(int i=0;i<tempstatuses.length;i++){
+						statuses[i] = tempstatuses[i];
+					}
 				}
-				if(tempstatuses[tempcount] < this.numstatus){
+				if(tempstatuses[tempcount] < this.numstatus - 1){
 					tempstatuses[tempcount]++;
 				}
 				else{
@@ -198,6 +220,7 @@ public class TestHMM {
 				}
 			}
 		}
+		System.out.println("[TestHMM]getBitabi:maxlikelihood:"+tempmaxlikelihood);
 		return statuses;
 	}
 
