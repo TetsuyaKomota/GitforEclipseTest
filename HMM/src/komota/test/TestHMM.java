@@ -226,6 +226,50 @@ public class TestHMM {
 
 
 
+
+
+	//修正版
+
+	public int[] getBitabi2(int[] outputs){
+
+		/*
+		 * statuses				:出力する状態列（ビタビ経路）
+		 * tempmaxlikelihood	:現時点での最大尤度。これと比較して大きい尤度を持つ経路をstatusesに保存
+		 * tempcount			:状態列のどこをインクリメントさせるかのインデックス
+		 * tempstatuses			:計算中の状態列。tempcountに沿ってインクリメントされる。
+		 */
+
+
+
+		int[] statuses = new int[outputs.length];
+		double tempmaxlikelihood = -1;
+
+		int tempcount = 0;
+		int[] tempstatuses = new int[outputs.length];
+
+		//tempstatuses初期化
+		for(int i=0;i<outputs.length;i++){
+			tempstatuses[i] = 0;
+		}
+
+
+
+		/* ************************************************************************************ */
+		/* 尤度を計算し、最大を更新したらその経路を保存する。                                   */
+		/* あとはこのtempstatusesを全通り試行する方法を考える                                   */
+		if(getLikelihood(outputs,tempstatuses) > tempmaxlikelihood){
+			tempmaxlikelihood = getLikelihood(outputs,tempstatuses);
+			for(int i=0;i<tempstatuses.length;i++){
+				statuses[i] = tempstatuses[i];
+			}
+		}
+		/* ************************************************************************************ */
+
+		return statuses;
+	}
+
+
+
 	//「散歩」「洗濯」「読書」が「晴れ」「晴れ」「雨」から出力したことを推定する
 
 	//ある出力列Oが出力するのに最も尤もらしいビタビ経路を出力する
