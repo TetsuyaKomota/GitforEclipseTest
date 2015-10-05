@@ -170,17 +170,11 @@ public class TestHMM {
 	}
 
 
-	//ビタビ経路出力。
+	//ビタビ経路出力。(失敗版)
 	//出力列を引数とし、最も尤もらしい状態列を出力する
+
+/*
 	public int[] getBitabi(int[] outputs){
-
-		/*
-		 * statuses				:出力する状態列（ビタビ経路）
-		 * tempmaxlikelihood	:現時点での最大尤度。これと比較して大きい尤度を持つ経路をstatusesに保存
-		 * tempcount			:状態列のどこをインクリメントさせるかのインデックス
-		 * tempstatuses			:計算中の状態列。tempcountに沿ってインクリメントされる。
-		 */
-
 
 
 		int[] statuses = new int[outputs.length];
@@ -223,14 +217,14 @@ public class TestHMM {
 		System.out.println("[TestHMM]getBitabi:maxlikelihood:"+tempmaxlikelihood);
 		return statuses;
 	}
+*/
 
 
 
 
+	//ビタビ経路出力（修正版）
 
-	//修正版
-
-	public int[] getBitabi2(int[] outputs){
+	public int[] getBitabi(int[] outputs){
 
 		/*
 		 * statuses				:出力する状態列（ビタビ経路）
@@ -243,8 +237,6 @@ public class TestHMM {
 
 		int[] statuses = new int[outputs.length];
 		double tempmaxlikelihood = -1;
-
-		int tempcount = 0;
 		int[] tempstatuses = new int[outputs.length];
 
 		//tempstatuses初期化
@@ -254,16 +246,43 @@ public class TestHMM {
 
 
 
-		/* ************************************************************************************ */
-		/* 尤度を計算し、最大を更新したらその経路を保存する。                                   */
-		/* あとはこのtempstatusesを全通り試行する方法を考える                                   */
-		if(getLikelihood(outputs,tempstatuses) > tempmaxlikelihood){
-			tempmaxlikelihood = getLikelihood(outputs,tempstatuses);
-			for(int i=0;i<tempstatuses.length;i++){
-				statuses[i] = tempstatuses[i];
+
+
+		while(true){
+
+			/* ************************************************************************************ */
+			/* 尤度を計算し、最大を更新したらその経路を保存する。                                   */
+			/* あとはこのtempstatusesを全通り試行する方法を考える                                   */
+			if(getLikelihood(outputs,tempstatuses) > tempmaxlikelihood){
+				tempmaxlikelihood = getLikelihood(outputs,tempstatuses);
+				for(int i=0;i<tempstatuses.length;i++){
+					statuses[i] = tempstatuses[i];
+				}
 			}
+			/* ************************************************************************************ */
+
+			int tempcount = 0;
+			int flag = 0;
+
+			while(flag == 0){
+				if(tempstatuses[tempcount] < this.numstatus - 1){
+					tempstatuses[tempcount]++;
+					flag = 1;
+				}
+				else if(tempcount < tempstatuses.length - 1){
+					tempstatuses[tempcount] = 0;
+					tempcount++;
+				}
+				else{
+					flag = 2;
+				}
+			}
+			if(flag == 2){
+				break;
+			}
+			//System.out.println("[TestHMM]getBitabi:tempstatuses:"+tempstatuses[0]+" "+tempstatuses[1]+" "+tempstatuses[2]+" "+tempstatuses[3]+" "+tempstatuses[4]+" "+tempstatuses[5]);
 		}
-		/* ************************************************************************************ */
+
 
 		return statuses;
 	}

@@ -65,8 +65,9 @@ public class testMain {
 		outp[2][1] = 1.0;
 		hmm.setProOutput(outp);
 		//出力列
-		int[] test = {0,0,1,0,0,1};
-
+		int[] test 		= {0,0,1,0,0,1};
+		int[] test2 	= {1,1,1,1,1,0,0,0,1,1,1};
+		int[] test3		= {0,0,0,0,0,0,1,0,0,0,1,1,1,1,1};
 
 		//初期状態確率のテスト
 		System.out.println("Test for initialize");
@@ -119,6 +120,19 @@ public class testMain {
 			System.out.print(testbitabi[i] + "  ");
 		}
 		System.out.println("");
+
+		testbitabi = hmm.getBitabi(test2);
+		for(int i=0;i<testbitabi.length;i++){
+			System.out.print(testbitabi[i] + "  ");
+		}
+		System.out.println("");
+
+		testbitabi = hmm.getBitabi(test3);
+		for(int i=0;i<testbitabi.length;i++){
+			System.out.print(testbitabi[i] + "  ");
+		}
+		System.out.println("");
+
 	}
 
 }
