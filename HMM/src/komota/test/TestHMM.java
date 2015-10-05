@@ -152,8 +152,6 @@ public class TestHMM {
 				output *= this.protransition[inputstas[i]][inputstas[i+1]];
 			}
 		}
-
-
 		return output;
 	}
 
@@ -161,7 +159,45 @@ public class TestHMM {
 	//ビタビ経路出力。
 	//出力列を引数とし、最も尤もらしい状態列を出力する
 	public int[] getBitabi(int[] outputs){
+
+		/*
+		 * statuses				:出力する状態列（ビタビ経路）
+		 * tempmaxlikelihood	:現時点での最大尤度。これと比較して大きい尤度を持つ経路をstatusesに保存
+		 * tempcount			:状態列のどこをインクリメントさせるかのインデックス
+		 * tempstatuses			:計算中の状態列。tempcountに沿ってインクリメントされる。
+		 */
+
+
+
 		int[] statuses = null;
+		double tempmaxlikelihood = -1;
+
+		int tempcount = 0;
+		int[] tempstatuses = new int[outputs.length];
+
+		//tempstatuses初期化
+		for(int i=0;i<outputs.length;i++){
+			tempstatuses[i] = 0;
+		}
+
+		//[0,0,0,…,0]から[s,s,s,…,s]まで
+		while(tempcount < outputs.length){
+			//[0,0,0,…,0]から[s,0,0,…,0]まで
+			while(true){
+				if(getLikelihood(outputs,tempstatuses) > tempmaxlikelihood){
+					tempmaxlikelihood = getLikelihood(outputs,tempstatuses);
+					statuses = tempstatuses;
+				}
+				if(tempstatuses[tempcount] < this.numstatus){
+					tempstatuses[tempcount]++;
+				}
+				else{
+					//インクリメントする場所をずらす
+					tempcount++;
+					break;
+				}
+			}
+		}
 		return statuses;
 	}
 
