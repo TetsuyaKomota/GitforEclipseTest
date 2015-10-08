@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import komota.supers.AdjustedVisualSOINN;
 import komota.supers.MyDataFilter;
-import soinn.RRSOINN;
+import soinn.SOINN;
 
 public class Maintest {
 
@@ -21,7 +21,7 @@ public class Maintest {
 
 
 		samplegauss = MyDataFilter.normalization(gauss.gauss);
-		RRSOINN soinn = new RRSOINN(2,100,10);
+		SOINN soinn = new SOINN(2,100,10);
 
 
 		AdjustedVisualSOINN frame = new AdjustedVisualSOINN(soinn);
@@ -40,7 +40,7 @@ public class Maintest {
 		SupervisedGauss gauss2 = new SupervisedGauss();
 
 		samplegauss2 = MyDataFilter.normalization(gauss2.gauss);
-		RRSOINN soinn2 = new RRSOINN(2,100,10);
+		SOINN soinn2 = new SOINN(2,100,10);
 
 
 		AdjustedVisualSOINN frame2 = new AdjustedVisualSOINN(soinn2);
