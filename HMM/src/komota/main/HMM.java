@@ -150,8 +150,8 @@ public class HMM {
 		this.curstatus = idx;
 	}
 
-	//引数の出力列に対する、引数の状態列の尤度を計算する
-	public double getLikelihood(int[] inputouts,int[] inputstas){
+	//引数の出力列に対する、引数の状態列の尤度を計算する(HMM内でのみ使用するprivateメソッド。出力系列自体がこのHMMから出力される尤度を求めるgetHMMLikelihoodと混同しないようにするためprivateにした)
+	private double getLikelihood(int[] inputouts,int[] inputstas){
 		double output = -1;
 		//出力列と状態列の長さが違う場合、エラー出力
 		if(inputouts.length != inputstas.length){
@@ -225,5 +225,46 @@ public class HMM {
 			}
 		}
 		return statuses;
+	}
+
+	//引数に与えた出力列がこのHMM由来のものであるかの指標である、モデル尤度を出力する
+	public double getHMMLikelihood(int[] outputs){
+
+		double sum = 0;
+		int[] tempstatuses = new int[outputs.length];
+
+		//tempstatuses初期化
+		for(int i=0;i<outputs.length;i++){
+			tempstatuses[i] = 0;
+		}
+
+		while(true){
+
+			/* ************************************************************************************ */
+			/* 尤度を計算し、sumに加算する                                                          */
+			sum += getLikelihood(outputs,tempstatuses);
+			/* ************************************************************************************ */
+
+			int tempcount = 0;
+			int flag = 0;
+
+			while(flag == 0){
+				if(tempstatuses[tempcount] < this.numstatus - 1){
+					tempstatuses[tempcount]++;
+					flag = 1;
+				}
+				else if(tempcount < tempstatuses.length - 1){
+					tempstatuses[tempcount] = 0;
+					tempcount++;
+				}
+				else{
+					flag = 2;
+				}
+			}
+			if(flag == 2){
+				break;
+			}
+		}
+		return sum;
 	}
 }

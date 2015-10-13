@@ -132,6 +132,14 @@ public class testMain {
 		}
 		System.out.println("");
 
+		//モデル尤度のテスト
+		System.out.println("Test for HMMLikelihood");
+		int[] testoutputsforHMMlikelihood = {0,0,0,0,1,1,1,1};
+		for(int i=0;i<testoutputsforHMMlikelihood.length;i++){
+			System.out.print(testoutputsforHMMlikelihood[i]+" ");
+		}
+		System.out.println("");
+		System.out.println(hmm.getHMMLikelihood(testoutputsforHMMlikelihood));
 	}
 
 }
