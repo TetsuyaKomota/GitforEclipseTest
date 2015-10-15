@@ -22,7 +22,7 @@ public class HMM {
 	//状態遷移確率([この状態から][この状態になる]確率)
 	protected double[][] protransition = null;
 	//出力確率([この状態で][この出力を得る]確率)
-	double[][] prooutput = null;
+	protected double[][] prooutput = null;
 
 
 //フィールド

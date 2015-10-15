@@ -62,8 +62,71 @@ public class TestLeft_to_Right_HMM extends HMM{
 	}
 
 	//バウム＝ウェルチアルゴリズムにより、パラメータの学習を行う。
-	public void learnwithBaum_Welch(double[] inputs){
-
+	public void learnwithBaum_Welch(int[] inputs){
+		//grid空間を生成([この状態に][この時点でいることの評価値])
+		double[][] forwardgrid = new double[this.numstatus][inputs.length];
+		double[][] backwardgrid = new double[this.numstatus][inputs.length];
+		//現在の確率における尤度を計算する
+		double templikelihood = this.getHMMLikelihood(inputs);
+		//現在の確率から、gridの値を計算
+		//最初にforwardgridの計算
+		for(int i=0;i<this.numstatus;i++){
+			for(int j=0;j<inputs.length;j++){
+				//開始直後は状態番号0にいるはずなので、grid[0][0] = 1 以外はgrid[i][0] = 0 である
+				if(j == 0){
+					if(i == 0){
+						forwardgrid[i][j] = 1;
+					}
+					else{
+						forwardgrid[i][j] = 0;
+					}
+				}
+				//最終状態は最終時点でのみ到達でき、また最終時点では必ず最終状態に到達することから、関係ないgrid値をゼロにする
+				else if(i == this.numstatus - 1){
+					if(j == inputs.length - 1){
+						forwardgrid[i][j] = 1;
+					}
+					else{
+						forwardgrid[i][j] = 0;
+					}
+				}
+				//「残り時点数」が「残り状態数」未満の場合、最終状態に到達できないため、grid値をゼロにする
+				else if((inputs.length - j) < (this.numstatus - i)){
+					forwardgrid[i][j] = 0;
+				}
+				else{
+					//開始直後以外のgridは、「前時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi-1のgrid * i-1からiへの遷移確率 * i-1でのinputs[j]の出力確率」
+					forwardgrid[i][j] = forwardgrid[i][j-1] * this.protransition[i][i] * this.prooutput[i][inputs[j]];
+					//状態番号0は例外として除去しておく
+					if(i > 0){
+						forwardgrid[i][j] += forwardgrid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][inputs[j]];
+					}
+				}
+			}
+		}
+		//次にbackwardgridの計算
+		for(int i=this.numstatus - 1;i >= 0;i--){
+			for(int j=inputs.length - 1;j >= 0;j--){
+				//終了直後は状態番号numstatus-1にいるはずなので、grid[numstatus-1][inputs.length-1] = 1 以外はgrid[i][inputs.length-1] = 0 である
+				if(j == inputs.length - 1){
+					if(i == this.numstatus - 1){
+						backwardgrid[i][j] = 1;
+					}
+					else{
+						backwardgrid[i][j] = 0;
+					}
+				}
+				else{
+					//終了直後以外のgridは、「次時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi+1のgrid * iからi+1への遷移確率 * iでのinputs[j]の出力確率」
+					backwardgrid[i][j] = backwardgrid[i][j+1] * this.protransition[i][i] * this.prooutput[i][j];
+					//状態番号numstatus-1は例外として除去しておく
+					if(i < this.numstatus-1){
+						forwardgrid[i][j] += forwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.prooutput[i][j];
+					}
+				}
+			}
+		}
+		//gridの計算が完了したので、次はこれをもとにΓを求める
 	}
 
 
