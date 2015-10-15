@@ -14,7 +14,7 @@ public class HMM {
 	//状態
 	int[] status = null;
 	//出力数
-	int numoutput = 0;
+	protected int numoutput = 0;
 	//出力
 	int[] output = null;
 	//初期状態確率

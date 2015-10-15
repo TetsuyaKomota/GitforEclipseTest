@@ -64,14 +64,17 @@ public class TestLeft_to_Right_HMM extends HMM{
 	//バウム＝ウェルチアルゴリズムにより、パラメータの学習を行う。
 	public void learnwithBaum_Welch(int[] inputs){
 		//grid空間を生成([この状態に][この時点でいることの評価値])
-		double[][] forwardgrid = new double[this.numstatus][inputs.length];
-		double[][] backwardgrid = new double[this.numstatus][inputs.length];
+		double[][] forwardgrid = new double[this.numstatus][inputs.length+1];
+		double[][] backwardgrid = new double[this.numstatus][inputs.length+1];
 		//現在の確率における尤度を計算する
 		double templikelihood = this.getHMMLikelihood(inputs);
+		int loopcount = 0;
+
+		while(loopcount++ == 100){
 		//現在の確率から、gridの値を計算
 		//最初にforwardgridの計算
 		for(int i=0;i<this.numstatus;i++){
-			for(int j=0;j<inputs.length;j++){
+			for(int j=0;j<inputs.length+1;j++){
 				//開始直後は状態番号0にいるはずなので、grid[0][0] = 1 以外はgrid[i][0] = 0 である
 				if(j == 0){
 					if(i == 0){
@@ -106,7 +109,7 @@ public class TestLeft_to_Right_HMM extends HMM{
 		}
 		//次にbackwardgridの計算
 		for(int i=this.numstatus - 1;i >= 0;i--){
-			for(int j=inputs.length - 1;j >= 0;j--){
+			for(int j=inputs.length + 1 - 1;j >= 0;j--){
 				//終了直後は状態番号numstatus-1にいるはずなので、grid[numstatus-1][inputs.length-1] = 1 以外はgrid[i][inputs.length-1] = 0 である
 				if(j == inputs.length - 1){
 					if(i == this.numstatus - 1){
@@ -127,6 +130,61 @@ public class TestLeft_to_Right_HMM extends HMM{
 			}
 		}
 		//gridの計算が完了したので、次はこれをもとにΓを求める
+		double[][][] G = new double[inputs.length][this.numstatus][this.numstatus];
+
+		for(int i=0;i<inputs.length;i++){
+			for(int j=0;j<this.numstatus;j++){
+				for(int k=0;k<this.numstatus;k++){
+					G[i][j][k] = (forwardgrid[j][i]*this.protransition[j][k]*this.prooutput[j][inputs[i]]*backwardgrid[k][i+1])/templikelihood;
+				}
+			}
+		}
+		//Γの計算が完了したので、次はこれをもとに状態遷移確率と出力確率を再計算する
+		//まずは状態遷移確率
+		for(int i=0;i<this.numstatus;i++){
+			for(int j=0;j<this.numstatus;j++){
+				double temptop = 0;
+				double tempbuttom = 0;
+				for(int si=0;si<inputs.length;si++){
+					double temp = 0;
+					temptop += G[si][i][j];
+					for(int sj=0;sj<this.numstatus;sj++){
+						temp += G[si][i][sj];
+					}
+					tempbuttom += temp;
+				}
+				this.protransition[i][j] = temptop/tempbuttom;
+			}
+		}
+		//次は出力確率
+		for(int i=0;i<this.numstatus;i++){
+			for(int j=0;j<this.numoutput;j++){
+				double temptop = 0;
+				double tempbuttom = 0;
+				for(int si=0;si<inputs.length;si++){
+					for(int sj=0;sj<this.numstatus;sj++){
+						if(inputs[si] == j){
+							temptop += G[si][i][sj];
+						}
+						tempbuttom += G[si][i][sj];
+					}
+				}
+				this.prooutput[i][j] = temptop/tempbuttom;
+			}
+		}
+
+		//再度尤度を計算、尤度を更新していなければ終了
+
+		double nextlikelihood = this.getHMMLikelihood(inputs);
+
+		if(nextlikelihood <= templikelihood){
+			break;
+		}
+		else{
+			templikelihood = nextlikelihood;
+		}
+
+		}//while文の終端
 	}
 
 
