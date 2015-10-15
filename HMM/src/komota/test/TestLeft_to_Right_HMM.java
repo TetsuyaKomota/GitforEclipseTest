@@ -70,7 +70,7 @@ public class TestLeft_to_Right_HMM extends HMM{
 		double templikelihood = this.getHMMLikelihood(inputs);
 		int loopcount = 0;
 
-		while(loopcount++ == 100){
+		while(loopcount++ < 1){
 		//現在の確率から、gridの値を計算
 		//最初にforwardgridの計算
 		for(int i=0;i<this.numstatus;i++){
@@ -111,7 +111,7 @@ public class TestLeft_to_Right_HMM extends HMM{
 		for(int i=this.numstatus - 1;i >= 0;i--){
 			for(int j=inputs.length + 1 - 1;j >= 0;j--){
 				//終了直後は状態番号numstatus-1にいるはずなので、grid[numstatus-1][inputs.length-1] = 1 以外はgrid[i][inputs.length-1] = 0 である
-				if(j == inputs.length - 1){
+				if(j == inputs.length + 1 - 1){
 					if(i == this.numstatus - 1){
 						backwardgrid[i][j] = 1;
 					}
@@ -121,10 +121,10 @@ public class TestLeft_to_Right_HMM extends HMM{
 				}
 				else{
 					//終了直後以外のgridは、「次時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi+1のgrid * iからi+1への遷移確率 * iでのinputs[j]の出力確率」
-					backwardgrid[i][j] = backwardgrid[i][j+1] * this.protransition[i][i] * this.prooutput[i][j];
+					backwardgrid[i][j] = backwardgrid[i][j+1] * this.protransition[i][i] * this.prooutput[i][inputs[j]];
 					//状態番号numstatus-1は例外として除去しておく
 					if(i < this.numstatus-1){
-						forwardgrid[i][j] += forwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.prooutput[i][j];
+						forwardgrid[i][j] += forwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.prooutput[i][inputs[j]];
 					}
 				}
 			}
@@ -178,7 +178,7 @@ public class TestLeft_to_Right_HMM extends HMM{
 		double nextlikelihood = this.getHMMLikelihood(inputs);
 
 		if(nextlikelihood <= templikelihood){
-			break;
+			//break;
 		}
 		else{
 			templikelihood = nextlikelihood;

@@ -106,7 +106,25 @@ public class HMM {
 		}
 		return this;
 	}
-/* ****************************************************************************************************** */
+	/* ****************************************************************************************************** */
+
+	/* ****************************************************************************************************** */
+	//テスト用。パラメータをコンソールに表示させる
+	public void show(){
+		System.out.println("Parameters of HMM ============================================================");
+		System.out.println("the number of statuses:"+this.numstatus+"  the number of outputs:"+this.numoutput);
+		System.out.println("the probability of transition:");
+		for(int i=0;i<this.numstatus;i++){
+			System.out.println("From "+i+" to ...");
+			for(int j=0;j<this.numstatus;j++){
+				System.out.println(j+": "+this.protransition[i][j]);
+			}
+		}
+	}
+
+
+
+	/* ****************************************************************************************************** */
 	//HMMの初期化
 	/*
 	 * 初期状態確率に従って状態を選択
