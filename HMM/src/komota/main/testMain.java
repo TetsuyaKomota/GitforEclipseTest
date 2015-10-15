@@ -1,5 +1,8 @@
 package komota.main;
 
+import komota.test.TestLeft_to_Right_HMM;
+
+
 
 public class testMain {
 
@@ -38,7 +41,7 @@ public class testMain {
 
 		System.out.println("Hello HMM!");
 
-		HMM hmm = new HMM(3, 2);
+		HMM hmm = new TestLeft_to_Right_HMM(3, 2);
 		//初期状態設定
 		double[] inits = {0.8,0.15,0.05};
 		hmm.setProInitial(inits);

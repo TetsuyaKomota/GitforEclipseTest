@@ -10,7 +10,7 @@ public class HMM {
 
 //リスト
 	//状態数
-	int numstatus = 0;
+	protected int numstatus = 0;
 	//状態
 	int[] status = null;
 	//出力数
@@ -18,9 +18,9 @@ public class HMM {
 	//出力
 	int[] output = null;
 	//初期状態確率
-	double[] proinitial = null;
+	protected double[] proinitial = null;
 	//状態遷移確率([この状態から][この状態になる]確率)
-	double[][] protransition = null;
+	protected double[][] protransition = null;
 	//出力確率([この状態で][この出力を得る]確率)
 	double[][] prooutput = null;
 
