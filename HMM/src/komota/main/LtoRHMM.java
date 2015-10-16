@@ -2,10 +2,16 @@ package komota.main;
 
 public class LtoRHMM extends HMM{
 
+	/* ********************************************************************************************************* */
+	//定数
 	//尤度計算の閾値。この値以上改善しなければ計算終了
 	final double THRESHOLD = 0.00001;
 	//ループ回数の上限。尤度が閾値以上の更新を続けていても、この回数で計算終了
 	final int LOOPCOUNT = 100;
+	/* ********************************************************************************************************* */
+
+
+	//コンストラクタ
 	public LtoRHMM(int numstatus, int numoutput) {
 		super(numstatus, numoutput);
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -27,7 +33,6 @@ public class LtoRHMM extends HMM{
 				}
 			}
 		}
-
 	}
 
 	//初期状態は変更できないようにする
@@ -59,7 +64,6 @@ public class LtoRHMM extends HMM{
 				this.protransition[i][i + 1] = inputs[i][i + 1] / temp;
 			}
 		}
-
 		return null;
 	}
 
@@ -76,6 +80,7 @@ public class LtoRHMM extends HMM{
 
 	//バウム＝ウェルチアルゴリズムにより、パラメータの学習を行う。
 	public void learnwithBaum_Welch(int[] inputs){
+
 		//grid空間を生成([この状態に][この時点でいることの評価値])
 		double[][] forwardgrid = new double[this.numstatus][inputs.length+1];
 		double[][] backwardgrid = new double[this.numstatus][inputs.length+1];
@@ -114,20 +119,14 @@ public class LtoRHMM extends HMM{
 
 					else{
 						//開始直後以外のgridは、「前時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi-1のgrid * i-1からiへの遷移確率 * i-1でのinputs[j]の出力確率」
-						//					System.out.print("forwardgrid["+i+"]["+j+"]:"+forwardgrid[i][j-1]+"*"+this.protransition[i][i]+"*"+this.prooutput[i][inputs[j]]);
 						forwardgrid[i][j] = forwardgrid[i][j-1] * this.protransition[i][i] * this.prooutput[i][inputs[j-1]];
 						//状態番号0は例外として除去しておく
 						if(i > 0){
 							forwardgrid[i][j] += forwardgrid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][inputs[j-1]];
-							//						System.out.print(" + "+forwardgrid[i-1][j-1] +"*"+ this.protransition[i-1][i] +"*"+ this.prooutput[i-1][inputs[j-1]]);
 						}
-						//					System.out.println("");
 					}
 				}
 			}
-			//forwardgridの値を確認
-			//		showGrid(forwardgrid);
-
 			//次にbackwardgridの計算
 			for(int j=inputs.length + 1 - 1;j >= 0;j--){
 				for(int i=this.numstatus - 1;i >= 0;i--){
@@ -145,20 +144,14 @@ public class LtoRHMM extends HMM{
 					}
 					else{
 						//終了直後以外のgridは、「次時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi+1のgrid * iからi+1への遷移確率 * iでのinputs[j]の出力確率」
-						//					System.out.print("backwardgrid["+i+"]["+j+"]:"+backwardgrid[i][j+1]+"*"+this.protransition[i][i]+"*"+this.prooutput[i][inputs[j]]);
 						backwardgrid[i][j] = backwardgrid[i][j+1] * this.protransition[i][i] * this.prooutput[i][inputs[j]];
 						//状態番号numstatus-1は例外として除去しておく
 						if(i < this.numstatus-1){
-							//						System.out.print(" + "+backwardgrid[i+1][j+1] +"*"+ this.protransition[i][i+1] +"*"+ this.prooutput[i][inputs[j]]);
 							backwardgrid[i][j] += backwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.prooutput[i][inputs[j]];
 						}
-						//					System.out.println("");
 					}
 				}
 			}
-			//backwardgridの値を確認
-			//		showGrid(backwardgrid);
-
 			//gridの計算が完了したので、次はこれをもとにΓを求める
 			double[][][] G = new double[inputs.length][this.numstatus][this.numstatus];
 
@@ -238,8 +231,6 @@ public class LtoRHMM extends HMM{
 			else{
 				templikelihood = nextlikelihood;
 			}
-
 		}//while文の終端
 	}
-
 }
