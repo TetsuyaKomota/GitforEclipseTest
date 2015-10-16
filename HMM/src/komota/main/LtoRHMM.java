@@ -33,7 +33,7 @@ public class LtoRHMM extends HMM{
 		return null;
 	}
 
-	//状態遷移確率を変更するセッターが実行された際、隣の状態への遷移と自分自身への遷移以外はゼロにして射影する。
+	//状態遷移確率を変更するセッターが実行された際、隣の状態への遷移と自分自身への遷移以外はゼロにして正規化する。
 	@Override
 	public HMM setProTransition(double[][] inputs){
 		//入力が正規か確認する
@@ -59,6 +59,17 @@ public class LtoRHMM extends HMM{
 		return null;
 	}
 
+	//出力メソッドが最終状態で呼び出された場合、-1を出力する
+	@Override
+	public int output(){
+		if(this.curstatus != this.numstatus-1){
+			return super.output();
+		}
+		else{
+			return -1;
+		}
+	}
+
 	//バウム＝ウェルチアルゴリズムにより、パラメータの学習を行う。
 	public void learnwithBaum_Welch(int[] inputs){
 		//grid空間を生成([この状態に][この時点でいることの評価値])
@@ -68,7 +79,7 @@ public class LtoRHMM extends HMM{
 		double templikelihood = this.getHMMLikelihood(inputs);
 		int loopcount = 0;
 
-		while(loopcount++ < 10){
+		while(loopcount++ < 50){
 			//現在の確率から、gridの値を計算
 			//最初にforwardgridの計算
 			for(int j=0;j<inputs.length+1;j++){
@@ -217,8 +228,8 @@ public class LtoRHMM extends HMM{
 			double nextlikelihood = this.getHMMLikelihood(inputs);
 			System.out.println("[Left_to_Right_HMM]learnwithBaumWelch:Likelihood:"+nextlikelihood);
 
-			if(nextlikelihood <= templikelihood){
-				//break;
+			if(nextlikelihood - templikelihood < 0.0000001){
+				break;
 			}
 			else{
 				templikelihood = nextlikelihood;
