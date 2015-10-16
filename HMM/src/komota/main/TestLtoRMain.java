@@ -57,6 +57,35 @@ public class TestLtoRMain {
 //		hmm.show();
 		hmm.learnwithBaum_Welch(tempinputs);
 		hmm.show();
+		//学習したパラメータを用いて出力列を再現
+		hmm.initialize();
+		System.out.print("Reproduction:");
+		for(int i=0;i<tempinputs.length;i++){
+			System.out.print(hmm.output()+" ");
+			hmm.transition();
+		}
+		System.out.println("");
 //		System.out.println("Next likelihood:"+hmm.getHMMLikelihood(tempinputs));
+
+		//複数の出力列からの学習のテスト
+		System.out.println("Test for learning from some outputs");
+		int[] temp1 = {0,0,0,1,1,2};
+		int[] temp2 = {0,0,0,0,1,2};
+		int[] temp3 = {0,0,1,1,1,2};
+		int[] temp4 = {0,0,0,1,1,2};
+		int[] temp5 = {0,0,0,1,1,2};
+
+		hmm.learnwithBaum_Welch(temp1);
+		hmm.learnwithBaum_Welch(temp2);
+		hmm.learnwithBaum_Welch(temp3);
+		hmm.learnwithBaum_Welch(temp4);
+		hmm.learnwithBaum_Welch(temp5);
+		System.out.print("Reproduction:");
+		for(int i=0;i<tempinputs.length;i++){
+			System.out.print(hmm.output()+" ");
+			hmm.transition();
+		}
+		System.out.println("");
+
 	}
 }
