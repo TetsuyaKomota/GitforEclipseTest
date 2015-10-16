@@ -72,15 +72,20 @@ public class TestLtoRMain {
 		System.out.println("Test for learning from some outputs");
 		LtoRHMM hmm2 = new LtoRHMM(4,3);
 		int[] temp1 = {0,0,0,0,0,0,1,1,1,1,2,2};
-		int[] temp2 = {0,0,0,1,1,1,2,2,2,2,2,2};
-		int[] temp3 = {0,0,0,0,1,1,1,1,1,2,2,2};
-		int[] temp4 = {0,0,0,1,1,1,1,1,2,2,2,2};
+		int[] temp4 = {0,0,0,0,0,1,2,2,2,2,2,2};
+		int[] temp2 = {0,0,0,0,1,1,1,1,1,2,2,2};
+		int[] temp3 = {0,0,0,1,1,1,1,1,2,2,2,2};
 		int[] temp5 = {0,0,0,0,1,1,1,1,2,2,2,2};
 
+		System.out.println("temp1");
 		hmm2.learnwithBaum_Welch(temp1);
+		System.out.println("temp2");
 		hmm2.learnwithBaum_Welch(temp2);
+		System.out.println("temp3");
 		hmm2.learnwithBaum_Welch(temp3);
+		System.out.println("temp4");
 		hmm2.learnwithBaum_Welch(temp4);
+		System.out.println("temp5");
 		hmm2.learnwithBaum_Welch(temp5);
 		int count = 0;
 		while(count++ < 100){

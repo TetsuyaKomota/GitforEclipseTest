@@ -2,6 +2,10 @@ package komota.main;
 
 public class LtoRHMM extends HMM{
 
+	//尤度計算の閾値。この値以上改善しなければ計算終了
+	final double THRESHOLD = 0.00001;
+	//ループ回数の上限。尤度が閾値以上の更新を続けていても、この回数で計算終了
+	final int LOOPCOUNT = 100;
 	public LtoRHMM(int numstatus, int numoutput) {
 		super(numstatus, numoutput);
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -79,7 +83,7 @@ public class LtoRHMM extends HMM{
 		double templikelihood = this.getHMMLikelihood(inputs);
 		int loopcount = 0;
 
-		while(loopcount++ < 50){
+		while(loopcount++ < LOOPCOUNT){
 			//現在の確率から、gridの値を計算
 			//最初にforwardgridの計算
 			for(int j=0;j<inputs.length+1;j++){
@@ -228,7 +232,7 @@ public class LtoRHMM extends HMM{
 			double nextlikelihood = this.getHMMLikelihood(inputs);
 			System.out.println("[Left_to_Right_HMM]learnwithBaumWelch:Likelihood:"+nextlikelihood);
 
-			if(nextlikelihood - templikelihood < 0.0000001){
+			if(nextlikelihood - templikelihood < THRESHOLD){
 				break;
 			}
 			else{

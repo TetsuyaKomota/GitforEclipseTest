@@ -51,10 +51,16 @@
 
 				・double 	getLikelihood(int[] inputouts,int[] inputstas)	:出力列inputoutsが、状態列inputstasから得られることの尤度を計算する。
 				・int[]		getBitabi(int[] outputs)						:出力列outputsが出力された場合に最も尤もらしい状態遷移（ビタビ経路）を出力する。
+				・void		show()	:各確率や状態数、出力数などを表示する
 			[privateメソッド]
 				・
 				・
 				・
+
+	2-2.LtoRHMM
+
+		HMMの、状態遷移が左から右の一本道のみのモデル。
+
 
 3.Note
 
@@ -63,3 +69,7 @@
 			各経路の増分という考え方は、遷移確率で表現しているため間違いではないと思われる。が、「各隠れ状態の持つ値」という部分が不明。現在の実装では、
 			各状態は値を保持していない。
 		・
+	[LtoRHMM使い方]
+		・学習させる出力列の、出力の変化＋１以上の状態数を持つモデルを生成するとうまく行く
+		・learnwithBaumWelch([学習させる出力列])でOK
+		・尤度計算の閾値とループ回数はそれぞれ定数THRESHOLD,LOOPCOUNTで決められる。
