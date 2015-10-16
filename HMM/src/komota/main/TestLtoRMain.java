@@ -1,6 +1,5 @@
 package komota.main;
 
-import komota.test.TestLeft_to_Right_HMM;
 
 public class TestLtoRMain {
 
@@ -13,7 +12,7 @@ public class TestLtoRMain {
 		//あのプリントの例を再現
 
 		System.out.println("*******************************************************************************************");
-		TestLeft_to_Right_HMM hmm = new TestLeft_to_Right_HMM(4,3);
+		LtoRHMM hmm = new LtoRHMM(4,3);
 		//状態遷移確率を設定
 		double[][] temptrans = new double[4][4];
 		temptrans[0][0] = 0.7;
@@ -54,8 +53,10 @@ public class TestLtoRMain {
 
 		int[] tempinputs = {0,0,1,2};
 
-		hmm.show();
+//		System.out.println("Current likelihood:"+hmm.getHMMLikelihood(tempinputs));
+//		hmm.show();
 		hmm.learnwithBaum_Welch(tempinputs);
 		hmm.show();
+//		System.out.println("Next likelihood:"+hmm.getHMMLikelihood(tempinputs));
 	}
 }

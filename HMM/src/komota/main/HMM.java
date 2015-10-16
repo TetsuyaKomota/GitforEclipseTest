@@ -120,6 +120,13 @@ public class HMM {
 				System.out.println(j+": "+this.protransition[i][j]);
 			}
 		}
+		System.out.println("the probability of output:");
+		for(int i=0;i<this.numstatus;i++){
+			System.out.println("From "+i+" to ...");
+			for(int j=0;j<this.numoutput;j++){
+				System.out.println(j+": "+this.prooutput[i][j]);
+			}
+		}
 	}
 
 

@@ -1,10 +1,8 @@
-package komota.test;
+package komota.main;
 
-import komota.main.HMM;
+public class LtoRHMM extends HMM{
 
-public class TestLeft_to_Right_HMM extends HMM{
-
-	public TestLeft_to_Right_HMM(int numstatus, int numoutput) {
+	public LtoRHMM(int numstatus, int numoutput) {
 		super(numstatus, numoutput);
 		// TODO 自動生成されたコンストラクター・スタブ
 
@@ -228,19 +226,5 @@ public class TestLeft_to_Right_HMM extends HMM{
 
 		}//while文の終端
 	}
-
-	/* ****************************************************************************************************************************** */
-	//テスト用。gridの中身を表示する
-	private void showGrid(double[][] grid){
-		System.out.println("Show Grid");
-		for(int i=0;i<grid.length;i++){
-			for(int j=0;j<grid[0].length;j++){
-				System.out.printf("%.5f  ",grid[i][j]);
-			}
-			System.out.println("");
-		}
-	}
-	/* ****************************************************************************************************************************** */
-
 
 }
