@@ -73,8 +73,8 @@ public class TestLeft_to_Right_HMM extends HMM{
 		while(loopcount++ < 1){
 		//現在の確率から、gridの値を計算
 		//最初にforwardgridの計算
-		for(int i=0;i<this.numstatus;i++){
-			for(int j=0;j<inputs.length+1;j++){
+		for(int j=0;j<inputs.length+1;j++){
+			for(int i=0;i<this.numstatus;i++){
 				//開始直後は状態番号0にいるはずなので、grid[0][0] = 1 以外はgrid[i][0] = 0 である
 				if(j == 0){
 					if(i == 0){
@@ -86,7 +86,7 @@ public class TestLeft_to_Right_HMM extends HMM{
 				}
 				//最終状態は最終時点でのみ到達でき、また最終時点では必ず最終状態に到達することから、関係ないgrid値をゼロにする
 				else if(i == this.numstatus - 1){
-					if(j == inputs.length - 1){
+					if(j == inputs.length + 1 - 1){
 						forwardgrid[i][j] = 1;
 					}
 					else{
@@ -94,19 +94,27 @@ public class TestLeft_to_Right_HMM extends HMM{
 					}
 				}
 				//「残り時点数」が「残り状態数」未満の場合、最終状態に到達できないため、grid値をゼロにする
-				else if((inputs.length - j) < (this.numstatus - i)){
+
+				else if((inputs.length + 1 - j) < (this.numstatus - i)){
 					forwardgrid[i][j] = 0;
 				}
+
 				else{
 					//開始直後以外のgridは、「前時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi-1のgrid * i-1からiへの遷移確率 * i-1でのinputs[j]の出力確率」
-					forwardgrid[i][j] = forwardgrid[i][j-1] * this.protransition[i][i] * this.prooutput[i][inputs[j]];
+					System.out.print("forwardgrid["+i+"]["+j+"]:"+forwardgrid[i][j-1]+"*"+this.protransition[i][i]+"*"+this.prooutput[i][inputs[j]]);
+					forwardgrid[i][j] = forwardgrid[i][j-1] * this.protransition[i][i] * this.prooutput[i][inputs[j-1]];
 					//状態番号0は例外として除去しておく
 					if(i > 0){
-						forwardgrid[i][j] += forwardgrid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][inputs[j]];
+						forwardgrid[i][j] += forwardgrid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][inputs[j-1]];
+						System.out.print(" + "+forwardgrid[i-1][j-1] +"*"+ this.protransition[i-1][i] +"*"+ this.prooutput[i-1][inputs[j-1]]);
 					}
+					System.out.println("");
 				}
 			}
 		}
+		//forwardgridの値を確認
+		showGrid(forwardgrid);
+
 		//次にbackwardgridの計算
 		for(int i=this.numstatus - 1;i >= 0;i--){
 			for(int j=inputs.length + 1 - 1;j >= 0;j--){
@@ -186,6 +194,19 @@ public class TestLeft_to_Right_HMM extends HMM{
 
 		}//while文の終端
 	}
+
+	/* ****************************************************************************************************************************** */
+	//テスト用。gridの中身を表示する
+	private void showGrid(double[][] grid){
+		System.out.println("Show Grid");
+		for(int i=0;i<grid.length;i++){
+			for(int j=0;j<grid[0].length;j++){
+				System.out.printf("%.5f  ",grid[i][j]);
+			}
+			System.out.println("");
+		}
+	}
+	/* ****************************************************************************************************************************** */
 
 
 }
