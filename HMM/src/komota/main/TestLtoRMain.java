@@ -70,12 +70,12 @@ public class TestLtoRMain {
 
 		//複数の出力列からの学習のテスト
 		System.out.println("Test for learning from some outputs");
-		LtoRHMM hmm2 = new LtoRHMM(5,3);
-		int[] temp1 = {0,0,0,0,1,1,1,1,2,2,1,1,1};
-		int[] temp4 = {0,0,0,0,1,2,2,2,2,2,2,1,1};
-		int[] temp2 = {0,0,0,0,1,1,1,1,2,2,1,1,1};
-		int[] temp3 = {0,0,0,1,1,1,1,1,2,2,2,2,1};
-		int[] temp5 = {0,0,0,0,1,1,1,2,2,2,1,1,1};
+		LtoRHMM hmm2 = new LtoRHMM(6,3);
+		int[] temp1 = {0,0,0,0,1,1,1,1,2,2,1,1,1,0,0,0,0};
+		int[] temp4 = {0,0,0,0,1,2,2,2,2,2,2,1,1,0,0};
+		int[] temp2 = {0,0,0,0,1,1,1,1,2,2,1,1,1,0,0,0};
+		int[] temp3 = {0,0,0,1,1,1,1,1,2,2,2,2,1,0};
+		int[] temp5 = {0,0,0,0,1,1,1,2,2,2,1,1,1,0,0,0,0};
 
 		System.out.println("temp1");
 		hmm2.learnwithBaum_Welch(temp1);
