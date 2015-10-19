@@ -145,10 +145,9 @@ public class LtoRHMM extends HMM{
 					else{
 						//終了直後以外のgridは、「次時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi+1のgrid * iからi+1への遷移確率 * iでのinputs[j]の出力確率」
 						backwardgrid[i][j] = backwardgrid[i][j+1] * this.protransition[i][i] * this.prooutput[i][inputs[j]];
-						//状態番号numstatus-1は例外として除去しておく
-						if(i < this.numstatus-1){
-							backwardgrid[i][j] += backwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.prooutput[i][inputs[j]];
-						}
+
+						//状態番号numstatus-1は既に最初のif文で取り除かれているので、forwardgridと同じ処理は必要ない
+						backwardgrid[i][j] += backwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.prooutput[i][inputs[j]];
 					}
 				}
 			}
