@@ -1,5 +1,11 @@
 package komota.main;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
 public class LtoRHMM extends HMM{
 
 	/* ********************************************************************************************************* */
@@ -8,6 +14,14 @@ public class LtoRHMM extends HMM{
 	final double THRESHOLD = 0.00001;
 	//ループ回数の上限。尤度が閾値以上の更新を続けていても、この回数で計算終了
 	final int LOOPCOUNT = 100;
+	/* ********************************************************************************************************* */
+
+	/* ********************************************************************************************************* */
+	//出力先テキストファイル
+
+	File file;
+	String file_name = "test.txt";
+	PrintWriter pw;
 	/* ********************************************************************************************************* */
 
 
@@ -33,6 +47,20 @@ public class LtoRHMM extends HMM{
 				}
 			}
 		}
+
+		//出力先テキストファイルを取得
+		this.file = new File("log/"+file_name);
+		try {
+//			this.pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
+		      OutputStreamWriter osw = new OutputStreamWriter(fos);
+		      this.pw = new PrintWriter(osw);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+			System.out.println("ファイルなし");
+		}
+
 	}
 
 	//初期状態は変更できないようにする
