@@ -103,13 +103,8 @@ public class LtoRHMM extends HMM{
 						}
 					}
 					//最終状態は最終時点でのみ到達でき、また最終時点では必ず最終状態に到達することから、関係ないgrid値をゼロにする
-					else if(i == this.numstatus - 1){
-						if(j == inputs.length + 1 - 1){
-							forwardgrid[i][j] = 1;
-						}
-						else{
+					else if(i == this.numstatus - 1 && j != inputs.length + 1 - 1){
 							forwardgrid[i][j] = 0;
-						}
 					}
 					//「残り時点数」が「残り状態数」未満の場合、最終状態に到達できないため、grid値をゼロにする
 
@@ -151,6 +146,7 @@ public class LtoRHMM extends HMM{
 					}
 				}
 			}
+
 			//gridの計算が完了したので、次はこれをもとにΓを求める
 			double[][][] G = new double[inputs.length][this.numstatus][this.numstatus];
 

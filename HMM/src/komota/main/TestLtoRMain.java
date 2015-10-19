@@ -51,7 +51,7 @@ public class TestLtoRMain {
 
 		hmm.setProOutput(tempout);
 
-		int[] tempinputs = {0,0,1,1,2,2,1,1,0,0};
+		int[] tempinputs = {0,0,1,2};
 
 //		System.out.println("Current likelihood:"+hmm.getHMMLikelihood(tempinputs));
 //		hmm.show();
