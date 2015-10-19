@@ -51,10 +51,10 @@ public class LtoRHMM extends HMM{
 		//出力先テキストファイルを取得
 		this.file = new File("log/"+file_name);
 		try {
-//			this.pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
-		      OutputStreamWriter osw = new OutputStreamWriter(fos);
-		      this.pw = new PrintWriter(osw);
+			//			this.pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			this.pw = new PrintWriter(osw);
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -132,7 +132,7 @@ public class LtoRHMM extends HMM{
 					}
 					//最終状態は最終時点でのみ到達でき、また最終時点では必ず最終状態に到達することから、関係ないgrid値をゼロにする
 					else if(i == this.numstatus - 1 && j != inputs.length + 1 - 1){
-							forwardgrid[i][j] = 0;
+						forwardgrid[i][j] = 0;
 					}
 					//「残り時点数」が「残り状態数」未満の場合、最終状態に到達できないため、grid値をゼロにする
 
@@ -148,6 +148,20 @@ public class LtoRHMM extends HMM{
 							forwardgrid[i][j] += forwardgrid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][inputs[j-1]];
 						}
 					}
+
+ // forwardgridの中身を見る
+					if(j>0){
+						if(i>0){
+							pw.println("[LtoRHMM]learnwithBaumWelch:forwardgrid["+i+"]["+j+"]:"+forwardgrid[i][j]+" protrans["+(i-1)+"]["+i+"]:"+this.protransition[i-1][i]+" proout["+(i-1)+"]["+inputs[j-1]+"]:"+this.prooutput[i-1][inputs[j-1]]+" protrans["+i+"]["+i+"]:"+this.protransition[i][i]+" proout["+i+"]["+inputs[j-1]+"]:"+this.prooutput[i][inputs[j-1]]);
+						}
+						else{
+							pw.println("[LtoRHMM]learnwithBaumWelch:forwardgrid["+i+"]["+j+"]:"+forwardgrid[i][j]+" protrans["+i+"]["+i+"]:"+this.protransition[i][i]+" proout["+i+"]["+inputs[j-1]+"]:"+this.prooutput[i][inputs[j-1]]);
+						}
+					}
+					else{
+						pw.println("[LtoRHMM]learnwithBaumWelch:forwardgrid["+i+"]["+j+"]:"+forwardgrid[i][j]);
+					}
+
 				}
 			}
 			//次にbackwardgridの計算
@@ -172,6 +186,7 @@ public class LtoRHMM extends HMM{
 						//状態番号numstatus-1は既に最初のif文で取り除かれているので、forwardgridと同じ処理は必要ない
 						backwardgrid[i][j] += backwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.prooutput[i][inputs[j]];
 					}
+//					pw.println("[LtoRHMM]learnwithBaumWelch:backwardgrid["+i+"]["+j+"]:"+backwardgrid[i][j]);
 				}
 			}
 
@@ -182,6 +197,7 @@ public class LtoRHMM extends HMM{
 				for(int j=0;j<this.numstatus;j++){
 					for(int k=0;k<this.numstatus;k++){
 						G[i][j][k] = (forwardgrid[j][i]*this.protransition[j][k]*this.prooutput[j][inputs[i]]*backwardgrid[k][i+1])/templikelihood;
+						pw.println("[LtoRHMM]learnwithBaumWelch:G["+i+"]["+j+"]["+k+"]:"+G[i][j][k]);
 					}
 				}
 			}
@@ -255,5 +271,6 @@ public class LtoRHMM extends HMM{
 				templikelihood = nextlikelihood;
 			}
 		}//while文の終端
+		pw.println("[LtoRHMM]learnwithBaumWelch:Finished.");
 	}
 }
