@@ -70,7 +70,7 @@ public class TestLtoRMain {
 
 		//複数の出力列からの学習のテスト
 		System.out.println("Test for learning from some outputs");
-		LtoRHMM hmm2 = new LtoRHMM(6,100);
+		LtoRHMM hmm2 = new LtoRHMM(4,100);
 		int[] temp1 = {0,0,1,2,3,4};
 		int[] temp2 = {0,1,1,2,3,4};
 		int[] temp3 = {0,1,2,2,3,4};

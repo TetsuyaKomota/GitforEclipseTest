@@ -11,7 +11,7 @@ public class LtoRHMM extends HMM{
 	/* ********************************************************************************************************* */
 	//定数
 	//尤度計算の閾値。この値以上改善しなければ計算終了
-	final double THRESHOLD = 0.00001;
+	final double THRESHOLD = 0.01;
 	//ループ回数の上限。尤度が閾値以上の更新を続けていても、この回数で計算終了
 	final int LOOPCOUNT = 100;
 	/* ********************************************************************************************************* */
@@ -148,7 +148,7 @@ public class LtoRHMM extends HMM{
 							forwardgrid[i][j] += forwardgrid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][inputs[j-1]];
 						}
 					}
-
+/*
  // forwardgridの中身を見る
 					if(j>0){
 						if(i>0){
@@ -161,7 +161,7 @@ public class LtoRHMM extends HMM{
 					else{
 						pw.println("[LtoRHMM]learnwithBaumWelch:forwardgrid["+i+"]["+j+"]:"+forwardgrid[i][j]);
 					}
-
+*/
 				}
 			}
 			//次にbackwardgridの計算
@@ -186,7 +186,6 @@ public class LtoRHMM extends HMM{
 						//状態番号numstatus-1は既に最初のif文で取り除かれているので、forwardgridと同じ処理は必要ない
 						backwardgrid[i][j] += backwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.prooutput[i][inputs[j]];
 					}
-//					pw.println("[LtoRHMM]learnwithBaumWelch:backwardgrid["+i+"]["+j+"]:"+backwardgrid[i][j]);
 				}
 			}
 
@@ -197,7 +196,6 @@ public class LtoRHMM extends HMM{
 				for(int j=0;j<this.numstatus;j++){
 					for(int k=0;k<this.numstatus;k++){
 						G[i][j][k] = (forwardgrid[j][i]*this.protransition[j][k]*this.prooutput[j][inputs[i]]*backwardgrid[k][i+1])/templikelihood;
-						pw.println("[LtoRHMM]learnwithBaumWelch:G["+i+"]["+j+"]["+k+"]:"+G[i][j][k]);
 					}
 				}
 			}
@@ -264,13 +262,12 @@ public class LtoRHMM extends HMM{
 			double nextlikelihood = this.getHMMLikelihood(inputs);
 			System.out.println("[Left_to_Right_HMM]learnwithBaumWelch:Likelihood:"+nextlikelihood);
 
-			if(nextlikelihood - templikelihood < THRESHOLD){
+			if((nextlikelihood - templikelihood)/templikelihood < THRESHOLD){
 				break;
 			}
 			else{
 				templikelihood = nextlikelihood;
 			}
 		}//while文の終端
-		pw.println("[LtoRHMM]learnwithBaumWelch:Finished.");
 	}
 }
