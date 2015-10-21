@@ -6,6 +6,34 @@ public class TestGMM {
 	//次元数
 	public static int dimension = 1;
 
+	//単体ガウス配列
+	Gauss[] gausses = null;
+	//結合重み
+	double[] weights = null;
+	//ガウスの数
+	int numberofgauss = 0;
+
+	//コンストラクタ。引数はガウスの数
+	public TestGMM(int numberofGauss){
+		this.numberofgauss = numberofGauss;
+		this.gausses = new Gauss[numberofGauss];
+		this.weights = new double[numberofGauss];
+		for(int i=0;i<numberofGauss;i++){
+			this.gausses[i] = new Gauss();
+			this.weights[i] = 1/numberofGauss;
+		}
+	}
+	//確率密度関数。単体ガウスの確率密度関数の線形和
+	public double getGMMProbability(double[] x){
+		double output = 0;
+
+		for(int i=0;i<this.numberofgauss;i++){
+			output += this.gausses[i].getProbability(x)*this.weights[i];
+		}
+
+		return output;
+	}
+
 
 	/* ************************************************************************************************************************* */
 	//単体ガウスを表す内部クラス
