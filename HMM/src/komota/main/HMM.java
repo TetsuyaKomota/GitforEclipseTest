@@ -269,7 +269,6 @@ public class HMM {
 			/* 尤度を計算し、sumに加算する                                                          */
 			sum += getLikelihood(outputs,tempstatuses);
 			/* ************************************************************************************ */
-
 			int tempcount = 0;
 			int flag = 0;
 

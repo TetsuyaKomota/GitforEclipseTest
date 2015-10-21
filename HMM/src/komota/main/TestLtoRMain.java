@@ -71,11 +71,11 @@ public class TestLtoRMain {
 		//複数の出力列からの学習のテスト
 		System.out.println("Test for learning from some outputs");
 		LtoRHMM hmm2 = new LtoRHMM(4,100);
-		int[] temp1 = {0,0,1,2,3,4};
-		int[] temp2 = {0,1,1,2,3,4};
-		int[] temp3 = {0,1,2,2,3,4};
-		int[] temp4 = {0,1,2,3,3,4};
-		int[] temp5 = {0,1,2,3,4,4};
+		int[] temp1 = {0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4};
+		int[] temp2 = {0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,4,4,4};
+		int[] temp3 = {0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,3,3,3,3,3,4,4,4,4};
+		int[] temp4 = {0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4};
+		int[] temp5 = {0,0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4};
 
 
 		int[] tempa = temp1;
@@ -92,8 +92,8 @@ public class TestLtoRMain {
 		hmm2.learnwithBaum_Welch(tempc);
 		System.out.println("temp4");
 		hmm2.learnwithBaum_Welch(tempd);
-//		System.out.println("temp5");
-//		hmm2.learnwithBaum_Welch(temp5);
+		System.out.println("temp5");
+		hmm2.learnwithBaum_Welch(temp5);
 		int count = 0;
 		while(count++ < 100){
 			hmm2.initialize();

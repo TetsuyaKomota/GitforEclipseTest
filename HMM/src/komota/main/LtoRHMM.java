@@ -106,6 +106,44 @@ public class LtoRHMM extends HMM{
 		}
 	}
 
+	//尤度計算はグリッドを用いて行うことにする。
+	@Override
+	public double getHMMLikelihood(int[] outputs){
+		double[][] grid = new double[this.numstatus][outputs.length+1];
+		for(int j=0;j<outputs.length+1;j++){
+			for(int i=0;i<this.numstatus;i++){
+				//開始直後は状態番号0にいるはずなので、grid[0][0] = 1 以外はgrid[i][0] = 0 である
+				if(j == 0){
+					if(i == 0){
+						grid[i][j] = 1;
+					}
+					else{
+						grid[i][j] = 0;
+					}
+				}
+				//最終状態は最終時点でのみ到達でき、また最終時点では必ず最終状態に到達することから、関係ないgrid値をゼロにする
+				else if(i == this.numstatus - 1 && j != outputs.length + 1 - 1){
+					grid[i][j] = 0;
+				}
+				//「残り時点数」が「残り状態数」未満の場合、最終状態に到達できないため、grid値をゼロにする
+
+				else if((outputs.length + 1 - j) < (this.numstatus - i)){
+					grid[i][j] = 0;
+				}
+
+				else{
+					//開始直後以外のgridは、「前時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi-1のgrid * i-1からiへの遷移確率 * i-1でのinputs[j]の出力確率」
+					grid[i][j] = grid[i][j-1] * this.protransition[i][i] * this.prooutput[i][outputs[j-1]];
+					//状態番号0は例外として除去しておく
+					if(i > 0){
+						grid[i][j] += grid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][outputs[j-1]];
+					}
+				}
+			}
+		}
+		return grid[this.numstatus - 1][outputs.length + 1 - 1];
+	}
+
 	//バウム＝ウェルチアルゴリズムにより、パラメータの学習を行う。
 	public void learnwithBaum_Welch(int[] inputs){
 
@@ -113,8 +151,10 @@ public class LtoRHMM extends HMM{
 		double[][] forwardgrid = new double[this.numstatus][inputs.length+1];
 		double[][] backwardgrid = new double[this.numstatus][inputs.length+1];
 		//現在の確率における尤度を計算する
-		double templikelihood = this.getHMMLikelihood(inputs);
+		double templikelihood = -1;
+//		double templikelihood = this.getHMMLikelihood(inputs);
 		int loopcount = 0;
+		System.out.println("[LtoRHMM]learnwithBaumWelch:started");
 
 		while(loopcount++ < LOOPCOUNT){
 			//現在の確率から、gridの値を計算
@@ -148,6 +188,7 @@ public class LtoRHMM extends HMM{
 							forwardgrid[i][j] += forwardgrid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][inputs[j-1]];
 						}
 					}
+					System.out.println("[LtoRHMM]learnwithBaumWelch:finished:stamped this token");
 /*
  // forwardgridの中身を見る
 					if(j>0){
@@ -164,6 +205,9 @@ public class LtoRHMM extends HMM{
 */
 				}
 			}
+			System.out.println("[LtoRHMM]learnwithBaumWelch:finished:forwardgrid");
+			templikelihood = forwardgrid[this.numstatus - 1][inputs.length + 1 - 1];
+
 			//次にbackwardgridの計算
 			for(int j=inputs.length + 1 - 1;j >= 0;j--){
 				for(int i=this.numstatus - 1;i >= 0;i--){
@@ -188,6 +232,7 @@ public class LtoRHMM extends HMM{
 					}
 				}
 			}
+			System.out.println("[LtoRHMM]learnwithBaumWelch:finished:backwardgrid");
 
 			//gridの計算が完了したので、次はこれをもとにΓを求める
 			double[][][] G = new double[inputs.length][this.numstatus][this.numstatus];
@@ -199,6 +244,8 @@ public class LtoRHMM extends HMM{
 					}
 				}
 			}
+			System.out.println("[LtoRHMM]learnwithBaumWelch:finished:G");
+
 			//Γの計算が完了したので、次はこれをもとに状態遷移確率と出力確率を再計算する
 			//まずは状態遷移確率
 			for(int i=0;i<this.numstatus;i++){
@@ -228,6 +275,8 @@ public class LtoRHMM extends HMM{
 					}
 				}
 			}
+			System.out.println("[LtoRHMM]learnwithBaumWelch:finished:protransition");
+
 			//次は出力確率
 			for(int i=0;i<this.numstatus;i++){
 				for(int j=0;j<this.numoutput;j++){
@@ -256,6 +305,7 @@ public class LtoRHMM extends HMM{
 					}
 				}
 			}
+			System.out.println("[LtoRHMM]learnwithBaumWelch:finished:prooutput");
 
 			//再度尤度を計算、尤度を更新していなければ終了
 
@@ -269,5 +319,7 @@ public class LtoRHMM extends HMM{
 				templikelihood = nextlikelihood;
 			}
 		}//while文の終端
+		System.out.println("[LtoRHMM]learnwithBaumWelch:finished:this outputs");
+
 	}
 }
