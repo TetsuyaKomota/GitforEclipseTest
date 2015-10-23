@@ -12,7 +12,7 @@ public class TestLtoRMain {
 		//あのプリントの例を再現
 
 		System.out.println("*******************************************************************************************");
-/*
+
 		LtoRHMM hmm = new LtoRHMM(4,3);
 		//状態遷移確率を設定
 		double[][] temptrans = new double[4][4];
@@ -160,7 +160,7 @@ public class TestLtoRMain {
 			}
 			System.out.println("");
 		}
-*/
+
 
 		System.out.println("Test for limit of status");
 
@@ -175,8 +175,8 @@ public class TestLtoRMain {
 		}
 		hmm4.learnwithBaum_Welch(templimitoutput);
 //		hmm4.show();
-		int count = 0;
-		while(count++ < 100){
+		int count1 = 0;
+		while(count1++ < 100){
 			hmm4.initialize();
 			System.out.print("Reproduction:");
 			while(true){

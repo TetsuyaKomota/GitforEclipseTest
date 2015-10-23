@@ -93,6 +93,14 @@ public class HMM {
 		}
 		return this;
 	}
+	//出力確率のゲッター
+	public double getProOutput(int status, int output){
+		return this.getProOutput(status, (double)output);
+	}
+	//連続HMMはここをいじる
+	public double getProOutput(int status, double output){
+		return this.prooutput[status][(int)output];
+	}
 
 	//初期状態確率のセッター
 	public HMM setProInitial(double[] inputs){
@@ -124,7 +132,7 @@ public class HMM {
 		for(int i=0;i<this.numstatus;i++){
 			System.out.println("From "+i+" to ...");
 			for(int j=0;j<this.numoutput;j++){
-				System.out.println(j+": "+this.prooutput[i][j]);
+				System.out.println(j+": "+this.getProOutput(i, j));
 			}
 		}
 	}
@@ -153,10 +161,10 @@ public class HMM {
 	public int output(){
 		double random = Math.random();
 		int idx = 0;
-		double temp = this.prooutput[curstatus][idx];
+		double temp = this.getProOutput(curstatus, idx);
 		while(random > temp){
 			idx++;
-			temp += this.prooutput[curstatus][idx];
+			temp += this.getProOutput(curstatus, idx);
 		}
 		this.curoutput = idx;
 		return idx;
@@ -187,7 +195,7 @@ public class HMM {
 
 
 		for(int i=0;i<inputouts.length;i++){
-			output *= this.prooutput[inputstas[i]][inputouts[i]];
+			output *= this.getProOutput(inputstas[i],inputouts[i]);
 			if(i < inputouts.length - 1){
 				output *= this.protransition[inputstas[i]][inputstas[i+1]];
 			}
