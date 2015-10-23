@@ -133,10 +133,10 @@ public class LtoRHMM extends HMM{
 
 				else{
 					//開始直後以外のgridは、「前時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi-1のgrid * i-1からiへの遷移確率 * i-1でのinputs[j]の出力確率」
-					grid[i][j] = grid[i][j-1] * this.protransition[i][i] * this.prooutput[i][outputs[j-1]];
+					grid[i][j] = grid[i][j-1] * this.protransition[i][i] * this.getProOutput(i, outputs[j-1]);
 					//状態番号0は例外として除去しておく
 					if(i > 0){
-						grid[i][j] += grid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][outputs[j-1]];
+						grid[i][j] += grid[i-1][j-1] * this.protransition[i-1][i] * this.getProOutput(i-1, outputs[j-1]);
 					}
 				}
 			}
@@ -181,10 +181,10 @@ public class LtoRHMM extends HMM{
 
 					else{
 						//開始直後以外のgridは、「前時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi-1のgrid * i-1からiへの遷移確率 * i-1でのinputs[j]の出力確率」
-						forwardgrid[i][j] = forwardgrid[i][j-1] * this.protransition[i][i] * this.prooutput[i][inputs[j-1]];
+						forwardgrid[i][j] = forwardgrid[i][j-1] * this.protransition[i][i] * this.getProOutput(i, inputs[j-1]);
 						//状態番号0は例外として除去しておく
 						if(i > 0){
-							forwardgrid[i][j] += forwardgrid[i-1][j-1] * this.protransition[i-1][i] * this.prooutput[i-1][inputs[j-1]];
+							forwardgrid[i][j] += forwardgrid[i-1][j-1] * this.protransition[i-1][i] * this.getProOutput(i-1, inputs[j-1]);
 						}
 					}
 /*
@@ -222,10 +222,10 @@ public class LtoRHMM extends HMM{
 					}
 					else{
 						//終了直後以外のgridは、「次時点のiのgrid * iからiへの遷移確率 * iでのinputs[j]の出力確率」+ 「前時点でのi+1のgrid * iからi+1への遷移確率 * iでのinputs[j]の出力確率」
-						backwardgrid[i][j] = backwardgrid[i][j+1] * this.protransition[i][i] * this.prooutput[i][inputs[j]];
+						backwardgrid[i][j] = backwardgrid[i][j+1] * this.protransition[i][i] * this.getProOutput(i, inputs[j]);
 
 						//状態番号numstatus-1は既に最初のif文で取り除かれているので、forwardgridと同じ処理は必要ない
-						backwardgrid[i][j] += backwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.prooutput[i][inputs[j]];
+						backwardgrid[i][j] += backwardgrid[i+1][j+1] * this.protransition[i][i+1] * this.getProOutput(i, inputs[j]);
 					}
 				}
 			}
@@ -236,7 +236,7 @@ public class LtoRHMM extends HMM{
 			for(int i=0;i<inputs.length;i++){
 				for(int j=0;j<this.numstatus;j++){
 					for(int k=0;k<this.numstatus;k++){
-						G[i][j][k] = (forwardgrid[j][i]*this.protransition[j][k]*this.prooutput[j][inputs[i]]*backwardgrid[k][i+1])/templikelihood;
+						G[i][j][k] = (forwardgrid[j][i]*this.protransition[j][k]*this.getProOutput(j, inputs[i])*backwardgrid[k][i+1])/templikelihood;
 					}
 				}
 			}
