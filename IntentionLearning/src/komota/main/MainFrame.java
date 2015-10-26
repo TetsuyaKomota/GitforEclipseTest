@@ -1,5 +1,6 @@
 package komota.main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -35,6 +36,11 @@ public class MainFrame extends JFrame{
 	//パネル
 	MyPanel[] panels;
 
+	//パネルの行、列数
+	static final int NUMBEROFPANEL = 10;
+	//選択パネル枠の太さ
+	static final float FRAME_SIZE_OF_SELECTED_PANEL = 0.5f;
+
 	//選択状態パネル
 	int selected = -1;
 	int secondselected = -1;
@@ -59,7 +65,7 @@ public class MainFrame extends JFrame{
 			}
 		});
 
-		this.setSize(840,840);
+		this.setSize(1000,1000);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -68,11 +74,12 @@ public class MainFrame extends JFrame{
 		this.buffer = this.getBufferStrategy();
 		this.setIgnoreRepaint(true);
 
-		this.panels = new MyPanel[9];
-		for(int i=0;i<9;i++){
+		this.panels = new MyPanel[MainFrame.NUMBEROFPANEL*MainFrame.NUMBEROFPANEL];
+		MyPanel.SIZE_PANEL = ((this.getWidth() - MyPanel.SIZE_FRAME * 2 + MyPanel.SIZE_SEPALATOR ) / MainFrame.NUMBEROFPANEL ) - MyPanel.SIZE_SEPALATOR;
+		for(int i=0;i<this.panels.length;i++){
 			int[] position = new int[2];
-			position[0] = i%3;
-			position[1] = i/3;
+			position[0] = i%MainFrame.NUMBEROFPANEL;
+			position[1] = i/MainFrame.NUMBEROFPANEL;
 			this.panels[i] = new MyPanel(i,position);
 		}
 
@@ -203,7 +210,7 @@ public class MainFrame extends JFrame{
 			g.setColor(Color.black);
 			g.drawString(MainFrame.this.tasktitle, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2);
 			g.drawString("SPACE:exchange the first clicked and the second clicked.   G:finish the task.", MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2+20);
-
+/*
 			if(MainFrame.this.selected >= 0){
 				g.setColor(Color.black);
 				g.fillRect(MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MainFrame.this.selected%3)-5,MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MainFrame.this.selected/3)-5,MyPanel.SIZE_PANEL+10,MyPanel.SIZE_PANEL+10);
@@ -212,11 +219,25 @@ public class MainFrame extends JFrame{
 				g.setColor(new Color(255,100,200));
 				g.fillRect(MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MainFrame.this.secondselected%3)-5,MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MainFrame.this.secondselected/3)-5,MyPanel.SIZE_PANEL+10,MyPanel.SIZE_PANEL+10);
 			}
+*/
 			g.dispose();
 
 			for(int i=0;i<MainFrame.this.panels.length;i++){
 				MainFrame.this.panels[i].draw(MainFrame.this);
 			}
+
+			g = (Graphics2D)MainFrame.this.buffer.getDrawGraphics();
+			BasicStroke wideStroke = new BasicStroke(MainFrame.FRAME_SIZE_OF_SELECTED_PANEL);
+			g.setStroke(wideStroke);
+			if(MainFrame.this.selected >= 0){
+				g.setColor(Color.black);
+				g.drawRect(MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MainFrame.this.selected%MainFrame.NUMBEROFPANEL) + (int)MainFrame.FRAME_SIZE_OF_SELECTED_PANEL/2,MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MainFrame.this.selected/MainFrame.NUMBEROFPANEL)+ (int)MainFrame.FRAME_SIZE_OF_SELECTED_PANEL/2,MyPanel.SIZE_PANEL - (int)MainFrame.FRAME_SIZE_OF_SELECTED_PANEL,MyPanel.SIZE_PANEL - (int)MainFrame.FRAME_SIZE_OF_SELECTED_PANEL);
+			}
+			if(MainFrame.this.secondselected >= 0){
+				g.setColor(new Color(255,100,200));
+				g.drawRect(MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MainFrame.this.secondselected%MainFrame.NUMBEROFPANEL),MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MainFrame.this.secondselected/MainFrame.NUMBEROFPANEL),MyPanel.SIZE_PANEL,MyPanel.SIZE_PANEL);
+			}
+			g.dispose();
 			MainFrame.this.buffer.show();
 		}
 	}
@@ -336,7 +357,6 @@ public class MainFrame extends JFrame{
 					else if(MainFrame.this.secondselected == -1&&MainFrame.this.selected != i&&MainFrame.this.panels[i].getStatus() == 0){
 						MainFrame.this.secondselected = i;
 					}
-
 					break;
 				}
 			}
@@ -345,7 +365,18 @@ public class MainFrame extends JFrame{
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
+			for(int i=0;i<MainFrame.this.panels.length;i++){
+				if(MainFrame.this.panels[i].isClicked(e.getPoint().x, e.getPoint().y)){
+					if(MainFrame.this.selected == -1 && MainFrame.this.panels[i].getStatus() != 0){
+						MainFrame.this.selected = i;
+					}
+					else if(MainFrame.this.secondselected == -1&&MainFrame.this.selected != i&&MainFrame.this.panels[i].getStatus() == 0){
+						MainFrame.this.secondselected = i;
+					}
 
+					break;
+				}
+			}
 		}
 
 		@Override
