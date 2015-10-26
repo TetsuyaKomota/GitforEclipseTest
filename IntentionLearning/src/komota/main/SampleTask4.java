@@ -30,7 +30,7 @@ public class SampleTask4 extends MainFrame{
 		this.panels[(int)(Math.random() * MainFrame.NUMBEROFPANEL * MainFrame.NUMBEROFPANEL)].setStatus(1);
 		while(true){
 			int temp = (int)(Math.random() * MainFrame.NUMBEROFPANEL * MainFrame.NUMBEROFPANEL);
-			if(this.panels[temp].getStatus() != 1){
+			if(this.panels[temp].getStatus() != 1 && temp%MainFrame.NUMBEROFPANEL != 0){
 				this.panels[temp].setStatus(2);
 				break;
 			}

@@ -75,6 +75,8 @@ public class MyPanel {
 			break;
 		}
 		g.fillRect(SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[0],SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[1],SIZE_PANEL,SIZE_PANEL);
+//		g.setColor(Color.black);
+//		g.drawString(""+this.status, SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[0],SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[1]);
 		g.dispose();
 	}
 
