@@ -5,7 +5,7 @@ import komota.pr.TestPatternRecognition;
 public class SampleTask5 extends MyFrame{
 
 	public static void main(String[] args){
-		SampleTask4 task = new SampleTask4();
+		SampleTask5 task = new SampleTask5();
 	}
 
 	//解析クラス
@@ -15,7 +15,7 @@ public class SampleTask5 extends MyFrame{
 	public SampleTask5(){
 		super();
 		this.tpr = new TestPatternRecognition();
-		this.tasktitle = "Move the RED to left of the BLUE.";
+		this.tasktitle = "55555Move the RED to left of the BLUE.";
 		setOutputFile("test4.txt");
 		initialize();
 	}
@@ -29,10 +29,10 @@ public class SampleTask5 extends MyFrame{
 			}
 		}
 
-		this.panels[(int)(Math.random() * MainFrame.NUMBEROFPANEL)][(int)(Math.random() * MainFrame.NUMBEROFPANEL)].setStatus(1);
+		this.panels[(int)(Math.random() * MyFrame.NUMBEROFPANEL)][(int)(Math.random() * MyFrame.NUMBEROFPANEL)].setStatus(1);
 		while(true){
-			int temp = (int)(Math.random() * MainFrame.NUMBEROFPANEL * MainFrame.NUMBEROFPANEL);
-			if(this.panels[temp][temp].getStatus() != 1 && temp%MainFrame.NUMBEROFPANEL != 0){
+			int temp = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
+			if(this.panels[temp][temp].getStatus() != 1 && temp%MyFrame.NUMBEROFPANEL != 0){
 				this.panels[temp][temp].setStatus(2);
 				break;
 			}

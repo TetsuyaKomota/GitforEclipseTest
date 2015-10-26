@@ -318,10 +318,10 @@ public class MyFrame extends JFrame{
 					MyFrame.this.pw.print("change,");
 					for(int i=0;i<MyFrame.this.panels.length;i++){
 						for(int j=0;j<MyFrame.this.panels[0].length;j++){
-							if(i == fpanel[0] && j == fpanel[1]){
+							if(i == selected[0] && j == selected[1]){
 								pw.print("1");
 							}
-							else if(i == spanel[0] && j == spanel[1]){
+							else if(i == secondselected[0] && j == secondselected[1]){
 								pw.print("2");
 							}
 							else{

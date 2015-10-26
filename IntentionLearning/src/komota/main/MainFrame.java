@@ -103,7 +103,7 @@ public class MainFrame extends JFrame{
 			this.panels[i] = new MyPanel(i,position);
 		}
 
-		this.addKeyListener(new MyKeyListener());
+		this.addKeyListener(new MainKeyListener());
 		this.addMouseListener(new MyMouseListener());
 
 		this.file = new File("log/"+file_name);
@@ -285,7 +285,7 @@ public class MainFrame extends JFrame{
 	}
 
 	//キーリスナー
-	class MyKeyListener implements KeyListener{
+	class MainKeyListener implements KeyListener{
 
 		@Override
 		public void keyTyped(KeyEvent e) {
@@ -324,7 +324,7 @@ public class MainFrame extends JFrame{
 					MainFrame.this.panels[secondselected].setStatus(temp);
 					int[] fpanel = MainFrame.this.panels[selected].getPosition();
 					int[] spanel = MainFrame.this.panels[secondselected].getPosition();
-					MainFrame.this.pw.print("change,");
+					MainFrame.this.pw.print("changehogehoge,");
 					for(int i=0;i<MainFrame.this.panels.length;i++){
 						if(i == fpanel[0]*MainFrame.NUMBEROFPANEL + fpanel[1]){
 							pw.print("1");
