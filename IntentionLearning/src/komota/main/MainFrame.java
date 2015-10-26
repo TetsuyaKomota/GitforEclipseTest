@@ -37,7 +37,7 @@ public class MainFrame extends JFrame{
 	MyPanel[] panels;
 
 	//パネルの行、列数
-	static final int NUMBEROFPANEL = 10;
+	public static final int NUMBEROFPANEL = 10;
 	//選択パネル枠の太さ
 	static final float FRAME_SIZE_OF_SELECTED_PANEL = 3f;
 
