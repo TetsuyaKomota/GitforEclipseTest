@@ -122,10 +122,10 @@ public class MyPanel {
 
 	//クリックした位置が、このパネルかどうかを判定する
 	public boolean isClicked(int x,int y){
-		if(		x>=SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[0]
-			&&	x<=SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[0] + SIZE_PANEL
-			&&	y>=SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[1]
-			&&	y<=SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[1] + SIZE_PANEL){
+		if(		x>=SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[1]
+			&&	x<=SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[1] + SIZE_PANEL
+			&&	y>=SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[0]
+			&&	y<=SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[0] + SIZE_PANEL){
 			return true;
 		}
 		return false;

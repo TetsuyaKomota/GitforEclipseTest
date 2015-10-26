@@ -86,6 +86,10 @@ public class MyFrame extends JFrame{
 				this.panels[i][j] = new MyPanel(0,position);
 			}
 		}
+		this.selected[0] = -1;
+		this.selected[1] = -1;
+		this.secondselected[0] = -1;
+		this.secondselected[1] = -1;
 
 		this.addKeyListener(new MyKeyListener());
 		this.addMouseListener(new MyMouseListener());
@@ -424,7 +428,7 @@ public class MyFrame extends JFrame{
 							MyFrame.this.selected[0] = i;
 							MyFrame.this.selected[1] = j;
 						}
-						else if(MyFrame.this.secondselected[0] == -1 && MyFrame.this.secondselected[1] == -1 && MyFrame.this.selected[0] != i && MyFrame.this.selected[1] != j && MyFrame.this.panels[i][j].getStatus() == 0){
+						else if(MyFrame.this.secondselected[0] == -1 && MyFrame.this.secondselected[1] == -1 && (MyFrame.this.selected[0] != i || MyFrame.this.selected[1] != j) && MyFrame.this.panels[i][j].getStatus() == 0){
 							MyFrame.this.secondselected[0] = i;
 							MyFrame.this.secondselected[1] = j;
 						}
@@ -444,7 +448,7 @@ public class MyFrame extends JFrame{
 							MyFrame.this.selected[0] = i;
 							MyFrame.this.selected[1] = j;
 						}
-						else if(MyFrame.this.secondselected[0] == -1 && MyFrame.this.secondselected[1] == -1 && MyFrame.this.selected[0] != i && MyFrame.this.selected[1] != j && MyFrame.this.panels[i][j].getStatus() == 0){
+						else if(MyFrame.this.secondselected[0] == -1 && MyFrame.this.secondselected[1] == -1 && (MyFrame.this.selected[0] != i || MyFrame.this.selected[1] != j) && MyFrame.this.panels[i][j].getStatus() == 0){
 							MyFrame.this.secondselected[0] = i;
 							MyFrame.this.secondselected[1] = j;
 						}
