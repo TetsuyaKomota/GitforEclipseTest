@@ -39,7 +39,7 @@ public class MainFrame extends JFrame{
 	//パネルの行、列数
 	static final int NUMBEROFPANEL = 10;
 	//選択パネル枠の太さ
-	static final float FRAME_SIZE_OF_SELECTED_PANEL = 0.5f;
+	static final float FRAME_SIZE_OF_SELECTED_PANEL = 3f;
 
 	//選択状態パネル
 	int selected = -1;
@@ -154,6 +154,7 @@ public class MainFrame extends JFrame{
 
 	//初期化時に初期状態を出力する
 	public void outputStart(){
+/*
 		pw.println("**start:"
 				+MainFrame.this.panels[0].status+","
 				+MainFrame.this.panels[1].status+","
@@ -165,10 +166,17 @@ public class MainFrame extends JFrame{
 				+MainFrame.this.panels[7].status+","
 				+MainFrame.this.panels[8].status
 );
+*/
+		pw.print("**start:");
+		for(int i=0;i<MainFrame.this.panels.length;i++){
+			pw.print(MainFrame.this.panels[i].status+",");
+		}
+		pw.println();
 	}
 
 	//ゴール時に最終状態を出力する
 	public void outputGoal(){
+/*
 		pw.println("**goal:"
 				+MainFrame.this.panels[0].status+","
 				+MainFrame.this.panels[1].status+","
@@ -180,6 +188,13 @@ public class MainFrame extends JFrame{
 				+MainFrame.this.panels[7].status+","
 				+MainFrame.this.panels[8].status
 );
+*/
+		pw.print("**goal:");
+		for(int i=0;i<MainFrame.this.panels.length;i++){
+			pw.print(MainFrame.this.panels[i].status+",");
+		}
+		pw.println();
+
 	}
 
 	//各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
@@ -283,6 +298,7 @@ public class MainFrame extends JFrame{
 					int[] fpanel = MainFrame.this.panels[selected].getPosition();
 					int[] spanel = MainFrame.this.panels[secondselected].getPosition();
 					MainFrame.this.pw.println("  change:"+ fpanel[0] + " " + fpanel[1] + "," + spanel[0] + " " + spanel[1]);
+/*
 					MainFrame.this.pw.println("status:"
 							+MainFrame.this.panels[0].status+","
 							+MainFrame.this.panels[1].status+","
@@ -294,6 +310,13 @@ public class MainFrame extends JFrame{
 							+MainFrame.this.panels[7].status+","
 							+MainFrame.this.panels[8].status
 							);
+*/
+					MainFrame.this.pw.print("**status:");
+					for(int i=0;i<MainFrame.this.panels.length;i++){
+						pw.print(MainFrame.this.panels[i].status+",");
+					}
+					pw.println();
+
 					MainFrame.this.selected = -1;
 					MainFrame.this.secondselected = -1;
 				}

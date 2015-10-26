@@ -32,8 +32,8 @@ public class SampleTask extends MainFrame{
 		for(int i=0;i<this.panels.length;i++){
 			this.panels[i].setStatus(0);
 		}
-		this.panels[(int)(Math.random()*3)].setStatus(2);
-		this.panels[3+(int)(Math.random()*6)].setStatus(1);
+		this.panels[(int)(Math.random()*MainFrame.NUMBEROFPANEL)].setStatus(1);
+		this.panels[MainFrame.NUMBEROFPANEL+(int)(Math.random()*MainFrame.NUMBEROFPANEL*(MainFrame.NUMBEROFPANEL-1))].setStatus(2);
 
 
 		this.outputStart();
