@@ -167,10 +167,14 @@ public class MainFrame extends JFrame{
 				+MainFrame.this.panels[8].status
 );
 */
-		pw.print("**start:");
+		pw.print("start ,");
 		for(int i=0;i<MainFrame.this.panels.length;i++){
-			pw.print(MainFrame.this.panels[i].status+",");
+			pw.print(MainFrame.this.panels[i].status);
+			if(i<MainFrame.this.panels.length-1){
+				pw.print(",");
+			}
 		}
+
 		pw.println();
 	}
 
@@ -189,9 +193,12 @@ public class MainFrame extends JFrame{
 				+MainFrame.this.panels[8].status
 );
 */
-		pw.print("**goal:");
+		pw.print("goal  ,");
 		for(int i=0;i<MainFrame.this.panels.length;i++){
-			pw.print(MainFrame.this.panels[i].status+",");
+			pw.print(MainFrame.this.panels[i].status);
+			if(i<MainFrame.this.panels.length-1){
+				pw.print(",");
+			}
 		}
 		pw.println();
 
@@ -297,7 +304,23 @@ public class MainFrame extends JFrame{
 					MainFrame.this.panels[secondselected].setStatus(temp);
 					int[] fpanel = MainFrame.this.panels[selected].getPosition();
 					int[] spanel = MainFrame.this.panels[secondselected].getPosition();
-					MainFrame.this.pw.println("  change:"+ fpanel[0] + " " + fpanel[1] + "," + spanel[0] + " " + spanel[1]);
+					MainFrame.this.pw.print("change,");
+					for(int i=0;i<MainFrame.this.panels.length;i++){
+						if(i == fpanel[0]*MainFrame.NUMBEROFPANEL + fpanel[1]){
+							pw.print("1");
+						}
+						else if(i == spanel[0]*MainFrame.NUMBEROFPANEL + spanel[1]){
+							pw.print("2");
+						}
+						else{
+							pw.print("0");
+						}
+						if(i<MainFrame.this.panels.length-1){
+							pw.print(",");
+						}
+					}
+					pw.println();
+
 /*
 					MainFrame.this.pw.println("status:"
 							+MainFrame.this.panels[0].status+","
@@ -311,9 +334,12 @@ public class MainFrame extends JFrame{
 							+MainFrame.this.panels[8].status
 							);
 */
-					MainFrame.this.pw.print("**status:");
+					MainFrame.this.pw.print("status,");
 					for(int i=0;i<MainFrame.this.panels.length;i++){
-						pw.print(MainFrame.this.panels[i].status+",");
+						pw.print(MainFrame.this.panels[i].status);
+						if(i<MainFrame.this.panels.length-1){
+							pw.print(",");
+						}
 					}
 					pw.println();
 
