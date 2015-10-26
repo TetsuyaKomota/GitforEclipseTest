@@ -165,7 +165,7 @@ public class TestLtoRMain {
 		System.out.println("Test for limit of status");
 
 		int numstatus = 10;
-		int numoutput  = numstatus * 100;
+		int numoutput  = numstatus * 107;
 
 		LtoRHMM hmm4 = new LtoRHMM(numstatus,numoutput);
 
