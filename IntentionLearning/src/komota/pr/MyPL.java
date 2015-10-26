@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import komota.main.MainFrame;
 
@@ -21,10 +19,6 @@ public class MyPL {
 	 */
 
 	//定数
-	//絶対移動の閾値
-	final double THRESHOLD = 0.9;
-	//絶対移動ベクトルの学習率
-	final double RATE = 0.3;
 	//ログデータの種類を表すときに使う種類定数
 	public static final int START = 0;
 	public static final int GOAL = 1;
@@ -34,7 +28,7 @@ public class MyPL {
 	//フィールド
 	File file;
 	BufferedReader br;
-	String file_name = "test.txt";
+	String file_name = "test4.txt";
 	//取得したログデータ。[ステップ数（何行目か）][種類（**start,**goal,  change,status）][行][列]
 	//種類が  changeの場合、変化前後のパネルの前を１、後を２とする
 	StepLog[] logdata = null;
@@ -73,7 +67,7 @@ public class MyPL {
 				break;
 			}
 			else{
-				inputLogStep(step,line);
+				this.logdata[step] = new StepLog(step,line);
 				step++;
 			}
 		}
@@ -88,67 +82,16 @@ public class MyPL {
 			e.printStackTrace();
 		}
 	}
-	//デバッグ用。出力テスト
+	//表示
 	public void show(){
 		for(int i=0;i<this.logdata.length;i++){
-			this.logdata[i].show();
-		}
-	}
-
-	//データをもとに、絶対移動する方向を推測する。
-	/*
-	 * テスト用なので、前提として
-	 * 1. 赤を動かすことを知っている
-	 * 2. 絶対移動であることを知っている
-	 * 3. ３マス平方の離散空間である
-	 */
-	public String[] inputLogStep(int step,String input){
-
-		String regex_start = "\\*\\*start:";
-		String regex_goal = "\\*\\*goal:";
-		String regex_change = "  change:";
-		String regex_status = "status:";
-
-		Pattern pt_start = Pattern.compile(regex_start);
-		Pattern pt_goal = Pattern.compile(regex_goal);
-		Pattern pt_change = Pattern.compile(regex_change);
-		Pattern pt_status = Pattern.compile(regex_status);
-
-		Matcher m_start = pt_start.matcher(input);
-		Matcher m_goal = pt_goal.matcher(input);
-		Matcher m_change = pt_change.matcher(input);
-		Matcher m_status = pt_status.matcher(input);
-
-		if(m_start.find()){
-			int[] inputs = new int[MainFrame.NUMBEROFPANEL];
-			for(int i=0;i<inputs.length;i++){
-				inputs[i] = Integer.parseInt(input.split(regex_start)[1].split(",")[i]);
+			if(this.logdata[i] != null){
+				this.logdata[i].show();
 			}
-			this.logdata[step] = new StepLog(step,START,inputs);
-		}
-		else if(m_goal.find()){
-			int[] inputs = new int[MainFrame.NUMBEROFPANEL];
-			for(int i=0;i<inputs.length;i++){
-				inputs[i] = Integer.parseInt(input.split(regex_goal)[1].split(",")[i]);
+			else{
+				break;
 			}
-			this.logdata[step] = new StepLog(step,GOAL,inputs);
 		}
-		else if(m_change.find()){
-			int[] inputs = new int[MainFrame.NUMBEROFPANEL];
-			for(int i=0;i<inputs.length;i++){
-				inputs[i] = 0;
-			}
-			this.logdata[step] = new StepLog(step,CHANGE,inputs);
-		}
-		else if(m_status.find()){
-			int[] inputs = new int[MainFrame.NUMBEROFPANEL];
-			for(int i=0;i<inputs.length;i++){
-				inputs[i] = Integer.parseInt(input.split(regex_status)[1].split(",")[i]);
-			}
-			this.logdata[step] = new StepLog(step,STATUS,inputs);
-		}
-
-		return null;
 	}
 
 	/* ************************************************************************************************** */
@@ -163,33 +106,47 @@ public class MyPL {
 		int[][] statuses = null;
 
 		//コンストラクタ
-		StepLog(int step , int type , int[] Stepdata){
+		StepLog(int step , String line){
 			this.step = step;
-			this.type = type;
+			String[] tempstrings = line.split(",");
+			if(tempstrings[0].equals("start ")){
+				this.type = START;
+			}
+			else if(tempstrings[0].equals("goal  ")){
+				this.type = GOAL;
+			}
+			else if(tempstrings[0].equals("change")){
+				this.type = CHANGE;
+			}
+			else if(tempstrings[0].equals("status")){
+				this.type = STATUS;
+			}
 			this.statuses = new int[MainFrame.NUMBEROFPANEL][MainFrame.NUMBEROFPANEL];
 			for(int i=0;i<MainFrame.NUMBEROFPANEL;i++){
 				for(int j=0;j<MainFrame.NUMBEROFPANEL;j++){
-					this.statuses[i][j] = Stepdata[i*MainFrame.NUMBEROFPANEL + j];
+					statuses[i][j] = Integer.parseInt(tempstrings[i * MainFrame.NUMBEROFPANEL + j + 1]);
 				}
 			}
 		}
-
 		//表示
 		void show(){
 			String typename = null;
 			switch(this.type){
 			case START:
-				typename = "\\*\\*start:";
+				typename = "start ,";
+				break;
 			case GOAL:
-				typename = "\\*\\*goal:";
+				typename = "goal  ,";
+				break;
 			case CHANGE:
-				typename = "  change";
+				typename = "change,";
+				break;
 			case STATUS:
-				typename = "status:";
+				typename = "status,";
 			}
 			System.out.print(typename);
-			for(int i=0;i<MainFrame.NUMBEROFPANEL;i++){
-				System.out.print(statuses[i/MainFrame.NUMBEROFPANEL][i%MainFrame.NUMBEROFPANEL]+",");
+			for(int i=0;i<MainFrame.NUMBEROFPANEL*MainFrame.NUMBEROFPANEL;i++){
+				System.out.print(statuses[i/MainFrame.NUMBEROFPANEL][i%MainFrame.NUMBEROFPANEL]+ " ");
 			}
 			System.out.println("");
 		}
