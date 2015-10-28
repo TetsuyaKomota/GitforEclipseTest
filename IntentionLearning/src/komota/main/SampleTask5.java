@@ -15,7 +15,7 @@ public class SampleTask5 extends MyFrame{
 	public SampleTask5(){
 		super();
 		this.tpr = new TestPatternRecognition();
-		this.tasktitle = "55555Move the RED to left of the BLUE.";
+		this.tasktitle = "Move the RED to left of the BLUE.";
 		setOutputFile("test4.txt");
 		initialize();
 	}

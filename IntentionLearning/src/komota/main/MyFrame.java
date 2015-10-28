@@ -38,7 +38,7 @@ public class MyFrame extends JFrame{
 	MyPanel[][] panels;
 
 	//パネルの行、列数
-	public static final int NUMBEROFPANEL = 10;
+	public static final int NUMBEROFPANEL = 100;
 	//選択パネル枠の太さ
 	static final float FRAME_SIZE_OF_SELECTED_PANEL = 3f;
 
@@ -214,7 +214,9 @@ public class MyFrame extends JFrame{
 			}
 		}
 		pw.println();
-
+	}
+	//パネルの描画以外の特別な描画を行いたい場合はここをオーバーライド
+	public void draw(){
 	}
 
 	//各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
@@ -275,6 +277,7 @@ public class MyFrame extends JFrame{
 				g.drawRect(MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MyFrame.this.secondselected[1]),MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MyFrame.this.secondselected[0]),MyPanel.SIZE_PANEL,MyPanel.SIZE_PANEL);
 			}
 			g.dispose();
+			MyFrame.this.draw();
 			MyFrame.this.buffer.show();
 		}
 	}

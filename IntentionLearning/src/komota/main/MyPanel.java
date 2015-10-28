@@ -9,7 +9,7 @@ public class MyPanel {
 	//パネルサイズ
 	static int SIZE_PANEL = 200;
 	static final int SIZE_FRAME = 100;
-	static final int SIZE_SEPALATOR = 0;
+	static final int SIZE_SEPALATOR = 1;
 
 	//フィールド
 	//パネルの状態
