@@ -39,13 +39,20 @@ public class SampleTask5 extends MyFrame{
 				break;
 			}
 		}
+		while(true){
+			int temp = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
+			if(this.panels[temp][temp].getStatus() != 1 && this.panels[temp][temp].getStatus() != 2 && temp%MyFrame.NUMBEROFPANEL != 0){
+				this.panels[temp][temp].setStatus(3);
+				break;
+			}
+		}
 
 		this.outputStart();
 	}
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-		this.tpr1 = new TestPR1(2);
+		this.tpr1 = new TestPR1(3);
 //		this.tpr.testConvert(this);
 	}
 	@Override

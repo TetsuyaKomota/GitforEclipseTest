@@ -104,11 +104,14 @@ public class TestPR1 extends MyPR{
 		}
 		System.out.println("[TestPR1]reproduction:tempref:"+tempref);
 		//選択された参照点を現在の座標に更新する
-		for(int i=0;i<height;i++){
-			for(int j=0;j<width;j++){
-				if(frame.getPanels()[i][j].getStatus() == this.refs[tempref].status){
-					this.refs[tempref].reference[0] = i;
-					this.refs[tempref].reference[1] = j;
+		//状態が0（画面中心が参照点）の場合は例外
+		if(this.refs[tempref].status != 0){
+			for(int i=0;i<height;i++){
+				for(int j=0;j<width;j++){
+					if(frame.getPanels()[i][j].getStatus() == this.refs[tempref].status){
+						this.refs[tempref].reference[0] = i;
+						this.refs[tempref].reference[1] = j;
+					}
 				}
 			}
 		}
@@ -172,6 +175,7 @@ public class TestPR1 extends MyPR{
 			double[] tempgoal = new double[2];
 			tempgoal[0] = trajector[0] - this.reference[0];
 			tempgoal[1] = trajector[1] - this.reference[1];
+			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+"tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
 			//近さを求める
 			double[] tempcloseness = new double[2];
 			tempcloseness[0] = tempgoal[0] - this.goalpoint[0];
@@ -181,8 +185,9 @@ public class TestPR1 extends MyPR{
 			System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
 			likelihood += (E - closeness);
 			//学習回数を学習率としてgoalpointベクトルを更新する
-			this.goalpoint[0] = this.goalpoint[0] * ((this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * (1/(this.numlearning + 1));
-			this.goalpoint[1] = this.goalpoint[1] * ((this.numlearning)/(this.numlearning + 1)) + tempgoal[1] * (1/(this.numlearning + 1));
+			this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
+			this.goalpoint[1] = this.goalpoint[1] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[1] * ((double)1/(this.numlearning + 1));
+			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
 			//学習回数をインクリメント
 			this.numlearning++;
 		}
