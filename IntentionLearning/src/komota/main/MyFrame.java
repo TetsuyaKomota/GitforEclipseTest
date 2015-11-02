@@ -38,7 +38,7 @@ public class MyFrame extends JFrame{
 	MyPanel[][] panels;
 
 	//パネルの行、列数
-	public static final int NUMBEROFPANEL = 100;
+	public static final int NUMBEROFPANEL = 20;
 	//選択パネル枠の太さ
 	static final float FRAME_SIZE_OF_SELECTED_PANEL = 3f;
 
@@ -181,7 +181,7 @@ public class MyFrame extends JFrame{
 		for(int i=0;i<MyFrame.this.panels.length;i++){
 			for(int j=0;j<MyFrame.this.panels[0].length;j++){
 				pw.print(MyFrame.this.panels[i][j].status);
-				if(i<MyFrame.this.panels.length-1){
+				if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
 					pw.print(",");
 				}
 			}
@@ -208,7 +208,7 @@ public class MyFrame extends JFrame{
 		for(int i=0;i<MyFrame.this.panels.length;i++){
 			for(int j=0;j<MyFrame.this.panels[0].length;j++){
 				pw.print(MyFrame.this.panels[i][j].status);
-				if(i<MyFrame.this.panels.length-1){
+				if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
 					pw.print(",");
 				}
 			}
@@ -334,7 +334,7 @@ public class MyFrame extends JFrame{
 							else{
 								pw.print("0");
 							}
-							if(i<MyFrame.this.panels.length-1){
+							if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
 								pw.print(",");
 							}
 						}
@@ -358,7 +358,7 @@ public class MyFrame extends JFrame{
 					for(int i=0;i<MyFrame.this.panels.length;i++){
 						for(int j=0;j<MyFrame.this.panels[0].length;j++){
 							pw.print(MyFrame.this.panels[i][j].status);
-							if(i<MyFrame.this.panels.length-1){
+							if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
 								pw.print(",");
 							}
 						}

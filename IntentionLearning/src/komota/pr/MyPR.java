@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import komota.main.MainFrame;
+import komota.main.MyFrame;
 
 public class MyPR {
 
@@ -121,10 +121,10 @@ public class MyPR {
 			else if(tempstrings[0].equals("status")){
 				this.type = STATUS;
 			}
-			this.statuses = new int[MainFrame.NUMBEROFPANEL][MainFrame.NUMBEROFPANEL];
-			for(int i=0;i<MainFrame.NUMBEROFPANEL;i++){
-				for(int j=0;j<MainFrame.NUMBEROFPANEL;j++){
-					statuses[i][j] = Integer.parseInt(tempstrings[i * MainFrame.NUMBEROFPANEL + j + 1]);
+			this.statuses = new int[MyFrame.NUMBEROFPANEL][MyFrame.NUMBEROFPANEL];
+			for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+				for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+					statuses[i][j] = Integer.parseInt(tempstrings[i * MyFrame.NUMBEROFPANEL + j + 1]);
 				}
 			}
 		}
@@ -156,8 +156,8 @@ public class MyPR {
 				typename = "status,";
 			}
 			System.out.print(typename);
-			for(int i=0;i<MainFrame.NUMBEROFPANEL*MainFrame.NUMBEROFPANEL;i++){
-				System.out.print(statuses[i/MainFrame.NUMBEROFPANEL][i%MainFrame.NUMBEROFPANEL]+ " ");
+			for(int i=0;i<MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL;i++){
+				System.out.print(statuses[i/MyFrame.NUMBEROFPANEL][i%MyFrame.NUMBEROFPANEL]+ " ");
 			}
 			System.out.println("");
 		}

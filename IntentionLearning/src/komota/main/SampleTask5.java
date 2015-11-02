@@ -11,12 +11,12 @@ public class SampleTask5 extends MyFrame{
 
 	//解析クラス
 	TestPatternRecognition tpr;
-	TestPR1 tpl1;
+	TestPR1 tpr1;
 
 	//コンストラクタ
 	public SampleTask5(){
 		super();
-		this.tpr = new TestPatternRecognition();
+//		this.tpr = new TestPatternRecognition();
 		this.tasktitle = "Move the RED to left of the BLUE.";
 		setOutputFile("test4.txt");
 		initialize();
@@ -45,12 +45,25 @@ public class SampleTask5 extends MyFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-		this.tpr.testOutput();
+		this.tpr1 = new TestPR1(2);
 //		this.tpr.testConvert(this);
 	}
+	@Override
 	public void functionPlugin2(){
+		System.out.println("start to learn.");
+		this.tpr1.show();
+		this.tpr1.learnfromLog();
+		this.tpr1.showReference();
+	}
+	@Override
+	public void functionPlugin3(){
+		System.out.println("reproduction.");
+		this.tpr1.reproduction(this);
+	}
+	@Override
+	public void functionPlugin4(){
 		System.out.println("bye");
-		this.tpr.close();
+		this.tpr1.close();
 	}
 	/*
 	 *

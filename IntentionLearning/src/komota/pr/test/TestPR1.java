@@ -46,6 +46,9 @@ public class TestPR1 extends MyPR{
 	public void learnfromLog(){
 		for(int t=0;t<this.logdata.length;t++){
 			//"start "ログの場合、参照点の座標を更新する
+			if(logdata[t] == null){
+				break;
+			}
 			if(logdata[t].getType() == START){
 				for(int i=0;i<height;i++){
 					for(int j=0;j<width;j++){
@@ -99,6 +102,7 @@ public class TestPR1 extends MyPR{
 				tempref = i;
 			}
 		}
+		System.out.println("[TestPR1]reproduction:tempref:"+tempref);
 		//選択された参照点を現在の座標に更新する
 		for(int i=0;i<height;i++){
 			for(int j=0;j<width;j++){
@@ -108,15 +112,25 @@ public class TestPR1 extends MyPR{
 				}
 			}
 		}
+		System.out.println("[TestPR1]reproduction:ref.reference:"+refs[tempref].reference[0]+" , "+refs[tempref].reference[1]);
+		System.out.println("[TestPR1]reproduction:ref.goalpoint:"+refs[tempref].goalpoint[0]+" , "+refs[tempref].goalpoint[1]);
 		//参照点の絶対ベクトル＋参照点からの相対ベクトル＝トラジェクタの推定移動先
 		double[] tempoutput = new double[2];
 		tempoutput[0] = this.refs[tempref].reference[0] + this.refs[tempref].goalpoint[0];
 		tempoutput[1] = this.refs[tempref].reference[1] + this.refs[tempref].goalpoint[1];
 		//doubleになっているので、パネルに変換する(まあただの四捨五入)
+		System.out.println("[TestPR1]reproduction:tempoutput:"+tempoutput[0]+" , "+tempoutput[1]);
 		int[] output = new int[2];
 		output[0] = (int)(tempoutput[0] + 0.5);
 		output[1] = (int)(tempoutput[1] + 0.5);
 		frame.setSecondSelected(output);
+	}
+
+	//表示
+	public void showReference(){
+		for(int i=0;i<this.refs.length;i++){
+			this.refs[i].show();
+		}
 	}
 
 	/* ************************************************************************************************************* */
@@ -160,16 +174,22 @@ public class TestPR1 extends MyPR{
 			tempgoal[1] = trajector[1] - this.reference[1];
 			//近さを求める
 			double[] tempcloseness = new double[2];
-			tempcloseness[0] = (tempgoal[0] - this.goalpoint[0])/this.goalpoint[0];
-			tempcloseness[1] = (tempgoal[1] - this.goalpoint[1])/this.goalpoint[1];
+			tempcloseness[0] = tempgoal[0] - this.goalpoint[0];
+			tempcloseness[1] = tempgoal[1] - this.goalpoint[1];
 			double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
 			//likelihood += （近さ値-近さ閾値）
-			likelihood += (closeness - E);
+			System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
+			likelihood += (E - closeness);
 			//学習回数を学習率としてgoalpointベクトルを更新する
 			this.goalpoint[0] = this.goalpoint[0] * ((this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * (1/(this.numlearning + 1));
 			this.goalpoint[1] = this.goalpoint[1] * ((this.numlearning)/(this.numlearning + 1)) + tempgoal[1] * (1/(this.numlearning + 1));
 			//学習回数をインクリメント
 			this.numlearning++;
+		}
+
+		//表示
+		void show(){
+			System.out.println("status:"+status+"  reference:"+this.reference[0]+" , "+this.reference[1] + "  goalpoint;"+this.goalpoint[0]+" , "+this.goalpoint[1] + "  likelihood:"+this.likelihood);
 		}
 	}
 	/* ************************************************************************************************************* */
