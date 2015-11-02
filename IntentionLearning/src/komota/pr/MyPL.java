@@ -135,6 +135,9 @@ public class MyPL {
 		public int[][] getStepStatusField(){
 			return this.statuses;
 		}
+		public int getType(){
+			return this.type;
+		}
 
 		//表示
 		void show(){
