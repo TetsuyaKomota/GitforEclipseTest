@@ -176,6 +176,12 @@ public class TestPR1 extends MyPR{
 			tempgoal[0] = trajector[0] - this.reference[0];
 			tempgoal[1] = trajector[1] - this.reference[1];
 			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+"tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
+			//学習回数を学習率としてgoalpointベクトルを更新する
+			this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
+			this.goalpoint[1] = this.goalpoint[1] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[1] * ((double)1/(this.numlearning + 1));
+			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
+			//学習回数をインクリメント
+			this.numlearning++;
 			//近さを求める
 			double[] tempcloseness = new double[2];
 			tempcloseness[0] = tempgoal[0] - this.goalpoint[0];
@@ -184,12 +190,6 @@ public class TestPR1 extends MyPR{
 			//likelihood += （近さ値-近さ閾値）
 			System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
 			likelihood += (E - closeness);
-			//学習回数を学習率としてgoalpointベクトルを更新する
-			this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
-			this.goalpoint[1] = this.goalpoint[1] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[1] * ((double)1/(this.numlearning + 1));
-			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
-			//学習回数をインクリメント
-			this.numlearning++;
 		}
 
 		//表示

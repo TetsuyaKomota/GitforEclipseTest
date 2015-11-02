@@ -396,6 +396,13 @@ public class MyFrame extends JFrame{
 					||e.getKeyCode() == KeyEvent.VK_NUMPAD9){
 				MyFrame.this.panels[MyFrame.this.selected[0]][selected[1]].setStatus(e.getKeyCode() - KeyEvent.VK_NUMPAD0);
 			}
+			else if(e.getKeyCode() == KeyEvent.VK_X){
+				MyFrame.this.selected[0] = -1;
+				MyFrame.this.selected[1] = -1;
+				MyFrame.this.secondselected[0] = -1;
+				MyFrame.this.secondselected[1] = -1;
+				MyFrame.this.initialize();
+			}
 			else if(e.getKeyCode() == KeyEvent.VK_1){
 				MyFrame.this.functionPlugin1();
 			}
