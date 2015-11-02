@@ -96,7 +96,7 @@ public class MyPL {
 
 	/* ************************************************************************************************** */
 	//解析用のログデータを表す内部クラス
-	class StepLog{
+	protected class StepLog{
 		//フィールド
 		//ステップ数
 		int step = -1;
@@ -129,10 +129,10 @@ public class MyPL {
 			}
 		}
 		//ゲッター
-		protected int getStepStatus(int gyou,int retsu){
+		public int getStepStatus(int gyou,int retsu){
 			return this.statuses[gyou][retsu];
 		}
-		protected int[][] getStepStatusField(){
+		public int[][] getStepStatusField(){
 			return this.statuses;
 		}
 
