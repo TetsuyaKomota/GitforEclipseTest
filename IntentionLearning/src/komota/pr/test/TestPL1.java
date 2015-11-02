@@ -1,5 +1,6 @@
 package komota.pr.test;
 
+import komota.main.MyFrame;
 import komota.pr.MyPL;
 
 public class TestPL1 extends MyPL{
@@ -46,7 +47,19 @@ public class TestPL1 extends MyPL{
 		for(int t=0;t<this.logdata.length;t++){
 			//"start "ログの場合、参照点の座標を更新する
 			if(logdata[t].getType() == START){
-
+				for(int i=0;i<height;i++){
+					for(int j=0;j<width;j++){
+						if(this.logdata[t].getStepStatus(i, j) > 1){
+							int tempstatus = this.logdata[t].getStepStatus(i, j);
+							for(int k=0;k<this.refs.length;k++){
+								if(this.refs[k].status == tempstatus){
+									this.refs[k].reference[0] = i;
+									this.refs[k].reference[1] = j;
+								}
+							}
+						}
+					}
+				}
 			}
 			//"goal  "ログの場合、トラジェクタの相対座標とgoalpointを比較し、goalpointとlikelihoodの更新をする
 			else if(logdata[t].getType() == GOAL){
@@ -73,6 +86,37 @@ public class TestPL1 extends MyPL{
 
 			}
 		}
+	}
+
+	//学習結果に基づいてタスクを推定する
+	public void reproduction(MyFrame frame){
+		double templikelihood = -10000000;
+		int tempref = -1;
+		//尤度最大の参照点を検索する
+		for(int i=0;i<this.refs.length;i++){
+			if(this.refs[i].likelihood > templikelihood){
+				templikelihood = this.refs[i].likelihood;
+				tempref = i;
+			}
+		}
+		//選択された参照点を現在の座標に更新する
+		for(int i=0;i<height;i++){
+			for(int j=0;j<width;j++){
+				if(frame.getPanels()[i][j].getStatus() == this.refs[tempref].status){
+					this.refs[tempref].reference[0] = i;
+					this.refs[tempref].reference[1] = j;
+				}
+			}
+		}
+		//参照点の絶対ベクトル＋参照点からの相対ベクトル＝トラジェクタの推定移動先
+		double[] tempoutput = new double[2];
+		tempoutput[0] = this.refs[tempref].reference[0] + this.refs[tempref].goalpoint[0];
+		tempoutput[1] = this.refs[tempref].reference[1] + this.refs[tempref].goalpoint[1];
+		//doubleになっているので、パネルに変換する(まあただの四捨五入)
+		int[] output = new int[2];
+		output[0] = (int)(tempoutput[0] + 0.5);
+		output[1] = (int)(tempoutput[1] + 0.5);
+		frame.setSecondSelected(output);
 	}
 
 	/* ************************************************************************************************************* */
