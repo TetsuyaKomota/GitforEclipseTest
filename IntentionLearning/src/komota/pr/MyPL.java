@@ -31,7 +31,7 @@ public class MyPL {
 	String file_name = "test4.txt";
 	//取得したログデータ。[ステップ数（何行目か）][種類（**start,**goal,  change,status）][行][列]
 	//種類が  changeの場合、変化前後のパネルの前を１、後を２とする
-	StepLog[] logdata = null;
+	public StepLog[] logdata = null;
 
 	/**
 	 * @param args
@@ -128,6 +128,14 @@ public class MyPL {
 				}
 			}
 		}
+		//ゲッター
+		protected int getStepStatus(int gyou,int retsu){
+			return this.statuses[gyou][retsu];
+		}
+		protected int[][] getStepStatusField(){
+			return this.statuses;
+		}
+
 		//表示
 		void show(){
 			String typename = null;
