@@ -316,7 +316,7 @@ public class MyFrame extends JFrame{
 			}else
 */
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
-				if(MyFrame.this.secondselected[0] != -1 && MyFrame.this.secondselected[1] != -1){
+				if(MyFrame.this.selected[0] != -1 && MyFrame.this.selected[1] != -1 && MyFrame.this.secondselected[0] != -1 && MyFrame.this.secondselected[1] != -1){
 					int temp = MyFrame.this.panels[selected[0]][selected[1]].getStatus();
 					MyFrame.this.panels[selected[0]][selected[1]].setStatus(MyFrame.this.panels[secondselected[0]][secondselected[1]].getStatus());
 					MyFrame.this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
