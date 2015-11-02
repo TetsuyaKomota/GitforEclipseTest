@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import komota.main.MainFrame;
 
-public class MyPL {
+public class MyPR {
 
 	//ログデータに基づく機械学習を行うテンプレ。これを継承する。
 
@@ -39,13 +39,13 @@ public class MyPL {
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 
-		MyPL test = new MyPL();
+		MyPR test = new MyPR();
 		test.show();
 	}
 
 
 	//コンストラクタ
-	public MyPL(){
+	public MyPR(){
 		this.file = new File("log/"+file_name);
 		try {
 			this.br = new BufferedReader(new FileReader(file));

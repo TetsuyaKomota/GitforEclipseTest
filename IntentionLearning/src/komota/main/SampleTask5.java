@@ -1,6 +1,7 @@
 package komota.main;
 
 import komota.pr.TestPatternRecognition;
+import komota.pr.test.TestPR1;
 
 public class SampleTask5 extends MyFrame{
 
@@ -10,6 +11,7 @@ public class SampleTask5 extends MyFrame{
 
 	//解析クラス
 	TestPatternRecognition tpr;
+	TestPR1 tpl1;
 
 	//コンストラクタ
 	public SampleTask5(){
