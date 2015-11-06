@@ -108,7 +108,6 @@ public class SampleQuestionnaire1 extends MyFrame{
 
 		initialize();
 	}
-
 	@Override
 	public void initialize(){
 		if(this.patterns == null){
