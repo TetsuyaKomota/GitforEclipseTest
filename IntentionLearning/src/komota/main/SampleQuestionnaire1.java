@@ -131,6 +131,9 @@ public class SampleQuestionnaire1 extends MyFrame{
 	public void pushGoal(){
 		super.pushGoal();
 		this.patterns[this.currentpattern].getTextForm();
+
+		this.currentpattern++;
+		this.initialize();
 	}
 	@Override
 	public void functionPlugin1(){
