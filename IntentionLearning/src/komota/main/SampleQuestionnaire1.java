@@ -1,5 +1,16 @@
 package komota.main;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import komota.pr.test.TestPR1;
 
 public class SampleQuestionnaire1 extends MyFrame{
@@ -29,7 +40,7 @@ public class SampleQuestionnaire1 extends MyFrame{
 		this.howtouse = "操作キー 1:戻る 2:進む 3:? 4:?   z:選択取り消し space:オブジェクト移動 g:タスク完了";
 		setOutputFile("test5.txt");
 
-		this.patterns = new Pattern[10];
+		this.patterns = new Pattern[100];
 
 		/* ************************************************************************************************************************************* */
 		//各ページのテキストと初期状態をここに書く
@@ -70,11 +81,17 @@ public class SampleQuestionnaire1 extends MyFrame{
 		this.patterns[8].setPattern(10,15,2);
 		this.patterns[8].setPattern(9,12,3);
 		this.patterns[8].setAnswer(-1,-1,-1,-1);
-		this.patterns[9] = new Pattern("では、次のタスクをやってみてください。完了したらgを一回押した後、2で進んでください(2で進む)","タスク：赤　を　黄　の上に動かす");
+		this.patterns[9] = new Pattern("では、次のタスクをやってみてください。完了したらgを一回押した後、2で進んでください。(gを押した時の挙動は仕様なので気にしないでください)(2で進む)","タスク：赤　を　黄　の上に動かす");
 		this.patterns[9].setPattern(12,6,1);
 		this.patterns[9].setPattern(18,17,2);
 		this.patterns[9].setPattern(13,1,3);
 		this.patterns[9].setAnswer(-1,-1,-1,-1);
+		this.patterns[10] = new Pattern("では、次のタスクもやってみてください。完了したらgを一回押した後、2で進んでください(2で進む)","タスク：赤　を　アレ　の上に動かす");
+		this.patterns[10].setPattern(0,6,1);
+		this.patterns[10].setPattern(19,7,2);
+		this.patterns[10].setPattern(10,10,3);
+		this.patterns[10].setPattern(8,1,4);
+		this.patterns[10].setAnswer(-1,-1,-1,-1);
 		/* ************************************************************************************************************************************* */
 
 		initialize();
@@ -198,6 +215,46 @@ public class SampleQuestionnaire1 extends MyFrame{
 		}
 	}
 
+
+	//テキスト入力フレームの内部クラス
+	class TextForm extends JFrame{
+
+		  JTextArea text2 = null;
+
+		  TextForm(String title){
+		    setTitle(title);
+		    setBounds(100, 100, 300, 250);
+		    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		    JPanel p = new JPanel();
+
+		    JLabel label1 = new JLabel();
+		    label1.setText("なぜ、そのように動かしましたか？");
+		    this.text2 = new JTextArea(6, 20);
+
+
+		    JButton next = new JButton("次へ進む");
+		    next.addActionListener(new MyActionListener());
+
+		    p.add(label1);
+		//   p.add(text1);
+		    p.add(text2);
+//		    p.add(text3);
+		    p.add(next);
+		    Container contentPane = getContentPane();
+		    contentPane.add(p, BorderLayout.CENTER);
+		  }
+
+
+		  class MyActionListener implements ActionListener{
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO 自動生成されたメソッド・スタブ
+				}
+
+		  }
+		}
 
 	/* ****************************************************************************************************************** */
 
