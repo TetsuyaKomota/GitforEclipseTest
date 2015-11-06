@@ -50,6 +50,7 @@ class JTextFieldTest extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
 			System.out.println(JTextFieldTest.this.text2.getText());
+			JTextFieldTest.this.dispose();
 		}
 
   }

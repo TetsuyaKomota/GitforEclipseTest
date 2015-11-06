@@ -92,6 +92,18 @@ public class SampleQuestionnaire1 extends MyFrame{
 		this.patterns[10].setPattern(10,10,3);
 		this.patterns[10].setPattern(8,1,4);
 		this.patterns[10].setAnswer(-1,-1,-1,-1);
+		this.patterns[10].isneedtext = true;
+		this.patterns[11] = new Pattern("では、次のタスクもやってみてください。完了したらgを一回押した後、2で進んでください(2で進む)","タスク：アレ　を　アレ　の上に動かす");
+		this.patterns[11].setPattern(5,5,1);
+		this.patterns[11].setPattern(15,7,2);
+		this.patterns[11].setPattern(10,15,3);
+		this.patterns[11].setPattern(8,13,4);
+		this.patterns[11].setPattern(9,13,5);
+		this.patterns[11].setPattern(10,10,6);
+		this.patterns[11].setPattern(8,1,7);
+		this.patterns[11].setAnswer(-1,-1,-1,-1);
+		this.patterns[11].isneedtext = true;
+		this.patterns[12] = new Pattern("お疲れ様でした。これでアンケート終了です","ご協力ありがとうございました");
 		/* ************************************************************************************************************************************* */
 
 		initialize();
@@ -112,6 +124,13 @@ public class SampleQuestionnaire1 extends MyFrame{
 		this.patterns[this.currentpattern].answer();
 		this.pw.println("page ,"+this.currentpattern);
 		//this.outputStart();
+	}
+
+	//gを押した時、必要に応じてテキスト入力フォームを表示するためのオーバーライド
+	@Override
+	public void pushGoal(){
+		super.pushGoal();
+		this.patterns[this.currentpattern].getTextForm();
 	}
 	@Override
 	public void functionPlugin1(){
@@ -158,6 +177,8 @@ public class SampleQuestionnaire1 extends MyFrame{
 		//そのタスクの答え。教示データの場合は答えを表示できるようにする
 		int[] ans = null;
 		int[] secondans = null;
+		//gを押した時にテキスト入力が必要なページかどうか
+		boolean isneedtext = false;
 
 		//コンストラクタ
 		Pattern(String expranation,String title){
@@ -211,7 +232,13 @@ public class SampleQuestionnaire1 extends MyFrame{
 				SampleQuestionnaire1.this.secondselected[0] = -1;
 				SampleQuestionnaire1.this.secondselected[1] = -1;
 			}
-
+		}
+		//gを押した時に、テキスト入力を要求するページの場合、入力フォームを表示する
+		void getTextForm(){
+			if(this.isneedtext){
+				TextForm frame = new TextForm("解説");
+				frame.setVisible(true);
+			}
 		}
 	}
 
@@ -244,6 +271,13 @@ public class SampleQuestionnaire1 extends MyFrame{
 		    Container contentPane = getContentPane();
 		    contentPane.add(p, BorderLayout.CENTER);
 		  }
+		  //入力文をログに残す
+		  void outputText(String text){
+			  SampleQuestionnaire1.this.pw.println("comment,"+text);
+			  //次のページに進む
+			  SampleQuestionnaire1.this.currentpattern++;
+			  SampleQuestionnaire1.this.initialize();
+		  }
 
 
 		  class MyActionListener implements ActionListener{
@@ -251,6 +285,8 @@ public class SampleQuestionnaire1 extends MyFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO 自動生成されたメソッド・スタブ
+					TextForm.this.outputText(TextForm.this.text2.getText());
+					TextForm.this.dispose();
 				}
 
 		  }
