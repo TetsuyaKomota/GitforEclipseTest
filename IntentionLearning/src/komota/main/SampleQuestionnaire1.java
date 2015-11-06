@@ -20,27 +20,36 @@ public class SampleQuestionnaire1 extends MyFrame{
 	Pattern[] patterns = null;
 
 	//現在選択中の初期状態
-	int currentpattern = -1;
+	int currentpattern = 0;
 
 	//コンストラクタ
 	public SampleQuestionnaire1(){
 		super();
 		this.tasktitle = "このメッセージはでないはずだよ";
+		this.howtouse = "操作キー 1:戻る 2:進む 3:? 4:?   z:選択取り消し space:オブジェクト移動 g:タスク完了";
 		setOutputFile("test5.txt");
 
 		this.patterns = new Pattern[10];
 
 		/* ************************************************************************************************************************************* */
 		//各ページのテキストと初期状態をここに書く
+		this.patterns[0] = new Pattern("テスト。このテキストが表示されるはずだよ");
+		this.patterns[0].setPattern(5,5,1);
+		this.patterns[0].setPattern(10,10,2);
+		this.patterns[1] = new Pattern("テスト。このテキストは2ページ目だよ");
+		this.patterns[1].setPattern(1,5,1);
+		this.patterns[1].setPattern(10,15,2);
+		this.patterns[1].setPattern(9,12,3);
 		/* ************************************************************************************************************************************* */
-
 
 		initialize();
 	}
 
 	@Override
 	public void initialize(){
-
+		if(this.patterns == null){
+			return;
+		}
 		this.tasktitle = this.patterns[this.currentpattern].getTitle();
 		for(int i=0;i<this.panels.length;i++){
 			for(int j=0;j<this.panels[0].length;j++){
@@ -52,26 +61,27 @@ public class SampleQuestionnaire1 extends MyFrame{
 	}
 	@Override
 	public void functionPlugin1(){
-		System.out.println("additional function.");
-		this.tpr1 = new TestPR1(9);
-//		this.tpr.testConvert(this);
+		if(this.currentpattern > 0){
+			this.currentpattern--;
+			initialize();
+		}
 	}
 	@Override
 	public void functionPlugin2(){
-		System.out.println("start to learn.");
-		this.tpr1.show();
-		this.tpr1.learnfromLog();
-		this.tpr1.showReference();
+		if(this.currentpattern < this.patterns.length - 1 && this.patterns[this.currentpattern+1] != null){
+			this.currentpattern++;
+			initialize();
+		}
 	}
 	@Override
 	public void functionPlugin3(){
-		System.out.println("reproduction.");
-		this.tpr1.reproduction(this);
+//		System.out.println("reproduction.");
+//		this.tpr1.reproduction(this);
 	}
 	@Override
 	public void functionPlugin4(){
-		System.out.println("bye");
-		this.tpr1.close();
+//		System.out.println("bye");
+//		this.tpr1.close();
 	}
 	/*
 	 *

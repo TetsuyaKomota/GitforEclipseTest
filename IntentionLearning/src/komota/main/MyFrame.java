@@ -49,6 +49,9 @@ public class MyFrame extends JFrame{
 	//タスク表示
 	String tasktitle = "tasktitle";
 
+	//操作方法表示
+	String howtouse = "SPACE:exchange the first clicked and the second clicked.   G:finish the task.";
+
 	//出力先ファイル
 	File file;
 	String file_name = "test.txt";
@@ -246,7 +249,7 @@ public class MyFrame extends JFrame{
 
 			g.setColor(Color.black);
 			g.drawString(MyFrame.this.tasktitle, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2);
-			g.drawString("SPACE:exchange the first clicked and the second clicked.   G:finish the task.", MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2+20);
+			g.drawString(MyFrame.this.howtouse, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2+20);
 /*
 			if(MyFrame.this.selected >= 0){
 				g.setColor(Color.black);
