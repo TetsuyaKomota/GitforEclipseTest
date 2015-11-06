@@ -33,13 +33,15 @@ public class SampleQuestionnaire1 extends MyFrame{
 
 		/* ************************************************************************************************************************************* */
 		//各ページのテキストと初期状態をここに書く
-		this.patterns[0] = new Pattern("テスト。このテキストが表示されるはずだよ");
-		this.patterns[0].setPattern(5,5,1);
-		this.patterns[0].setPattern(10,10,2);
-		this.patterns[1] = new Pattern("テスト。このテキストは2ページ目だよ");
+		this.patterns[0] = new Pattern("アンケートにご協力ありがとうございます。2を押してください。","");
+		this.patterns[1] = new Pattern("操作方法の説明を行います(2で進む)","タスク：赤　を　青　の左に動かす");
 		this.patterns[1].setPattern(1,5,1);
 		this.patterns[1].setPattern(10,15,2);
 		this.patterns[1].setPattern(9,12,3);
+		this.patterns[2] = new Pattern("これから下の400個のパネルに、この様な色付きのパネルが配置されます(2で進む)","タスク：赤　を　青　の左に動かす               ↓↓↓↓↓これ↓↓↓↓↓");
+		this.patterns[2].setPattern(1,5,1);
+		this.patterns[2].setPattern(10,15,2);
+		this.patterns[2].setPattern(9,12,3);
 		/* ************************************************************************************************************************************* */
 
 		initialize();
@@ -51,13 +53,14 @@ public class SampleQuestionnaire1 extends MyFrame{
 			return;
 		}
 		this.tasktitle = this.patterns[this.currentpattern].getTitle();
+		this.expranation = this.patterns[this.currentpattern].getExpranation();
 		for(int i=0;i<this.panels.length;i++){
 			for(int j=0;j<this.panels[0].length;j++){
 				this.panels[i][j].setStatus(this.patterns[this.currentpattern].getPattern()[i][j]);
 			}
 		}
 
-		this.outputStart();
+		//this.outputStart();
 	}
 	@Override
 	public void functionPlugin1(){
@@ -95,6 +98,8 @@ public class SampleQuestionnaire1 extends MyFrame{
 	//各タスクの初期状態とタスク名などを持たせた内部クラス
 	class Pattern{
 		//フィールド
+		//説明文
+		String expranation = null;
 		//タスク名
 		String title = null;
 		//初期状態
@@ -104,7 +109,8 @@ public class SampleQuestionnaire1 extends MyFrame{
 		int[] secondans = null;
 
 		//コンストラクタ
-		Pattern(String title){
+		Pattern(String expranation,String title){
+			this.expranation = expranation;
 			this.title = title;
 			this.initialtable = new int[MyFrame.NUMBEROFPANEL][MyFrame.NUMBEROFPANEL];
 			for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
@@ -129,6 +135,9 @@ public class SampleQuestionnaire1 extends MyFrame{
 		}
 		String getTitle(){
 			return this.title;
+		}
+		String getExpranation(){
+			return this.expranation;
 		}
 		void setAnswer(int ansg,int ansr,int secansg,int secansr){
 			this.ans[0] = ansg;

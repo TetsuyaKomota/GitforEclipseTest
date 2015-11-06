@@ -46,6 +46,9 @@ public class MyFrame extends JFrame{
 	int[] selected = new int[2];
 	int[] secondselected = new int[2];
 
+	//説明文などの文字列出力。アンケートなどで使用する
+	String expranation = "";
+
 	//タスク表示
 	String tasktitle = "tasktitle";
 
@@ -248,8 +251,9 @@ public class MyFrame extends JFrame{
 			g.fillRect(0, 0, MyFrame.this.getWidth(), MyFrame.this.getHeight());
 
 			g.setColor(Color.black);
-			g.drawString(MyFrame.this.tasktitle, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2);
-			g.drawString(MyFrame.this.howtouse, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2+20);
+			g.drawString(MyFrame.this.expranation, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2 + 10);
+			g.drawString(MyFrame.this.tasktitle, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2 + 30);
+			g.drawString(MyFrame.this.howtouse, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME+MyFrame.NUMBEROFPANEL*(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)+40);
 /*
 			if(MyFrame.this.selected >= 0){
 				g.setColor(Color.black);
