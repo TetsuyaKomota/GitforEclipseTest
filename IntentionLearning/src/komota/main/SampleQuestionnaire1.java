@@ -140,7 +140,12 @@ public class SampleQuestionnaire1 extends MyFrame{
 		this.patterns[15].setPattern(13,15,7);
 		this.patterns[15].setAnswer(-1,-1,-1,-1);
 		this.patterns[15].isneedtext = true;
-		this.patterns[16] = new Pattern("お疲れ様でした。これでアンケート終了です","ご協力ありがとうございました");
+		this.patterns[16] = new Pattern("この様に、次からは少々　\"言葉として理解しにくいタスク\"　を、いくつか例示してから取り組んでもらいます(2で進む)","");
+		this.patterns[17] = new Pattern("このタスクは、この状態ではこう動かします(2で進む)","タスク：えがきおけらかす");
+		this.patterns[18] = new Pattern("このタスクは、この状態ではこう動かします(2で進む)","タスク：えがきおけらかす");
+		this.patterns[19] = new Pattern("このタスクは、この状態ではこう動かします(2で進む)","タスク：えがきおけらかす");
+		this.patterns[20] = new Pattern("では、実際にやってみてください(gで自動的に進みます)","タスク：えがきおけらかす");
+		this.patterns[21] = new Pattern("お疲れ様でした。これでアンケート終了です","ご協力ありがとうございました");
 		/* ************************************************************************************************************************************* */
 
 		initialize();
