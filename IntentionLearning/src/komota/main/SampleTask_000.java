@@ -1,20 +1,19 @@
 package komota.main;
 
-import komota.pr.TestPatternRecognition;
-import komota.pr.test.TestPR1;
+import komota.pr.main.PR_000;
 
-public class SampleTask6 extends MyFrame{
+public class SampleTask_000 extends MyFrame{
 
 	public static void main(String[] args){
-		SampleTask6 task = new SampleTask6();
+		SampleTask_000 task = new SampleTask_000();
 	}
 
 	//解析クラス
-	TestPatternRecognition tpr;
-	TestPR1 tpr1;
+//	TestPatternRecognition tpr;
+	PR_000 tpr1;
 
 	//コンストラクタ
-	public SampleTask6(){
+	public SampleTask_000(){
 		super();
 //		this.tpr = new TestPatternRecognition();
 		this.tasktitle = "Move the RED to left of the BLUE.";
@@ -102,7 +101,7 @@ public class SampleTask6 extends MyFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-		this.tpr1 = new TestPR1(9);
+		this.tpr1 = new PR_000(9);
 //		this.tpr.testConvert(this);
 	}
 	@Override

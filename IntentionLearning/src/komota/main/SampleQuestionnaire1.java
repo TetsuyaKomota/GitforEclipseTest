@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import komota.pr.test.TestPR1;
+import komota.pr.main.PR_000;
 
 public class SampleQuestionnaire1 extends MyFrame{
 
@@ -25,7 +25,7 @@ public class SampleQuestionnaire1 extends MyFrame{
 
 
 	//解析クラス
-	TestPR1 tpr1;
+	PR_000 tpr1;
 
 	//初期状態クラス
 	Pattern[] patterns = null;
