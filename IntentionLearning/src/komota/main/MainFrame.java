@@ -20,6 +20,8 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
+import komota.supers.MyPanel;
+
 public class MainFrame extends JFrame{
 
 	/* ******************************************************************************************************************************************* */

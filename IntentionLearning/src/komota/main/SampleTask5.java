@@ -2,6 +2,7 @@ package komota.main;
 
 import komota.pr.TestPatternRecognition;
 import komota.pr.main.PR_000;
+import komota.supers.MyFrame;
 
 public class SampleTask5 extends MyFrame{
 

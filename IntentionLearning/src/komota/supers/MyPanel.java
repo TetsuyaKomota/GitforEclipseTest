@@ -1,4 +1,4 @@
-package komota.main;
+package komota.supers;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -7,9 +7,9 @@ public class MyPanel {
 
 	//定数
 	//パネルサイズ
-	static int SIZE_PANEL = 200;
-	static final int SIZE_FRAME = 100;
-	static final int SIZE_SEPALATOR = 1;
+	public static int SIZE_PANEL = 200;
+	public static final int SIZE_FRAME = 100;
+	public static final int SIZE_SEPALATOR = 1;
 
 	//フィールド
 	//パネルの状態
@@ -80,7 +80,7 @@ public class MyPanel {
 		g.dispose();
 	}
 	//以前のバージョン。MainFrameを完全に削除したらこれはいらない
-	public void draw(MainFrame frame){
+/*	public void draw(MainFrame frame){
 		Graphics2D  g = (Graphics2D)frame.buffer.getDrawGraphics();
 		switch(this.status){
 		case 0:
@@ -119,7 +119,7 @@ public class MyPanel {
 //		g.drawString(""+this.status, SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[0],SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[1]);
 		g.dispose();
 	}
-
+*/
 	//クリックした位置が、このパネルかどうかを判定する
 	public boolean isClicked(int x,int y){
 		if(		x>=SIZE_FRAME + (SIZE_PANEL+SIZE_SEPALATOR)*this.position[1]

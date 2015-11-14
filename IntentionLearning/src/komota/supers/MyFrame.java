@@ -1,4 +1,4 @@
-package komota.main;
+package komota.supers;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -20,6 +20,7 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
+
 public class MyFrame extends JFrame{
 
 	/**
@@ -31,7 +32,7 @@ public class MyFrame extends JFrame{
 	}
 
 	//バッファストラテジ
-	BufferStrategy buffer;
+	public BufferStrategy buffer;
 
 	//パネル
 	//空間的な2次元配列は全て[行][列]に統一！！！！
