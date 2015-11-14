@@ -1,4 +1,4 @@
-package komota.supers;
+package komota.main;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -19,6 +19,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
+
 
 
 public class MyFrame extends JFrame{

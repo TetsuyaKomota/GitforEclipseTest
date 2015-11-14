@@ -1,7 +1,7 @@
 package komota.pr.main;
 
-import komota.supers.MyFrame;
-import komota.supers.MyPR;
+import komota.main.MyFrame;
+import komota.main.MyPR;
 
 public class PR_000 extends MyPR{
 

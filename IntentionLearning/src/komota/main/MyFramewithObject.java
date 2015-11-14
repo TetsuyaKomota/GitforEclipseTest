@@ -3,8 +3,6 @@ package komota.main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import komota.supers.MyFrame;
-import komota.supers.MyPanel;
 
 public class MyFramewithObject extends MyFrame{
 

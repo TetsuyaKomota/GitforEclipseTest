@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import komota.pr.main.PR_000;
-import komota.supers.MyFrame;
 
 public class SampleQuestionnaire1 extends MyFrame{
 

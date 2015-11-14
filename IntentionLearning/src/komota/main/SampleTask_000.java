@@ -1,7 +1,6 @@
 package komota.main;
 
 import komota.pr.main.PR_000;
-import komota.supers.MyFrame;
 
 public class SampleTask_000 extends MyFrame{
 
