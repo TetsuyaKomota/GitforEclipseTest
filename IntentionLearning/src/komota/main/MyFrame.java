@@ -37,7 +37,7 @@ public class MyFrame extends JFrame{
 
 	//パネル
 	//空間的な2次元配列は全て[行][列]に統一！！！！
-	MyPanel[][] panels;
+	public MyPanel[][] panels;
 
 	//パネルの行、列数
 	public static final int NUMBEROFPANEL = 20;
@@ -49,13 +49,13 @@ public class MyFrame extends JFrame{
 	int[] secondselected = new int[2];
 
 	//説明文などの文字列出力。アンケートなどで使用する
-	String expranation = "";
+	public String expranation = "";
 
 	//タスク表示
-	String tasktitle = "tasktitle";
+	public String tasktitle = "tasktitle";
 
 	//操作方法表示
-	String howtouse = "SPACE:exchange the first clicked and the second clicked.   G:finish the task.";
+	public String howtouse = "SPACE:exchange the first clicked and the second clicked.   G:finish the task.";
 
 	//出力先ファイル
 	File file;

@@ -1,11 +1,12 @@
-package komota.main;
+package komota.test;
 
+import komota.main.MyFrame;
 import komota.pr.test.PR_001;
 
-public class SampleTask_001 extends MyFrame{
+public class SampleTask_1_1 extends MyFrame{
 
 	public static void main(String[] args){
-		SampleTask_001 task = new SampleTask_001();
+		SampleTask_1_1 task = new SampleTask_1_1();
 	}
 
 	/* ************************************************************************************************************** */
@@ -22,7 +23,7 @@ public class SampleTask_001 extends MyFrame{
 	PR_001 tpr1;
 
 	//コンストラクタ
-	public SampleTask_001(){
+	public SampleTask_1_1(){
 		super();
 //		this.tpr = new TestPatternRecognition();
 		this.tasktitle = "Move the RED to left of the BLUE.";
