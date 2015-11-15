@@ -1,7 +1,7 @@
 package komota.test;
 
 import komota.main.MyFrame;
-import komota.pr.test.PR_001;
+import komota.pr.test.PR_1_1;
 
 public class SampleTask_1_1 extends MyFrame{
 
@@ -12,15 +12,13 @@ public class SampleTask_1_1 extends MyFrame{
 	/* ************************************************************************************************************** */
 	/* ************************************************************************************************************** */
 	/*
-	 * SampleTask_***系クラスは、実験成果として保存されるべきクラスであることを示す。
-	 * SampleTask_001は「複数オブジェクトを参照点とすることができるプロトタイプ」
 	 */
 	/* ************************************************************************************************************** */
 	/* ************************************************************************************************************** */
 
 	//解析クラス
 //	TestPatternRecognition tpr;
-	PR_001 tpr1;
+	PR_1_1 tpr1;
 
 	//コンストラクタ
 	public SampleTask_1_1(){
@@ -111,7 +109,7 @@ public class SampleTask_1_1 extends MyFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-		this.tpr1 = new PR_001(9);
+		this.tpr1 = new PR_1_1(9);
 //		this.tpr.testConvert(this);
 	}
 	@Override
