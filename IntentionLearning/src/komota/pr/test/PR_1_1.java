@@ -5,7 +5,17 @@ import komota.main.MyPR;
 
 public class PR_1_1 extends MyPR{
 
-	//参照点を原点に、画面に平行な座標系で動作をとらえる試行。重心位置は参照点として数えないバージョン
+	//参照点を原点に、画面に平行な座標系で動作をとらえる試行。重心位置を参照点に含めるバージョン
+	/*
+	 * 実装上の問題で、「重心位置の状態番号はどのように割り当てようか」という話がある
+	 * 学習フェーズに状態番号を用いている関係上、うまく決めないといけない
+	 * 学習フェーズにはオブジェクトを参照点とするもののベクトルだけを先に更新し、それをもとに重心位置の座標を更新すればいい
+	 * つまりコンストラクタ呼び出し時に用意したオブジェクトの順番で考えるというもの
+	 * あとは重心位置の順番をどのようにするかだが、
+	 */
+
+
+
 
 	//定数
 
@@ -20,8 +30,9 @@ public class PR_1_1 extends MyPR{
 
 	//コンストラクタ
 	public PR_1_1(int numref){
-		this.numref = numref;
-		this.refs = new ReferencePoint[numref];
+		int numberobreference = (int)Math.pow(2, numref) - 1;
+		this.numref = numberobreference;
+		this.refs = new ReferencePoint[numberobreference];
 
 		//参照点一つ目は画面中央にする。
 		this.height = this.logdata[0].getStepStatusField().length;
