@@ -1,27 +1,28 @@
-package komota.test;
+package komota.main;
 
-import komota.main.MyFrame;
-import komota.pr.test.PR_1_1;
+import komota.pr.main.PR_001;
 
-public class SampleTask_1_1 extends MyFrame{
+public class SampleTask_001 extends MyFrame{
 
 	public static void main(String[] args){
-		SampleTask_1_1 task = new SampleTask_1_1();
+		SampleTask_001 task = new SampleTask_001();
 	}
 
 	/* ************************************************************************************************************** */
 	/* ************************************************************************************************************** */
 	/*
+	 * 	 * SampleTask_***系クラスは、実験成果として保存されるべきクラスであることを示す。
+	 * SampleTask_001は「1つ以上のランドマークを参照点とし、それとの相対位置を観点とする意図理解」
 	 */
 	/* ************************************************************************************************************** */
 	/* ************************************************************************************************************** */
 
 	//解析クラス
 //	TestPatternRecognition tpr;
-	PR_1_1 tpr1;
+	PR_001 tpr1;
 
 	//コンストラクタ
-	public SampleTask_1_1(){
+	public SampleTask_001(){
 		super();
 //		this.tpr = new TestPatternRecognition();
 		this.tasktitle = "Move the RED to left of the BLUE.";
@@ -59,7 +60,7 @@ public class SampleTask_1_1 extends MyFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(4);
+				this.panels[temp1][temp2].setStatus(4);
 				break;
 			}
 		}
@@ -67,7 +68,7 @@ public class SampleTask_1_1 extends MyFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(5);
+				this.panels[temp1][temp2].setStatus(5);
 				break;
 			}
 		}
@@ -75,7 +76,7 @@ public class SampleTask_1_1 extends MyFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(6);
+				this.panels[temp1][temp2].setStatus(6);
 				break;
 			}
 		}
@@ -109,7 +110,7 @@ public class SampleTask_1_1 extends MyFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-		this.tpr1 = new PR_1_1(9);
+		this.tpr1 = new PR_001(9);
 //		this.tpr.testConvert(this);
 	}
 	@Override

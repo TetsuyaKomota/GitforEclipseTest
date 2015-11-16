@@ -1,9 +1,9 @@
-package komota.pr.test;
+package komota.pr.main;
 
 import komota.main.MyFrame;
 import komota.main.MyPR;
 
-public class PR_1_1 extends MyPR{
+public class PR_001 extends MyPR{
 
 	//参照点を原点に、画面に平行な座標系で動作をとらえる試行。重心位置を参照点に含めるバージョン
 	/*
@@ -35,7 +35,7 @@ public class PR_1_1 extends MyPR{
 	int[] objectlist;
 
 	//コンストラクタ
-	public PR_1_1(int numref){
+	public PR_001(int numref){
 		this.numref = numref;
 		this.refs = new ReferencePoint[numref];
 
