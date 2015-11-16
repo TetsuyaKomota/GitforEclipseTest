@@ -140,6 +140,59 @@ public class PR_1_1 extends MyPR{
 						}
 					}
 				}
+				//重心位置の更新
+				//for文用のインデックス
+				int[] tempidx = new int[9];
+				for(tempidx[0] = 0;tempidx[0]<2;tempidx[0]++){
+					for(tempidx[1] = 0;tempidx[1]<2;tempidx[1]++){
+						for(tempidx[2] = 0;tempidx[2]<2;tempidx[2]++){
+							for(tempidx[3] = 0;tempidx[3]<2;tempidx[3]++){
+								for(tempidx[4] = 0;tempidx[4]<2;tempidx[4]++){
+									for(tempidx[5] = 0;tempidx[5]<2;tempidx[5]++){
+										for(tempidx[6] = 0;tempidx[6]<2;tempidx[6]++){
+											for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
+												for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
+													//位置ベクトル
+													double[] temppoint = new double[2];
+													//構成参照点数。最終的にこれでtemppointを割る
+													int tempnum = 0;
+													//その重心は存在するか
+													boolean isexist = true;
+													for(int a=0;a<tempidx.length;a++){
+														//「状態番号aのオブジェクトを使う」重心であり、かつ状態番号aのオブジェクトが存在するなら
+														if(tempidx[a] == 1 && this.objectlist[a] == 1){
+															for(int b=0;b<this.refs.length;b++){
+																if(this.refs[b].status == a){
+																	//状態番号aのオブジェクトを検索し、その位置ベクトルを加える
+																	temppoint[0] += this.refs[b].reference[0];
+																	temppoint[1] += this.refs[b].reference[1];
+																	break;
+																}
+															}
+															tempnum++;
+														}
+														//「状態番号aのオブジェクトを使う」重心であるにもかかわらず、状態番号aのオブジェクトが存在しないなら
+														else if(tempidx[a] == 1 && this.objectlist[a] != 1){
+															isexist = false;
+															break;
+														}
+													}
+													//重心が存在しない（isexist==false）または構成参照点が一つ以下の時、参照点は作成しない
+													if(isexist == true && tempnum >= 2){
+														temppoint[0] /= tempnum;
+														temppoint[1] /= tempnum;
+														this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].reference[0] = temppoint[0];
+														this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].reference[1] = temppoint[1];
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			//"goal  "ログの場合、トラジェクタの相対座標とgoalpointを比較し、goalpointとlikelihoodの更新をする
 			else if(logdata[t].getType() == GOAL){
@@ -155,6 +208,30 @@ public class PR_1_1 extends MyPR{
 				//各参照点クラスのlearnメソッドで学習する
 				for(int i=0;i<this.refs.length;i++){
 					this.refs[i].learn(trajector);
+				}
+				//重心位置のlearn
+				//for文用のインデックス
+				int[] tempidx = new int[9];
+				for(tempidx[0] = 0;tempidx[0]<2;tempidx[0]++){
+					for(tempidx[1] = 0;tempidx[1]<2;tempidx[1]++){
+						for(tempidx[2] = 0;tempidx[2]<2;tempidx[2]++){
+							for(tempidx[3] = 0;tempidx[3]<2;tempidx[3]++){
+								for(tempidx[4] = 0;tempidx[4]<2;tempidx[4]++){
+									for(tempidx[5] = 0;tempidx[5]<2;tempidx[5]++){
+										for(tempidx[6] = 0;tempidx[6]<2;tempidx[6]++){
+											for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
+												for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
+													if(this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] != null){
+														this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].learn(trajector);
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 			//"change"ログの場合、何もしない
@@ -172,32 +249,61 @@ public class PR_1_1 extends MyPR{
 	public void reproduction(MyFrame frame){
 		double templikelihood = -10000000;
 		int tempref = -1;
+		ReferencePoint temprefpoint = null;
 		//尤度最大の参照点を検索する
 		for(int i=0;i<this.refs.length;i++){
 			if(this.refs[i].likelihood > templikelihood){
 				templikelihood = this.refs[i].likelihood;
 				tempref = i;
+				temprefpoint = refs[i];
+			}
+		}
+		//重心位置も検索
+		//for文用のインデックス
+		int[] tempidx = new int[9];
+		for(tempidx[0] = 0;tempidx[0]<2;tempidx[0]++){
+			for(tempidx[1] = 0;tempidx[1]<2;tempidx[1]++){
+				for(tempidx[2] = 0;tempidx[2]<2;tempidx[2]++){
+					for(tempidx[3] = 0;tempidx[3]<2;tempidx[3]++){
+						for(tempidx[4] = 0;tempidx[4]<2;tempidx[4]++){
+							for(tempidx[5] = 0;tempidx[5]<2;tempidx[5]++){
+								for(tempidx[6] = 0;tempidx[6]<2;tempidx[6]++){
+									for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
+										for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
+											if(this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] != null){
+												if(this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].likelihood > templikelihood){
+													templikelihood = this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].likelihood;
+													temprefpoint = this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]];
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		System.out.println("[TestPR1]reproduction:tempref:"+tempref);
 		//選択された参照点を現在の座標に更新する
 		//状態が0（画面中心が参照点）の場合は例外
-		if(this.refs[tempref].status != 0){
+		if(temprefpoint.status != 0){
 			for(int i=0;i<height;i++){
 				for(int j=0;j<width;j++){
-					if(frame.getPanels()[i][j].getStatus() == this.refs[tempref].status){
-						this.refs[tempref].reference[0] = i;
-						this.refs[tempref].reference[1] = j;
+					if(frame.getPanels()[i][j].getStatus() == temprefpoint.status){
+						temprefpoint.reference[0] = i;
+						temprefpoint.reference[1] = j;
 					}
 				}
 			}
 		}
-		System.out.println("[TestPR1]reproduction:ref.reference:"+refs[tempref].reference[0]+" , "+refs[tempref].reference[1]);
-		System.out.println("[TestPR1]reproduction:ref.goalpoint:"+refs[tempref].goalpoint[0]+" , "+refs[tempref].goalpoint[1]);
+		System.out.println("[TestPR1]reproduction:ref.reference:"+temprefpoint.reference[0]+" , "+temprefpoint.reference[1]);
+		System.out.println("[TestPR1]reproduction:ref.goalpoint:"+temprefpoint.goalpoint[0]+" , "+temprefpoint.goalpoint[1]);
 		//参照点の絶対ベクトル＋参照点からの相対ベクトル＝トラジェクタの推定移動先
 		double[] tempoutput = new double[2];
-		tempoutput[0] = this.refs[tempref].reference[0] + this.refs[tempref].goalpoint[0];
-		tempoutput[1] = this.refs[tempref].reference[1] + this.refs[tempref].goalpoint[1];
+		tempoutput[0] = temprefpoint.reference[0] + temprefpoint.goalpoint[0];
+		tempoutput[1] = temprefpoint.reference[1] + temprefpoint.goalpoint[1];
 		//doubleになっているので、パネルに変換する(まあただの四捨五入)
 		System.out.println("[TestPR1]reproduction:tempoutput:"+tempoutput[0]+" , "+tempoutput[1]);
 		int[] output = new int[2];
