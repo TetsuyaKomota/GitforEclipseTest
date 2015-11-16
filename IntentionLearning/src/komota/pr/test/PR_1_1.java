@@ -106,7 +106,7 @@ public class PR_1_1 extends MyPR{
 											if(isexist == true && tempnum >= 2){
 												temppoint[0] /= tempnum;
 												temppoint[1] /= tempnum;
-												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint(9,temppoint[0],temppoint[1]);
+												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint(10,temppoint[0],temppoint[1]);
 											}
 										}
 									}
@@ -209,7 +209,36 @@ public class PR_1_1 extends MyPR{
 	//表示
 	public void showReference(){
 		for(int i=0;i<this.refs.length;i++){
+			if(this.refs[i] == null){
+				break;
+			}
 			this.refs[i].show();
+		}
+		System.out.println("超えてるよ");
+		for(int i0 = 0;i0<2;i0++){
+			for(int i1 = 0;i1<2;i1++){
+				for(int i2 = 0;i2<2;i2++){
+					for(int i3 = 0;i3<2;i3++){
+						for(int i4 = 0;i4<2;i4++){
+							for(int i5 = 0;i5<2;i5++){
+								for(int i6 = 0;i6<2;i6++){
+									for(int i7 = 0;i7<2;i7++){
+										for(int i8 = 0;i8<2;i8++){
+											System.out.print("Center of Gravity:"+i0+" "+i1+" "+i2+" "+i3+" "+i4+" "+i5+" "+i6+" "+i7+" "+i8+" ");
+											if(this.cogs[i0][i1][i2][i3][i4][i5][i6][i7][i8] == null){
+												System.out.println("status:"+10+"  reference:NULL  goalpoint:NULL  likelihood:NULL");
+											}
+											else{
+												this.cogs[i0][i1][i2][i3][i4][i5][i6][i7][i8].show();
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -220,7 +249,7 @@ public class PR_1_1 extends MyPR{
 		//ベクトルの近さ閾値。learnで使う
 		static final double E = 10;
 		//フィールド
-		//参照点の状態。0は画面中央。9は重心位置
+		//参照点の状態。0は画面中央。10は重心位置
 		int status;
 		//参照点の位置ベクトル[0]=行 [1]=列
 		double[] reference;
