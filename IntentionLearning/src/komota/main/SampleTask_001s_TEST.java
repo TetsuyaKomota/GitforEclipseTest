@@ -117,9 +117,9 @@ public class SampleTask_001s_TEST extends MySerialFrame{
 	@Override
 	public void functionPlugin2(){
 		System.out.println("show.");
-		this.tpr1.show();
+//		this.tpr1.show();
 		this.tpr1.learnfromLog();
-		this.tpr1.showReference();
+//		this.tpr1.showReference();
 	}
 	@Override
 	public void functionPlugin3(){
