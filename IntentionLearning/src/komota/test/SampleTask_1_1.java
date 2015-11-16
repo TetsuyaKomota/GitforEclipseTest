@@ -59,7 +59,7 @@ public class SampleTask_1_1 extends MyFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-				this.panels[temp1][temp2].setStatus(4);
+//				this.panels[temp1][temp2].setStatus(4);
 				break;
 			}
 		}
@@ -115,8 +115,8 @@ public class SampleTask_1_1 extends MyFrame{
 	@Override
 	public void functionPlugin2(){
 		System.out.println("show.");
-//		this.tpr1.show();
-//		this.tpr1.learnfromLog();
+		this.tpr1.show();
+		this.tpr1.learnfromLog();
 		this.tpr1.showReference();
 	}
 	@Override
