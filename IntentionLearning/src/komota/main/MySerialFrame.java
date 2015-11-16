@@ -5,12 +5,13 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MySerialFrame_Test extends MyFrame{
+public class MySerialFrame extends MyFrame{
 
 	//描画時、単にオブジェクトに対して大きい四角を上書きすればいいだけの話だった
+	//粒度の高い状態空間で、オブジェクトを操作しやすいように改良した
 
 	public static void main(String[] args){
-		MySerialFrame_Test frame = new MySerialFrame_Test();
+		MySerialFrame frame = new MySerialFrame();
 	}
 
 	//定数
@@ -18,7 +19,7 @@ public class MySerialFrame_Test extends MyFrame{
 	static final int SIZE_OBJECT = 10;
 
 	//コンストラクタ
-	public MySerialFrame_Test(){
+	public MySerialFrame(){
 		super();
 		//マウスリスナーを設定し直す
 		this.addMouseListener(new MySerialMouseListener());
@@ -88,34 +89,34 @@ public class MySerialFrame_Test extends MyFrame{
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
-			for(int i=0;i<MySerialFrame_Test.this.panels.length;i++){
-				for(int j=0;j<MySerialFrame_Test.this.panels[0].length;j++){
-					if(MySerialFrame_Test.this.panels[i][j].isClicked(e.getPoint().x, e.getPoint().y)){
+			for(int i=0;i<MySerialFrame.this.panels.length;i++){
+				for(int j=0;j<MySerialFrame.this.panels[0].length;j++){
+					if(MySerialFrame.this.panels[i][j].isClicked(e.getPoint().x, e.getPoint().y)){
 						//クリックされたパネルは、オブジェクトの裏に隠れた空きパネル、オブジェクトの外の空きパネル（本当の空きパネル）、オブジェクトパネルの3通り
-						if(MySerialFrame_Test.this.panels[i][j].getStatus() == 0){
+						if(MySerialFrame.this.panels[i][j].getStatus() == 0){
 							int temp[] = new int[2];
 							temp[0] = -1;
 							temp[1] = -1;
-							for(int a=0;a<MySerialFrame_Test.SIZE_OBJECT;a++){
-								for(int b=0;b<MySerialFrame_Test.SIZE_OBJECT;b++){
-									if(MySerialFrame_Test.this.panels[i-(MySerialFrame_Test.SIZE_OBJECT/2)+a][j-(MySerialFrame_Test.SIZE_OBJECT/2)+b].status>0){
-										temp[0] = i-(MySerialFrame_Test.SIZE_OBJECT/2)+a;
-										temp[1] = j-(MySerialFrame_Test.SIZE_OBJECT/2)+b;
+							for(int a=0;a<MySerialFrame.SIZE_OBJECT;a++){
+								for(int b=0;b<MySerialFrame.SIZE_OBJECT;b++){
+									if(MySerialFrame.this.panels[i-(MySerialFrame.SIZE_OBJECT/2)+a][j-(MySerialFrame.SIZE_OBJECT/2)+b].status>0){
+										temp[0] = i-(MySerialFrame.SIZE_OBJECT/2)+a;
+										temp[1] = j-(MySerialFrame.SIZE_OBJECT/2)+b;
 									}
 								}
 							}
 							if(temp[0] != -1 && temp[1] != -1){
-								MySerialFrame_Test.this.selected[0] = temp[0];
-								MySerialFrame_Test.this.selected[1] = temp[1];
+								MySerialFrame.this.selected[0] = temp[0];
+								MySerialFrame.this.selected[1] = temp[1];
 							}
 							else{
-								MySerialFrame_Test.this.secondselected[0] = i;
-								MySerialFrame_Test.this.secondselected[1] = j;
+								MySerialFrame.this.secondselected[0] = i;
+								MySerialFrame.this.secondselected[1] = j;
 							}
 						}
 						else{
-							MySerialFrame_Test.this.selected[0] = i;
-							MySerialFrame_Test.this.selected[1] = j;
+							MySerialFrame.this.selected[0] = i;
+							MySerialFrame.this.selected[1] = j;
 						}
 /*
 						if(MySerialFrame_Test.this.selected[0] == -1 && MySerialFrame_Test.this.selected[1] == -1 && MySerialFrame_Test.this.panels[i][j].getStatus() != 0){
@@ -136,16 +137,16 @@ public class MySerialFrame_Test extends MyFrame{
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
-			for(int i=0;i<MySerialFrame_Test.this.panels.length;i++){
-				for(int j=0;j<MySerialFrame_Test.this.panels[0].length;j++){
-					if(MySerialFrame_Test.this.panels[i][j].isClicked(e.getPoint().x, e.getPoint().y)){
-						if(MySerialFrame_Test.this.selected[0] == -1 && MySerialFrame_Test.this.selected[1] == -1 && MySerialFrame_Test.this.panels[i][j].getStatus() != 0){
-							MySerialFrame_Test.this.selected[0] = i;
-							MySerialFrame_Test.this.selected[1] = j;
+			for(int i=0;i<MySerialFrame.this.panels.length;i++){
+				for(int j=0;j<MySerialFrame.this.panels[0].length;j++){
+					if(MySerialFrame.this.panels[i][j].isClicked(e.getPoint().x, e.getPoint().y)){
+						if(MySerialFrame.this.selected[0] == -1 && MySerialFrame.this.selected[1] == -1 && MySerialFrame.this.panels[i][j].getStatus() != 0){
+							MySerialFrame.this.selected[0] = i;
+							MySerialFrame.this.selected[1] = j;
 						}
-						else if(MySerialFrame_Test.this.secondselected[0] == -1 && MySerialFrame_Test.this.secondselected[1] == -1 && (MySerialFrame_Test.this.selected[0] != i || MySerialFrame_Test.this.selected[1] != j) && MySerialFrame_Test.this.panels[i][j].getStatus() == 0){
-							MySerialFrame_Test.this.secondselected[0] = i;
-							MySerialFrame_Test.this.secondselected[1] = j;
+						else if(MySerialFrame.this.secondselected[0] == -1 && MySerialFrame.this.secondselected[1] == -1 && (MySerialFrame.this.selected[0] != i || MySerialFrame.this.selected[1] != j) && MySerialFrame.this.panels[i][j].getStatus() == 0){
+							MySerialFrame.this.secondselected[0] = i;
+							MySerialFrame.this.secondselected[1] = j;
 						}
 						break;
 					}
