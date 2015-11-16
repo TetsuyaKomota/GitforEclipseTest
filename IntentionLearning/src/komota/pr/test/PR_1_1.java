@@ -28,11 +28,23 @@ public class PR_1_1 extends MyPR{
 	double height;
 	double width;
 
+	//重心位置の参照点クラス
+	//左から、中心、トラジェクタ、ランドマーク（２～９）
+	ReferencePoint[][][][][][][][][] cogs;
+	//空間内に、土のオブジェクトが存在するかのリスト。実装を単純にするためだけのものであり、一般的には不要
+	int[] objectlist;
+
 	//コンストラクタ
 	public PR_1_1(int numref){
-		int numberobreference = (int)Math.pow(2, numref) - 1;
-		this.numref = numberobreference;
-		this.refs = new ReferencePoint[numberobreference];
+		this.numref = numref;
+		this.refs = new ReferencePoint[numref];
+
+		//オブジェクト数は既知（9種類）として、重心位置とリストの配列を作成する
+		this.cogs = new ReferencePoint[2][2][2][2][2][2][2][2][2];
+		this.objectlist = new int[9];
+		for(int i=0;i<this.objectlist.length;i++){
+			this.objectlist[i] = 0;
+		}
 
 		//参照点一つ目は画面中央にする。
 		this.height = this.logdata[0].getStepStatusField().length;
@@ -47,7 +59,61 @@ public class PR_1_1 extends MyPR{
 				//0と1以外がlogdata[0].getStepStatusField()[i][j]にあったらrefs[k].reference[0] = i,[i] = jとして、状態もセット
 				if(this.logdata[0].getStepStatus(i,j) > 1){
 					this.refs[k] = new ReferencePoint(this.logdata[0].getStepStatus(i,j),i,j);
+					//存在した状態番号をobjectlistに保存
+					this.objectlist[this.logdata[0].getStepStatus(i, j)] = 1;
 					k++;
+				}
+			}
+		}
+		//重心位置のインスタンスの作成。objectlistをもとに、可能な組み合わせのインスタンスのみ作成する
+		//for文用のインデックス
+		int[] tempidx = new int[9];
+		for(tempidx[0] = 0;tempidx[0]<2;tempidx[0]++){
+			for(tempidx[1] = 0;tempidx[1]<2;tempidx[1]++){
+				for(tempidx[2] = 0;tempidx[2]<2;tempidx[2]++){
+					for(tempidx[3] = 0;tempidx[3]<2;tempidx[3]++){
+						for(tempidx[4] = 0;tempidx[4]<2;tempidx[4]++){
+							for(tempidx[5] = 0;tempidx[5]<2;tempidx[5]++){
+								for(tempidx[6] = 0;tempidx[6]<2;tempidx[6]++){
+									for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
+										for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
+											//位置ベクトル
+											double[] temppoint = new double[2];
+											//構成参照点数。最終的にこれでtemppointを割る
+											int tempnum = 0;
+											//その重心は存在するか
+											boolean isexist = true;
+											for(int a=0;a<tempidx.length;a++){
+												//「状態番号aのオブジェクトを使う」重心であり、かつ状態番号aのオブジェクトが存在するなら
+												if(tempidx[a] == 1 && this.objectlist[a] == 1){
+													for(int b=0;b<this.refs.length;b++){
+														if(this.refs[b].status == a){
+															//状態番号aのオブジェクトを検索し、その位置ベクトルを加える
+															temppoint[0] += this.refs[b].reference[0];
+															temppoint[1] += this.refs[b].reference[1];
+															break;
+														}
+													}
+													tempnum++;
+												}
+												//「状態番号aのオブジェクトを使う」重心であるにもかかわらず、状態番号aのオブジェクトが存在しないなら
+												else if(tempidx[a] == 1 && this.objectlist[a] != 1){
+													isexist = false;
+													break;
+												}
+											}
+											//重心が存在しない（isexist==false）または構成参照点が一つ以下の時、参照点は作成しない
+											if(isexist == true && tempnum >= 2){
+												temppoint[0] /= tempnum;
+												temppoint[1] /= tempnum;
+												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint(9,temppoint[0],temppoint[1]);
+											}
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -154,7 +220,7 @@ public class PR_1_1 extends MyPR{
 		//ベクトルの近さ閾値。learnで使う
 		static final double E = 10;
 		//フィールド
-		//参照点の状態。0は画面中央
+		//参照点の状態。0は画面中央。9は重心位置
 		int status;
 		//参照点の位置ベクトル[0]=行 [1]=列
 		double[] reference;
