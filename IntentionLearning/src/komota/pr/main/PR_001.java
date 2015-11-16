@@ -35,7 +35,8 @@ public class PR_001 extends MyPR{
 	int[] objectlist;
 
 	//コンストラクタ
-	public PR_001(int numref){
+	public PR_001(int numref,String filename){
+		super(filename);
 		this.numref = numref;
 		this.refs = new ReferencePoint[numref];
 
@@ -117,6 +118,9 @@ public class PR_001 extends MyPR{
 				}
 			}
 		}
+	}
+	public PR_001(int numref){
+		this(numref,"test4.txt");
 	}
 
 	//ログデータに基づいて学習

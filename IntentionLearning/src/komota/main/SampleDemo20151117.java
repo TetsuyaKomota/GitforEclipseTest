@@ -69,4 +69,17 @@ public class SampleDemo20151117 extends SampleTask_001s_TEST{
 		buffer.show();
 	}
 
+	@Override
+	public void functionPlugin4(){
+		this.setOutputFile("test5.txt");
+		try {
+			this.curry = ImageIO.read(new File("media/image/forDemo4.jpg"));
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		initialize();
+
+	}
+
 }

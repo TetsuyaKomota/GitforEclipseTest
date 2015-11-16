@@ -111,7 +111,7 @@ public class SampleTask_001s_TEST extends MySerialFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-		this.tpr1 = new PR_001(9);
+		this.tpr1 = new PR_001(9,this.file_name);
 //		this.tpr.testConvert(this);
 	}
 	@Override

@@ -45,7 +45,8 @@ public class MyPR {
 
 
 	//コンストラクタ
-	public MyPR(){
+	public MyPR(String filename){
+		this.file_name = filename;
 		this.file = new File("log/"+file_name);
 		try {
 			this.br = new BufferedReader(new FileReader(file));
@@ -72,6 +73,9 @@ public class MyPR {
 			}
 		}
 		this.logdata[step-1] = null;
+	}
+	public MyPR(){
+		this("test4.txt");
 	}
 
 	//クローズ処理
