@@ -99,7 +99,9 @@ public class MySerialFrame extends MyFrame{
 							temp[1] = -1;
 							for(int a=0;a<MySerialFrame.SIZE_OBJECT;a++){
 								for(int b=0;b<MySerialFrame.SIZE_OBJECT;b++){
-									if(MySerialFrame.this.panels[i-(MySerialFrame.SIZE_OBJECT/2)+a][j-(MySerialFrame.SIZE_OBJECT/2)+b].status>0){
+									if(i-(MySerialFrame.SIZE_OBJECT/2)+a<0||j-(MySerialFrame.SIZE_OBJECT/2)+b<0||i-(MySerialFrame.SIZE_OBJECT/2)+a>MyFrame.NUMBEROFPANEL-1 || j-(MySerialFrame.SIZE_OBJECT/2)+b>MyFrame.NUMBEROFPANEL-1){
+									}
+									else if(MySerialFrame.this.panels[i-(MySerialFrame.SIZE_OBJECT/2)+a][j-(MySerialFrame.SIZE_OBJECT/2)+b].status>0){
 										temp[0] = i-(MySerialFrame.SIZE_OBJECT/2)+a;
 										temp[1] = j-(MySerialFrame.SIZE_OBJECT/2)+b;
 									}
