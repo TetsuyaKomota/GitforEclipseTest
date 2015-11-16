@@ -83,6 +83,7 @@ public class MySerialFrame extends MyFrame{
 		this.buffer.show();
 	}
 
+	/* **************************************************************************************************************************** */
 	//マウスリスナー。オブジェクトがパネルごとでなくなるため、クリックの判定も個別に作成しなければならない
 	class MySerialMouseListener implements MouseListener{
 
