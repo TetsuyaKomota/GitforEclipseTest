@@ -71,6 +71,7 @@ public class MyPR {
 				step++;
 			}
 		}
+		this.logdata[step-1] = null;
 	}
 
 	//クローズ処理
@@ -109,6 +110,10 @@ public class MyPR {
 		StepLog(int step , String line){
 			this.step = step;
 			String[] tempstrings = line.split(",");
+			if(tempstrings.length < MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL){
+				//System.out.println(step+"行目がおかしいよ");
+				return;
+			}
 			if(tempstrings[0].equals("start ")){
 				this.type = START;
 			}
