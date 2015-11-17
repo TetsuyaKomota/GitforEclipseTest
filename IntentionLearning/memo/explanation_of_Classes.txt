@@ -1,0 +1,51 @@
+**マーク付きは廃版。もう使わない
+→マークは継承関係。
+
+[komota.coordinate]
+	MyCoordinate_TEST
+		座標系クラス。変換と逆変換ができるだけ
+[komota.main]
+	** MainFrame
+		大元のフレームクラスだったもの。現在はMyFrameを使用してるためもう使わない
+	MyFrame
+		大元のフレームクラス。これを継承すると離散空間のシミュレータになる。NUMBEROFPANEL定数はよくいじる
+	** MyFramewithObject
+		擬似連続空間シミュレータ試作版。余計な構築にしすぎたため廃版
+	MyPanel
+		MyFrame上に配置される各パネルのクラス。今思えば別にMyFrameの内部クラスでもよかったしその方が定数とかバラバラにならなくてよかったかも
+	MyPR
+		パターン認識クラスの親クラス。このクラスではログデータを読み取って扱いやすいStepLog内部クラスに変換するだけ
+	MySerialFrame (→MyFrame)
+		擬似連続空間シミュレータ。オブジェクトがクリックしやすくなった。これを継承すると擬似連続空間のシミュレータになる。NUMBEROFPANELはMyFrameのものを使用してるため注意
+	SampleDemo2015**** (→MyFrame or MySerialFrame)
+		主に先生に見せるもの。画像とか使って見栄えよくしてある
+	SampleQuestionnaire* (→MyFrame or MySerialFrame)
+		紙芝居風のアンケートフォーム。めちゃくちゃ出来はいいが使い道がなくなってしまったため、今は使わない。いつか(遊びで)使いたい
+	SampleTask_*** (→MyFrame)
+		ある一定の成果を上げたもの。sなしは離散空間(MyFrame)で実装したもの
+		000 :研究目標１の最初期のもの。単体オブジェクトと画面中央のみを参照点とした離散空間シミュレータで、それなりに動いている
+		001 :研究目標１の粗案をそのまま実装したもの。なんかよくできちゃってる
+	SampleTask_***s (→MySerialFrame)
+		ある一定の成果を上げたもの。sありは擬似連続空間(MySerialFrame)で実装したもの
+		001s :001をそのまま擬似連続空間に適用したもの。ファジーさを取り入れてよりそれっぽくなった
+	SampleTask*_*(s) (→MyFrame or MySerialFrame)
+		製作中のもの。一文字目の数字は完成時のクラスに割り振られる数字で、ハイフン後の数字はバージョン
+	** SampleTask* (→MainFrame)
+		MainFrameの動作確認も含めた最初期のサンプルクラス。もう不要。
+[komota.pr]
+	** TestPatternRecognition
+		MainFrameで使用されていたパターン認識。後生のMyPRはkomota.mainにおかれているため正直このパッケージごといらない
+[komota.pr.main]
+	PR_*** (→MyPR)
+		MyPRで読み込まれたログデータをもとに実際に認識を行うクラス。番号はSampleTask_***と対応している
+		000 :単体オブジェクトと画面中央のみを参照点とする
+		001 :重心位置も参照点とする。オブジェクトは最大9個まで
+[komota.pr.test]
+	PR_*_* (→MyPR)
+		試作版。これもSampleTask_*_*と対応している。実際この辺のパッケージ分けは混乱のもととなるだけな気がする
+[komota.supers]
+		もともとはMyFrameやMyPRなど、おおもとの親クラスをまとめて入れておくところにしようと思ったが、スコープの関係ですこぶる面倒だったため断念。ただのからパッケージ。消せよ
+[komota.test]
+		自由にテストに使っていい所。ここのものを外部から参照してはいけない。（ゴミ箱と同じところだから）
+	** JTextFieldTest
+		JConponentを用いてテキスト入力フォームを表示するテスト。初めてだったのでただ動きを確認するためだけのもの
