@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class SampleDemo20151117 extends SampleTask_001s_TEST{
+public class SampleDemo20151117 extends SampleTask_001s{
 
 	//フィールド
 	//カレー
