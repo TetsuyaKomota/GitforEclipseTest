@@ -17,6 +17,8 @@ public class SampleDemo20151117 extends SampleTask_001s_TEST{
 
 	public static void main(String[] args){
 		SampleDemo20151117 frame = new SampleDemo20151117();
+		frame.tasktitle = "カレー運んで";
+
 		try {
 			frame.curry = ImageIO.read(new File("media/image/forDemo2.jpg"));
 		} catch (IOException e) {
@@ -72,6 +74,7 @@ public class SampleDemo20151117 extends SampleTask_001s_TEST{
 	@Override
 	public void functionPlugin4(){
 		this.setOutputFile("test5.txt");
+		this.tasktitle = "サラダ運んで";
 		try {
 			this.curry = ImageIO.read(new File("media/image/forDemo4.jpg"));
 		} catch (IOException e) {
