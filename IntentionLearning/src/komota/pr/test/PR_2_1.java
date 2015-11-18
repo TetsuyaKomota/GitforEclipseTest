@@ -1,5 +1,7 @@
 package komota.pr.test;
 
+import komota.coordinate.Coordinate2_1;
+import komota.coordinate.MyCoordinate_TEST;
 import komota.main.MyFrame;
 import komota.main.MyPR;
 
@@ -26,6 +28,9 @@ public class PR_2_1 extends MyPR{
 	ReferencePoint[][][][][][][][][] cogs;
 	//空間内に、土のオブジェクトが存在するかのリスト。実装を単純にするためだけのものであり、一般的には不要
 	int[] objectlist;
+
+	//座標変換クラス
+	MyCoordinate_TEST coordinate = null;
 
 	//コンストラクタ
 	public PR_2_1(int numref,String filename){
@@ -111,6 +116,8 @@ public class PR_2_1 extends MyPR{
 				}
 			}
 		}
+		//座標系を設定する
+		this.coordinate = new Coordinate2_1();
 	}
 	public PR_2_1(int numref){
 		this(numref,"test4.txt");
