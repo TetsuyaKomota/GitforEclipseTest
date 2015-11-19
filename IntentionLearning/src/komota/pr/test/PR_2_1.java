@@ -264,6 +264,7 @@ public class PR_2_1 extends MyPR{
 		double templikelihood = -10000000;
 		int tempref = -1;
 		ReferencePoint temprefpoint = null;
+		double[] startpoint = new double[2];
 
 		//まず、参照点の位置を現在のものに更新する
 		for(int i=0;i<height;i++){
@@ -276,6 +277,10 @@ public class PR_2_1 extends MyPR{
 							this.refs[k].reference[1] = j;
 						}
 					}
+				}
+				else if(frame.getPanels()[i][j].getStatus() == 1){
+					startpoint[0] = i;
+					startpoint[1] = j;
 				}
 			}
 		}
@@ -385,8 +390,16 @@ public class PR_2_1 extends MyPR{
 		System.out.println("[TestPR1]reproduction:ref.goalpoint:"+temprefpoint.goalpoint[0]+" , "+temprefpoint.goalpoint[1]);
 		//参照点の絶対ベクトル＋参照点からの相対ベクトル＝トラジェクタの推定移動先
 		double[] tempoutput = new double[2];
-		tempoutput[0] = temprefpoint.reference[0] + temprefpoint.goalpoint[0];
-		tempoutput[1] = temprefpoint.reference[1] + temprefpoint.goalpoint[1];
+		double[][] inputs = new double[3][2];
+		inputs[0][0] = temprefpoint.goalpoint[0];
+		inputs[0][1] = temprefpoint.goalpoint[1];
+		inputs[1][0] = temprefpoint.reference[0];
+		inputs[1][1] = temprefpoint.reference[1];
+		inputs[2][0] = startpoint[0];
+		inputs[2][1] = startpoint[1];
+		tempoutput = PR_2_1.this.coordinate.inverseConvert(inputs);
+		tempoutput[0] += temprefpoint.reference[0];
+		tempoutput[1] += temprefpoint.reference[1];
 		//doubleになっているので、パネルに変換する(まあただの四捨五入)
 		System.out.println("[TestPR1]reproduction:tempoutput:"+tempoutput[0]+" , "+tempoutput[1]);
 		int[] output = new int[2];
@@ -403,7 +416,6 @@ public class PR_2_1 extends MyPR{
 			}
 			this.refs[i].show();
 		}
-		System.out.println("超えてるよ");
 		for(int i0 = 0;i0<2;i0++){
 			for(int i1 = 0;i1<2;i1++){
 				for(int i2 = 0;i2<2;i2++){
