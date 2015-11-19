@@ -240,6 +240,21 @@ public class MyFrame extends JFrame{
 	public void functionPlugin4(){
 		System.out.println("No Function in This Key.");
 	}
+	public void functionPlugin5(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPlugin6(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPlugin7(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPlugin8(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPlugin9(){
+		System.out.println("No Function in This Key.");
+	}
 
 	//タイマータスク
 	class RenderTask extends TimerTask{
@@ -424,6 +439,22 @@ public class MyFrame extends JFrame{
 			else if(e.getKeyCode() == KeyEvent.VK_4){
 				MyFrame.this.functionPlugin4();
 			}
+			else if(e.getKeyCode() == KeyEvent.VK_5){
+				MyFrame.this.functionPlugin5();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_6){
+				MyFrame.this.functionPlugin6();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_7){
+				MyFrame.this.functionPlugin7();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_8){
+				MyFrame.this.functionPlugin8();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_9){
+				MyFrame.this.functionPlugin9();
+			}
+
 		}
 
 		@Override
