@@ -1,6 +1,6 @@
 package komota.main;
 
-import komota.pr.test.PR_2_1;
+import komota.pr.test.PR_2_1_LT;
 
 public class SampleTask_2_1s extends MySerialFrame{
 
@@ -18,7 +18,7 @@ public class SampleTask_2_1s extends MySerialFrame{
 
 	//解析クラス
 //	TestPatternRecognition tpr;
-	PR_2_1 tpr1;
+	PR_2_1_LT tpr1;
 
 	//コンストラクタ
 	public SampleTask_2_1s(){
@@ -109,7 +109,7 @@ public class SampleTask_2_1s extends MySerialFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-		this.tpr1 = new PR_2_1(9,this.file_name);
+		this.tpr1 = new PR_2_1_LT(9,this.file_name);
 //		this.tpr.testConvert(this);
 	}
 	@Override

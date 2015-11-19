@@ -5,7 +5,7 @@ import komota.coordinate.MyCoordinate_TEST;
 import komota.main.MyFrame;
 import komota.main.MyPR;
 
-public class PR_2_1 extends MyPR{
+public class PR_2_1_LT extends MyPR{
 
 	//座標変換を行うPRのテスト。
 	//2_1では、とりあえずランドマーク＿トラジェクタの実装を試みる
@@ -34,7 +34,7 @@ public class PR_2_1 extends MyPR{
 	MyCoordinate_TEST coordinate = null;
 
 	//コンストラクタ
-	public PR_2_1(int numref,String filename){
+	public PR_2_1_LT(int numref,String filename){
 		super(filename);
 		this.numref = numref;
 		this.refs = new ReferencePoint[numref];
@@ -120,7 +120,7 @@ public class PR_2_1 extends MyPR{
 		//座標系を設定する
 		this.coordinate = new Coordinate2_1_LT();
 	}
-	public PR_2_1(int numref){
+	public PR_2_1_LT(int numref){
 		this(numref,"test4.txt");
 	}
 
@@ -397,7 +397,7 @@ public class PR_2_1 extends MyPR{
 		inputs[1][1] = temprefpoint.reference[1];
 		inputs[2][0] = startpoint[0];
 		inputs[2][1] = startpoint[1];
-		tempoutput = PR_2_1.this.coordinate.inverseConvert(inputs);
+		tempoutput = PR_2_1_LT.this.coordinate.inverseConvert(inputs);
 		tempoutput[0] += temprefpoint.reference[0];
 		tempoutput[1] += temprefpoint.reference[1];
 		//doubleになっているので、パネルに変換する(まあただの四捨五入)
@@ -488,7 +488,7 @@ public class PR_2_1 extends MyPR{
 			inputs[1][0] = this.reference[0];
 			inputs[1][1] = this.reference[1];
 			inputs[2] = startpoint;
-			tempgoal = PR_2_1.this.coordinate.convert(inputs);
+			tempgoal = PR_2_1_LT.this.coordinate.convert(inputs);
 			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+"tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
 			//学習回数を学習率としてgoalpointベクトルを更新する
 			this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
