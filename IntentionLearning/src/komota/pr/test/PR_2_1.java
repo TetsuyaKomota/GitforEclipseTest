@@ -1,6 +1,6 @@
 package komota.pr.test;
 
-import komota.coordinate.Coordinate2_1;
+import komota.coordinate.Coordinate2_1_LT;
 import komota.coordinate.MyCoordinate_TEST;
 import komota.main.MyFrame;
 import komota.main.MyPR;
@@ -118,7 +118,7 @@ public class PR_2_1 extends MyPR{
 			}
 		}
 		//座標系を設定する
-		this.coordinate = new Coordinate2_1();
+		this.coordinate = new Coordinate2_1_LT();
 	}
 	public PR_2_1(int numref){
 		this(numref,"test4.txt");
