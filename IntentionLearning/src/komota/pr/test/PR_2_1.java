@@ -8,6 +8,7 @@ import komota.main.MyPR;
 public class PR_2_1 extends MyPR{
 
 	//座標変換を行うPRのテスト。
+	//2_1では、とりあえずランドマーク＿トラジェクタの実装を試みる
 
 
 
@@ -125,11 +126,13 @@ public class PR_2_1 extends MyPR{
 
 	//ログデータに基づいて学習
 	public void learnfromLog(){
+		//learnメソッドには移動前のトラジェクタの位置を渡すので、その変数
+		double[] startpoint = new double[2];
 		for(int t=0;t<this.logdata.length;t++){
-			//"start "ログの場合、参照点の座標を更新する
 			if(logdata[t] == null){
 				break;
 			}
+			//"start "ログの場合、参照点の座標を更新する
 			if(logdata[t].getType() == START){
 				for(int i=0;i<height;i++){
 					for(int j=0;j<width;j++){
@@ -141,6 +144,11 @@ public class PR_2_1 extends MyPR{
 									this.refs[k].reference[1] = j;
 								}
 							}
+						}
+						//トラジェクタの開始位置を更新する
+						else if(this.logdata[t].getStepStatus(i, j) == 1){
+							startpoint[0] = i;
+							startpoint[1] = j;
 						}
 					}
 				}
@@ -212,7 +220,7 @@ public class PR_2_1 extends MyPR{
 				//各参照点クラスのlearnメソッドで学習する
 				for(int i=0;i<this.refs.length;i++){
 					if(this.refs[i] != null){
-						this.refs[i].learn(trajector);
+						this.refs[i].learn(trajector,startpoint);
 					}
 				}
 				//重心位置のlearn
@@ -228,7 +236,7 @@ public class PR_2_1 extends MyPR{
 											for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
 												for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
 													if(this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] != null){
-														this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].learn(trajector);
+														this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].learn(trajector,startpoint);
 													}
 												}
 											}
@@ -457,11 +465,18 @@ public class PR_2_1 extends MyPR{
 		}
 
 		//トラジェクタの位置ベクトル(絶対ベクトル)が引数として与えられたとき、goalpointとlikelihoodの更新を行う
-		void learn(double[] trajector){
+		void learn(double[] trajector,double[] startpoint){
 			//相対ベクトルに変換する
 			double[] tempgoal = new double[2];
 			tempgoal[0] = trajector[0] - this.reference[0];
 			tempgoal[1] = trajector[1] - this.reference[1];
+			//座標系に合わせて座標変換する
+			double[][] inputs = new double[3][2];
+			inputs[0] = tempgoal;
+			inputs[1][0] = this.reference[0];
+			inputs[1][1] = this.reference[1];
+			inputs[2] = startpoint;
+			tempgoal = PR_2_1.this.coordinate.convert(inputs);
 			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+"tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
 			//学習回数を学習率としてgoalpointベクトルを更新する
 			this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
