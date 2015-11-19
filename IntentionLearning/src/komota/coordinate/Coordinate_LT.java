@@ -1,6 +1,6 @@
 package komota.coordinate;
 
-public class Coordinate2_1_LT extends MyCoordinate_TEST{
+public class Coordinate_LT extends MyCoordinate{
 
 	//引数はいずれも「goalpoint、reference、startpoint」の順で格納されている
 

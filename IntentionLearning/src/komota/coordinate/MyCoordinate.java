@@ -1,6 +1,6 @@
 package komota.coordinate;
 
-public class MyCoordinate_TEST {
+public class MyCoordinate {
 
 	//座標変換を行うクラス。PR一つ一つに異なるMyCoordinateを与えることによって、各PRごとに座標変換を割り当てることができる
 

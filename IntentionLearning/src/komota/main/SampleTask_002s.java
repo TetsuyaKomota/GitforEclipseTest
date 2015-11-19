@@ -1,11 +1,11 @@
 package komota.main;
 
-import komota.pr.test.PR_2_2_LT;
+import komota.pr.main.PR_002_LT;
 
-public class SampleTask_2_1s extends MySerialFrame{
+public class SampleTask_002s extends MySerialFrame{
 
 	public static void main(String[] args){
-		SampleTask_2_1s task = new SampleTask_2_1s();
+		SampleTask_002s task = new SampleTask_002s();
 	}
 
 	/* ************************************************************************************************************** */
@@ -18,10 +18,10 @@ public class SampleTask_2_1s extends MySerialFrame{
 
 	//解析クラス
 //	TestPatternRecognition tpr;
-	PR_2_2_LT tpr1;
+	PR_002_LT tpr1;
 
 	//コンストラクタ
-	public SampleTask_2_1s(){
+	public SampleTask_002s(){
 		super();
 //		this.tpr = new TestPatternRecognition();
 		this.tasktitle = "Move the RED to left of the BLUE.";
@@ -109,7 +109,7 @@ public class SampleTask_2_1s extends MySerialFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-		this.tpr1 = new PR_2_2_LT(9,this.file_name);
+		this.tpr1 = new PR_002_LT(9,this.file_name);
 //		this.tpr.testConvert(this);
 	}
 	@Override

@@ -1,6 +1,6 @@
 package komota.coordinate;
 
-public class Coordinate2_1_ID extends MyCoordinate_TEST{
+public class Coordinate_ID extends MyCoordinate{
 
 	//変換、逆変換ともにただの恒等写像
 	@Override
