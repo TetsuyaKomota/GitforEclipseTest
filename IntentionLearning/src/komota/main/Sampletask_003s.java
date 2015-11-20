@@ -28,7 +28,7 @@ public class Sampletask_003s extends MySerialFrame{
 	public Sampletask_003s(){
 		super();
 //		this.tpr = new TestPatternRecognition();
-		this.tasktitle = "Move the RED to left of the BLUE.";
+		this.tasktitle = "思うようにやってみ.";
 		setOutputFile("test4.txt");
 		initialize();
 	}
