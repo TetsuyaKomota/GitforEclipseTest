@@ -447,6 +447,26 @@ public class PR_002 extends MyPR{
 			}
 		}
 	}
+	//最大尤度を出力する
+	//複数のPRを使用する時にこれで比較する
+	public double getMaxLikelihood(){
+		if(this.refs[0] == null){
+			return -1000000;
+		}
+		else{
+			double output = this.refs[0].likelihood;
+			for(int i=1;i<this.refs.
+					length;i++){
+				if(this.refs[i] == null){
+					break;
+				}
+				else if(this.refs[i].likelihood > output){
+					output = this.refs[i].likelihood;
+				}
+			}
+			return output;
+		}
+	}
 
 	/* ************************************************************************************************************* */
 	//参照点ごとに学習された位置ベクトルと尤度を持つ内部クラス

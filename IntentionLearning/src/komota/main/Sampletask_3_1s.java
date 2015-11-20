@@ -112,6 +112,7 @@ public class Sampletask_3_1s extends MySerialFrame{
 	public void functionPlugin1(){
 		System.out.println("additional function.");
 		this.tpr1 = new PR_002_LT(9,this.file_name);
+		this.tpr2 = new PR_002_ID(9,this.file_name);
 //		this.tpr.testConvert(this);
 	}
 	@Override
@@ -119,6 +120,8 @@ public class Sampletask_3_1s extends MySerialFrame{
 		System.out.println("show.");
 //		this.tpr1.show();
 		this.tpr1.learnfromLog();
+		this.tpr2.learnfromLog();
+
 //		this.tpr1.showReference();
 	}
 	@Override
