@@ -211,8 +211,12 @@ public class PR_4_1 extends MyPR{
 													if(isexist == true && tempnum >= 2){
 														temppoint[0] /= tempnum;
 														temppoint[1] /= tempnum;
-														this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].reference[0] = temppoint[0];
-														this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].reference[1] = temppoint[1];
+														for(int a=0;a<tempidx.length;a++){
+															if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
+																this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].reference[0] = temppoint[0];
+																this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].reference[1] = temppoint[1];
+															}
+														}
 													}
 												}
 											}
@@ -253,8 +257,12 @@ public class PR_4_1 extends MyPR{
 										for(tempidx[6] = 0;tempidx[6]<2;tempidx[6]++){
 											for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
 												for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
-													if(this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] != null){
-														this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].learn(trajector,startpoint);
+													for(int a=0;a<tempidx.length;a++){
+														if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
+															startpoint[0] = this.refs[a].reference[0];
+															startpoint[1] = this.refs[a].reference[1];
+															this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].learn(trajector,startpoint);
+														}
 													}
 												}
 											}
