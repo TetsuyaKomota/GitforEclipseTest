@@ -363,6 +363,8 @@ public class PR_4_1 extends MyPR{
 			}
 		}
 		//尤度最大の参照点を検索する
+/*
+ * G_ランドマークでは単体オブジェクトを候補としない
 		for(int i=0;i<this.refs.length;i++){
 			if(this.refs[i] != null && this.refs[i].likelihood > templikelihood){
 				templikelihood = this.refs[i].likelihood;
@@ -370,6 +372,7 @@ public class PR_4_1 extends MyPR{
 				temprefpoint = refs[i];
 			}
 		}
+*/
 		//重心位置も検索
 		//for文用のインデックス
 		for(tempidx[0] = 0;tempidx[0]<2;tempidx[0]++){
@@ -381,11 +384,13 @@ public class PR_4_1 extends MyPR{
 								for(tempidx[6] = 0;tempidx[6]<2;tempidx[6]++){
 									for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
 										for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
-											if(this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] != null){
-												if(this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].likelihood > templikelihood){
-													templikelihood = this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].likelihood;
-													temprefpoint = this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]];
-													tempref = 10;
+											for(int a=0;a<tempidx.length;a++){
+												if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
+													if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood > templikelihood){
+														templikelihood = this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood;
+														temprefpoint = this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a];
+														tempref = 11;
+													}
 												}
 											}
 										}
