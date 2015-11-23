@@ -26,7 +26,12 @@ public class PR_4_1 extends MyPR{
 
 	//重心位置の参照点クラス
 	//左から、中心、トラジェクタ、ランドマーク（２～９）
+	//G_ランドマークでは重心の存在参照のみに使用し、学習はrefs_GLを使用する
 	ReferencePoint[][][][][][][][][] cogs;
+	//G_ランドマークで使用する参照点
+	//左から、中心、トラジェクタ、ランドマーク（２～９）、座標系に対応させるランドマーク  であり、最後のインデックスのみ０～８
+	ReferencePoint[][][][][][][][][][] refs_GL;
+
 	//空間内に、土のオブジェクトが存在するかのリスト。実装を単純にするためだけのものであり、一般的には不要
 	int[] objectlist;
 
@@ -41,6 +46,8 @@ public class PR_4_1 extends MyPR{
 
 		//オブジェクト数は既知（9種類）として、重心位置とリストの配列を作成する
 		this.cogs = new ReferencePoint[2][2][2][2][2][2][2][2][2];
+		//G_ランドマークで使用する参照点クラスを作成する
+		this.refs_GL = new ReferencePoint[2][2][2][2][2][2][2][2][2][9];
 		this.objectlist = new int[9];
 		for(int i=0;i<this.objectlist.length;i++){
 			this.objectlist[i] = 0;
@@ -107,6 +114,12 @@ public class PR_4_1 extends MyPR{
 												temppoint[0] /= tempnum;
 												temppoint[1] /= tempnum;
 												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint(10,temppoint[0],temppoint[1]);
+												//G_ランドマークの参照点を作成する
+												for(int a=0;a<tempidx.length;a++){
+													if(tempidx[a] == 1){
+														this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] = new ReferencePoint(11,temppoint[0],temppoint[1]);
+													}
+												}
 											}
 										}
 									}
@@ -475,7 +488,7 @@ public class PR_4_1 extends MyPR{
 		//ベクトルの近さ閾値。learnで使う
 		static final double E = 10;
 		//フィールド
-		//参照点の状態。0は画面中央。10は重心位置
+		//参照点の状態。0は画面中央。10は重心位置。11はG_ランドマーク
 		int status;
 		//参照点の位置ベクトル[0]=行 [1]=列
 		double[] reference;
