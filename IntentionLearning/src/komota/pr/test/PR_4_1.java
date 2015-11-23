@@ -7,7 +7,7 @@ import komota.main.MyPR;
 
 public class PR_4_1 extends MyPR{
 
-//定数
+	//定数
 
 	//フィールド
 	//参照点の個数
@@ -357,8 +357,7 @@ public class PR_4_1 extends MyPR{
 			}
 		}
 		//尤度最大の参照点を検索する
-/*
- * G_ランドマークでは単体オブジェクトを候補としない
+		//G_ランドマークでは単体オブジェクトを候補としない
 		for(int i=0;i<this.refs.length;i++){
 			if(this.refs[i] != null && this.refs[i].likelihood > templikelihood){
 				templikelihood = this.refs[i].likelihood;
@@ -366,7 +365,7 @@ public class PR_4_1 extends MyPR{
 				temprefpoint = refs[i];
 			}
 		}
-*/
+
 		//重心位置も検索
 		//for文用のインデックス
 		for(tempidx[0] = 0;tempidx[0]<2;tempidx[0]++){
@@ -399,7 +398,7 @@ public class PR_4_1 extends MyPR{
 		System.out.println("[TestPR1]reproduction:tempref:"+tempref);
 		//選択された参照点を現在の座標に更新する
 		//状態が0（画面中心が参照点）の場合は例外
-/*
+		/*
 		if(temprefpoint.status != 0){
 			for(int i=0;i<height;i++){
 				for(int j=0;j<width;j++){
@@ -410,7 +409,7 @@ public class PR_4_1 extends MyPR{
 				}
 			}
 		}
-*/
+		 */
 		System.out.println("[TestPR1]reproduction:ref.reference:"+temprefpoint.reference[0]+" , "+temprefpoint.reference[1]);
 		System.out.println("[TestPR1]reproduction:ref.goalpoint:"+temprefpoint.goalpoint[0]+" , "+temprefpoint.goalpoint[1]);
 		//参照点の絶対ベクトル＋参照点からの相対ベクトル＝トラジェクタの推定移動先
@@ -450,12 +449,14 @@ public class PR_4_1 extends MyPR{
 								for(int i6 = 0;i6<2;i6++){
 									for(int i7 = 0;i7<2;i7++){
 										for(int i8 = 0;i8<2;i8++){
-											System.out.print("Center of Gravity:"+i0+" "+i1+" "+i2+" "+i3+" "+i4+" "+i5+" "+i6+" "+i7+" "+i8+" ");
-											if(this.cogs[i0][i1][i2][i3][i4][i5][i6][i7][i8] == null){
-												System.out.println("status:"+10+"  reference:NULL  goalpoint:NULL  likelihood:NULL");
-											}
-											else{
-												this.cogs[i0][i1][i2][i3][i4][i5][i6][i7][i8].show();
+											for(int a=0;a<9;a++){
+												if(this.refs_GL[i0][i1][i2][i3][i4][i5][i6][i7][i8][a] == null){
+//													System.out.println("status:"+10+"  reference:NULL  goalpoint:NULL  likelihood:NULL");
+												}
+												else{
+													System.out.print("Center of Gravity:"+i0+" "+i1+" "+i2+" "+i3+" "+i4+" "+i5+" "+i6+" "+i7+" "+i8+" "+a+" ");
+													this.refs_GL[i0][i1][i2][i3][i4][i5][i6][i7][i8][a].show();
+												}
 											}
 										}
 									}
