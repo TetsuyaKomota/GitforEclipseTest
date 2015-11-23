@@ -7,13 +7,7 @@ import komota.main.MyPR;
 
 public class PR_4_1 extends MyPR{
 
-	//座標変換を行うPR。
-	/* ******************************************************************************************************** */
-	/* ******************************************************************************************************** */
-	/* ****このクラスは直接使わず、サブクラスであるPR_002_**クラスを使用すること*********************************************** */
-	/* ******************************************************************************************************** */
-	/* ******************************************************************************************************** */
-	//定数
+//定数
 
 	//フィールド
 	//参照点の個数
@@ -116,7 +110,7 @@ public class PR_4_1 extends MyPR{
 												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint(10,temppoint[0],temppoint[1]);
 												//G_ランドマークの参照点を作成する
 												for(int a=0;a<tempidx.length;a++){
-													if(tempidx[a] == 1){
+													if(a != 1 && tempidx[1] == 0 && tempidx[a] == 1){
 														this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] = new ReferencePoint(11,temppoint[0],temppoint[1]);
 													}
 												}
@@ -258,7 +252,7 @@ public class PR_4_1 extends MyPR{
 											for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
 												for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
 													for(int a=0;a<tempidx.length;a++){
-														if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
+														if(refs[a] != null && this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
 															startpoint[0] = this.refs[a].reference[0];
 															startpoint[1] = this.refs[a].reference[1];
 															this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].learn(trajector,startpoint);
