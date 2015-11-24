@@ -349,8 +349,14 @@ public class PR_4_1 extends MyPR{
 											if(isexist == true && tempnum >= 2){
 												temppoint[0] /= tempnum;
 												temppoint[1] /= tempnum;
-												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].reference[0] = temppoint[0];
-												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].reference[1] = temppoint[1];
+												//this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].reference[0] = temppoint[0];
+												//this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].reference[1] = temppoint[1];
+												for(int a=0;a<tempidx.length;a++){
+													if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
+														this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].reference[0] = temppoint[0];
+														this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].reference[1] = temppoint[1];
+													}
+												}
 											}
 										}
 									}
@@ -388,6 +394,12 @@ public class PR_4_1 extends MyPR{
 														templikelihood = this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood;
 														temprefpoint = this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a];
 														tempref = 11;
+														for(int k=0;k<refs.length;k++){
+															if(refs[k] != null && refs[k].status == a){
+																startpoint[0] = refs[k].reference[0];
+																startpoint[1] = refs[k].reference[1];
+															}
+														}
 													}
 												}
 											}
@@ -424,6 +436,7 @@ public class PR_4_1 extends MyPR{
 		inputs[0][1] = temprefpoint.goalpoint[1];
 		inputs[1][0] = temprefpoint.reference[0];
 		inputs[1][1] = temprefpoint.reference[1];
+		//G_ランドマークの場合、input[2]はその参照点ごとの参照ランドマークの座標が入る
 		inputs[2][0] = startpoint[0];
 		inputs[2][1] = startpoint[1];
 		tempoutput = PR_4_1.this.coordinate.inverseConvert(inputs);
