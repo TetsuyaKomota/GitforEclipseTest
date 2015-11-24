@@ -1,6 +1,6 @@
 package komota.pr.test;
 
-import komota.coordinate.Coordinate_4_1;
+import komota.coordinate.Coordinate_LT;
 import komota.coordinate.MyCoordinate;
 import komota.main.MyFrame;
 import komota.main.MyPR;
@@ -125,7 +125,7 @@ public class PR_4_1 extends MyPR{
 			}
 		}
 		//座標系を設定する
-		this.coordinate = new Coordinate_4_1();
+		this.coordinate = new Coordinate_LT();
 	}
 	public PR_4_1(int numref){
 		this(numref,"test4.txt");
@@ -253,8 +253,13 @@ public class PR_4_1 extends MyPR{
 												for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
 													for(int a=0;a<tempidx.length;a++){
 														if(refs[a] != null && this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
-															startpoint[0] = this.refs[a].reference[0];
-															startpoint[1] = this.refs[a].reference[1];
+															for(int k=0;k<refs.length;k++){
+																if(refs[k] != null && refs[k].status == a){
+																	startpoint[0] = this.refs[k].reference[0];
+																	startpoint[1] = this.refs[k].reference[1];
+																	break;
+																}
+															}
 															this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].learn(trajector,startpoint);
 														}
 													}
