@@ -459,6 +459,7 @@ public class PR_004_GL extends MyPR{
 				refs[i].goalpoint[0] = 0;
 				refs[i].goalpoint[1] = 0;
 				refs[i].likelihood = 1;
+				refs[i].numlearning = 0;
 			}
 		}
 		//重心を初期化
@@ -477,6 +478,7 @@ public class PR_004_GL extends MyPR{
 													this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[0] = 0;
 													this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[1] = 0;
 													this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood = 1;
+													this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].numlearning = 0;
 												}
 											}
 										}

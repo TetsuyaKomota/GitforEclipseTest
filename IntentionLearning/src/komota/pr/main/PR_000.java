@@ -138,6 +138,7 @@ public class PR_000 extends MyPR{
 				refs[i].goalpoint[0] = 0;
 				refs[i].goalpoint[1] = 0;
 				refs[i].likelihood = 1;
+				refs[i].numlearning = 0;
 			}
 		}
 	}

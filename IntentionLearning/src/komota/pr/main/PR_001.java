@@ -396,6 +396,7 @@ public class PR_001 extends MyPR{
 				refs[i].goalpoint[0] = 0;
 				refs[i].goalpoint[1] = 0;
 				refs[i].likelihood = 1;
+				refs[i].numlearning = 0;
 			}
 		}
 		//重心を初期化
@@ -413,6 +414,7 @@ public class PR_001 extends MyPR{
 												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].goalpoint[0] = 0;
 												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].goalpoint[1] = 0;
 												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].likelihood = 1;
+												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].numlearning = 0;
 											}
 										}
 									}
