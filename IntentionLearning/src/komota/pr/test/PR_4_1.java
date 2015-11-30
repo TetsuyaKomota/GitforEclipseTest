@@ -439,7 +439,7 @@ public class PR_4_1 extends MyPR{
 		//G_ランドマークの場合、input[2]はその参照点ごとの参照ランドマークの座標が入る
 		inputs[2][0] = startpoint[0];
 		inputs[2][1] = startpoint[1];
-		tempoutput = PR_4_1.this.coordinate.inverseConvert(inputs);
+		tempoutput = this.coordinate.inverseConvert(inputs);
 		tempoutput[0] += temprefpoint.reference[0];
 		tempoutput[1] += temprefpoint.reference[1];
 		//doubleになっているので、パネルに変換する(まあただの四捨五入)

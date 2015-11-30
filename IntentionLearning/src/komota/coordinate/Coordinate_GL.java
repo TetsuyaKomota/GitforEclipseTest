@@ -17,8 +17,8 @@ public class Coordinate_GL extends MyCoordinate{
 		//正弦、余弦を求める
 		double tempcos = tempvec[1]/tempsize;
 		double tempsin = tempvec[0]/tempsize;
-		output[0] = inputs[0][1]*tempcos + inputs[0][0]*tempsin;
-		output[1] = inputs[0][0]*tempcos - inputs[0][1]*tempsin;
+		output[1] = inputs[0][1]*tempcos + inputs[0][0]*tempsin;
+		output[0] = inputs[0][0]*tempcos - inputs[0][1]*tempsin;
 		return output;
 	}
 	@Override
@@ -34,8 +34,8 @@ public class Coordinate_GL extends MyCoordinate{
 		//正弦、余弦を求める
 		double tempcos = tempvec[1]/tempsize;
 		double tempsin = tempvec[0]/tempsize;
-		output[0] = inputs[0][1]*tempcos - inputs[0][0]*tempsin;
-		output[1] = inputs[0][0]*tempcos + inputs[0][1]*tempsin;
+		output[1] = inputs[0][1]*tempcos - inputs[0][0]*tempsin;
+		output[0] = inputs[0][0]*tempcos + inputs[0][1]*tempsin;
 		//GLはなんか左右反転いらないみたいなので-1倍はしない
 		//output[0]*=-1;
 		//output[1]*=-1;
