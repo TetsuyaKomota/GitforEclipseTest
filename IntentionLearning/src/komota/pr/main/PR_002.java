@@ -19,14 +19,14 @@ public class PR_002 extends MyPR{
 	//参照点の個数
 	int numref = 0;
 	//参照点クラス
-	ReferencePoint[] refs;
+	ReferencePoint_002[] refs;
 	//空間のサイズ
 	double height;
 	double width;
 
 	//重心位置の参照点クラス
 	//左から、中心、トラジェクタ、ランドマーク（２～９）
-	ReferencePoint[][][][][][][][][] cogs;
+	ReferencePoint_002[][][][][][][][][] cogs;
 	//空間内に、土のオブジェクトが存在するかのリスト。実装を単純にするためだけのものであり、一般的には不要
 	int[] objectlist;
 
@@ -37,10 +37,10 @@ public class PR_002 extends MyPR{
 	public PR_002(int numref,String filename){
 		super(filename);
 		this.numref = numref;
-		this.refs = new ReferencePoint[numref];
+		this.refs = new ReferencePoint_002[numref];
 
 		//オブジェクト数は既知（9種類）として、重心位置とリストの配列を作成する
-		this.cogs = new ReferencePoint[2][2][2][2][2][2][2][2][2];
+		this.cogs = new ReferencePoint_002[2][2][2][2][2][2][2][2][2];
 		this.objectlist = new int[9];
 		for(int i=0;i<this.objectlist.length;i++){
 			this.objectlist[i] = 0;
@@ -50,7 +50,7 @@ public class PR_002 extends MyPR{
 		this.height = this.logdata[0].getStepStatusField().length;
 		this.width = this.logdata[0].getStepStatusField()[0].length;
 
-		refs[0] = new ReferencePoint(0,height/2 ,width/2);
+		refs[0] = new ReferencePoint_002(0,height/2 ,width/2);
 
 		//logdataの0行目（logdata[0]というStepDataインスタンス）から状態0と1以外のオブジェクトがくるまで回す
 		int k=1;
@@ -58,7 +58,7 @@ public class PR_002 extends MyPR{
 			for(int j=0;j<width;j++){
 				//0と1以外がlogdata[0].getStepStatusField()[i][j]にあったらrefs[k].reference[0] = i,[i] = jとして、状態もセット
 				if(this.logdata[0].getStepStatus(i,j) > 1){
-					this.refs[k] = new ReferencePoint(this.logdata[0].getStepStatus(i,j),i,j);
+					this.refs[k] = new ReferencePoint_002(this.logdata[0].getStepStatus(i,j),i,j);
 					//存在した状態番号をobjectlistに保存
 					this.objectlist[this.logdata[0].getStepStatus(i, j)] = 1;
 					k++;
@@ -106,7 +106,7 @@ public class PR_002 extends MyPR{
 											if(isexist == true && tempnum >= 2){
 												temppoint[0] /= tempnum;
 												temppoint[1] /= tempnum;
-												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint(10,temppoint[0],temppoint[1]);
+												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint_002(10,temppoint[0],temppoint[1]);
 											}
 										}
 									}
@@ -270,7 +270,7 @@ public class PR_002 extends MyPR{
 	public void reproduction(MyFrame frame){
 		double templikelihood = -10000000;
 		int tempref = -1;
-		ReferencePoint temprefpoint = null;
+		ReferencePoint_002 temprefpoint = null;
 		double[] startpoint = new double[2];
 
 		//まず、参照点の位置を現在のものに更新する
@@ -511,7 +511,8 @@ public class PR_002 extends MyPR{
 
 	/* ************************************************************************************************************* */
 	//参照点ごとに学習された位置ベクトルと尤度を持つ内部クラス
-	class ReferencePoint{
+
+	class ReferencePoint_002{
 		//定数
 		//ベクトルの近さ閾値。learnで使う
 		static final double E = 10;
@@ -528,7 +529,7 @@ public class PR_002 extends MyPR{
 		int numlearning;
 
 		//コンストラクタ
-		ReferencePoint(int status, double referenceg,double referencer){
+		ReferencePoint_002(int status, double referenceg,double referencer){
 			this.status = status;
 			this.reference = new double[2];
 			this.reference[0] = referenceg;
@@ -555,11 +556,11 @@ public class PR_002 extends MyPR{
 			inputs[1][1] = this.reference[1];
 			inputs[2] = startpoint;
 			tempgoal = PR_002.this.coordinate.convert(inputs);
-			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+"tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
+			System.out.println("[TestPR1.ReferencePoint_002]learn:status:"+this.status+"tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
 			//学習回数を学習率としてgoalpointベクトルを更新する
 			this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
 			this.goalpoint[1] = this.goalpoint[1] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[1] * ((double)1/(this.numlearning + 1));
-			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
+			System.out.println("[TestPR1.ReferencePoint_002]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
 			//学習回数をインクリメント
 			this.numlearning++;
 			//近さを求める
@@ -568,7 +569,7 @@ public class PR_002 extends MyPR{
 			tempcloseness[1] = tempgoal[1] - this.goalpoint[1];
 			double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
 			//likelihood += （近さ値-近さ閾値）
-			System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
+			System.out.println("[TestPR1.ReferencePoint_002]learn:closeness:"+closeness);
 			likelihood += (E - closeness);
 		}
 
@@ -577,5 +578,6 @@ public class PR_002 extends MyPR{
 			System.out.println("status:"+status+"  reference:"+this.reference[0]+" , "+this.reference[1] + "  goalpoint;"+this.goalpoint[0]+" , "+this.goalpoint[1] + "  likelihood:"+this.likelihood);
 		}
 	}
+
 	/* ************************************************************************************************************* */
 }

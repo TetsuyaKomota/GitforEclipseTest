@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import komota.coordinate.Coordinate_ID;
+import komota.coordinate.MyCoordinate;
+
 
 
 public class MyPR {
@@ -33,7 +36,8 @@ public class MyPR {
 	//種類が  changeの場合、変化前後のパネルの前を１、後を２とする
 	public StepLog[] logdata = null;
 
-
+	//座標変換クラス
+	public MyCoordinate coordinate = new Coordinate_ID();;
 
 	/**
 	 * @param args

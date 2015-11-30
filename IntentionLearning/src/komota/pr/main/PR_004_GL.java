@@ -30,7 +30,7 @@ public class PR_004_GL extends MyPR{
 	int[] objectlist;
 
 	//座標変換クラス
-	MyCoordinate coordinate = null;
+//	MyCoordinate coordinate = null;
 
 
 	//コンストラクタ
@@ -52,7 +52,7 @@ public class PR_004_GL extends MyPR{
 		this.height = this.logdata[0].getStepStatusField().length;
 		this.width = this.logdata[0].getStepStatusField()[0].length;
 
-		refs[0] = new ReferencePoint(0,height/2 ,width/2);
+		refs[0] = new ReferencePoint(this,0,height/2 ,width/2);
 
 		//logdataの0行目（logdata[0]というStepDataインスタンス）から状態0と1以外のオブジェクトがくるまで回す
 		int k=1;
@@ -60,7 +60,7 @@ public class PR_004_GL extends MyPR{
 			for(int j=0;j<width;j++){
 				//0と1以外がlogdata[0].getStepStatusField()[i][j]にあったらrefs[k].reference[0] = i,[i] = jとして、状態もセット
 				if(this.logdata[0].getStepStatus(i,j) > 1){
-					this.refs[k] = new ReferencePoint(this.logdata[0].getStepStatus(i,j),i,j);
+					this.refs[k] = new ReferencePoint(this,this.logdata[0].getStepStatus(i,j),i,j);
 					//存在した状態番号をobjectlistに保存
 					this.objectlist[this.logdata[0].getStepStatus(i, j)] = 1;
 					k++;
@@ -108,11 +108,11 @@ public class PR_004_GL extends MyPR{
 											if(isexist == true && tempnum >= 2){
 												temppoint[0] /= tempnum;
 												temppoint[1] /= tempnum;
-												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint(10,temppoint[0],temppoint[1]);
+												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint(this,10,temppoint[0],temppoint[1]);
 												//G_ランドマークの参照点を作成する
 												for(int a=0;a<tempidx.length;a++){
 													if(a != 1 && tempidx[1] == 0 && tempidx[a] == 1){
-														this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] = new ReferencePoint(11,temppoint[0],temppoint[1]);
+														this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] = new ReferencePoint(this,11,temppoint[0],temppoint[1]);
 													}
 												}
 											}
@@ -553,7 +553,7 @@ public class PR_004_GL extends MyPR{
 
 	/* ************************************************************************************************************* */
 	//参照点ごとに学習された位置ベクトルと尤度を持つ内部クラス
-
+/*
 	class ReferencePoint{
 		//定数
 		//ベクトルの近さ閾値。learnで使う
@@ -620,6 +620,6 @@ public class PR_004_GL extends MyPR{
 			System.out.println("status:"+status+"  reference:"+this.reference[0]+" , "+this.reference[1] + "  goalpoint;"+this.goalpoint[0]+" , "+this.goalpoint[1] + "  likelihood:"+this.likelihood);
 		}
 	}
-
+*/
 	/* ************************************************************************************************************* */
 }
