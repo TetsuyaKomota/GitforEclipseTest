@@ -136,38 +136,39 @@ public class MyPR {
 				//直前の"start"データが来るまで戻る
 				T = t;
 				while(this.logdata[T].getType() != START){
+					System.out.println("T:"+T+" logdata["+T+"].getType:"+logdata[T].getType());
 					T--;
 				}
-			}
-			//logdata[t]のタイプを一時的にstartに変換し、学習が行われないようにする
-			logdata[t].setType(START);
-			//学習結果を一度消去
-			initialize();
-			//学習を行う
-			learnfromLog();
-			//logdata[t]のタイプをgoalに戻す
-			logdata[t].setType(GOAL);
-			//盤面をテストケースに合わせる
-			arrangeField(frame,logdata[T]);
-			//再現させる
-			reproduction(frame);
-			//再現結果と正解の差を求める
-			//logdata[t]のトラジェクタの位置を得る
-			double[] truepoint = new double[2];
-			for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
-				for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
-					if(logdata[t].statuses[i][j] == 1){
-						truepoint[0] = i;
-						truepoint[1] = j;
-						break;
+				//logdata[t]のタイプを一時的にstartに変換し、学習が行われないようにする
+				logdata[t].setType(START);
+				//学習結果を一度消去
+				initialize();
+				//学習を行う
+				learnfromLog();
+				//logdata[t]のタイプをgoalに戻す
+				logdata[t].setType(GOAL);
+				//盤面をテストケースに合わせる
+				arrangeField(frame,logdata[T]);
+				//再現させる
+				reproduction(frame);
+				//再現結果と正解の差を求める
+				//logdata[t]のトラジェクタの位置を得る
+				double[] truepoint = new double[2];
+				for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+					for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+						if(logdata[t].statuses[i][j] == 1){
+							truepoint[0] = i;
+							truepoint[1] = j;
+							break;
+						}
 					}
 				}
+				//再現したsecondselectedとのずれを求める
+				double diserror = Math.sqrt((frame.secondselected[0]-truepoint[0])*(frame.secondselected[0]-truepoint[0]) + (frame.secondselected[1]-truepoint[1])*(frame.secondselected[1]-truepoint[1]));
+				diserror = 1/(1+diserror);
+				//outputの更新。outputはdiserrorの平均値にする
+				output = (count/(count+1))*output + (1/(count+1))*diserror;
 			}
-			//再現したsecondselectedとのずれを求める
-			double diserror = Math.sqrt((frame.secondselected[0]-truepoint[0])*(frame.secondselected[0]-truepoint[0]) + (frame.secondselected[1]-truepoint[1])*(frame.secondselected[1]-truepoint[1]));
-			diserror = 1/(1+diserror);
-			//outputの更新。outputはdiserrorの平均値にする
-			output = (count/(count+1))*output + (1/(count+1))*diserror;
 		}
 
 		return output;
@@ -242,6 +243,7 @@ public class MyPR {
 				typename = "status,";
 			}
 			System.out.print(typename);
+
 			for(int i=0;i<MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL;i++){
 				System.out.print(statuses[i/MyFrame.NUMBEROFPANEL][i%MyFrame.NUMBEROFPANEL]+ " ");
 			}

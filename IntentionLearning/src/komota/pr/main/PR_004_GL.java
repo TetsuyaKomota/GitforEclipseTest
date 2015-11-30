@@ -455,9 +455,11 @@ public class PR_004_GL extends MyPR{
 	@Override
 	public void initialize(){
 		for(int i=0;i<this.refs.length;i++){
-			refs[i].goalpoint[0] = 0;
-			refs[i].goalpoint[1] = 0;
-			refs[i].likelihood = 1;
+			if(refs[i] != null){
+				refs[i].goalpoint[0] = 0;
+				refs[i].goalpoint[1] = 0;
+				refs[i].likelihood = 1;
+			}
 		}
 		//重心を初期化
 		int[] tempidx = new int[9];
@@ -471,11 +473,11 @@ public class PR_004_GL extends MyPR{
 									for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
 										for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
 											for(int a=0;a<tempidx.length;a++){
-											if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
-												this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[0] = 0;
-												this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[1] = 0;
-												this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood = 1;
-											}
+												if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
+													this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[0] = 0;
+													this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[1] = 0;
+													this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood = 1;
+												}
 											}
 										}
 									}

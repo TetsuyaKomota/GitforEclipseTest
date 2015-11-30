@@ -418,9 +418,11 @@ public class PR_002 extends MyPR{
 	@Override
 	public void initialize(){
 		for(int i=0;i<this.refs.length;i++){
-			refs[i].goalpoint[0] = 0;
-			refs[i].goalpoint[1] = 0;
-			refs[i].likelihood = 1;
+			if(refs[i] != null){
+				refs[i].goalpoint[0] = 0;
+				refs[i].goalpoint[1] = 0;
+				refs[i].likelihood = 1;
+			}
 		}
 		//重心を初期化
 		int[] tempidx = new int[9];
