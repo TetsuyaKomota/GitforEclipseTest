@@ -153,7 +153,7 @@ public class MyPR {
 				reproduction(frame);
 				//再現結果と正解の差を求める
 				//logdata[t]のトラジェクタの位置を得る
-				double[] truepoint = new double[2];
+				int[] truepoint = new int[2];
 				for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
 					for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
 						if(logdata[t].statuses[i][j] == 1){
@@ -174,7 +174,6 @@ public class MyPR {
 
 		return output;
 	}
-
 	/* ************************************************************************************************** */
 	//解析用のログデータを表す内部クラス
 	protected class StepLog{
