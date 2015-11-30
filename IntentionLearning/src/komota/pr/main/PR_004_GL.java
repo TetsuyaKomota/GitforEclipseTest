@@ -32,6 +32,7 @@ public class PR_004_GL extends MyPR{
 	//座標変換クラス
 	MyCoordinate coordinate = null;
 
+
 	//コンストラクタ
 	public PR_004_GL(int numref,String filename){
 		super(filename);
@@ -552,6 +553,7 @@ public class PR_004_GL extends MyPR{
 
 	/* ************************************************************************************************************* */
 	//参照点ごとに学習された位置ベクトルと尤度を持つ内部クラス
+
 	class ReferencePoint{
 		//定数
 		//ベクトルの近さ閾値。learnで使う
@@ -618,5 +620,6 @@ public class PR_004_GL extends MyPR{
 			System.out.println("status:"+status+"  reference:"+this.reference[0]+" , "+this.reference[1] + "  goalpoint;"+this.goalpoint[0]+" , "+this.goalpoint[1] + "  likelihood:"+this.likelihood);
 		}
 	}
+
 	/* ************************************************************************************************************* */
 }

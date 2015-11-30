@@ -33,6 +33,8 @@ public class MyPR {
 	//種類が  changeの場合、変化前後のパネルの前を１、後を２とする
 	public StepLog[] logdata = null;
 
+
+
 	/**
 	 * @param args
 	 */
