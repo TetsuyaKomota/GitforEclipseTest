@@ -10,7 +10,7 @@ public class PR_002 extends MyPR{
 	//座標変換を行うPR。
 	/* ******************************************************************************************************** */
 	/* ******************************************************************************************************** */
-	/* ****このクラスは直接使わず、サブクラスであるPR_002_**クラスを使用すること*********************************************** */
+	/* ****このクラスは直接使わず、サブクラスであるPR_002_**クラスを使用すること******************************* */
 	/* ******************************************************************************************************** */
 	/* ******************************************************************************************************** */
 	//定数
@@ -266,6 +266,7 @@ public class PR_002 extends MyPR{
 	}
 
 	//学習結果に基づいてタスクを推定する
+	@Override
 	public void reproduction(MyFrame frame){
 		double templikelihood = -10000000;
 		int tempref = -1;
@@ -413,6 +414,41 @@ public class PR_002 extends MyPR{
 		output[1] = (int)(tempoutput[1] + 0.5);
 		frame.setSecondSelected(output);
 	}
+	//学習結果リセット。評価時に使用する
+	@Override
+	public void initialize(){
+		for(int i=0;i<this.refs.length;i++){
+			refs[i].goalpoint[0] = 0;
+			refs[i].goalpoint[1] = 0;
+			refs[i].likelihood = 1;
+		}
+		//重心を初期化
+		int[] tempidx = new int[9];
+		for(tempidx[0] = 0;tempidx[0]<2;tempidx[0]++){
+			for(tempidx[1] = 0;tempidx[1]<2;tempidx[1]++){
+				for(tempidx[2] = 0;tempidx[2]<2;tempidx[2]++){
+					for(tempidx[3] = 0;tempidx[3]<2;tempidx[3]++){
+						for(tempidx[4] = 0;tempidx[4]<2;tempidx[4]++){
+							for(tempidx[5] = 0;tempidx[5]<2;tempidx[5]++){
+								for(tempidx[6] = 0;tempidx[6]<2;tempidx[6]++){
+									for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
+										for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
+											if(this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] != null){
+												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].goalpoint[0] = 0;
+												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].goalpoint[1] = 0;
+												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]].likelihood = 1;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 
 	//表示
 	public void showReference(){

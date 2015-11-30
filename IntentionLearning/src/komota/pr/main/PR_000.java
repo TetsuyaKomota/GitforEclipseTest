@@ -93,6 +93,7 @@ public class PR_000 extends MyPR{
 	}
 
 	//学習結果に基づいてタスクを推定する
+	@Override
 	public void reproduction(MyFrame frame){
 		double templikelihood = -10000000;
 		int tempref = -1;
@@ -128,6 +129,15 @@ public class PR_000 extends MyPR{
 		output[0] = (int)(tempoutput[0] + 0.5);
 		output[1] = (int)(tempoutput[1] + 0.5);
 		frame.setSecondSelected(output);
+	}
+	//学習結果リセット。評価時に使用する
+	@Override
+	public void initialize(){
+		for(int i=0;i<this.refs.length;i++){
+			refs[i].goalpoint[0] = 0;
+			refs[i].goalpoint[1] = 0;
+			refs[i].likelihood = 1;
+		}
 	}
 
 	//表示
