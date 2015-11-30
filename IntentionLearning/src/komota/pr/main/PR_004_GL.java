@@ -137,6 +137,7 @@ public class PR_004_GL extends MyPR{
 	}
 
 	//ログデータに基づいて学習
+	@Override
 	public void learnfromLog(){
 		//learnメソッドには移動前のトラジェクタの位置を渡すので、その変数
 		double[] startpoint = new double[2];

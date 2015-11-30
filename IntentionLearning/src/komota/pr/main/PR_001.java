@@ -124,6 +124,7 @@ public class PR_001 extends MyPR{
 	}
 
 	//ログデータに基づいて学習
+	@Override
 	public void learnfromLog(){
 		for(int t=0;t<this.logdata.length;t++){
 			//"start "ログの場合、参照点の座標を更新する

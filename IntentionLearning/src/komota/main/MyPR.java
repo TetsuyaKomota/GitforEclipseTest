@@ -98,6 +98,15 @@ public class MyPR {
 			}
 		}
 	}
+	//学習機構。オーバーライドする
+	public void learnfromLog(){
+	}
+
+	//クロスバリデーションを行って学習結果の評価を行う
+	public double evaluate(MyFrame frame){
+		double output = 0;
+		return output;
+	}
 
 	/* ************************************************************************************************** */
 	//解析用のログデータを表す内部クラス
