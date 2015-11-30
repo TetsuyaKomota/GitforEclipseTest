@@ -136,7 +136,7 @@ public class MyPR {
 				//直前の"start"データが来るまで戻る
 				T = t;
 				while(this.logdata[T].getType() != START){
-					System.out.println("T:"+T+" logdata["+T+"].getType:"+logdata[T].getType());
+//					System.out.println("T:"+T+" logdata["+T+"].getType:"+logdata[T].getType());
 					T--;
 				}
 				//logdata[t]のタイプを一時的にstartに変換し、学習が行われないようにする
@@ -165,6 +165,7 @@ public class MyPR {
 				}
 				//再現したsecondselectedとのずれを求める
 				double diserror = Math.sqrt((frame.secondselected[0]-truepoint[0])*(frame.secondselected[0]-truepoint[0]) + (frame.secondselected[1]-truepoint[1])*(frame.secondselected[1]-truepoint[1]));
+				System.out.println("step:"+t+"  true:"+truepoint[0]+","+truepoint[1]+" select:"+frame.secondselected[0]+","+frame.secondselected[1]+" error:"+diserror);
 				diserror = 1/(1+diserror);
 				//outputの更新。outputはdiserrorの平均値にする
 				output = (count/(count+1))*output + (1/(count+1))*diserror;

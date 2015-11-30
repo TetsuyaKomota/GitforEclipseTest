@@ -6,7 +6,7 @@ public class Coordinate_LT extends MyCoordinate{
 
 	@Override
 	public double[] convert(double[][] inputs){
-		System.out.println("[Coordinate2_1]convert:done");
+//		System.out.println("[Coordinate2_1]convert:done");
 		double[] output = new double[2];
 		//参照点、動作開始点ベクトルV(=startpoint - reference)を作る
 		double[] tempvec = new double[2];
@@ -23,7 +23,7 @@ public class Coordinate_LT extends MyCoordinate{
 	}
 	@Override
 	public double[] inverseConvert(double[][] inputs){
-		System.out.println("[Coordinate2_1]inverseConvert:done");
+//		System.out.println("[Coordinate2_1]inverseConvert:done");
 		double[] output = new double[2];
 		//参照点、動作開始点ベクトルV(=startpoint - reference)を作る
 		double[] tempvec = new double[2];
