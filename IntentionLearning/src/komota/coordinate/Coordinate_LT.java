@@ -17,8 +17,8 @@ public class Coordinate_LT extends MyCoordinate{
 		//正弦、余弦を求める
 		double tempcos = tempvec[1]/tempsize;
 		double tempsin = tempvec[0]/tempsize;
-		output[0] = inputs[0][1]*tempcos + inputs[0][0]*tempsin;
-		output[1] = inputs[0][0]*tempcos - inputs[0][1]*tempsin;
+		output[1] = inputs[0][1]*tempcos + inputs[0][0]*tempsin;
+		output[0] = inputs[0][0]*tempcos - inputs[0][1]*tempsin;
 		return output;
 	}
 	@Override
@@ -34,10 +34,8 @@ public class Coordinate_LT extends MyCoordinate{
 		//正弦、余弦を求める
 		double tempcos = tempvec[1]/tempsize;
 		double tempsin = tempvec[0]/tempsize;
-		output[0] = inputs[0][1]*tempcos - inputs[0][0]*tempsin;
-		output[1] = inputs[0][0]*tempcos + inputs[0][1]*tempsin;
-		//なぜかこれだけだと再現時に上下方向が逆になってしまうので、とりあえず付け焼刃だけど上下方向だけ正負反転。ちゃんと理由を考えろ
-		output[0]*=-1;
+		output[1] = inputs[0][1]*tempcos - inputs[0][0]*tempsin;
+		output[0] = inputs[0][0]*tempcos + inputs[0][1]*tempsin;
 		return output;
 	}
 
