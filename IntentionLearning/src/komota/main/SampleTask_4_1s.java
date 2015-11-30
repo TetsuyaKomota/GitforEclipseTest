@@ -67,7 +67,7 @@ public class SampleTask_4_1s extends MySerialFrame{
 					}else if(temp3<0.75&&temp1<MyFrame.NUMBEROFPANEL-30&&this.panels[temp1+20][temp2].getStatus() == 0){
 						this.panels[temp1+20][temp2].setStatus(3);
 						break;
-					}else if(temp3<0.5&&temp2<MyFrame.NUMBEROFPANEL-30&&this.panels[temp1][temp2+20].getStatus() == 0){
+					}else if(temp3<1.1&&temp2<MyFrame.NUMBEROFPANEL-30&&this.panels[temp1][temp2+20].getStatus() == 0){
 						this.panels[temp1][temp2+20].setStatus(3);
 						break;
 					}

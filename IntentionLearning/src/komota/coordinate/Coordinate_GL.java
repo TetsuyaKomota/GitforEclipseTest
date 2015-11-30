@@ -38,6 +38,7 @@ public class Coordinate_GL extends MyCoordinate{
 		output[1] = inputs[0][0]*tempcos + inputs[0][1]*tempsin;
 		//GLはなんか左右反転いらないみたいなので-1倍はしない
 		//output[0]*=-1;
+		//output[1]*=-1;
 		return output;
 	}
 
