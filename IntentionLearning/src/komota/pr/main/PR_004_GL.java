@@ -1,11 +1,11 @@
-package komota.pr.test;
+package komota.pr.main;
 
 import komota.coordinate.Coordinate_GL;
 import komota.coordinate.MyCoordinate;
 import komota.main.MyFrame;
 import komota.main.MyPR;
 
-public class PR_4_1 extends MyPR{
+public class PR_004_GL extends MyPR{
 
 	//定数
 
@@ -33,7 +33,7 @@ public class PR_4_1 extends MyPR{
 	MyCoordinate coordinate = null;
 
 	//コンストラクタ
-	public PR_4_1(int numref,String filename){
+	public PR_004_GL(int numref,String filename){
 		super(filename);
 		this.numref = numref;
 		this.refs = new ReferencePoint[numref];
@@ -127,7 +127,7 @@ public class PR_4_1 extends MyPR{
 		//座標系を設定する
 		this.coordinate = new Coordinate_GL();
 	}
-	public PR_4_1(int numref){
+	public PR_004_GL(int numref){
 		this(numref,"test4.txt");
 	}
 
@@ -552,7 +552,7 @@ public class PR_4_1 extends MyPR{
 			inputs[1][0] = this.reference[0];
 			inputs[1][1] = this.reference[1];
 			inputs[2] = startpoint;
-			tempgoal = PR_4_1.this.coordinate.convert(inputs);
+			tempgoal = PR_004_GL.this.coordinate.convert(inputs);
 			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+"tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
 			//学習回数を学習率としてgoalpointベクトルを更新する
 			this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
