@@ -43,7 +43,7 @@ public class SampleTask_5_1s extends MySerialFrame{
 				this.panels[i][j].setStatus(0);
 			}
 		}
-
+/*
 		this.panels[(int)(Math.random() * MyFrame.NUMBEROFPANEL)][(int)(Math.random() * MyFrame.NUMBEROFPANEL)].setStatus(1);
 		while(true){
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
@@ -125,6 +125,10 @@ public class SampleTask_5_1s extends MySerialFrame{
 				break;
 			}
 		}
+*/
+		this.panels[50][30+(int)(Math.random()*30)].setStatus(1);
+		this.panels[25][30].setStatus(2);
+		this.panels[120][80].setStatus(3);
 
 		this.outputStart();
 	}

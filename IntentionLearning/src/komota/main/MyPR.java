@@ -139,8 +139,8 @@ public class MyPR {
 //					System.out.println("T:"+T+" logdata["+T+"].getType:"+logdata[T].getType());
 					T--;
 				}
-				//logdata[t]のタイプを一時的にstartに変換し、学習が行われないようにする
-				logdata[t].setType(START);
+				//logdata[t]のタイプを一時的にstatusに変換し、学習が行われないようにする
+				logdata[t].setType(STATUS);
 				//学習結果を一度消去
 				initialize();
 				//学習を行う
