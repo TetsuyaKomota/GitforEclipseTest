@@ -19,6 +19,8 @@ class ReferencePoint{
 	double likelihood;
 	//学習回数。goalpoint更新の学習率に使用する
 	int numlearning;
+	//学習回数(likelihood)
+	int numlearninglikelihood;
 
 	//コンストラクタ
 	ReferencePoint(MyPR pr, int status, double referenceg,double referencer){
@@ -34,9 +36,10 @@ class ReferencePoint{
 
 		this.likelihood = 1;
 		this.numlearning = 0;
+		this.numlearninglikelihood = 0;
 	}
 
-	//トラジェクタの位置ベクトル(絶対ベクトル)が引数として与えられたとき、goalpointとlikelihoodの更新を行う
+	//トラジェクタの位置ベクトル(絶対ベクトル)が引数として与えられたとき、goalpointの更新を行う
 	void learn(double[] trajector,double[] startpoint){
 		//相対ベクトルに変換する
 		double[] tempgoal = new double[2];
@@ -63,7 +66,35 @@ class ReferencePoint{
 		double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
 		//likelihood += （近さ値-近さ閾値）
 		System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
-		likelihood += (E - closeness);
+//		likelihood += (E - closeness);
+	}
+
+	void learnLikelihood(double[] trajector,double[] startpoint){
+		//相対ベクトルに変換する
+		double[] tempgoal = new double[2];
+		tempgoal[0] = trajector[0] - this.reference[0];
+		tempgoal[1] = trajector[1] - this.reference[1];
+		//座標系に合わせて座標変換する
+		double[][] inputs = new double[3][2];
+		inputs[0] = tempgoal;
+		inputs[1][0] = this.reference[0];
+		inputs[1][1] = this.reference[1];
+		inputs[2] = startpoint;
+		tempgoal = this.pr.coordinate.convert(inputs);
+		//近さを求める
+		double[] tempcloseness = new double[2];
+		tempcloseness[0] = tempgoal[0] - this.goalpoint[0];
+		tempcloseness[1] = tempgoal[1] - this.goalpoint[1];
+		double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
+		//likelihood += （近さ値-近さ閾値）
+		System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
+		likelihood = (double)1/(likelihood+1);
+		likelihood = likelihood * ((double)(this.numlearninglikelihood)/(this.numlearninglikelihood + 1)) + closeness * ((double)1/(this.numlearninglikelihood + 1));
+		likelihood = (double)1/likelihood;
+		likelihood = likelihood - 1;
+		//学習回数をインクリメント
+		this.numlearninglikelihood++;
+
 	}
 
 	//表示
