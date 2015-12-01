@@ -699,7 +699,7 @@ public class PR_004_GL extends MyPR{
 	/* ************************************************************************************************************* */
 	//参照点ごとに学習された位置ベクトルと尤度を持つ内部クラス
 /*
-	class ReferencePoint{
+	class ReferencePoint_004{
 		//定数
 		//ベクトルの近さ閾値。learnで使う
 		static final double E = 10;
@@ -716,7 +716,7 @@ public class PR_004_GL extends MyPR{
 		int numlearning;
 
 		//コンストラクタ
-		ReferencePoint(int status, double referenceg,double referencer){
+		ReferencePoint(MyPR pr,int status, double referenceg,double referencer){
 			this.status = status;
 			this.reference = new double[2];
 			this.reference[0] = referenceg;
@@ -758,6 +758,8 @@ public class PR_004_GL extends MyPR{
 			//likelihood += （近さ値-近さ閾値）
 			System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
 			likelihood += (E - closeness);
+		}
+		void learnLikelihood(double[] trajector,double[] startpoint){
 		}
 
 		//表示

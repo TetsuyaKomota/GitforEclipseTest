@@ -88,10 +88,9 @@ class ReferencePoint{
 		double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
 		//likelihood += （近さ値-近さ閾値）
 		System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
-		likelihood = (double)1/(likelihood+1);
+		likelihood = (double)1/(likelihood);
 		likelihood = likelihood * ((double)(this.numlearninglikelihood)/(this.numlearninglikelihood + 1)) + closeness * ((double)1/(this.numlearninglikelihood + 1));
 		likelihood = (double)1/likelihood;
-		likelihood = likelihood - 1;
 		//学習回数をインクリメント
 		this.numlearninglikelihood++;
 
