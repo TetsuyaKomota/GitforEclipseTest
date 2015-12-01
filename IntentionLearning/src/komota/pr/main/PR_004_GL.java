@@ -274,6 +274,45 @@ public class PR_004_GL extends MyPR{
 						}
 					}
 				}
+				//各参照点クラスのlearnLikelihoodメソッドで学習する
+				for(int i=0;i<this.refs.length;i++){
+					if(this.refs[i] != null){
+						this.refs[i].learnLikelihood(trajector,startpoint);
+					}
+				}
+				//重心位置のlearnLikelihood
+				//for文用のインデックス
+				tempidx = new int[9];
+				for(tempidx[0] = 0;tempidx[0]<2;tempidx[0]++){
+					for(tempidx[1] = 0;tempidx[1]<2;tempidx[1]++){
+						for(tempidx[2] = 0;tempidx[2]<2;tempidx[2]++){
+							for(tempidx[3] = 0;tempidx[3]<2;tempidx[3]++){
+								for(tempidx[4] = 0;tempidx[4]<2;tempidx[4]++){
+									for(tempidx[5] = 0;tempidx[5]<2;tempidx[5]++){
+										for(tempidx[6] = 0;tempidx[6]<2;tempidx[6]++){
+											for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
+												for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
+													for(int a=0;a<tempidx.length;a++){
+														if(refs[a] != null && this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
+															for(int k=0;k<refs.length;k++){
+																if(refs[k] != null && refs[k].status == a){
+																	startpoint[0] = this.refs[k].reference[0];
+																	startpoint[1] = this.refs[k].reference[1];
+																	break;
+																}
+															}
+															this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].learnLikelihood(trajector,startpoint);
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			//"change"ログの場合、何もしない
 			else if(logdata[t].getType() == CHANGE){
