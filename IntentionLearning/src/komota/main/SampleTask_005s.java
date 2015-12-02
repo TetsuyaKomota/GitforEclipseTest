@@ -178,6 +178,18 @@ public class SampleTask_005s extends MySerialFrame{
 	public void functionPlugin6(){
 		this.tpr3.show();
 	}
+	@Override
+	public void functionPlugin7(){
+		this.tpr3.setNumberofEvaluation(this.tpr3.getNumberofEvaluation() + 10);
+		System.out.println("[SampleTask_005s]functionPlugin7:set the number of data used to evaluate :"+this.tpr3.getNumberofEvaluation());
+	}
+	@Override
+	public void functionPlugin8(){
+		if(this.tpr3.getNumberofEvaluation() > 10){
+			this.tpr3.setNumberofEvaluation(this.tpr3.getNumberofEvaluation() - 10);
+			System.out.println("[SampleTask_005s]functionPlugin8:set the number of data used to evaluate :"+this.tpr3.getNumberofEvaluation());
+		}
+	}
 	/*
 	 *
 	 * １．出力先ファイル名をfile_nameに代入

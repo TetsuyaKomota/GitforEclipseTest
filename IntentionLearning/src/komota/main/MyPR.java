@@ -28,6 +28,10 @@ public class MyPR {
 	public static final int CHANGE = 2;
 	public static final int STATUS = 3;
 
+	//スタティックフィールド
+	//クロスバリデーションにおける使用するデータ量
+	private static int numberofevaluation = 1000;
+
 	//フィールド
 	File file;
 	BufferedReader br;
@@ -93,6 +97,13 @@ public class MyPR {
 			e.printStackTrace();
 		}
 	}
+	//評価に使用するデータ量のセッターとゲッター
+	public void setNumberofEvaluation(int num){
+		MyPR.numberofevaluation = num;
+	}
+	public int getNumberofEvaluation(){
+		return MyPR.numberofevaluation;
+	}
 	//表示
 	public void show(){
 		for(int i=0;i<this.logdata.length;i++){
@@ -132,8 +143,8 @@ public class MyPR {
 		int T=0;
 		for(t=0;t<this.logdata.length;t++){
 			//ログ読み切ったら終了
-			//交差回数
-			if(this.logdata[t] == null){
+			//交差回数が使用データ量を上回った場合も終了
+			if(this.logdata[t] == null || count > MyPR.numberofevaluation){
 				break;
 			}
 			//"goal"データが来るまで回す
