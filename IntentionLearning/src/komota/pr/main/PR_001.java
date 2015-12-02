@@ -126,9 +126,11 @@ public class PR_001 extends MyPR{
 	//ログデータに基づいて学習
 	@Override
 	public void learnfromLog(){
+		//goal参照回数
+		int count = 0;
 		for(int t=0;t<this.logdata.length;t++){
 			//"start "ログの場合、参照点の座標を更新する
-			if(logdata[t] == null){
+			if(logdata[t] == null || count > this.getNumberofEvaluation()){
 				break;
 			}
 			if(logdata[t].getType() == START){
@@ -201,6 +203,8 @@ public class PR_001 extends MyPR{
 			}
 			//"goal  "ログの場合、トラジェクタの相対座標とgoalpointを比較し、goalpointとlikelihoodの更新をする
 			else if(logdata[t].getType() == GOAL){
+				//goal参照回数のインクリメント
+				count++;
 				double[] trajector = new double[2];
 				for(int i=0;i<height;i++){
 					for(int j=0;j<width;j++){

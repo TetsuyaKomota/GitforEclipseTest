@@ -138,8 +138,11 @@ public class SampleTask_003s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin4(){
-		System.out.println("bye");
-		this.tpr1.close();
+		this.tpr1.evaluate(this);
+	}
+	@Override
+	public void functionPlugin5(){
+		this.tpr2.evaluate(this);
 	}
 	/*
 	 *

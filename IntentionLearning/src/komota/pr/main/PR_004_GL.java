@@ -142,8 +142,11 @@ public class PR_004_GL extends MyPR{
 	public void learnfromLog(){
 		//learnメソッドには移動前のトラジェクタの位置を渡すので、その変数
 		double[] startpoint = new double[2];
+		//goalの参照回数
+		int count = 0;
 		for(int t=0;t<this.logdata.length;t++){
-			if(logdata[t] == null){
+			if(logdata[t] == null || count > this.getNumberofEvaluation()){
+
 				break;
 			}
 			//"start "ログの場合、参照点の座標を更新する
@@ -226,6 +229,8 @@ public class PR_004_GL extends MyPR{
 			}
 			//"goal  "ログの場合、トラジェクタの相対座標とgoalpointを比較し、goalpointとlikelihoodの更新をする
 			else if(logdata[t].getType() == GOAL){
+				//goal参照回数をインクリメント
+				count++;
 				double[] trajector = new double[2];
 				for(int i=0;i<height;i++){
 					for(int j=0;j<width;j++){
