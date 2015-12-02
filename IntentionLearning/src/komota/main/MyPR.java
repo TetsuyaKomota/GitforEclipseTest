@@ -132,6 +132,7 @@ public class MyPR {
 		int T=0;
 		for(t=0;t<this.logdata.length;t++){
 			//ログ読み切ったら終了
+			//交差回数
 			if(this.logdata[t] == null){
 				break;
 			}
@@ -174,7 +175,9 @@ public class MyPR {
 				System.out.println("step:"+t+"  true:"+truepoint[0]+","+truepoint[1]+" select:"+frame.secondselected[0]+","+frame.secondselected[1]+" error:"+diserror);
 				//diserror = 1/(1+diserror);
 				//outputの更新。outputはdiserrorの平均値にする
+				System.out.println("[MyPR]evaluate:count:"+count);
 				output = (count/(count+1))*output + (1/(count+1))*diserror;
+				count++;
 			}
 		}
 
