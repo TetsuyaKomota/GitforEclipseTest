@@ -8,6 +8,13 @@
 		恒等写像を行う、つまり何もしない座標系。MyCoordinateのメソッドをオーバーライドしないで使ったら恒等写像になるのだが、混乱しないようにわざわざ作った。
 	Coordinate_LT (→MyCoordinate)
 		ランドマーク_トラジェクタ座標系(ランドマークから見て、トラジェクタの方向を軸とする座標系)
+	Coordinate_GL (→MyCoordinate)
+		重心_ランドマーク座標系(重心から見て、ランドマークの向きを軸とする座標系)
+	[使用法]
+		どの変換も引数にベクトル配列を渡す。
+		IDはinputs[0]に被変換ベクトルを入れればあとは何が入っていてもOK。返り値は被変換ベクトルをそのまま返す
+		LTはinputs[0]に被変換ベクトル、inputs[1]にランドマーク（参照点）ベクトル、inputs[2]に移動前のトラジェクタベクトルを入れる。
+		GLはinputs[0]に被変換ベクトル、inputs[1]に重心のベクトル、inputs[2]にランドマーク（オブジェクト）ベクトルを入れる。
 [komota.main]
 	** MainFrame
 		大元のフレームクラスだったもの。現在はMyFrameを使用してるためもう使わない
@@ -19,6 +26,36 @@
 		MyFrame上に配置される各パネルのクラス。今思えば別にMyFrameの内部クラスでもよかったしその方が定数とかバラバラにならなくてよかったかも
 	MyPR
 		パターン認識クラスの親クラス。このクラスではログデータを読み取って扱いやすいStepLog内部クラスに変換するだけ
+		[コンストラクタ説明]
+			MyPR(String filename)
+				filenameに指定されたテキストファイルのログデータを、扱いやすいStepLogインスタンスに変換する
+			MyPR()
+				test4.txt を用いる
+		[メソッド説明]
+			close()
+				BufferedReaderをcloseする
+			setNumberofEvaluation(int num)
+				evaluateの実行時にログデータから使用するstart,goalセットの数の上限を変更する。
+				使用するデータの量によって学習精度に差が生じるかの確認ができる
+			getNumberofEvaluation()
+				データ使用量のゲッター。インクリメントさせたい時などに使用する
+			show()
+				ログデータがきちんとStepLogインスタンスに変換できているか、標準出力させて確認する。
+				主に開発初期に使用していたもので、現在は特に必要としていない
+			arrangeField(MyFrame frame , StepLog log)
+				シミュレータの状態を、引数で与えたログデータの状態にする。
+				evaluateで各学習結果に応じて再現誤差を求める際に、各初期状態を再現する必要があったため作成。デモ作る時とかに何かと便利そう。
+			learnfromLog()
+				パターン認識の主の部分。ここに各PRごとの処理を書く。親クラスであるMyPRでは白紙のメソッド。
+			reproduction()
+				学習結果をもとにトラジェクタの移動先を再現する。
+				親クラスにまとめてしまってよい気もするが、現在子クラスごとに生成するReferenceの形態が微妙に異なるため、各子クラスで実装する形をとっている。あんまりよくない
+			initialize()
+				学習結果(各ReferencePointのgoalpointとlikelihoodとnumberoflearning)を初期化する。
+				evaluateで学習とテストを繰り返す際に必要。
+				同上の理由により各子クラスで実装。あんまりよくない
+			evaluate(MyFrame frame)
+				これもこのクラスの主の部分。クロスバリデーションを行い、学習精度を求める。
 	MySerialFrame (→MyFrame)
 		擬似連続空間シミュレータ。オブジェクトがクリックしやすくなった。これを継承すると擬似連続空間のシミュレータになる。NUMBEROFPANELはMyFrameのものを使用してるため注意
 	SampleDemo2015**** (→MyFrame or MySerialFrame)

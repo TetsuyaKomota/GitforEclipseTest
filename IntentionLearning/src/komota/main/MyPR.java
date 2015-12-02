@@ -83,6 +83,7 @@ public class MyPR {
 			}
 		}
 		this.logdata[step-1] = null;
+		this.close();
 	}
 	public MyPR(){
 		this("test4.txt");

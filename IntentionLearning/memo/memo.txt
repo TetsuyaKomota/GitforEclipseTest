@@ -1,0 +1,5 @@
+[シミュレータの作成法覚書]
+	1. MySerialFrame(MyFrameでもいいが最近はもっぱら連続空間が主流)を継承したサブクラスを作成。(クラス名はSampleTask_*_1(s))
+	2. MyPRを継承したサブクラスのフィールドを作成
+	3. コンストラクタで初期状態の設定。(this.panels[i][j].setStatus(int status)でOK)
+	4. functionPluginに適当に追加したい機能を書く。(MyPRサブクラスのインスタンス生成、learnfromLog,reproduction,evaluateのボタンはあった方がいい)
