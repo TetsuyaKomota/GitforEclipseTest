@@ -549,6 +549,7 @@ public class PR_004_GL extends MyPR{
 														tempref = 11;
 														for(int k=0;k<refs.length;k++){
 															if(refs[k] != null && refs[k].status == a){
+																System.out.println("[PR_004_GL]reproduction:tempa:"+a);
 																startpoint[0] = refs[k].reference[0];
 																startpoint[1] = refs[k].reference[1];
 															}
