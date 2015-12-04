@@ -447,8 +447,7 @@ public class PR_004_GL extends MyPR{
 	//学習結果に基づいてタスクを推定する
 	@Override
 	public void reproduction(MyFrame frame){
-		double templikelihood = -10000000;
-		int tempref = -1;
+		double templikelihood = -100000;
 		ReferencePoint temprefpoint = null;
 		double[] startpoint = new double[2];
 
@@ -533,7 +532,6 @@ public class PR_004_GL extends MyPR{
 		for(int i=0;i<this.refs.length;i++){
 			if(this.refs[i] != null && this.refs[i].likelihood > templikelihood){
 				templikelihood = this.refs[i].likelihood;
-				tempref = i;
 				temprefpoint = refs[i];
 			}
 		}
@@ -554,10 +552,10 @@ public class PR_004_GL extends MyPR{
 													if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood > templikelihood){
 														templikelihood = this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood;
 														temprefpoint = this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a];
-														tempref = 11;
 														for(int k=0;k<refs.length;k++){
 															if(refs[k] != null && refs[k].status == a){
 																System.out.println("[PR_004_GL]reproduction:tempa:"+a);
+																System.out.println("[PR_004_GL]reproduction:tempref.goalpoint:"+temprefpoint.goalpoint[0]+" , "+temprefpoint.goalpoint[1]);
 																startpoint[0] = refs[k].reference[0];
 																startpoint[1] = refs[k].reference[1];
 															}
@@ -574,7 +572,7 @@ public class PR_004_GL extends MyPR{
 				}
 			}
 		}
-		System.out.println("[TestPR1]reproduction:tempref:"+tempref);
+		System.out.println("[TestPR1]reproduction:tempref:"+/*tempref*/temprefpoint.status);
 		//選択された参照点を現在の座標に更新する
 		//状態が0（画面中心が参照点）の場合は例外
 		/*

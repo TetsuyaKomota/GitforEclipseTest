@@ -52,11 +52,11 @@ class ReferencePoint{
 		inputs[1][1] = this.reference[1];
 		inputs[2] = startpoint;
 		tempgoal = this.pr.coordinate.convert(inputs);
-		System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+" tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
+		System.out.println("[ReferencePoint]learn:status:"+this.status+" tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
 		//学習回数を学習率としてgoalpointベクトルを更新する
 		this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
 		this.goalpoint[1] = this.goalpoint[1] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[1] * ((double)1/(this.numlearning + 1));
-		System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
+		System.out.println("[ReferencePoint]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
 		//学習回数をインクリメント
 		this.numlearning++;
 		//近さを求める
@@ -87,8 +87,8 @@ class ReferencePoint{
 		tempcloseness[1] = tempgoal[1] - this.goalpoint[1];
 		double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
 		//likelihood += （近さ値-近さ閾値）
-		System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
-		likelihood = (double)1/(likelihood);
+		System.out.println("[ReferencePoint]learn:closeness:"+closeness);
+		likelihood = (double)1/likelihood;
 		likelihood = likelihood * ((double)(this.numlearninglikelihood)/(this.numlearninglikelihood + 1)) + closeness * ((double)1/(this.numlearninglikelihood + 1));
 		likelihood = (double)1/likelihood;
 		//学習回数をインクリメント
