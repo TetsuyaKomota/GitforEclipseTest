@@ -104,7 +104,6 @@ public class MyFrame extends JFrame{
 
 		this.file = new File("log/"+file_name);
 		try {
-//			this.pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
 		      OutputStreamWriter osw = new OutputStreamWriter(fos);
 		      this.pw = new PrintWriter(osw);
@@ -138,7 +137,6 @@ public class MyFrame extends JFrame{
 	public void setOutputFile(){
 		this.file = new File("log/"+file_name);
 		try {
-//			this.pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
 		      OutputStreamWriter osw = new OutputStreamWriter(fos);
 		      this.pw = new PrintWriter(osw);
@@ -172,19 +170,6 @@ public class MyFrame extends JFrame{
 
 	//初期化時に初期状態を出力する
 	public void outputStart(){
-/*
-		pw.println("**start:"
-				+MyFrame.this.panels[0].status+","
-				+MyFrame.this.panels[1].status+","
-				+MyFrame.this.panels[2].status+","
-				+MyFrame.this.panels[3].status+","
-				+MyFrame.this.panels[4].status+","
-				+MyFrame.this.panels[5].status+","
-				+MyFrame.this.panels[6].status+","
-				+MyFrame.this.panels[7].status+","
-				+MyFrame.this.panels[8].status
-);
-*/
 		pw.print("start ,");
 		for(int i=0;i<MyFrame.this.panels.length;i++){
 			for(int j=0;j<MyFrame.this.panels[0].length;j++){
@@ -199,19 +184,6 @@ public class MyFrame extends JFrame{
 
 	//ゴール時に最終状態を出力する
 	public void outputGoal(){
-/*
-		pw.println("**goal:"
-				+MyFrame.this.panels[0].status+","
-				+MyFrame.this.panels[1].status+","
-				+MyFrame.this.panels[2].status+","
-				+MyFrame.this.panels[3].status+","
-				+MyFrame.this.panels[4].status+","
-				+MyFrame.this.panels[5].status+","
-				+MyFrame.this.panels[6].status+","
-				+MyFrame.this.panels[7].status+","
-				+MyFrame.this.panels[8].status
-);
-*/
 		pw.print("goal  ,");
 		for(int i=0;i<MyFrame.this.panels.length;i++){
 			for(int j=0;j<MyFrame.this.panels[0].length;j++){
@@ -271,16 +243,7 @@ public class MyFrame extends JFrame{
 			g.drawString(MyFrame.this.expranation, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2 + 10);
 			g.drawString(MyFrame.this.tasktitle, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME/2 + 30);
 			g.drawString(MyFrame.this.howtouse, MyPanel.SIZE_FRAME, MyPanel.SIZE_FRAME+MyFrame.NUMBEROFPANEL*(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)+40);
-/*
-			if(MyFrame.this.selected >= 0){
-				g.setColor(Color.black);
-				g.fillRect(MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MyFrame.this.selected%3)-5,MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MyFrame.this.selected/3)-5,MyPanel.SIZE_PANEL+10,MyPanel.SIZE_PANEL+10);
-			}
-			if(MyFrame.this.secondselected >= 0){
-				g.setColor(new Color(255,100,200));
-				g.fillRect(MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MyFrame.this.secondselected%3)-5,MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*(MyFrame.this.secondselected/3)-5,MyPanel.SIZE_PANEL+10,MyPanel.SIZE_PANEL+10);
-			}
-*/
+
 			g.dispose();
 
 			for(int i=0;i<MyFrame.this.panels.length;i++){
@@ -318,34 +281,11 @@ public class MyFrame extends JFrame{
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
-/*
-			if(e.getKeyCode() == KeyEvent.VK_0
-					||e.getKeyCode() == KeyEvent.VK_1
-					||e.getKeyCode() == KeyEvent.VK_2
-					||e.getKeyCode() == KeyEvent.VK_3
-					||e.getKeyCode() == KeyEvent.VK_4
-					||e.getKeyCode() == KeyEvent.VK_5
-					||e.getKeyCode() == KeyEvent.VK_6
-					||e.getKeyCode() == KeyEvent.VK_7
-					||e.getKeyCode() == KeyEvent.VK_8
-				){
-				System.out.println("You push:"+e.getKeyChar());
-
-				if(MyFrame.this.selected == -1){
-					MyFrame.this.selected = e.getKeyCode() - KeyEvent.VK_0;
-				}
-				else if(MyFrame.this.secondselected == -1&&MyFrame.this.selected != e.getKeyCode() - KeyEvent.VK_0){
-					MyFrame.this.secondselected = e.getKeyCode() - KeyEvent.VK_0;
-				}
-			}else
-*/
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
 				if(MyFrame.this.selected[0] != -1 && MyFrame.this.selected[1] != -1 && MyFrame.this.secondselected[0] != -1 && MyFrame.this.secondselected[1] != -1){
 					int temp = MyFrame.this.panels[selected[0]][selected[1]].getStatus();
 					MyFrame.this.panels[selected[0]][selected[1]].setStatus(MyFrame.this.panels[secondselected[0]][secondselected[1]].getStatus());
 					MyFrame.this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
-					int[] fpanel = MyFrame.this.panels[selected[0]][selected[1]].getPosition();
-					int[] spanel = MyFrame.this.panels[secondselected[0]][secondselected[1]].getPosition();
 					MyFrame.this.pw.print("change,");
 					for(int i=0;i<MyFrame.this.panels.length;i++){
 						for(int j=0;j<MyFrame.this.panels[0].length;j++){
@@ -365,19 +305,6 @@ public class MyFrame extends JFrame{
 					}
 					pw.println();
 
-/*
-					MyFrame.this.pw.println("status:"
-							+MyFrame.this.panels[0].status+","
-							+MyFrame.this.panels[1].status+","
-							+MyFrame.this.panels[2].status+","
-							+MyFrame.this.panels[3].status+","
-							+MyFrame.this.panels[4].status+","
-							+MyFrame.this.panels[5].status+","
-							+MyFrame.this.panels[6].status+","
-							+MyFrame.this.panels[7].status+","
-							+MyFrame.this.panels[8].status
-							);
-*/
 					MyFrame.this.pw.print("status,");
 					for(int i=0;i<MyFrame.this.panels.length;i++){
 						for(int j=0;j<MyFrame.this.panels[0].length;j++){

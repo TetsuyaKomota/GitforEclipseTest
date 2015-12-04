@@ -29,10 +29,6 @@ public class PR_004_GL extends MyPR{
 	//空間内に、土のオブジェクトが存在するかのリスト。実装を単純にするためだけのものであり、一般的には不要
 	int[] objectlist;
 
-	//座標変換クラス
-//	MyCoordinate coordinate = null;
-
-
 	//コンストラクタ
 	public PR_004_GL(int numref,String filename){
 		super(filename);
@@ -268,14 +264,6 @@ public class PR_004_GL extends MyPR{
 																}
 															}
 															this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].learn(trajector,startpoint);
-/*
-															System.out.println(
-																	"[PR_004]learnfromLog:refs_GL["+tempidx[0]+"]["+tempidx[1]+"]["+tempidx[2]+"]["+tempidx[3]+"]["+tempidx[4]+"]["+tempidx[5]+"]["+tempidx[6]+"]["+tempidx[7]+"]["+tempidx[8]+"]["+a+"].goalpoint:"
-																	+this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[0]
-																	+","
-																	+this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[1]
-															);
-*/
 														}
 													}
 												}
@@ -573,20 +561,6 @@ public class PR_004_GL extends MyPR{
 			}
 		}
 		System.out.println("[TestPR1]reproduction:tempref:"+/*tempref*/temprefpoint.status);
-		//選択された参照点を現在の座標に更新する
-		//状態が0（画面中心が参照点）の場合は例外
-		/*
-		if(temprefpoint.status != 0){
-			for(int i=0;i<height;i++){
-				for(int j=0;j<width;j++){
-					if(frame.getPanels()[i][j].getStatus() == temprefpoint.status){
-						temprefpoint.reference[0] = i;
-						temprefpoint.reference[1] = j;
-					}
-				}
-			}
-		}
-		 */
 		System.out.println("[TestPR1]reproduction:ref.reference:"+temprefpoint.reference[0]+" , "+temprefpoint.reference[1]);
 		System.out.println("[TestPR1]reproduction:ref.goalpoint:"+temprefpoint.goalpoint[0]+" , "+temprefpoint.goalpoint[1]);
 		//参照点の絶対ベクトル＋参照点からの相対ベクトル＝トラジェクタの推定移動先
@@ -609,6 +583,7 @@ public class PR_004_GL extends MyPR{
 		output[1] = (int)(tempoutput[1] + 0.5);
 		frame.setSecondSelected(output);
 	}
+
 	//学習結果リセット。評価時に使用する
 	@Override
 	public void initialize(){
@@ -670,7 +645,6 @@ public class PR_004_GL extends MyPR{
 										for(int i8 = 0;i8<2;i8++){
 											for(int a=0;a<9;a++){
 												if(this.refs_GL[i0][i1][i2][i3][i4][i5][i6][i7][i8][a] == null){
-//													System.out.println("status:"+10+"  reference:NULL  goalpoint:NULL  likelihood:NULL");
 												}
 												else{
 													System.out.print("Center of Gravity:"+i0+" "+i1+" "+i2+" "+i3+" "+i4+" "+i5+" "+i6+" "+i7+" "+i8+" "+a+" ");
@@ -707,78 +681,4 @@ public class PR_004_GL extends MyPR{
 			return output;
 		}
 	}
-
-	/* ************************************************************************************************************* */
-	//参照点ごとに学習された位置ベクトルと尤度を持つ内部クラス
-/*
-	class ReferencePoint_004{
-		//定数
-		//ベクトルの近さ閾値。learnで使う
-		static final double E = 10;
-		//フィールド
-		//参照点の状態。0は画面中央。10は重心位置。11はG_ランドマーク
-		int status;
-		//参照点の位置ベクトル[0]=行 [1]=列
-		double[] reference;
-		//参照点からの位置ベクトル
-		double[] goalpoint;
-		//尤度
-		double likelihood;
-		//学習回数。goalpoint更新の学習率に使用する
-		int numlearning;
-
-		//コンストラクタ
-		ReferencePoint(MyPR pr,int status, double referenceg,double referencer){
-			this.status = status;
-			this.reference = new double[2];
-			this.reference[0] = referenceg;
-			this.reference[1] = referencer;
-
-			this.goalpoint = new double[2];
-			goalpoint[0] = 0;
-			goalpoint[1] = 0;
-
-			this.likelihood = 1;
-			this.numlearning = 0;
-		}
-
-		//トラジェクタの位置ベクトル(絶対ベクトル)が引数として与えられたとき、goalpointとlikelihoodの更新を行う
-		void learn(double[] trajector,double[] startpoint){
-			//相対ベクトルに変換する
-			double[] tempgoal = new double[2];
-			tempgoal[0] = trajector[0] - this.reference[0];
-			tempgoal[1] = trajector[1] - this.reference[1];
-			//座標系に合わせて座標変換する
-			double[][] inputs = new double[3][2];
-			inputs[0] = tempgoal;
-			inputs[1][0] = this.reference[0];
-			inputs[1][1] = this.reference[1];
-			inputs[2] = startpoint;
-			tempgoal = PR_004_GL.this.coordinate.convert(inputs);
-			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+"tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
-			//学習回数を学習率としてgoalpointベクトルを更新する
-			this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
-			this.goalpoint[1] = this.goalpoint[1] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[1] * ((double)1/(this.numlearning + 1));
-			System.out.println("[TestPR1.ReferencePoint]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
-			//学習回数をインクリメント
-			this.numlearning++;
-			//近さを求める
-			double[] tempcloseness = new double[2];
-			tempcloseness[0] = tempgoal[0] - this.goalpoint[0];
-			tempcloseness[1] = tempgoal[1] - this.goalpoint[1];
-			double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
-			//likelihood += （近さ値-近さ閾値）
-			System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
-			likelihood += (E - closeness);
-		}
-		void learnLikelihood(double[] trajector,double[] startpoint){
-		}
-
-		//表示
-		void show(){
-			System.out.println("status:"+status+"  reference:"+this.reference[0]+" , "+this.reference[1] + "  goalpoint;"+this.goalpoint[0]+" , "+this.goalpoint[1] + "  likelihood:"+this.likelihood);
-		}
-	}
-*/
-	/* ************************************************************************************************************* */
 }

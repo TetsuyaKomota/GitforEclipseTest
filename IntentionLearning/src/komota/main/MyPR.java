@@ -15,12 +15,6 @@ public class MyPR {
 
 	//ログデータに基づく機械学習を行うテンプレ。これを継承する。
 
-	/*
-	 * 機能一覧
-	 * 	・選択したログデータを配列などに取得できる
-	 * 	・
-	 */
-
 	//定数
 	//ログデータの種類を表すときに使う種類定数
 	public static final int START = 0;
@@ -36,7 +30,7 @@ public class MyPR {
 	File file;
 	BufferedReader br;
 	String file_name = "test4.txt";
-	//取得したログデータ。[ステップ数（何行目か）][種類（**start,**goal,  change,status）][行][列]
+	//取得したログデータ。[ステップ数（何行目か）][種類（start ,goal  ,change,status）][行][列]
 	//種類が  changeの場合、変化前後のパネルの前を１、後を２とする
 	public StepLog[] logdata = null;
 

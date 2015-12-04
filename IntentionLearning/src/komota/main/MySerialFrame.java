@@ -121,16 +121,6 @@ public class MySerialFrame extends MyFrame{
 							MySerialFrame.this.selected[0] = i;
 							MySerialFrame.this.selected[1] = j;
 						}
-/*
-						if(MySerialFrame_Test.this.selected[0] == -1 && MySerialFrame_Test.this.selected[1] == -1 && MySerialFrame_Test.this.panels[i][j].getStatus() != 0){
-							MySerialFrame_Test.this.selected[0] = i;
-							MySerialFrame_Test.this.selected[1] = j;
-						}
-						else if(MySerialFrame_Test.this.secondselected[0] == -1 && MySerialFrame_Test.this.secondselected[1] == -1 && (MySerialFrame_Test.this.selected[0] != i || MySerialFrame_Test.this.selected[1] != j) && MySerialFrame_Test.this.panels[i][j].getStatus() == 0){
-							MySerialFrame_Test.this.secondselected[0] = i;
-							MySerialFrame_Test.this.secondselected[1] = j;
-						}
-*/
 						break;
 					}
 				}
