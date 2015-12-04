@@ -268,6 +268,14 @@ public class PR_004_GL extends MyPR{
 																}
 															}
 															this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].learn(trajector,startpoint);
+/*
+															System.out.println(
+																	"[PR_004]learnfromLog:refs_GL["+tempidx[0]+"]["+tempidx[1]+"]["+tempidx[2]+"]["+tempidx[3]+"]["+tempidx[4]+"]["+tempidx[5]+"]["+tempidx[6]+"]["+tempidx[7]+"]["+tempidx[8]+"]["+a+"].goalpoint:"
+																	+this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[0]
+																	+","
+																	+this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].goalpoint[1]
+															);
+*/
 														}
 													}
 												}
