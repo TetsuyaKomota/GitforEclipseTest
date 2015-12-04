@@ -259,7 +259,7 @@ public class PR_004_GL extends MyPR{
 											for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
 												for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
 													for(int a=0;a<tempidx.length;a++){
-														if(refs[a] != null && this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
+														if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
 															for(int k=0;k<refs.length;k++){
 																if(refs[k] != null && refs[k].status == a){
 																	startpoint[0] = this.refs[k].reference[0];
@@ -412,7 +412,7 @@ public class PR_004_GL extends MyPR{
 											for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
 												for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
 													for(int a=0;a<tempidx.length;a++){
-														if(refs[a] != null && this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
+														if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
 															for(int k=0;k<refs.length;k++){
 																if(refs[k] != null && refs[k].status == a){
 																	startpoint[0] = this.refs[k].reference[0];
