@@ -82,7 +82,7 @@ public class SampleTask_6_1s extends MySerialFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(4);
+				this.panels[temp1][temp2].setStatus(4);
 				break;
 			}
 		}
@@ -90,7 +90,7 @@ public class SampleTask_6_1s extends MySerialFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(5);
+				this.panels[temp1][temp2].setStatus(5);
 				break;
 			}
 		}
@@ -98,7 +98,7 @@ public class SampleTask_6_1s extends MySerialFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(6);
+				this.panels[temp1][temp2].setStatus(6);
 				break;
 			}
 		}
@@ -106,7 +106,7 @@ public class SampleTask_6_1s extends MySerialFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(7);
+				this.panels[temp1][temp2].setStatus(7);
 				break;
 			}
 		}
@@ -114,7 +114,7 @@ public class SampleTask_6_1s extends MySerialFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(8);
+				this.panels[temp1][temp2].setStatus(8);
 				break;
 			}
 		}
