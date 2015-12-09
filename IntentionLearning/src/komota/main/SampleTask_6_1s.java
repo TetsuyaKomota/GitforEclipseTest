@@ -146,8 +146,8 @@ public class SampleTask_6_1s extends MySerialFrame{
 	public void functionPlugin2(){
 		System.out.println("show.");
 //		this.tpr1.show();
-//		this.tpr1.learnfromLog();
-//		this.tpr2.learnfromLog();
+		this.tpr1.learnfromLog();
+		this.tpr2.learnfromLog();
 		this.tpr3.learnfromLog();
 
 //		this.tpr1.showReference();
@@ -156,14 +156,19 @@ public class SampleTask_6_1s extends MySerialFrame{
 	public void functionPlugin3(){
 		System.out.println("reproduction.");
 		this.tpr3.reproduction(this);
-/*
-		if(this.tpr1.getMaxLikelihood() >= this.tpr2.getMaxLikelihood()){
+
+		if(this.tpr1.getMaxLikelihood() >= this.tpr2.getMaxLikelihood() && this.tpr1.getMaxLikelihood() >= this.tpr3.getMaxLikelihood()){
+			System.out.println("chosen:LT");
 			this.tpr1.reproduction(this);
 		}
-		else{
+		else if(this.tpr2.getMaxLikelihood() >= this.tpr1.getMaxLikelihood() && this.tpr2.getMaxLikelihood() >= this.tpr3.getMaxLikelihood()){
+			System.out.println("chosen:ID");
 			this.tpr2.reproduction(this);
+		}else{
+			System.out.println("chosen:GL");
+			this.tpr3.reproduction(this);
 		}
-*/
+
 	}
 	@Override
 	public void functionPlugin4(){
