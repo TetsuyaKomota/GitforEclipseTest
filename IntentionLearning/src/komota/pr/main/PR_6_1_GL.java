@@ -10,7 +10,10 @@ public class PR_6_1_GL extends MyPR{
 	//定数
 
 	//フィールド
-	//参照点の個数
+
+	//観点の個数。ただの、タスク的視野によって観点の数を減らせていることの確認用。IDやLTを併用する場合、別物として数える
+	public static int referencecount = 0;
+	//オブジェクトの最大種類数
 	int numref = 0;
 	//参照点クラス
 	ReferencePoint[] refs;
@@ -39,7 +42,7 @@ public class PR_6_1_GL extends MyPR{
 		this.cogs = new ReferencePoint[2][2][2][2][2][2][2][2][2];
 		//G_ランドマークで使用する参照点クラスを作成する
 		this.refs_GL = new ReferencePoint[2][2][2][2][2][2][2][2][2][9];
-		this.objectlist = new int[9];
+		this.objectlist = new int[numref];
 		for(int i=0;i<this.objectlist.length;i++){
 			this.objectlist[i] = 0;
 		}
@@ -109,6 +112,8 @@ public class PR_6_1_GL extends MyPR{
 												for(int a=0;a<tempidx.length;a++){
 													if(a != 1 && tempidx[1] == 0 && tempidx[a] == 1){
 														this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] = new ReferencePoint(this,11,temppoint[0],temppoint[1]);
+														//観点の数をインクリメント
+														PR_6_1_GL.referencecount++;
 													}
 												}
 											}

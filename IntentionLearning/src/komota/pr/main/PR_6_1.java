@@ -16,6 +16,9 @@ public class PR_6_1 extends MyPR{
 	//定数
 
 	//フィールド
+
+	//観点の個数。ただの、タスク的視野によって観点の数を減らせていることの確認用。IDやLTを併用する場合、別物として数える
+	public static int referencecount = 0;
 	//参照点の個数
 	int numref = 0;
 	//参照点クラス
@@ -39,7 +42,7 @@ public class PR_6_1 extends MyPR{
 
 		//オブジェクト数は既知（9種類）として、重心位置とリストの配列を作成する
 		this.cogs = new ReferencePoint[2][2][2][2][2][2][2][2][2];
-		this.objectlist = new int[9];
+		this.objectlist = new int[numref];
 		for(int i=0;i<this.objectlist.length;i++){
 			this.objectlist[i] = 0;
 		}
@@ -49,6 +52,8 @@ public class PR_6_1 extends MyPR{
 		this.width = this.logdata[0].getStepStatusField()[0].length;
 
 		refs[0] = new ReferencePoint(this,0,height/2 ,width/2);
+		//観点の個数をインクリメント
+		PR_6_1.referencecount++;
 
 		//logdataの0行目（logdata[0]というStepDataインスタンス）から状態0と1以外のオブジェクトがくるまで回す
 		int k=1;
@@ -57,6 +62,8 @@ public class PR_6_1 extends MyPR{
 				//0と1以外がlogdata[0].getStepStatusField()[i][j]にあったらrefs[k].reference[0] = i,[i] = jとして、状態もセット
 				if(this.logdata[0].getStepStatus(i,j) > 1){
 					this.refs[k] = new ReferencePoint(this,this.logdata[0].getStepStatus(i,j),i,j);
+					//観点の個数をインクリメント
+					PR_6_1.referencecount++;
 					//存在した状態番号をobjectlistに保存
 					this.objectlist[this.logdata[0].getStepStatus(i, j)] = 1;
 					k++;
@@ -105,6 +112,8 @@ public class PR_6_1 extends MyPR{
 												temppoint[0] /= tempnum;
 												temppoint[1] /= tempnum;
 												this.cogs[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]] = new ReferencePoint(this,10,temppoint[0],temppoint[1]);
+												//観点の個数をインクリメント
+												PR_6_1.referencecount++;
 											}
 										}
 									}

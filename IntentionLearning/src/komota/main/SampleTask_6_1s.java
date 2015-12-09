@@ -1,5 +1,6 @@
 package komota.main;
 
+import komota.pr.main.PR_6_1;
 import komota.pr.main.PR_6_1_GL;
 import komota.pr.main.PR_6_1_ID;
 import komota.pr.main.PR_6_1_LT;
@@ -136,8 +137,8 @@ public class SampleTask_6_1s extends MySerialFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-//		this.tpr1 = new PR_002_LT(9,this.file_name);
-//		this.tpr2 = new PR_002_ID(9,this.file_name);
+		this.tpr1 = new PR_6_1_LT(9,this.file_name);
+		this.tpr2 = new PR_6_1_ID(9,this.file_name);
 		this.tpr3 = new PR_6_1_GL(9,this.file_name);
 //		this.tpr.testConvert(this);
 	}
@@ -189,6 +190,10 @@ public class SampleTask_6_1s extends MySerialFrame{
 			this.tpr3.setNumberofEvaluation(this.tpr3.getNumberofEvaluation() - 10);
 			System.out.println("[SampleTask_005s]functionPlugin8:set the number of data used to evaluate :"+this.tpr3.getNumberofEvaluation());
 		}
+	}
+	@Override
+	public void functionPlugin9(){
+		System.out.println("number of PoV:ID+LT:"+PR_6_1.referencecount+" GL:"+PR_6_1_GL.referencecount);
 	}
 	/*
 	 *
