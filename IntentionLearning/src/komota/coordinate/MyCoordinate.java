@@ -7,6 +7,11 @@ public class MyCoordinate {
 	//定数
 	//フィールド
 
+	//rangeのゲッター。オーバーライドする
+	public double getRange(){
+		return -1;
+	}
+
 	//変換メソッド。座標系ごとに、変換に必要なベクトルの種類や数が違うため、ベクトルの配列を引数に渡す
 	//ルールとして、引数に渡すベクトル配列は、必ず変換元のベクトルを第一引数にする
 	public double[] convert(double[][] inputs){

@@ -53,6 +53,40 @@ public class PR_6_1_GL extends MyPR{
 
 		refs[0] = new ReferencePoint(this,0,height/2 ,width/2);
 
+		//まず、視野を確認するため、最初に来たgoalログのstartpointの位置を取得する
+		int[] tempgoal = new int[2];
+		int k=1;
+		for(int t=0;t<this.logdata.length;t++){
+			if(this.logdata[t].getType() == GOAL){
+				//goalpointを探す
+				for(int i=0;i<height;i++){
+					for(int j=0;j<width;j++){
+						if(this.logdata[t].getStepStatus(i, j) == 1){
+							tempgoal[0] = i;
+							tempgoal[1] = j;
+						}
+					}
+				}
+				//オブジェクトを認識する
+				for(int i=0;i<height;i++){
+					for(int j=0;j<width;j++){
+						//0と1以外がlogdata[0].getStepStatusField()[i][j]にあったらrefs[k].reference[0] = i,[i] = jとして、状態もセット
+						//タスク的視野の中にいることも条件
+						if(Math.abs(i-tempgoal[0])<this.coordinate.getRange() && Math.abs(j-tempgoal[1])<this.coordinate.getRange() && this.logdata[0].getStepStatus(i,j) > 1){
+							this.refs[k] = new ReferencePoint(this,this.logdata[0].getStepStatus(i,j),i,j);
+							//観点の個数をインクリメント
+							PR_6_1.referencecount++;
+							//存在した状態番号をobjectlistに保存
+							this.objectlist[this.logdata[0].getStepStatus(i, j)] = 1;
+							k++;
+						}
+					}
+				}
+				break;
+			}
+		}
+
+/*
 		//logdataの0行目（logdata[0]というStepDataインスタンス）から状態0と1以外のオブジェクトがくるまで回す
 		int k=1;
 		for(int i=0;i<height;i++){
@@ -66,6 +100,7 @@ public class PR_6_1_GL extends MyPR{
 				}
 			}
 		}
+*/
 		//重心位置のインスタンスの作成。objectlistをもとに、可能な組み合わせのインスタンスのみ作成する
 		//for文用のインデックス
 		int[] tempidx = new int[9];

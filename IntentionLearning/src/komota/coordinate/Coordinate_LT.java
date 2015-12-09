@@ -5,7 +5,14 @@ public class Coordinate_LT extends MyCoordinate{
 	//引数はいずれも「goalpoint、reference、startpoint」の順で格納されている
 
 	//タスク的視野で使用する、LTにおける視野
-	public static double range_LT = 10;
+	public static double range_LT = 30;
+
+
+	//rangeのゲッター
+	@Override
+	public double getRange(){
+		return range_LT;
+	}
 
 	@Override
 	public double[] convert(double[][] inputs){
