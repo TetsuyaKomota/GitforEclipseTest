@@ -29,3 +29,4 @@ public class Coordinate_ID extends MyCoordinate{
 	}
 
 }
+
