@@ -60,6 +60,52 @@ public class Gauss {
 		return this.covariance;
 	}
 
+	//vから行列式を求める。
+	public double getDetV(){
+		double[][] tempv = new double[this.dimension][this.dimension];
+		//分散行列を変更しないようにコピー
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				tempv[i][j] = this.covariance[i][j];
+			}
+		}
+		double tempdetv = 1;
+		//対角成分にゼロがなくなるように行を交換。なくならなければ行列式はゼロ。
+		for(int i=0;i<this.dimension;i++){
+			boolean zeroflag = false;
+			if(tempv[i][i] == 0){
+				zeroflag = true;
+				for(int j=i;j<this.dimension;j++){
+					if(tempv[j][j] != 0){
+						double[] temp = tempv[i];
+						tempv[i] = tempv[j];
+						tempv[j] = temp;
+						tempdetv *= -1;
+						zeroflag = false;
+					}
+				}
+				if(zeroflag == true){
+					return 0;
+				}
+			}
+		}
+		//行列を三角行列に変換
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				if(i<j){
+					double buf = tempv[j][i] / tempv[i][i];
+					for(int k=0;k<this.dimension;k++){
+						tempv[j][k] -= tempv[i][k] * buf;
+					}
+				}
+			}
+		}
+		//三角行列の行列式は対角成分の積
+		for(int i=0;i<this.dimension;i++){
+			tempdetv *= tempv[i][i];
+		}
+		return tempdetv;
+	}
 	//乱数ベクトル取得
 	public double[] getNextGaussian(){
 		double[] output = new double[this.dimension];
@@ -69,6 +115,44 @@ public class Gauss {
 			//共分散を扱うのが面倒だったため、とりあえず分散値のみを使用している。気が向いたら修正する
 			output[i] = this.mean[i] + Math.sqrt(this.covariance[i][i])*rand.nextGaussian();
 		}
+
+		return output;
+	}
+
+	//ベクトルの生起確率（この分布からこのベクトルが出力される確率）
+	public double getProbability(double[] input){
+		double output = 0;
+
+		//共分散行列の行列式
+		double det = 0;
+		//指数部分
+		double index = 0;
+		//生起確率では、共分散行列は一般的な共分散行列として計算する。（対角行列を前提としない）
+		//つまり上記の共分散実装をしやすいようにしておく
+
+		//行列式の計算。天下り
+		det = this.getDetV();
+
+		//指数部分の計算
+		double[] tempindex = new double[this.dimension];
+		for(int i=0;i<this.dimension;i++){
+			tempindex[i] = 0;
+		}
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				tempindex[i] += (input[j] - this.mean[j])*this.covariance[j][i];
+			}
+		}
+		for(int i=0;i<this.dimension;i++){
+			index += tempindex[i] * (input[i] - this.mean[i]);
+		}
+		//2πのd/2乗部分
+		output = Math.pow(2*Math.PI, (double)this.dimension/2);
+		output = (double)1/output;
+		//共分散の行列式の二乗根で割る
+		output /= Math.sqrt(det);
+		//eの部分
+		output *= Math.exp(index);
 
 		return output;
 	}
