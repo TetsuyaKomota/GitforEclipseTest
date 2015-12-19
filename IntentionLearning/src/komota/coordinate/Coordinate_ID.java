@@ -5,7 +5,7 @@ public class Coordinate_ID extends MyCoordinate{
 	//変換、逆変換ともにただの恒等写像
 
 	//タスク的視野で使用する、IDにおける視野
-	public static double range_ID = 30;
+	public static double range_ID = 400;
 
 	//rangeのゲッター
 	@Override
