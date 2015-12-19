@@ -56,6 +56,19 @@ public class Gauss {
 			this.covariance = cov;
 		}
 	}
+	//共分散行列のセッターにdoubleを与えると、その値倍の単位行列に設定する
+	public void setCovariance(double variance){
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				if(i==j){
+					this.covariance[i][j] = variance;
+				}
+				else{
+					this.covariance[i][j] = 0;
+				}
+			}
+		}
+	}
 	public double[][] getCovariance(){
 		return this.covariance;
 	}
