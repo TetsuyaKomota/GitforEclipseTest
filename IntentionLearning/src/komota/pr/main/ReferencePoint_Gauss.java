@@ -107,6 +107,8 @@ class ReferencePoint_Gauss{
 		double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
 		double temp = closeness / (this.numlearningvariance + 1) + this.gauss.getCovariance()[0][0]*this.numlearningvariance / (this.numlearningvariance + 1);
 		this.gauss.setCovariance(temp);
+		//学習回数をインクリメント
+		this.numlearningvariance++;
 	}
 
 	void learnLikelihood(double[] trajector,double[] startpoint){
