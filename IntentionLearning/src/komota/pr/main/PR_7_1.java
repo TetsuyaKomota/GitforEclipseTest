@@ -658,8 +658,8 @@ public class PR_7_1 extends MyPR{
 		//参照点の絶対ベクトル＋参照点からの相対ベクトル＝トラジェクタの推定移動先
 		double[] tempoutput = new double[2];
 		double[][] inputs = new double[3][2];
-		inputs[0][0] = temprefpoint.goalpoint[0];
-		inputs[0][1] = temprefpoint.goalpoint[1];
+		inputs[0][0] = temprefpoint.E_goalpoint[0];
+		inputs[0][1] = temprefpoint.E_goalpoint[1];
 		inputs[1][0] = temprefpoint.reference[0];
 		inputs[1][1] = temprefpoint.reference[1];
 		inputs[2][0] = startpoint[0];

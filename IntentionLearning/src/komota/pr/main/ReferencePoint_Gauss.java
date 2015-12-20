@@ -24,6 +24,10 @@ class ReferencePoint_Gauss{
 	double[] reference;
 	//参照点からの位置ベクトル
 	double[] goalpoint;
+	//生起確率を考慮した期待値ベクトル
+	double[] E_goalpoint;
+	//期待値ベクトル計算に使用する母確率
+	double E_sum;
 	//分散
 	double variance = 1;
 	//尤度
@@ -49,6 +53,12 @@ class ReferencePoint_Gauss{
 		this.goalpoint = new double[2];
 		goalpoint[0] = 0;
 		goalpoint[1] = 0;
+
+		this.E_sum = 0;
+
+		this.E_goalpoint = new double[2];
+		E_goalpoint[0] = 0;
+		E_goalpoint[1] = 0;
 
 		this.likelihood = 1;
 		this.numlearning = 0;
@@ -140,6 +150,13 @@ class ReferencePoint_Gauss{
 		//学習回数をインクリメント
 		this.numlearninglikelihood++;
 
+		//生起確率を考慮した再現を行うために、位置ベクトルの期待値ベクトルを計算する
+		if(this.gauss.getProbability(tempgoal) > 0){
+			this.E_goalpoint[0] = (this.E_goalpoint[0]*this.E_sum)/(this.E_sum+this.gauss.getProbability(tempgoal)) + (tempgoal[0]*this.gauss.getProbability(tempgoal))/(this.E_sum+this.gauss.getProbability(tempgoal));
+			this.E_goalpoint[1] = (this.E_goalpoint[1]*this.E_sum)/(this.E_sum+this.gauss.getProbability(tempgoal)) + (tempgoal[1]*this.gauss.getProbability(tempgoal))/(this.E_sum+this.gauss.getProbability(tempgoal));
+			this.E_sum += this.gauss.getProbability(tempgoal);
+			System.out.println("[ReferencePoint_Gauss]learnLikelihood:E_goalpoint:("+this.E_goalpoint[0]+","+this.E_goalpoint[1]+")  E_sum:"+this.E_sum);
+		}
 	}
 
 	//表示
