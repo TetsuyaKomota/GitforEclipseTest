@@ -164,9 +164,6 @@ public class SampleTask_7_1s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin4(){
-		System.out.println("show reference");
-		this.tpr2.showReference();
-
 	}
 	@Override
 	public void functionPlugin5(){

@@ -188,6 +188,13 @@ public class MyPR {
 		}
 		//盤面をいじくってしまっているので、最後にinitializeを実行する
 		frame.initialize();
+		//計算結果をresult.txtに出力する
+/*
+  		frame.printResult(
+
+				output+"	"
+				);
+*/
 		return output;
 	}
 	/* ************************************************************************************************** */
