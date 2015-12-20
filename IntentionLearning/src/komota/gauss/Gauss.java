@@ -2,9 +2,44 @@ package komota.gauss;
 
 import java.util.Random;
 
+import komota.main.MyPR;
+
 public class Gauss {
 
 	//平均ベクトルと分散共分散行列を持つガウスクラス。
+
+
+	public static void main(String[] args){
+		Gauss gauss = new Gauss(2);
+		MyPR pr = new MyPR();
+		double[][] vecs = new double[100][2];
+
+		double[] mean = new double[2];
+		mean[0] = 0;
+		mean[1] = 0;
+		for(int i=0;i<vecs.length;i++){
+			vecs[i][0] = Math.cos((Math.PI * 2/vecs.length)*i);
+			vecs[i][1] = Math.sin((Math.PI * 2/vecs.length)*i);
+			mean[0] += vecs[i][0];
+			mean[1] += vecs[i][1];
+		}
+		mean[0] /= vecs.length;
+		mean[1] /= vecs.length;
+
+		double variance = 0;
+		for(int i=0;i<vecs.length;i++){
+			variance += (vecs[i][0] - mean[0])*(vecs[i][0] - mean[0])+(vecs[i][1] - mean[1])*(vecs[i][1] - mean[1]);
+		}
+		variance /= vecs.length;
+
+		gauss.setMean(mean);
+		gauss.setCovariance(variance);
+		System.out.println("gauss:mean:("+mean[0]+","+mean[1]+")  variance:"+variance);
+
+		for(int i=0;i<vecs.length;i++){
+			System.out.println("vecs["+i+"]:("+vecs[i][0]+","+vecs[i][1]+"):probability:"+gauss.getProbability(vecs[i]));
+		}
+	}
 
 	//フィールド
 	//次元数
