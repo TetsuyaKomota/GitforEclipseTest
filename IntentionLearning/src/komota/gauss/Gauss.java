@@ -18,8 +18,16 @@ public class Gauss {
 		mean[0] = 0;
 		mean[1] = 0;
 		for(int i=0;i<vecs.length;i++){
+
+ 			//半径１の円を100等分した集合。うまく行ってるっぽい
 			vecs[i][0] = Math.cos((Math.PI * 2/vecs.length)*i);
 			vecs[i][1] = Math.sin((Math.PI * 2/vecs.length)*i);
+
+/*
+			//一様分布。全結果がほぼ等しい確率になるという意味ではうまくいっているが、確率という意味では全くうまくいってない。（１を超えるものがあったり）
+			vecs[i][0] = Math.random();
+			vecs[i][1] = Math.random();
+*/
 			mean[0] += vecs[i][0];
 			mean[1] += vecs[i][1];
 		}
@@ -39,6 +47,20 @@ public class Gauss {
 		for(int i=0;i<vecs.length;i++){
 			System.out.println("vecs["+i+"]:("+vecs[i][0]+","+vecs[i][1]+"):probability:"+gauss.getProbability(vecs[i]));
 		}
+
+		double[] yes = new double[2];
+		yes[0] = 0;
+		yes[1] = 0;
+		double[] no = new double[2];
+		no[0] = 0;
+		no[1] = 1;
+		System.out.println("yes:("+yes[0]+","+yes[1]+"):probability:"+gauss.getProbability(yes));
+		while(no[1] < 10000){
+			System.out.println("no :("+no[0]+","+no[1]+"):probability:"+gauss.getProbability(no));
+			if(gauss.getProbability(no) == 0)break;
+			no[1] += 0.1;
+		}
+
 	}
 
 	//フィールド
@@ -200,7 +222,7 @@ public class Gauss {
 		//共分散の行列式の二乗根で割る
 		output /= Math.sqrt(det);
 		//eの部分
-		output *= Math.exp(index);
+		output *= Math.exp(-index);
 
 		return output;
 	}
