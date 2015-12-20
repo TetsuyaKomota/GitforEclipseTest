@@ -649,15 +649,16 @@ public class PR_7_1 extends MyPR{
 				}
 			}
 		}
-		System.out.println("[TestPR1]reproduction:tempref:"+tempref);
+		System.out.println("[PR_7_1]reproduction:tempref:"+tempref);
 		//選択された参照点を現在の座標に更新する
 		//状態が0（画面中心が参照点）の場合は例外
 
-		System.out.println("[TestPR1]reproduction:ref.reference:"+temprefpoint.reference[0]+" , "+temprefpoint.reference[1]);
-		System.out.println("[TestPR1]reproduction:ref.goalpoint:"+temprefpoint.goalpoint[0]+" , "+temprefpoint.goalpoint[1]);
+		System.out.println("[PR_7_1]reproduction:ref.reference:"+temprefpoint.reference[0]+" , "+temprefpoint.reference[1]);
+		System.out.println("[PR_7_1]reproduction:ref.goalpoint:"+temprefpoint.goalpoint[0]+" , "+temprefpoint.goalpoint[1]);
 		//参照点の絶対ベクトル＋参照点からの相対ベクトル＝トラジェクタの推定移動先
 		double[] tempoutput = new double[2];
 		double[][] inputs = new double[3][2];
+		System.out.println("[PR_7_1]learnLikelihood:E_goalpoint:("+temprefpoint.E_goalpoint[0]+","+temprefpoint.E_goalpoint[1]+")  E_sum:"+temprefpoint.E_sum);
 		inputs[0][0] = temprefpoint.E_goalpoint[0];
 		inputs[0][1] = temprefpoint.E_goalpoint[1];
 		inputs[1][0] = temprefpoint.reference[0];
@@ -668,7 +669,7 @@ public class PR_7_1 extends MyPR{
 		tempoutput[0] += temprefpoint.reference[0];
 		tempoutput[1] += temprefpoint.reference[1];
 		//doubleになっているので、パネルに変換する(まあただの四捨五入)
-		System.out.println("[TestPR1]reproduction:tempoutput:"+tempoutput[0]+" , "+tempoutput[1]);
+		System.out.println("[PR_7_1]reproduction:tempoutput:"+tempoutput[0]+" , "+tempoutput[1]);
 		int[] output = new int[2];
 		output[0] = (int)(tempoutput[0] + 0.5);
 		output[1] = (int)(tempoutput[1] + 0.5);
@@ -681,8 +682,15 @@ public class PR_7_1 extends MyPR{
 			if(refs[i] != null){
 				refs[i].goalpoint[0] = 0;
 				refs[i].goalpoint[1] = 0;
+				refs[i].E_goalpoint[0] = 0;
+				refs[i].E_goalpoint[1] = 0;
+				refs[i].E_sum = 0;
+				refs[i].variance = 1;
 				refs[i].likelihood = 1;
 				refs[i].numlearning = 0;
+				refs[i].numlearningvariance = 0;
+				refs[i].numlearninglikelihood = 0;
+
 			}
 		}
 		//重心を初期化
