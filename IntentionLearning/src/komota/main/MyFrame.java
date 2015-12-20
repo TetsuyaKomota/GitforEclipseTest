@@ -57,10 +57,14 @@ public class MyFrame extends JFrame{
 	//操作方法表示
 	public String howtouse = "SPACE:exchange the first clicked and the second clicked.   G:finish the task.";
 
-	//出力先ファイル
+	//出力先ファイル（ログ用）
 	File file;
 	String file_name = "test.txt";
 	PrintWriter pw;
+
+	//出力先ファイル（計測結果など）
+	String file_name_result = "result.txt";
+	PrintWriter pw_result;
 
 	//コンストラクタ
 	public MyFrame(){
@@ -107,6 +111,16 @@ public class MyFrame extends JFrame{
 		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
 		      OutputStreamWriter osw = new OutputStreamWriter(fos);
 		      this.pw = new PrintWriter(osw);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+			System.out.println("ファイルなし");
+		}
+		this.file = new File("log/"+file_name_result);
+		try {
+		      FileOutputStream fos = new FileOutputStream("log/"+file_name_result,true);
+		      OutputStreamWriter osw = new OutputStreamWriter(fos);
+		      this.pw_result = new PrintWriter(osw);
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -194,6 +208,14 @@ public class MyFrame extends JFrame{
 			}
 		}
 		pw.println();
+	}
+
+	//計算結果などをresult.txtに出力
+	public void printResult(String out){
+		this.pw_result.print(out);
+	}
+	public void printlnResult(String out){
+		this.pw_result.println(out);
 	}
 	//パネルの描画以外の特別な描画を行いたい場合はここをオーバーライド
 	public void draw(){
