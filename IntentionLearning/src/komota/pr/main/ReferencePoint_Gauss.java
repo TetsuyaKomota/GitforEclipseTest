@@ -24,6 +24,8 @@ class ReferencePoint_Gauss{
 	double[] reference;
 	//参照点からの位置ベクトル
 	double[] goalpoint;
+	//分散
+	double variance = 1;
 	//尤度
 	double likelihood;
 	//学習回数。goalpoint更新の学習率に使用する
@@ -54,6 +56,8 @@ class ReferencePoint_Gauss{
 		this.numlearninglikelihood = 0;
 
 		this.gauss =new Gauss(2);
+		this.gauss.setMean(goalpoint);
+		this.gauss.setCovariance(variance);
 	}
 
 	//トラジェクタの位置ベクトル(絶対ベクトル)が引数として与えられたとき、goalpointの更新を行う
@@ -104,9 +108,9 @@ class ReferencePoint_Gauss{
 		double[] tempcloseness = new double[2];
 		tempcloseness[0] = tempgoal[0] - this.goalpoint[0];
 		tempcloseness[1] = tempgoal[1] - this.goalpoint[1];
-		double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
-		double temp = closeness / (this.numlearningvariance + 1) + this.gauss.getCovariance()[0][0]*this.numlearningvariance / (this.numlearningvariance + 1);
-		this.gauss.setCovariance(temp);
+		double closeness = tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1];
+		this.variance = this.numlearningvariance*this.variance/(this.numlearningvariance+1) + closeness/(this.numlearningvariance+1);
+		this.gauss.setCovariance(variance);
 		//学習回数をインクリメント
 		this.numlearningvariance++;
 	}
@@ -129,6 +133,7 @@ class ReferencePoint_Gauss{
 		tempcloseness[1] = tempgoal[1] - this.goalpoint[1];
 		double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
 		closeness *= this.gauss.getProbability(tempgoal);
+		System.out.println("[ReferencePoint]learnLikelihood:mean:("+this.gauss.getMean()[0]+","+this.gauss.getMean()[1]+") variance:"+this.gauss.getCovariance()[0][0]);
 		System.out.println("[ReferencePoint]learnLikelihood:closeness:"+closeness+" probability:"+this.gauss.getProbability(tempgoal));
 		//likelihood += （近さ値-近さ閾値）
 		likelihood = (double)1/likelihood;
