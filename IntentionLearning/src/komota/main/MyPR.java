@@ -71,7 +71,8 @@ public class MyPR {
 			if(line == null){
 				break;
 			}
-			else{
+			// the information that independent from manipulation log have the word "result,"
+			else if(line.split(",")[0].equals("result") == false){
 				this.logdata[step] = new StepLog(step,line);
 				step++;
 			}
