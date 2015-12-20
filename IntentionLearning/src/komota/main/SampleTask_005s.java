@@ -172,7 +172,7 @@ public class SampleTask_005s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin5(){
-		System.out.println("evaluation point:"+this.tpr3.evaluate(this));
+		System.out.println("evaluation point:"+this.tpr2.evaluate(this));
 	}
 	@Override
 	public void functionPlugin6(){

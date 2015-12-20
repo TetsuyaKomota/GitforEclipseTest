@@ -182,7 +182,7 @@ public class MyPR {
 				//diserror = 1/(1+diserror);
 				//outputの更新。outputはdiserrorの平均値にする
 				System.out.println("[MyPR]evaluate:count:"+count);
-				output = (count/(count+1))*output + (1/(count+1))*diserror;
+				output = ((double)count/(count+1))*output + ((double)1/(count+1))*diserror;
 				count++;
 			}
 		}
