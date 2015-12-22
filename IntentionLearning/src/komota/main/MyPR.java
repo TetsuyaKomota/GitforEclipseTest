@@ -29,9 +29,8 @@ public class MyPR {
 	//フィールド
 	File file;
 	BufferedReader br;
-	String file_name = "test4.txt";
-	//取得したログデータ。[ステップ数（何行目か）][種類（start ,goal  ,change,status）][行][列]
-	//種類が  changeの場合、変化前後のパネルの前を１、後を２とする
+	String file_name = "logdata.txt";
+	//取得したログデータ
 	public StepLog[] logdata = null;
 
 	//座標変換クラス
@@ -71,7 +70,7 @@ public class MyPR {
 			if(line == null){
 				break;
 			}
-			// the information that independent from manipulation log have the word "result,"
+			//ログデータ中に書きだされたコメントや実行結果などを無視する
 			else if(line.split(",")[0].equals("result") == false){
 				this.logdata[step] = new StepLog(step,line);
 				step++;
@@ -81,7 +80,7 @@ public class MyPR {
 		this.close();
 	}
 	public MyPR(){
-		this("test4.txt");
+		this("logdata.txt");
 	}
 
 	//クローズ処理
@@ -150,7 +149,6 @@ public class MyPR {
 				//直前の"start"データが来るまで戻る
 				T = t;
 				while(this.logdata[T].getType() != START){
-//					System.out.println("T:"+T+" logdata["+T+"].getType:"+logdata[T].getType());
 					T--;
 				}
 				//logdata[t]のタイプを一時的にstatusに変換し、学習が行われないようにする
@@ -180,7 +178,6 @@ public class MyPR {
 				//再現したsecondselectedとのずれを求める
 				double diserror = Math.sqrt((frame.secondselected[0]-truepoint[0])*(frame.secondselected[0]-truepoint[0]) + (frame.secondselected[1]-truepoint[1])*(frame.secondselected[1]-truepoint[1]));
 				System.out.println("step:"+t+"  true:"+truepoint[0]+","+truepoint[1]+" select:"+frame.secondselected[0]+","+frame.secondselected[1]+" error:"+diserror);
-				//diserror = 1/(1+diserror);
 				//outputの更新。outputはdiserrorの平均値にする
 				System.out.println("[MyPR]evaluate:count:"+count);
 				output = ((double)count/(count+1))*output + ((double)1/(count+1))*diserror;
@@ -188,12 +185,11 @@ public class MyPR {
 			}
 		}
 		//計算結果をresult.txtに出力する
-
   		frame.pw.println(
 				"result,"+output+";"
 				);
-
 		//盤面をいじくってしまっているので、最後にinitializeを実行する
+  		//条件を変えながら評価値を何度も計算する場合、initializeによるstartログ発生が煩わしいため、引数でinitializeを行わないようにできる
 		if(initialize == true){
 			frame.initialize();
 		}
@@ -218,7 +214,6 @@ public class MyPR {
 			this.step = step;
 			String[] tempstrings = line.split(",");
 			if(tempstrings.length < MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL){
-				//System.out.println(step+"行目がおかしいよ");
 				return;
 			}
 			if(tempstrings[0].equals("start ")){
