@@ -225,7 +225,7 @@ public class SampleTask_100s extends MySerialFrame{
 		System.out.println("再現動作の評価値を、視野を増やしながら計算");
 
 		MyPR.setNumberofEvaluation(1000);
-		PR_100.setViewRange(1);
+		PR_100.setViewRange(5);
 
 		//評価値が4回連続同じ値になるまで、データ量を増やす
 		int count=0;
@@ -255,12 +255,12 @@ public class SampleTask_100s extends MySerialFrame{
 				count = 0;
 			}
 			//countが4以上か(同じ計算結果が4回以上続いたか)
-			if(count >= 4){
+			if(count >= 100){
 				break;
 			}
 			else{
 				//視野を増やす
-				PR_100.setViewRange(PR_100.getViewRange()+1);
+				PR_100.setViewRange(PR_100.getViewRange()+5);
 			}
 		}
 		this.initialize();

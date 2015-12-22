@@ -72,7 +72,7 @@ public class PR_100 extends MyPR{
 					for(int j=0;j<width;j++){
 						//0と1以外がlogdata[0].getStepStatusField()[i][j]にあったらrefs[k].reference[0] = i,[i] = jとして、状態もセット
 						//タスク的視野の中にいることも条件
-						if(Math.abs(i-tempgoal[0])<this.getViewRange() && Math.abs(j-tempgoal[1])<this.getViewRange() && this.logdata[0].getStepStatus(i,j) > 1){
+						if((i-tempgoal[0])*(i-tempgoal[0])+(j-tempgoal[1])*(j-tempgoal[1]) < PR_100.getViewRange()*PR_100.getViewRange() && this.logdata[0].getStepStatus(i,j) > 1){
 							this.refs[k] = new ReferencePoint_100(this,this.logdata[0].getStepStatus(i,j),i,j);
 							//観点の個数をインクリメント
 							PR_6_1.referencecount++;
