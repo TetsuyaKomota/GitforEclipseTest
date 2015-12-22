@@ -1,7 +1,6 @@
 package komota.main;
 
 import komota.pr.main.PR_7_1_GL;
-import komota.pr.main.PR_7_1_ID;
 import komota.pr.main.PR_7_1_LT;
 
 public class SampleTask_7_1s extends MySerialFrame{
@@ -21,7 +20,7 @@ public class SampleTask_7_1s extends MySerialFrame{
 	//解析クラス
 //	TestPatternRecognition tpr;
 	PR_7_1_LT tpr1;
-	PR_7_1_ID tpr2;
+	PR_7_1_GL tpr2;
 	PR_7_1_GL tpr3;
 
 	//コンストラクタ
@@ -135,7 +134,7 @@ public class SampleTask_7_1s extends MySerialFrame{
 	public void functionPlugin1(){
 		System.out.println("additional function.");
 //		this.tpr1 = new PR_002_LT(9,this.file_name);
-		this.tpr2 = new PR_7_1_ID(9,this.file_name);
+		this.tpr2 = new PR_7_1_GL(9,this.file_name);
 //		this.tpr3 = new PR_004_GL(9,this.file_name);
 //		this.tpr.testConvert(this);
 	}
@@ -164,6 +163,8 @@ public class SampleTask_7_1s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin4(){
+		System.out.println("evaluation point:"+this.tpr2.evaluate(this,false));
+		tpr2.setNumberofEvaluation(tpr2.getNumberofEvaluation()+1);
 	}
 	@Override
 	public void functionPlugin5(){
