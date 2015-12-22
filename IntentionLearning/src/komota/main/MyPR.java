@@ -71,7 +71,8 @@ public class MyPR {
 			if(line == null){
 				break;
 			}
-			else{
+			// the information that independent from manipulation log have the word "result,"
+			else if(line.split(",")[0].equals("result") == false){
 				this.logdata[step] = new StepLog(step,line);
 				step++;
 			}
@@ -182,12 +183,19 @@ public class MyPR {
 				//diserror = 1/(1+diserror);
 				//outputの更新。outputはdiserrorの平均値にする
 				System.out.println("[MyPR]evaluate:count:"+count);
-				output = (count/(count+1))*output + (1/(count+1))*diserror;
+				output = ((double)count/(count+1))*output + ((double)1/(count+1))*diserror;
 				count++;
 			}
 		}
 		//盤面をいじくってしまっているので、最後にinitializeを実行する
 		frame.initialize();
+		//計算結果をresult.txtに出力する
+/*
+  		frame.printResult(
+
+				output+"	"
+				);
+*/
 		return output;
 	}
 	/* ************************************************************************************************** */

@@ -2,9 +2,66 @@ package komota.gauss;
 
 import java.util.Random;
 
+import komota.main.MyPR;
+
 public class Gauss {
 
 	//平均ベクトルと分散共分散行列を持つガウスクラス。
+
+
+	public static void main(String[] args){
+		Gauss gauss = new Gauss(2);
+		MyPR pr = new MyPR();
+		double[][] vecs = new double[100][2];
+
+		double[] mean = new double[2];
+		mean[0] = 0;
+		mean[1] = 0;
+		for(int i=0;i<vecs.length;i++){
+
+ 			//半径１の円を100等分した集合。うまく行ってるっぽい
+			vecs[i][0] = Math.cos((Math.PI * 2/vecs.length)*i);
+			vecs[i][1] = Math.sin((Math.PI * 2/vecs.length)*i);
+
+/*
+			//一様分布。全結果がほぼ等しい確率になるという意味ではうまくいっているが、確率という意味では全くうまくいってない。（１を超えるものがあったり）
+			vecs[i][0] = Math.random();
+			vecs[i][1] = Math.random();
+*/
+			mean[0] += vecs[i][0];
+			mean[1] += vecs[i][1];
+		}
+		mean[0] /= vecs.length;
+		mean[1] /= vecs.length;
+
+		double variance = 0;
+		for(int i=0;i<vecs.length;i++){
+			variance += (vecs[i][0] - mean[0])*(vecs[i][0] - mean[0])+(vecs[i][1] - mean[1])*(vecs[i][1] - mean[1]);
+		}
+		variance /= vecs.length;
+
+		gauss.setMean(mean);
+		gauss.setCovariance(variance);
+		System.out.println("gauss:mean:("+mean[0]+","+mean[1]+")  variance:"+variance);
+
+		for(int i=0;i<vecs.length;i++){
+			System.out.println("vecs["+i+"]:("+vecs[i][0]+","+vecs[i][1]+"):probability:"+gauss.getProbability(vecs[i]));
+		}
+
+		double[] yes = new double[2];
+		yes[0] = 0;
+		yes[1] = 0;
+		double[] no = new double[2];
+		no[0] = 0;
+		no[1] = 1;
+		System.out.println("yes:("+yes[0]+","+yes[1]+"):probability:"+gauss.getProbability(yes));
+		while(no[1] < 10000){
+			System.out.println("no :("+no[0]+","+no[1]+"):probability:"+gauss.getProbability(no));
+			if(gauss.getProbability(no) == 0)break;
+			no[1] += 0.1;
+		}
+
+	}
 
 	//フィールド
 	//次元数
@@ -165,7 +222,7 @@ public class Gauss {
 		//共分散の行列式の二乗根で割る
 		output /= Math.sqrt(det);
 		//eの部分
-		output *= Math.exp(index);
+		output *= Math.exp(-index);
 
 		return output;
 	}

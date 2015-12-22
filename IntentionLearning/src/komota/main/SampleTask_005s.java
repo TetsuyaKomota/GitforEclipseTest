@@ -137,8 +137,8 @@ public class SampleTask_005s extends MySerialFrame{
 	public void functionPlugin1(){
 		System.out.println("additional function.");
 //		this.tpr1 = new PR_002_LT(9,this.file_name);
-//		this.tpr2 = new PR_002_ID(9,this.file_name);
-		this.tpr3 = new PR_004_GL(9,this.file_name);
+		this.tpr2 = new PR_002_ID(9,this.file_name);
+//		this.tpr3 = new PR_004_GL(9,this.file_name);
 //		this.tpr.testConvert(this);
 	}
 	@Override
@@ -146,15 +146,15 @@ public class SampleTask_005s extends MySerialFrame{
 		System.out.println("show.");
 //		this.tpr1.show();
 //		this.tpr1.learnfromLog();
-//		this.tpr2.learnfromLog();
-		this.tpr3.learnfromLog();
+		this.tpr2.learnfromLog();
+//		this.tpr3.learnfromLog();
 
 //		this.tpr1.showReference();
 	}
 	@Override
 	public void functionPlugin3(){
 		System.out.println("reproduction.");
-		this.tpr3.reproduction(this);
+		this.tpr2.reproduction(this);
 /*
 		if(this.tpr1.getMaxLikelihood() >= this.tpr2.getMaxLikelihood()){
 			this.tpr1.reproduction(this);
@@ -172,7 +172,7 @@ public class SampleTask_005s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin5(){
-		System.out.println("evaluation point:"+this.tpr3.evaluate(this));
+		System.out.println("evaluation point:"+this.tpr2.evaluate(this));
 	}
 	@Override
 	public void functionPlugin6(){
