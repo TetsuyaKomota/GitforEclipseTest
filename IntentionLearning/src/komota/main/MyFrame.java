@@ -65,7 +65,7 @@ public class MyFrame extends JFrame{
 	//コンストラクタ
 	public MyFrame(){
 		this.setTitle("IntentionLearning");
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.addWindowListener(new WindowAdapter(){
 			@Override
