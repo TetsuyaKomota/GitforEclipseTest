@@ -1,5 +1,6 @@
 package komota.main;
 
+import komota.pr.main.PR_002_ID;
 import komota.pr.main.PR_002_LT;
 import komota.pr.main.PR_004_GL;
 
@@ -22,7 +23,7 @@ public class SampleTask_005s extends MySerialFrame{
 	//解析クラス
 //	TestPatternRecognition tpr;
 	PR_002_LT tpr1;
-	PR_004_GL tpr2;
+	PR_002_ID tpr2;
 	PR_004_GL tpr3;
 
 	//コンストラクタ
@@ -51,17 +52,17 @@ public class SampleTask_005s extends MySerialFrame{
 				this.panels[temp1][temp2].setStatus(2);
 				while(true){
 					double temp3 = Math.random();
-					if(temp3<0.25&&temp1>30&&this.panels[temp1-20][temp2].getStatus() == 0){
-						this.panels[temp1-20][temp2].setStatus(3);
+					if(temp3<0.25&&temp1>50&&this.panels[temp1-40][temp2].getStatus() == 0){
+						this.panels[temp1-40][temp2].setStatus(3);
 						break;
-					}else if(temp3<0.5&&temp2>30&&this.panels[temp1][temp2-20].getStatus() == 0){
-						this.panels[temp1][temp2-20].setStatus(3);
+					}else if(temp3<0.5&&temp2>50&&this.panels[temp1][temp2-40].getStatus() == 0){
+						this.panels[temp1][temp2-40].setStatus(3);
 						break;
-					}else if(temp3<0.75&&temp1<MyFrame.NUMBEROFPANEL-30&&this.panels[temp1+20][temp2].getStatus() == 0){
-						this.panels[temp1+20][temp2].setStatus(3);
+					}else if(temp3<0.75&&temp1<MyFrame.NUMBEROFPANEL-50&&this.panels[temp1+40][temp2].getStatus() == 0){
+						this.panels[temp1+40][temp2].setStatus(3);
 						break;
-					}else if(temp3<1.1&&temp2<MyFrame.NUMBEROFPANEL-30&&this.panels[temp1][temp2+20].getStatus() == 0){
-						this.panels[temp1][temp2+20].setStatus(3);
+					}else if(temp3<1.1&&temp2<MyFrame.NUMBEROFPANEL-50&&this.panels[temp1][temp2+40].getStatus() == 0){
+						this.panels[temp1][temp2+40].setStatus(3);
 						break;
 					}
 				}
@@ -80,7 +81,7 @@ public class SampleTask_005s extends MySerialFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(4);
+				this.panels[temp1][temp2].setStatus(4);
 				break;
 			}
 		}
@@ -88,7 +89,7 @@ public class SampleTask_005s extends MySerialFrame{
 			int temp1 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			int temp2 = (int)(Math.random() * MyFrame.NUMBEROFPANEL);
 			if(this.panels[temp1][temp2].getStatus() == 0){
-//				this.panels[temp1][temp2].setStatus(5);
+				this.panels[temp1][temp2].setStatus(5);
 				break;
 			}
 		}
@@ -135,18 +136,18 @@ public class SampleTask_005s extends MySerialFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("additional function.");
-//		this.tpr1 = new PR_002_LT(9,this.file_name);
-		this.tpr2 = new PR_004_GL(9,this.file_name);
-//		this.tpr3 = new PR_004_GL(9,this.file_name);
+		this.tpr1 = new PR_002_LT(9,this.file_name);
+		this.tpr2 = new PR_002_ID(9,this.file_name);
+		this.tpr3 = new PR_004_GL(9,this.file_name);
 //		this.tpr.testConvert(this);
 	}
 	@Override
 	public void functionPlugin2(){
 		System.out.println("show.");
 //		this.tpr1.show();
-//		this.tpr1.learnfromLog();
+		this.tpr1.learnfromLog();
 		this.tpr2.learnfromLog();
-//		this.tpr3.learnfromLog();
+		this.tpr3.learnfromLog();
 
 //		this.tpr1.showReference();
 	}
@@ -154,14 +155,15 @@ public class SampleTask_005s extends MySerialFrame{
 	public void functionPlugin3(){
 		System.out.println("reproduction.");
 		this.tpr2.reproduction(this);
-/*
-		if(this.tpr1.getMaxLikelihood() >= this.tpr2.getMaxLikelihood()){
+		if(this.tpr2.getMaxLikelihood() >= this.tpr1.getMaxLikelihood() && this.tpr2.getMaxLikelihood() >= this.tpr3.getMaxLikelihood()){
+			this.tpr2.reproduction(this);
+		}
+		else if(this.tpr1.getMaxLikelihood() >= this.tpr2.getMaxLikelihood() && this.tpr1.getMaxLikelihood() >= this.tpr3.getMaxLikelihood()){
 			this.tpr1.reproduction(this);
 		}
 		else{
-			this.tpr2.reproduction(this);
+			this.tpr3.reproduction(this);
 		}
-*/
 	}
 	@Override
 	public void functionPlugin4(){
