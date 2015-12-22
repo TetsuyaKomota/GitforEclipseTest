@@ -68,10 +68,10 @@ public class SampleTask_100s extends MySerialFrame{
 					}else if(temp3<0.5&&temp2>50&&this.panels[temp1][temp2-40].getStatus() == 0){
 						this.panels[temp1][temp2-40].setStatus(3);
 						break;
-					}else if(temp3<0.75&&temp1<MyFrame.NUMBEROFPANEL-30&&this.panels[temp1+40][temp2].getStatus() == 0){
+					}else if(temp3<0.75&&temp1<MyFrame.NUMBEROFPANEL-50&&this.panels[temp1+40][temp2].getStatus() == 0){
 						this.panels[temp1+40][temp2].setStatus(3);
 						break;
-					}else if(temp3<1.1&&temp2<MyFrame.NUMBEROFPANEL-30&&this.panels[temp1][temp2+40].getStatus() == 0){
+					}else if(temp3<1.1&&temp2<MyFrame.NUMBEROFPANEL-50&&this.panels[temp1][temp2+40].getStatus() == 0){
 						this.panels[temp1][temp2+40].setStatus(3);
 						break;
 					}

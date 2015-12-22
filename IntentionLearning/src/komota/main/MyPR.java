@@ -24,7 +24,7 @@ public class MyPR {
 
 	//スタティックフィールド
 	//クロスバリデーションにおける使用するデータ量
-	private static int numberofevaluation = 2;
+	private static int numberofevaluation = 1000;
 
 	//フィールド
 	File file;

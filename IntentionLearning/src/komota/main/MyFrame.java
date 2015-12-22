@@ -7,8 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,13 +64,6 @@ public class MyFrame extends JFrame{
 	public MyFrame(){
 		this.setTitle("IntentionLearning");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		this.addWindowListener(new WindowAdapter(){
-			@Override
-			public void windowClosed(WindowEvent arg0){
-				MyFrame.this.pw.close();
-			}
-		});
 
 		this.setSize(1000,1000);
 		this.setResizable(false);
