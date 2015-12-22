@@ -24,7 +24,7 @@ public class MyPR {
 
 	//スタティックフィールド
 	//クロスバリデーションにおける使用するデータ量
-	private static int numberofevaluation = 1000;
+	private static int numberofevaluation = 2;
 
 	//フィールド
 	File file;
@@ -130,7 +130,7 @@ public class MyPR {
 	}
 
 	//クロスバリデーションを行って学習結果の評価を行う
-	public double evaluate(MyFrame frame){
+	public double evaluate(MyFrame frame,boolean initialize){
 		double output = 0;
 		//交差回数
 		int count = 0;
@@ -187,16 +187,20 @@ public class MyPR {
 				count++;
 			}
 		}
-		//盤面をいじくってしまっているので、最後にinitializeを実行する
-		frame.initialize();
 		//計算結果をresult.txtに出力する
-/*
-  		frame.printResult(
 
-				output+"	"
+  		frame.pw.println(
+				"result,"+output
 				);
-*/
-		return output;
+
+		//盤面をいじくってしまっているので、最後にinitializeを実行する
+		if(initialize == true){
+			frame.initialize();
+		}
+ 		return output;
+	}
+	public double evaluate(MyFrame frame){
+		return evaluate(frame,true);
 	}
 	/* ************************************************************************************************** */
 	//解析用のログデータを表す内部クラス
