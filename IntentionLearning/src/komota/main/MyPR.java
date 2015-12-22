@@ -71,7 +71,12 @@ public class MyPR {
 				break;
 			}
 			//ログデータ中に書きだされたコメントや実行結果などを無視する
-			else if(line.split(",")[0].equals("result") == false){
+			else if(line.split(",")[0].equals("result") == true){
+			}
+			//ログデータが壊れている部分は無視する
+			else if(line.split(",").length != MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL + 1){
+			}
+			else{
 				this.logdata[step] = new StepLog(step,line);
 				step++;
 			}
