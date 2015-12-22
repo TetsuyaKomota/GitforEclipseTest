@@ -154,6 +154,7 @@ public class SampleTask_005s extends MySerialFrame{
 	@Override
 	public void functionPlugin3(){
 		System.out.println("reproduction.");
+		System.out.println("[SampleTask_005s]functionPlugin3:MaxLikelihood: ID:"+this.tpr2.getMaxLikelihood()+" LT:"+tpr1.getMaxLikelihood()+" GL:"+tpr3.getMaxLikelihood());
 		this.tpr2.reproduction(this);
 		if(this.tpr2.getMaxLikelihood() >= this.tpr1.getMaxLikelihood() && this.tpr2.getMaxLikelihood() >= this.tpr3.getMaxLikelihood()){
 			this.tpr2.reproduction(this);

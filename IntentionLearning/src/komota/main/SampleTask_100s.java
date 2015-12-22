@@ -147,14 +147,15 @@ public class SampleTask_100s extends MySerialFrame{
 	@Override
 	public void functionPlugin3(){
 		System.out.println("学習結果から、動作を再現");
-		if(this.pr_ID.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_ID.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
-			this.pr_ID.reproduction(this);
+		System.out.println("[SampleTask_100s]functionPlugin3:MaxLikelihood: ID:"+this.pr_ID.getMaxLikelihood()+" LT:"+pr_LT.getMaxLikelihood()+" GL:"+pr_GL.getMaxLikelihood());
+		if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
+			this.pr_GL.reproduction(this);
 		}
 		else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
 			this.pr_LT.reproduction(this);
 		}
 		else{
-			this.pr_GL.reproduction(this);
+			this.pr_ID.reproduction(this);
 		}
 	}
 	@Override
