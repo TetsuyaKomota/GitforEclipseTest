@@ -678,9 +678,9 @@ public class PR_100 extends MyPR{
 				}
 			}
 		}
-		System.out.println("[PR_7_1]reproduction:tempref:"+tempref);
-		System.out.println("[PR_7_1]reproduction:ref.reference:"+temprefpoint.reference[0]+" , "+temprefpoint.reference[1]);
-		System.out.println("[PR_7_1]reproduction:ref.goalpoint:"+temprefpoint.goalpoint[0]+" , "+temprefpoint.goalpoint[1]);
+		System.out.println("[PR_100]reproduction:tempref:"+tempref);
+		System.out.println("[PR_100]reproduction:ref.reference:"+temprefpoint.reference[0]+" , "+temprefpoint.reference[1]);
+		System.out.println("[PR_100]reproduction:ref.goalpoint:"+temprefpoint.goalpoint[0]+" , "+temprefpoint.goalpoint[1]);
 		//参照点の絶対ベクトル＋座標逆変換K(参照点からの相対ベクトル)＝トラジェクタの推定移動先
 		double[] tempoutput = new double[2];
 		double[][] inputs = new double[3][2];
@@ -694,7 +694,7 @@ public class PR_100 extends MyPR{
 		tempoutput[0] += temprefpoint.reference[0];
 		tempoutput[1] += temprefpoint.reference[1];
 		//doubleになっているので、パネルに変換する(まあただの四捨五入)
-		System.out.println("[PR_7_1]reproduction:tempoutput:"+tempoutput[0]+" , "+tempoutput[1]);
+		System.out.println("[PR_100]reproduction:tempoutput:"+tempoutput[0]+" , "+tempoutput[1]);
 		int[] output = new int[2];
 		output[0] = (int)(tempoutput[0] + 0.5);
 		output[1] = (int)(tempoutput[1] + 0.5);

@@ -98,10 +98,10 @@ public class MyPR {
 		}
 	}
 	//評価に使用するデータ量のセッターとゲッター
-	public void setNumberofEvaluation(int num){
+	public static void setNumberofEvaluation(int num){
 		MyPR.numberofevaluation = num;
 	}
-	public int getNumberofEvaluation(){
+	public static int getNumberofEvaluation(){
 		return MyPR.numberofevaluation;
 	}
 	//表示
@@ -191,7 +191,7 @@ public class MyPR {
 		}
 		//計算結果をresult.txtに出力する
   		frame.pw.println(
-				"result,"+output+";"
+				"result,"+output
 				);
 		//盤面をいじくってしまっているので、最後にinitializeを実行する
   		//条件を変えながら評価値を何度も計算する場合、initializeによるstartログ発生が煩わしいため、引数でinitializeを行わないようにできる

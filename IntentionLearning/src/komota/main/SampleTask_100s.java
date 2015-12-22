@@ -171,4 +171,53 @@ public class SampleTask_100s extends MySerialFrame{
 			System.out.println("evaluation point:"+this.pr_GL.evaluate(this));
 		}
 	}
+	@Override
+	public void functionPlugin5(){
+		System.out.println("再現動作の評価値を、学習に使用するデータ量を増やしながら計算");
+		//どの座標系かを先に求める
+		int index = -1;
+		if(this.pr_ID.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_ID.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
+			index = 0;
+		}
+		else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
+			index = 1;
+		}
+		else{
+			index = 2;
+		}
+
+		MyPR.setNumberofEvaluation(2);
+		//評価値が4回連続同じ値になるまで、データ量を増やす
+		int count=0;
+		double currentevaluationpoint = -1;
+		double nextevaluationpoint = -1;
+		while(true){
+			currentevaluationpoint = nextevaluationpoint;
+			if(index == 0){
+				nextevaluationpoint = this.pr_ID.evaluate(this,false);
+			}else if(index == 1){
+				nextevaluationpoint = this.pr_LT.evaluate(this,false);
+			}else{
+				nextevaluationpoint = this.pr_GL.evaluate(this,false);
+			}
+			//一つ前の計算結果と同じか
+			if(nextevaluationpoint == currentevaluationpoint){
+				count++;
+			}
+			else{
+				count = 0;
+			}
+			//countが4以上か(同じ計算結果が4回以上続いたか)
+			if(count >= 4){
+				break;
+			}
+			else{
+				//使用するデータ量を増やす
+				MyPR.setNumberofEvaluation(MyPR.getNumberofEvaluation()+1);
+			}
+		}
+		this.initialize();
+		System.out.println("計算が終了しました。logdataを確認してください");
+	}
+
 }

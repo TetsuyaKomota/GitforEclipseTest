@@ -74,12 +74,12 @@ class ReferencePoint_100{
 		inputs[1][1] = this.reference[1];
 		inputs[2] = startpoint;
 		tempgoal = this.pr.coordinate.convert(inputs);
-		System.out.println("[ReferencePoint]learn:status:"+this.status+" tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
+//		System.out.println("[ReferencePoint]learn:status:"+this.status+" tempgoal:"+tempgoal[0]+" , "+tempgoal[1]);
 		//学習回数を学習率としてgoalpointベクトルを更新する
 		this.goalpoint[0] = this.goalpoint[0] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[0] * ((double)1/(this.numlearning + 1));
 		this.goalpoint[1] = this.goalpoint[1] * ((double)(this.numlearning)/(this.numlearning + 1)) + tempgoal[1] * ((double)1/(this.numlearning + 1));
 		this.gauss.setMean(this.goalpoint);
-		System.out.println("[ReferencePoint]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
+//		System.out.println("[ReferencePoint]learn:status:"+this.status+" goalpoint:"+goalpoint[0]+" , "+goalpoint[1]);
 		//学習回数をインクリメント
 		this.numlearning++;
 		//近さを求める
@@ -130,8 +130,8 @@ class ReferencePoint_100{
 		tempcloseness[1] = tempgoal[1] - this.goalpoint[1];
 		double closeness = (double)1/Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
 		closeness *= this.gauss.getProbability(tempgoal);
-		System.out.println("[ReferencePoint]learnLikelihood:mean:("+this.gauss.getMean()[0]+","+this.gauss.getMean()[1]+") variance:"+this.gauss.getCovariance()[0][0]);
-		System.out.println("[ReferencePoint]learnLikelihood:closeness:"+closeness+" probability:"+this.gauss.getProbability(tempgoal));
+//		System.out.println("[ReferencePoint]learnLikelihood:mean:("+this.gauss.getMean()[0]+","+this.gauss.getMean()[1]+") variance:"+this.gauss.getCovariance()[0][0]);
+//		System.out.println("[ReferencePoint]learnLikelihood:closeness:"+closeness+" probability:"+this.gauss.getProbability(tempgoal));
 		//likelihood を更新
 		likelihood = likelihood * ((double)(this.numlearninglikelihood)/(this.numlearninglikelihood + 1)) + closeness * ((double)1/(this.numlearninglikelihood + 1));
 		//学習回数をインクリメント
