@@ -788,8 +788,9 @@ public class PR_100 extends MyPR{
 			return -1000000;
 		}
 		else{
-			double output = this.refs[0].likelihood;
-			for(int i=1;i<this.refs.
+			//単体オブジェクトの参照点の最大尤度を検索する
+			double output = -1;
+			for(int i=0;i<this.refs.
 					length;i++){
 				if(this.refs[i] == null){
 					break;
@@ -798,6 +799,29 @@ public class PR_100 extends MyPR{
 					output = this.refs[i].likelihood;
 				}
 			}
+			//重心位置の最大尤度を検索する
+			for(int i0 = 0;i0<2;i0++){
+				for(int i1 = 0;i1<2;i1++){
+					for(int i2 = 0;i2<2;i2++){
+						for(int i3 = 0;i3<2;i3++){
+							for(int i4 = 0;i4<2;i4++){
+								for(int i5 = 0;i5<2;i5++){
+									for(int i6 = 0;i6<2;i6++){
+										for(int i7 = 0;i7<2;i7++){
+											for(int i8 = 0;i8<2;i8++){
+												if(this.cogs[i0][i1][i2][i3][i4][i5][i6][i7][i8] != null && this.cogs[i0][i1][i2][i3][i4][i5][i6][i7][i8].likelihood > output){
+													output = this.cogs[i0][i1][i2][i3][i4][i5][i6][i7][i8].likelihood;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
 			return output;
 		}
 	}
