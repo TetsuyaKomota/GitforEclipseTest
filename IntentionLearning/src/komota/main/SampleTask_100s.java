@@ -1,5 +1,6 @@
 package komota.main;
 
+import komota.pr.main.PR_100;
 import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
@@ -214,6 +215,52 @@ public class SampleTask_100s extends MySerialFrame{
 			else{
 				//使用するデータ量を増やす
 				MyPR.setNumberofEvaluation(MyPR.getNumberofEvaluation()+1);
+			}
+		}
+		this.initialize();
+		System.out.println("計算が終了しました。logdataを確認してください");
+	}
+	@Override
+	public void functionPlugin6(){
+		System.out.println("再現動作の評価値を、視野を増やしながら計算");
+
+		MyPR.setNumberofEvaluation(1000);
+		PR_100.setViewRange(1);
+
+		//評価値が4回連続同じ値になるまで、データ量を増やす
+		int count=0;
+		double currentevaluationpoint = -1;
+		double nextevaluationpoint = -1;
+		while(true){
+			currentevaluationpoint = nextevaluationpoint;
+			//PRインスタンスを再生成する(新しい視野で)
+			this.functionPlugin1();
+			//学習する
+			this.functionPlugin2();
+			//評価値を求める
+			if(this.pr_ID.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_ID.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
+				System.out.println("evaluation point:"+this.pr_ID.evaluate(this,false));
+			}
+			else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
+				System.out.println("evaluation point:"+this.pr_LT.evaluate(this,false));
+			}
+			else{
+				System.out.println("evaluation point:"+this.pr_GL.evaluate(this,false));
+			}
+			//一つ前の計算結果と同じか
+			if(nextevaluationpoint == currentevaluationpoint){
+				count++;
+			}
+			else{
+				count = 0;
+			}
+			//countが4以上か(同じ計算結果が4回以上続いたか)
+			if(count >= 4){
+				break;
+			}
+			else{
+				//視野を増やす
+				PR_100.setViewRange(PR_100.getViewRange()+1);
 			}
 		}
 		this.initialize();

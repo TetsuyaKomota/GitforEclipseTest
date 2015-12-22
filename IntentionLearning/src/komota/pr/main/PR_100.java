@@ -149,10 +149,10 @@ public class PR_100 extends MyPR{
 		this.coordinate = coordinate;
 	}
 	//視野のセッター、ゲッター
-	public void setViewRange(double range){
+	public static void setViewRange(double range){
 		PR_100.view_range = range;
 	}
-	public double getViewRange(){
+	public static double getViewRange(){
 		return PR_100.view_range;
 	}
 
