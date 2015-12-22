@@ -30,7 +30,7 @@ public class SampleTask_005s extends MySerialFrame{
 		super();
 //		this.tpr = new TestPatternRecognition();
 		this.tasktitle = "思うようにやってみ.";
-		setOutputFile("test4.txt");
+		setOutputFile("logdata.txt");
 		initialize();
 	}
 
