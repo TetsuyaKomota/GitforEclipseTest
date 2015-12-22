@@ -1,8 +1,8 @@
 package komota.main;
 
-import komota.pr.main.PR_7_1_GL;
-import komota.pr.main.PR_7_1_ID;
-import komota.pr.main.PR_7_1_LT;
+import komota.pr.main.PR_100_GL;
+import komota.pr.main.PR_100_ID;
+import komota.pr.main.PR_100_LT;
 
 public class SampleTask_100s extends MySerialFrame{
 
@@ -13,16 +13,16 @@ public class SampleTask_100s extends MySerialFrame{
 	/* ************************************************************************************************************** */
 	/* ************************************************************************************************************** */
 	/*
-	 * ReferencePoint_Gaussのテスト
+	 *12/23現在最新のブラッシュアップ版。
 	 */
 	/* ************************************************************************************************************** */
 	/* ************************************************************************************************************** */
 
 	//解析クラス
 //	TestPatternRecognition tpr;
-	PR_7_1_LT pr_LT;
-	PR_7_1_ID pr_ID;
-	PR_7_1_GL pr_GL;
+	PR_100_LT pr_LT;
+	PR_100_ID pr_ID;
+	PR_100_GL pr_GL;
 
 	//コンストラクタ
 	public SampleTask_100s(){
@@ -133,9 +133,9 @@ public class SampleTask_100s extends MySerialFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("各パターン認識クラスのインスタンスを生成");
-		this.pr_LT = new PR_7_1_LT(9,this.file_name);
-		this.pr_ID = new PR_7_1_ID(9,this.file_name);
-		this.pr_GL = new PR_7_1_GL(9,this.file_name);
+		this.pr_LT = new PR_100_LT(9,this.file_name);
+		this.pr_ID = new PR_100_ID(9,this.file_name);
+		this.pr_GL = new PR_100_GL(9,this.file_name);
 	}
 	@Override
 	public void functionPlugin2(){
