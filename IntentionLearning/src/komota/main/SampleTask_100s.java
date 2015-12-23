@@ -254,7 +254,8 @@ public class SampleTask_100s extends MySerialFrame{
 			else{
 				count = 0;
 			}
-			//countが4以上か(同じ計算結果が4回以上続いたか)
+			//countが100以上か(同じ計算結果が100回以上続いたか)
+			//ここは本来、「最尤値は閾値以上か」が入るとよさそう
 			if(count >= 100){
 				break;
 			}
