@@ -288,7 +288,14 @@ public class SampleTask_100s extends MySerialFrame{
 		}else{
 			System.out.println("ファイルが見つかりません");
 		}
-
+	}
+	@Override
+	public void functionPlugin8(){
+		for(int t=0;t<10;t++){
+			this.functionPlugin7();
+			this.functionPlugin2();
+			this.functionPlugin5();
+		}
 	}
 
 
