@@ -190,7 +190,7 @@ public class SampleTask_100s extends MySerialFrame{
 			index = 2;
 		}
 
-		MyPR.setNumberofEvaluation(2);
+		MyPR.setNumberofEvaluation(1000);
 		//評価値が4回連続同じ値になるまで、データ量を増やす
 		int count=0;
 		double currentevaluationpoint = -1;
@@ -291,11 +291,13 @@ public class SampleTask_100s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin8(){
-		for(int t=0;t<10;t++){
+		for(int t=0;t<30;t++){
 			this.functionPlugin7();
 			this.functionPlugin2();
 			this.functionPlugin5();
 		}
+		LogRandomizer r = new LogRandomizer();
+		r.encodeToCSV("logdata.txt", "encodeToCSV.csv");
 	}
 
 
