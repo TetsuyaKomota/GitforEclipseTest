@@ -7,8 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -65,14 +63,7 @@ public class MyFrame extends JFrame{
 	//コンストラクタ
 	public MyFrame(){
 		this.setTitle("IntentionLearning");
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-		this.addWindowListener(new WindowAdapter(){
-			@Override
-			public void windowClosed(WindowEvent arg0){
-				MyFrame.this.pw.close();
-			}
-		});
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.setSize(1000,1000);
 		this.setResizable(false);
@@ -292,6 +283,8 @@ public class MyFrame extends JFrame{
 					int temp = MyFrame.this.panels[selected[0]][selected[1]].getStatus();
 					MyFrame.this.panels[selected[0]][selected[1]].setStatus(MyFrame.this.panels[secondselected[0]][secondselected[1]].getStatus());
 					MyFrame.this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
+					//下記、changeログとstatusログは現状使用していないため、使用するまでコメントアウト
+/*
 					MyFrame.this.pw.print("change,");
 					for(int i=0;i<MyFrame.this.panels.length;i++){
 						for(int j=0;j<MyFrame.this.panels[0].length;j++){
@@ -310,7 +303,8 @@ public class MyFrame extends JFrame{
 						}
 					}
 					pw.println();
-
+*/
+/*
 					MyFrame.this.pw.print("status,");
 					for(int i=0;i<MyFrame.this.panels.length;i++){
 						for(int j=0;j<MyFrame.this.panels[0].length;j++){
@@ -321,7 +315,7 @@ public class MyFrame extends JFrame{
 						}
 					}
 					pw.println();
-
+*/
 					MyFrame.this.selected[0] = -1;
 					MyFrame.this.selected[1] = -1;
 					MyFrame.this.secondselected[0] = -1;

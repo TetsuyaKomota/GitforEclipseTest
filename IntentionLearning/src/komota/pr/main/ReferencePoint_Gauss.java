@@ -95,10 +95,6 @@ class ReferencePoint_Gauss{
 		double[] tempcloseness = new double[2];
 		tempcloseness[0] = tempgoal[0] - this.goalpoint[0];
 		tempcloseness[1] = tempgoal[1] - this.goalpoint[1];
-		//double closeness = Math.sqrt(tempcloseness[0]*tempcloseness[0]+tempcloseness[1]*tempcloseness[1]);
-		//likelihood += （近さ値-近さ閾値）
-		//System.out.println("[TestPR1.ReferencePoint]learn:closeness:"+closeness);
-//		likelihood += (E - closeness);
 	}
 
 	//分散を求める
@@ -145,7 +141,7 @@ class ReferencePoint_Gauss{
 		closeness *= this.gauss.getProbability(tempgoal);
 		System.out.println("[ReferencePoint]learnLikelihood:mean:("+this.gauss.getMean()[0]+","+this.gauss.getMean()[1]+") variance:"+this.gauss.getCovariance()[0][0]);
 		System.out.println("[ReferencePoint]learnLikelihood:closeness:"+closeness+" probability:"+this.gauss.getProbability(tempgoal));
-		//likelihood += （近さ値-近さ閾値）
+		//likelihood を更新
 		likelihood = likelihood * ((double)(this.numlearninglikelihood)/(this.numlearninglikelihood + 1)) + closeness * ((double)1/(this.numlearninglikelihood + 1));
 		//学習回数をインクリメント
 		this.numlearninglikelihood++;
