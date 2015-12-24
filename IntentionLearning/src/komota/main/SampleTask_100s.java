@@ -1,9 +1,12 @@
 package komota.main;
 
+import java.io.File;
+
 import komota.pr.main.PR_100;
 import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
+import komota.test.LogRandomizer;
 
 public class SampleTask_100s extends MySerialFrame{
 
@@ -267,5 +270,26 @@ public class SampleTask_100s extends MySerialFrame{
 		this.initialize();
 		System.out.println("計算が終了しました。logdataを確認してください");
 	}
+	@Override
+	public void functionPlugin7(){
+		System.out.println("各パターン認識クラスのインスタンスを生成(データの読み込み順をランダマイズしてから)");
+		LogRandomizer r = new LogRandomizer();
+		r.randomize("log_RIGHT_TO_BLUE.txt", "outputfromRandomizer.txt");
+		this.pr_LT = new PR_100_LT(9,"outputfromRandomizer.txt");
+		this.pr_ID = new PR_100_ID(9,"outputfromRandomizer.txt");
+		this.pr_GL = new PR_100_GL(9,"outputfromRandomizer.txt");
+		File dfile = new File("log/outputfromRandomizer.txt");
+		if (dfile.exists()){
+			if (dfile.delete()){
+				System.out.println("ファイルを削除しました");
+			}else{
+				System.out.println("ファイルの削除に失敗しました");
+			}
+		}else{
+			System.out.println("ファイルが見つかりません");
+		}
+
+	}
+
 
 }
