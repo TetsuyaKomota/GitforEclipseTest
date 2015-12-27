@@ -301,12 +301,13 @@ public class SampleTask_100s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin9(){
-		System.out.println("log_RIGHT_TO_BLUEからインスタンス生成");
-		this.pr_LT = new PR_100_LT(9,"log_RIGHT_TO_BLUE.txt");
-		this.pr_ID = new PR_100_ID(9,"log_RIGHT_TO_BLUE.txt");
-		this.pr_GL = new PR_100_GL(9,"log_RIGHT_TO_BLUE.txt");
-		this.functionPlugin2();
-		this.functionPlugin5();
+		System.out.println("各PRクラス中の最大尤度を上から5つ出力");
+		System.out.println("LT:");
+		this.pr_LT.ranking();
+		System.out.println("ID:");
+		this.pr_ID.ranking();
+		System.out.println("GL:");
+		this.pr_GL.ranking();
 	}
 
 
