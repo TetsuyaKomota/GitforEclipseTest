@@ -301,13 +301,6 @@ public class SampleTask_100s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin9(){
-		System.out.println("各PRクラス中の最大尤度を上から5つ出力");
-		System.out.println("LT:");
-		this.pr_LT.ranking();
-		System.out.println("ID:");
-		this.pr_ID.ranking();
-		System.out.println("GL:");
-		this.pr_GL.ranking();
 	}
 
 

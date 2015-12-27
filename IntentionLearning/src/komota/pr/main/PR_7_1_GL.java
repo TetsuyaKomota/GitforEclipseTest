@@ -731,65 +731,6 @@ public class PR_7_1_GL extends MyPR{
 		output[1] = (int)(tempoutput[1] + 0.5);
 		frame.setSecondSelected(output);
 	}
-	//尤度のランキング検索。能動学習に利用したり、尤度の閾値を決定するときの参考にする
-	@Override
-	public void ranking(){
-		ReferencePoint_Gauss[] bests = new ReferencePoint_Gauss[5];
-		for(int i=0;i<bests.length;i++){
-			bests[i] = null;
-		}
-		//尤度最大の参照点を検索する
-		for(int i=0;i<this.refs.length;i++){
-			if(this.refs[i] != null){
-				for(int n=0;n<bests.length;n++){
-					if(bests[n] == null || this.refs[i].likelihood > bests[n].likelihood){
-						for(int m=bests.length-1;m>n;m--){
-							bests[m] = bests[m+1];
-						}
-						bests[n] = this.refs[i];
-					}
-				}
-			}
-		}
-		//重心位置も検索
-		//for文用のインデックス
-		int[] tempidx = new int[9];
-		for(tempidx[0] = 0;tempidx[0]<2;tempidx[0]++){
-			for(tempidx[1] = 0;tempidx[1]<2;tempidx[1]++){
-				for(tempidx[2] = 0;tempidx[2]<2;tempidx[2]++){
-					for(tempidx[3] = 0;tempidx[3]<2;tempidx[3]++){
-						for(tempidx[4] = 0;tempidx[4]<2;tempidx[4]++){
-							for(tempidx[5] = 0;tempidx[5]<2;tempidx[5]++){
-								for(tempidx[6] = 0;tempidx[6]<2;tempidx[6]++){
-									for(tempidx[7] = 0;tempidx[7]<2;tempidx[7]++){
-										for(tempidx[8] = 0;tempidx[8]<2;tempidx[8]++){
-											for(int a=0;a<tempidx.length;a++){
-												if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a] != null){
-													for(int n=0;n<bests.length;n++){
-														if(bests[n] == null ||  this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood > bests[n].likelihood){
-															for(int m=bests.length-1;m>n;m--){
-																bests[m] = bests[m+1];
-															}
-															bests[n] = this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a];
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		//結果を出力する
-		for(int i=0;i<bests.length;i++){
-			System.out.println("[PR_7_1]ranking:rank:"+(i+1)+" status:"+bests[i].status+" likelihood:"+bests[i].likelihood);
-		}
-	}
 
 	//学習結果リセット。評価時に使用する
 	@Override

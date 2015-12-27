@@ -700,6 +700,7 @@ public class PR_100 extends MyPR{
 		output[1] = (int)(tempoutput[1] + 0.5);
 		frame.setSecondSelected(output);
 	}
+
 	//学習結果リセット。評価時に使用する
 	@Override
 	public void initialize(){

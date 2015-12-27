@@ -130,9 +130,6 @@ public class MyPR {
 	//再現。オーバーライドする
 	public void reproduction(MyFrame frame){
 	}
-	//尤度値の上位5つの参照点の状態と位置、尤度を出力する。オーバーライドする
-	public void ranking(){
-	}
 	//参照点の学習結果リセット。オーバーライドする
 	public void initialize(){
 	}
