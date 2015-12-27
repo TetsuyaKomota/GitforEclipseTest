@@ -4,6 +4,41 @@ public class Normalizer {
 
 	public static void main(String[] args){
 		System.out.println("はろーわーるど");
+		double[] vector = new double[2];
+		double[] start = new double[2];
+		double[] goal = new double[2];
+		double[] newgoal = new double[2];
+
+		start[0] = 0;
+		start[1] = 0;
+		goal[0] = 2;
+		goal[1] = 4;
+		newgoal[0] = 3;
+		newgoal[1] = 3;
+
+
+		vector[0] = goal[0] - start[0];
+		vector[1] = goal[1] - start[1];
+
+		System.out.println("正規化前のベクトルは("+vector[0]+","+vector[1]+")で、大きさは"+Math.sqrt(vector[0]*vector[0]+vector[1]*vector[1])+"だよ♪");
+
+		double[][] inputs = new double[3][];
+		inputs[0] = vector;
+		inputs[1] = goal;
+		inputs[2] = start;
+
+		vector = Normalizer.normalize(inputs);
+
+		System.out.println("正規化後のベクトルは("+vector[0]+","+vector[1]+")で、大きさは"+Math.sqrt(vector[0]*vector[0]+vector[1]*vector[1])+"だよ♪");
+
+		inputs[0] = vector;
+		inputs[1] = newgoal;
+		inputs[2] = start;
+
+		vector = Normalizer.inverseNormalize(inputs);
+
+		System.out.println("逆正規化後のベクトルは("+vector[0]+","+vector[1]+")で、大きさは"+Math.sqrt(vector[0]*vector[0]+vector[1]*vector[1])+"だよ♪");
+
 	}
 
 	//引数は「goalpoint(変換元ベクトル),reference(基準となる点),startpoint(基準となる点)」と定める
