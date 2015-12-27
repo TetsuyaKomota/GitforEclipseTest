@@ -190,7 +190,7 @@ public class SampleTask_100s extends MySerialFrame{
 			index = 2;
 		}
 
-		MyPR.setNumberofEvaluation(1000);
+		MyPR.setNumberofEvaluation(2);
 		//評価値が4回連続同じ値になるまで、データ量を増やす
 		int count=0;
 		double currentevaluationpoint = -1;
@@ -298,6 +298,15 @@ public class SampleTask_100s extends MySerialFrame{
 		}
 		LogRandomizer r = new LogRandomizer();
 		r.encodeToCSV("logdata.txt", "encodeToCSV.csv");
+	}
+	@Override
+	public void functionPlugin9(){
+		System.out.println("log_RIGHT_TO_BLUEからインスタンス生成");
+		this.pr_LT = new PR_100_LT(9,"log_RIGHT_TO_BLUE.txt");
+		this.pr_ID = new PR_100_ID(9,"log_RIGHT_TO_BLUE.txt");
+		this.pr_GL = new PR_100_GL(9,"log_RIGHT_TO_BLUE.txt");
+		this.functionPlugin2();
+		this.functionPlugin5();
 	}
 
 

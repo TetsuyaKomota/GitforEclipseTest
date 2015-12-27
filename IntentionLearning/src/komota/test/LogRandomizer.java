@@ -14,7 +14,7 @@ public class LogRandomizer {
 	public static void main(String[] args){
 		LogRandomizer r = new LogRandomizer();
 //		r.randomize("log_RIGHT_TO_BLUE.txt","outputfromRandomizer.txt");
-		r.encodeToCSV("logdata.txt", "encodedToCSV.csv");
+		r.encodeToCSV("logdata.txt", "encodeToCSV.csv");
 	}
 	//出力先ファイル
 	File file_out;
