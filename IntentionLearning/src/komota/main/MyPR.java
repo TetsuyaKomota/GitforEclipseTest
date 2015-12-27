@@ -81,7 +81,8 @@ public class MyPR {
 				step++;
 			}
 		}
-		this.logdata[step-1] = null;
+		//StepLogのコンストラクタで壊れたデータは受け付けないように変更したため、ここでの前処理は不要になった。
+		//this.logdata[step-1] = null;
 		this.close();
 	}
 	public MyPR(){
