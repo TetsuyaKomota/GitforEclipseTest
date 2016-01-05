@@ -29,6 +29,10 @@ public class MyTask {
 
 		this.taskname = taskname;
 	}
+	//タスク名のゲッター
+	public String getTaskName(){
+		return this.taskname;
+	}
 
 	//最も尤もらしいPRのreproductionを実行する
 	public void reproductionTask(MyFrame frame){
@@ -45,6 +49,8 @@ public class MyTask {
 	}
 
 	//最尤値を出力する
+	//※※※本質的には何の意味もないことに気付いたのでコメントアウト
+/*
 	public double getMaxLikelihood(){
 		double output = 0;
 		if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
@@ -58,5 +64,5 @@ public class MyTask {
 		}
 		return output;
 	}
-
+*/
 }

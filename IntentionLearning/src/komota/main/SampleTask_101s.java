@@ -3,6 +3,7 @@ package komota.main;
 import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
+import komota.pr.main.PR_101;
 
 public class SampleTask_101s extends MySerialFrame{
 
@@ -23,6 +24,9 @@ public class SampleTask_101s extends MySerialFrame{
 	PR_100_LT pr_LT;
 	PR_100_ID pr_ID;
 	PR_100_GL pr_GL;
+
+	//盤面記憶用PRクラス
+	PR_101 save;
 
 	//タスククラス
 	MyTask task_RtB;
@@ -174,7 +178,14 @@ public class SampleTask_101s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin5(){
-
+/*
+ * 1. 現在の盤面と、直前のstartログの盤面を何らかの方法で保持する
+ * 2. 保持したstartログに盤面を合わせる
+ * 3. task_RtBでreproductionTask
+ * 4. secondselectedと、保持した最終状態の位置との距離をdis_RtBとして保存
+ * 5. タスクを切り替え、2. に戻る
+ * 6. disの最も小さいタスクのtasknameを出力する
+ */
 	}
 	@Override
 	public void functionPlugin6(){

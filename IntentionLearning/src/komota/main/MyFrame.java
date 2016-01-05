@@ -121,6 +121,9 @@ public class MyFrame extends JFrame{
 		this.secondselected = selected;
 		return this;
 	}
+	public int[] getSecondSelected(){
+		return this.secondselected;
+	}
 
 	//出力先ファイル名を変更
 	public void setOutputFile(){
