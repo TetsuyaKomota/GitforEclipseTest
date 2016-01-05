@@ -174,7 +174,8 @@ public class SampleTask_101s extends MySerialFrame{
 		this.task_NbO = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
 		this.task_MtS = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
 		//一応、現在のログでPRインスタンスを生成し直しておく
-		this.functionPlugin1();
+		//this.functionPlugin1();
+		System.out.println("インスタンス生成完了");
 	}
 	@Override
 	public void functionPlugin5(){
@@ -186,6 +187,49 @@ public class SampleTask_101s extends MySerialFrame{
  * 5. タスクを切り替え、2. に戻る
  * 6. disの最も小さいタスクのtasknameを出力する
  */
+		double dis_RtB = 10000;
+		double dis_NbO = 10000;
+		double dis_MtS = 10000;
+
+		int[] tempselected = new int[2];
+
+		//1.
+		this.save = new PR_101();
+		this.save.setLog(this);
+		//2.
+		this.save.loadLastStartLog(this);
+		//3.
+		this.task_RtB.reproductionTask(this);
+		tempselected = this.getSecondSelected();
+		//4.
+		dis_RtB = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
+
+		//2.
+		this.save.loadLastStartLog(this);
+		//3.
+		this.task_NbO.reproductionTask(this);
+		tempselected = this.getSecondSelected();
+		//4.
+		dis_NbO = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
+
+		//2.
+		this.save.loadLastStartLog(this);
+		//3.
+		this.task_MtS.reproductionTask(this);
+		tempselected = this.getSecondSelected();
+		//4.
+		dis_MtS = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
+
+		//6.
+		if(dis_RtB<dis_NbO && dis_RtB<dis_MtS){
+			this.tasktitle = this.task_RtB.getTaskName();
+		}
+		else if(dis_NbO<dis_RtB && dis_NbO<dis_MtS){
+			this.tasktitle = this.task_NbO.getTaskName();
+		}
+		else{
+			this.tasktitle = this.task_MtS.getTaskName();
+		}
 	}
 	@Override
 	public void functionPlugin6(){

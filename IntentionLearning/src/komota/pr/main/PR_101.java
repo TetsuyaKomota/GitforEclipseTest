@@ -14,7 +14,18 @@ public class PR_101 extends MyPR {
 
 	//最終状態と直前startログの更新。ログは最新のものを獲得済み(インスタンス生成したて)を前提とする
 	public void setLog(MyFrame frame){
-		this.lastposition = frame.getSecondSelected();
+
+		this.lastposition = new int[2];
+
+		for(int gyou = 0;gyou<MyFrame.NUMBEROFPANEL;gyou++){
+			for(int retsu = 0;retsu<MyFrame.NUMBEROFPANEL;retsu++){
+				if(frame.panels[gyou][retsu].getStatus() == 1){
+					this.lastposition[0] = gyou;
+					this.lastposition[1] = retsu;
+				}
+			}
+		}
+		//this.lastposition = frame.getSecondSelected();
 		int idx = -1;
 		for(int i=0;i<this.logdata.length;i++){
 			if(this.logdata[i] == null){
@@ -25,6 +36,11 @@ public class PR_101 extends MyPR {
 			}
 		}
 		this.laststartlog = this.logdata[idx];
+	}
+
+	//最終状態の目標位置のゲッター
+	public int[] getLastPosition(){
+		return this.lastposition;
 	}
 
 	//最終状態の呼び出し(目標位置のみ。setLogをしてから盤面はinitializeしないこと)
