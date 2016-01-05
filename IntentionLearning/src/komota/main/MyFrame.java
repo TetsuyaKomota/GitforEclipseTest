@@ -284,6 +284,7 @@ public class MyFrame extends JFrame{
 					MyFrame.this.panels[selected[0]][selected[1]].setStatus(MyFrame.this.panels[secondselected[0]][secondselected[1]].getStatus());
 					MyFrame.this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
 					//下記、changeログとstatusログは現状使用していないため、使用するまでコメントアウト
+					//→statusログはTaskのreproductionで使用するため、コメントアウトを外す
 /*
 					MyFrame.this.pw.print("change,");
 					for(int i=0;i<MyFrame.this.panels.length;i++){
@@ -304,7 +305,7 @@ public class MyFrame extends JFrame{
 					}
 					pw.println();
 */
-/*
+
 					MyFrame.this.pw.print("status,");
 					for(int i=0;i<MyFrame.this.panels.length;i++){
 						for(int j=0;j<MyFrame.this.panels[0].length;j++){
@@ -315,7 +316,7 @@ public class MyFrame extends JFrame{
 						}
 					}
 					pw.println();
-*/
+
 					MyFrame.this.selected[0] = -1;
 					MyFrame.this.selected[1] = -1;
 					MyFrame.this.secondselected[0] = -1;
