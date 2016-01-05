@@ -170,12 +170,14 @@ public class SampleTask_101s extends MySerialFrame{
 	@Override
 	public void functionPlugin4(){
 		System.out.println("[SampleTask_101s]functionPlugin4:タスククラスのインスタンス生成");
+		this.expranation = "[SampleTask_101s]functionPlugin4:タスククラスのインスタンス生成";
 		this.task_RtB = new MyTask("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
 		this.task_NbO = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
 		this.task_MtS = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
 		//一応、現在のログでPRインスタンスを生成し直しておく
 		//this.functionPlugin1();
 		System.out.println("インスタンス生成完了");
+		this.expranation = "インスタンス生成完了";
 	}
 	@Override
 	public void functionPlugin5(){
@@ -187,6 +189,7 @@ public class SampleTask_101s extends MySerialFrame{
  * 5. タスクを切り替え、2. に戻る
  * 6. disの最も小さいタスクのtasknameを出力する
  */
+
 		double dis_RtB = 10000;
 		double dis_NbO = 10000;
 		double dis_MtS = 10000;
@@ -233,6 +236,9 @@ public class SampleTask_101s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin6(){
+		//デモ用。体裁を整える
+		this.expranation = "動作名";
+		this.tasktitle = "";
 	}
 	@Override
 	public void functionPlugin7(){
