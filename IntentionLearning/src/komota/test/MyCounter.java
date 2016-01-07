@@ -17,9 +17,12 @@ public class MyCounter {
 		MyCounter counter = new MyCounter();
 
 		try {
+			System.out.println("log:"+counter.countGoal("logdata.txt"));
 			System.out.println("RtB:"+counter.countGoal("log_RIGHT_TO_BLUE.txt"));
 			System.out.println("NbO:"+counter.countGoal("log_NEAR_BY_ORANGE.txt"));
 			System.out.println("MtS:"+counter.countGoal("log_MAKE_THE_SIGNAL.txt"));
+			System.out.println("MtC:"+counter.countGoal("log_MOVE_THE_CENTER.txt"));
+			System.out.println("MtC:"+counter.countGoal("log_MAKE_THE_TRIANGLE.txt"));
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

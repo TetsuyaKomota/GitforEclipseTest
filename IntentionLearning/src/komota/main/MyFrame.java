@@ -308,7 +308,7 @@ public class MyFrame extends JFrame{
 					}
 					pw.println();
 */
-
+/*
 					MyFrame.this.pw.print("status,");
 					for(int i=0;i<MyFrame.this.panels.length;i++){
 						for(int j=0;j<MyFrame.this.panels[0].length;j++){
@@ -319,7 +319,7 @@ public class MyFrame extends JFrame{
 						}
 					}
 					pw.println();
-
+*/
 					MyFrame.this.selected[0] = -1;
 					MyFrame.this.selected[1] = -1;
 					MyFrame.this.secondselected[0] = -1;
