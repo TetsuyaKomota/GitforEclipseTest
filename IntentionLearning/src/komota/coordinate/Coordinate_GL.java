@@ -20,7 +20,7 @@ public class Coordinate_GL extends MyCoordinate{
 		double[] normalizedvec = inputs[0];
 /* **************************************************************************************************** */
 /* ここをコメントアウトすると正規化処理が無効になります                                                 */
-//		normalizedvec = Normalizer.normalize(inputs);
+		normalizedvec = Normalizer.normalize(inputs);
 /* **************************************************************************************************** */
 		double[] output = new double[2];
 		//参照点、動作開始点ベクトルV(=startpoint - reference)を作る
@@ -63,7 +63,7 @@ public class Coordinate_GL extends MyCoordinate{
 		invnorm[2] = inputs[2];
 /* **************************************************************************************************** */
 /* ここをコメントアウトすると正規化処理が無効になります                                                 */
-//		output = Normalizer.inverseNormalize(invnorm);
+		output = Normalizer.inverseNormalize(invnorm);
 /* **************************************************************************************************** */
 
 		return output;

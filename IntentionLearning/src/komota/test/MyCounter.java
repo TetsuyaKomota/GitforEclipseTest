@@ -22,7 +22,7 @@ public class MyCounter {
 			System.out.println("NbO:"+counter.countGoal("log_NEAR_BY_ORANGE.txt"));
 			System.out.println("MtS:"+counter.countGoal("log_MAKE_THE_SIGNAL.txt"));
 			System.out.println("MtC:"+counter.countGoal("log_MOVE_THE_CENTER.txt"));
-			System.out.println("MtC:"+counter.countGoal("log_MAKE_THE_TRIANGLE.txt"));
+			System.out.println("MtT:"+counter.countGoal("log_MAKE_THE_TRIANGLE.txt"));
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

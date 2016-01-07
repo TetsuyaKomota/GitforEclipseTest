@@ -41,6 +41,10 @@ public class Normalizer {
 
 	}
 
+	//定数
+	//正規化後のベクトル長。normalizeでベクトルをこの長さに、inverseNormalizeでこの長さのベクトルをもとの長さに変換する
+	static final double UNIT = 10;
+
 	//引数は「goalpoint(変換元ベクトル),reference(基準となる点),startpoint(基準となる点)」と定める
 	//referenceとstartpointに明確な違いはない。あくまでMyCoordinateとそろえるため
 
@@ -53,6 +57,9 @@ public class Normalizer {
 		//ベクトルを二点間距離で正規化する
 		output[0] /= distance;
 		output[1] /= distance;
+		output[0] *= UNIT;
+		output[1] *= UNIT;
+
 
 		return output;
 	}
@@ -64,6 +71,8 @@ public class Normalizer {
 		double distance = (inputs[1][0] - inputs[2][0])*(inputs[1][0] - inputs[2][0])+(inputs[1][1] - inputs[2][1])*(inputs[1][1] - inputs[2][1]);
 		distance = Math.sqrt(distance);
 		//ベクトルを二点間距離で逆正規化する
+		output[0] /= UNIT;
+		output[1] /= UNIT;
 		output[0] *= distance;
 		output[1] *= distance;
 
