@@ -211,8 +211,8 @@ public class SampleTask_100s extends MySerialFrame{
 			else{
 				count = 0;
 			}
-			//countが4以上か(同じ計算結果が4回以上続いたか)
-			if(count >= 4){
+			//countが10以上か(同じ計算結果が10回以上続いたか)
+			if(count >= 10){
 				break;
 			}
 			else{
@@ -274,7 +274,7 @@ public class SampleTask_100s extends MySerialFrame{
 	public void functionPlugin7(){
 		System.out.println("各パターン認識クラスのインスタンスを生成(データの読み込み順をランダマイズしてから)");
 		LogRandomizer r = new LogRandomizer();
-		r.randomize("log_MOVE_THE_CENTER.txt", "outputfromRandomizer.txt");
+		r.randomize("log_RIGHT_TO_BLUE.txt", "outputfromRandomizer.txt");
 		this.pr_LT = new PR_100_LT(9,"outputfromRandomizer.txt");
 		this.pr_ID = new PR_100_ID(9,"outputfromRandomizer.txt");
 		this.pr_GL = new PR_100_GL(9,"outputfromRandomizer.txt");
@@ -298,6 +298,18 @@ public class SampleTask_100s extends MySerialFrame{
 		}
 		LogRandomizer r = new LogRandomizer();
 		r.encodeToCSV("logdata.txt", "encodeToCSV.csv");
+
+		File dfile = new File("log/logdata.txt");
+		if (dfile.exists()){
+			if (dfile.delete()){
+				System.out.println("ログファイルを削除しました");
+			}else{
+				System.out.println("ログファイルの削除に失敗しました");
+			}
+		}else{
+			System.out.println("ファイルが見つかりません");
+		}
+
 	}
 	@Override
 	public void functionPlugin9(){
