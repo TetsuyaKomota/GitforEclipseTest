@@ -17,7 +17,11 @@ public class Coordinate_GL extends MyCoordinate{
 	public double[] convert(double[][] inputs){
 //		System.out.println("[Coordinate2_1]convert:done");
 		//ベクトル長を正規化する
-		double[] normalizedvec = Normalizer.normalize(inputs);
+		double[] normalizedvec = inputs[0];
+/* **************************************************************************************************** */
+/* ここをコメントアウトすると正規化処理が無効になります                                                 */
+//		normalizedvec = Normalizer.normalize(inputs);
+/* **************************************************************************************************** */
 		double[] output = new double[2];
 		//参照点、動作開始点ベクトルV(=startpoint - reference)を作る
 		double[] tempvec = new double[2];
@@ -57,8 +61,10 @@ public class Coordinate_GL extends MyCoordinate{
 		invnorm[0] = output;
 		invnorm[1] = inputs[1];
 		invnorm[2] = inputs[2];
-
-		output = Normalizer.inverseNormalize(invnorm);
+/* **************************************************************************************************** */
+/* ここをコメントアウトすると正規化処理が無効になります                                                 */
+//		output = Normalizer.inverseNormalize(invnorm);
+/* **************************************************************************************************** */
 
 		return output;
 	}
