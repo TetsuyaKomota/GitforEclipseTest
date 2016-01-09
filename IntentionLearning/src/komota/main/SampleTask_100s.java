@@ -6,6 +6,7 @@ import komota.pr.main.PR_100;
 import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
+import komota.test.DataSetGenerator;
 import komota.test.LogRandomizer;
 
 public class SampleTask_100s extends MySerialFrame{
@@ -313,6 +314,10 @@ public class SampleTask_100s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin9(){
+		//ランダムのログデータを生成
+		System.out.println("データジェネレート！");
+		DataSetGenerator g = new DataSetGenerator();
+		g.generate_MOVE_THE_CENTER(this, 2);
 	}
 
 
