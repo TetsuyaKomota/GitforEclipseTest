@@ -275,7 +275,7 @@ public class SampleTask_100s extends MySerialFrame{
 	public void functionPlugin7(){
 		System.out.println("各パターン認識クラスのインスタンスを生成(データの読み込み順をランダマイズしてから)");
 		LogRandomizer r = new LogRandomizer();
-		r.randomize("log_MAKE_THE_TRIANGLE.txt", "outputfromRandomizer.txt");
+		r.randomize("logdata.txt", "outputfromRandomizer.txt");
 		this.pr_LT = new PR_100_LT(9,"outputfromRandomizer.txt");
 		this.pr_ID = new PR_100_ID(9,"outputfromRandomizer.txt");
 		this.pr_GL = new PR_100_GL(9,"outputfromRandomizer.txt");
@@ -317,7 +317,7 @@ public class SampleTask_100s extends MySerialFrame{
 		//ランダムのログデータを生成
 		System.out.println("データジェネレート！");
 		DataSetGenerator g = new DataSetGenerator();
-		g.generate_MOVE_THE_CENTER(this, 2);
+		g.generate_MOVE_THE_CENTER(this, 3);
 	}
 
 

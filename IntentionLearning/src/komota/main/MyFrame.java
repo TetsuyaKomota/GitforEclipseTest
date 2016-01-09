@@ -188,7 +188,6 @@ public void pushSPACE(){
 		this.secondselected[0] = -1;
 		this.secondselected[1] = -1;
 	}
-
 }
 
 	//Gを押した時に起こす処理

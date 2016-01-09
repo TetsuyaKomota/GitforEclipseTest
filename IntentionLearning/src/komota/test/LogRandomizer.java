@@ -32,7 +32,7 @@ public class LogRandomizer {
 	//データ最大量
 	final int MAXSIZE = 1000;
 	//データ種最大量（csv化する際に列数の最大）
-	final int MAXROW = 100;
+	final int MAXROW = 500;
 
 	//データのインデックス数
 	int dataindex = 0;

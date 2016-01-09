@@ -54,7 +54,7 @@ public class DataSetGenerator {
 
 						//青の右＋ガウス誤差 の位置が画面内かどうか
 						temperror[0] = rand.nextGaussian()*variance;
-						temperror[1] = rand.nextGaussian()*variance;;
+						temperror[1] = rand.nextGaussian()*variance;
 
 						if(	i+temperror[0] > 0
 								&&j+temperror[1] > 0
@@ -84,6 +84,7 @@ public class DataSetGenerator {
 		Random rand = new Random();
 		double[] temperror = new double[2];
 		int[] selected= new int[2];
+		int[] secondselected= new int[2];
 
 		int count = 0;
 
@@ -94,6 +95,8 @@ public class DataSetGenerator {
 			//selected,secondselectedを初期化
 			selected[0] = -1;
 			selected[1] = -1;
+			secondselected[0] = -1;
+			secondselected[1] = -1;
 			frame.setSelected(selected);
 			frame.setSecondSelected(selected);
 
@@ -107,9 +110,12 @@ public class DataSetGenerator {
 					}
 				}
 			}
-			selected[0] = MyFrame.NUMBEROFPANEL/2;
-			selected[1] = MyFrame.NUMBEROFPANEL/2;
-			frame.setSecondSelected(selected);
+			temperror[0] = rand.nextGaussian()*variance;
+			temperror[1] = rand.nextGaussian()*variance;
+
+			secondselected[0] = MyFrame.NUMBEROFPANEL/2+(int)(temperror[0]+0.5-variance/2);
+			secondselected[1] = MyFrame.NUMBEROFPANEL/2+(int)(temperror[0]+0.5-variance/2);
+			frame.setSecondSelected(secondselected);
 			frame.pushSPACE();
 			frame.pushGoal();
 			count++;
