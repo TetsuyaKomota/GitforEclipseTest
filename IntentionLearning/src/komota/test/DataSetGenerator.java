@@ -97,7 +97,7 @@ public class DataSetGenerator {
 
 	//(-variance,variance)のガウス誤差(四捨五入したint)を生成する
 	int nextError(double variance){
-		double output = (this.rand.nextGaussian() - 0.5)*variance;
+		double output = (this.rand.nextGaussian() - 0.5)*Math.sqrt(variance);
 /*
 		while(output > variance*OUTLIER || output < -variance*OUTLIER){
 			output = (this.rand.nextGaussian() - 0.5)*variance;
