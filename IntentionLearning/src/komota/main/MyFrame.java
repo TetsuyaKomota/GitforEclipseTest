@@ -470,6 +470,9 @@ public void pushSPACE(){
 			else if(e.getKeyCode() == KeyEvent.VK_Y){
 				MyFrame.this.functionPluginY();
 			}
+			else{
+				System.out.println("[MyFrame.MyKeyListener]keyPressed:This key isn't used.");
+			}
 
 
 		}

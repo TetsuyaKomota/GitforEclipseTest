@@ -322,6 +322,39 @@ public class SampleTask_100s extends MySerialFrame{
 		System.out.println("データジェネレート完了！");
 
 	}
+	public void functionPluginQ(){
+		//まず、logdataを削除するテスト
+		//functionPlugin9でデータ生成
+		this.functionPlugin9();
+		//functionPlugin1,2,3で学習、再現し、データが存在していたことを確認
+		this.functionPlugin1();
+		this.functionPlugin2();
+		this.functionPlugin3();
+		//logdataを削除
+		if (this.file.exists()){
+			if (this.file.delete()){
+				System.out.println("ログファイルを削除しました");
+			}else{
+				System.out.println("ログファイルの削除に失敗しました");
+			}
+		}else{
+			System.out.println("ファイルが見つかりません");
+		}
+		//logdataを生成
+		this.setOutputFile("logdata.txt");
+		//ほかのキーを押し、logdata.txtが問題なく使えるか確認
+	}
+	public void functionPluginW(){
+		File file = new File("log/logdata.txt");
+		if (file.exists()){
+			if (file.delete()){
+				System.out.println("ログファイルを削除しました");
+			}else{
+				System.out.println("ログファイルの削除に失敗しました");
+			}
+		}else{
+			System.out.println("ファイルが見つかりません");
+		}
 
-
+	}
 }
