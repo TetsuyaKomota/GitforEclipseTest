@@ -374,8 +374,8 @@ public class SampleTask_100s extends MySerialFrame{
 		//誤差を0～10まで変化させて再現誤差を評価する
 		DataSetGenerator g = new DataSetGenerator();
 		for(int error=0;error<11;error++){
-			//各誤差を10回ずつ計算
-			for(int t=0;t<10;t++){
+			//各誤差を30回ずつ計算
+			for(int t=0;t<30;t++){
 				this.pw.println("result,error:"+error);
 				add_Q(g,error);
 				this.functionPlugin1();
@@ -395,8 +395,11 @@ public class SampleTask_100s extends MySerialFrame{
 				//logdataを生成
 				this.setOutputFile("logdata.txt");
 			}
+			pw_Q.println("padding,999");
 		}
 		pw_Q.close();
+		LogRandomizer r = new LogRandomizer();
+		r.encodeToCSV("output_Q.txt", "output_Q.csv");
 		System.out.println("計算終わったよ～");
 	}
 	/* ************************************************************************************************************* */
@@ -432,7 +435,7 @@ public class SampleTask_100s extends MySerialFrame{
 			}
 		this.initialize();
 		System.out.println("計算が終了しました。logdataを確認してください");
-		pw.println("result,"+error+","+evaluationpoint);
+		pw.println("result,"+evaluationpoint+","+error);
 	}
 	/* ************************************************************************************************************* */
 
