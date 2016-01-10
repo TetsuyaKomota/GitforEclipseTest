@@ -1,6 +1,10 @@
 package komota.main;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 import komota.pr.main.PR_100;
 import komota.pr.main.PR_100_GL;
@@ -325,6 +329,7 @@ public class SampleTask_100s extends MySerialFrame{
 	@Override
 	public void functionPluginQ(){
 		//まず、logdataを削除するテスト
+		System.out.println("ちょっと待ってね～");
 		//functionPlugin9でデータ生成
 		this.functionPlugin9();
 		//functionPlugin1,2,3で学習、再現し、データが存在していたことを確認
@@ -345,5 +350,90 @@ public class SampleTask_100s extends MySerialFrame{
 		//logdataを生成
 		this.setOutputFile("logdata.txt");
 		//ほかのキーを押し、logdata.txtが問題なく使えるか確認
+
+		//結果を出力するファイルの生成
+	      PrintWriter pw_Q = null;
+		try {
+		      FileOutputStream fos_Q = new FileOutputStream("log/output_Q.txt",true);
+		      OutputStreamWriter osw_Q = new OutputStreamWriter(fos_Q);
+		      pw_Q = new PrintWriter(osw_Q);
+		      //fos_Q.close();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			System.out.println("ファイルなし");
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e1) {
+				// TODO 自動生成された catch ブロック
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+
+
+		//誤差を0～10まで変化させて再現誤差を評価する
+		DataSetGenerator g = new DataSetGenerator();
+		for(int error=0;error<11;error++){
+			//各誤差を10回ずつ計算
+			for(int t=0;t<10;t++){
+				this.pw.println("result,error:"+error);
+				add_Q(g,error);
+				this.functionPlugin1();
+				this.functionPlugin2();
+				add_Q_Learn(error,pw_Q);
+				//logdataを削除
+				this.pw.close();
+				if (this.file.exists()){
+					if (this.file.delete()){
+						System.out.println("ログファイルを削除しました");
+					}else{
+						System.out.println("ログファイルの削除に失敗しました");
+					}
+				}else{
+					System.out.println("ファイルが見つかりません");
+				}
+				//logdataを生成
+				this.setOutputFile("logdata.txt");
+			}
+		}
+		pw_Q.close();
+		System.out.println("計算終わったよ～");
 	}
+	/* ************************************************************************************************************* */
+	//functionPluginQ(誤差を変化させながらの再現誤差計算)の内部で生成する教示動作の種類を選択するメソッド。
+	//ここを変更することで異なる動作の評価ができる
+	private void add_Q(DataSetGenerator g,double variance){
+		g.generate_MOVE_THE_CENTER(this, variance);
+	}
+	/* *************************************************** */
+	private void add_Q_Learn(int error,PrintWriter pw){
+		System.out.println("再現動作の評価値を計算");
+		//どの座標系かを先に求める
+		int index = -1;
+		if(this.pr_ID.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_ID.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
+			index = 0;
+		}
+		else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
+			index = 1;
+		}
+		else{
+			index = 2;
+		}
+
+		double evaluationpoint = 0;
+		MyPR.setNumberofEvaluation(1000);
+		//評価値が4回連続同じ値になるまで、データ量を増やす
+			if(index == 0){
+				evaluationpoint = this.pr_ID.evaluate(this,false);
+			}else if(index == 1){
+				evaluationpoint = this.pr_LT.evaluate(this,false);
+			}else{
+				evaluationpoint = this.pr_GL.evaluate(this,false);
+			}
+		this.initialize();
+		System.out.println("計算が終了しました。logdataを確認してください");
+		pw.println("result,"+error+","+evaluationpoint);
+	}
+	/* ************************************************************************************************************* */
+
 }
