@@ -371,16 +371,16 @@ public class SampleTask_100s extends MySerialFrame{
 		}
 
 
-		//誤差を0～10まで変化させて再現誤差を評価する
+		//誤差を0～10まで（0.5刻み）変化させて再現誤差を評価する
 		DataSetGenerator g = new DataSetGenerator();
-		for(int error=0;error<11;error++){
-			//各誤差を30回ずつ計算
+		for(int error=0;error<21;error++){
+			//各誤差を50回ずつ計算
 			for(int t=0;t<30;t++){
-				this.pw.println("result,error:"+error);
-				add_Q(g,error);
+				this.pw.println("result,error:"+error/2);
+				add_Q(g,error/2);
 				this.functionPlugin1();
 				this.functionPlugin2();
-				add_Q_Learn(error,pw_Q);
+				add_Q_Learn(error/2,pw_Q);
 				//logdataを削除
 				this.pw.close();
 				if (this.file.exists()){
@@ -409,7 +409,7 @@ public class SampleTask_100s extends MySerialFrame{
 		g.generate_RIGHT_TO_BLUE(this, variance);
 	}
 	/* *************************************************** */
-	private void add_Q_Learn(int error,PrintWriter pw){
+	private void add_Q_Learn(double error,PrintWriter pw){
 		System.out.println("再現動作の評価値を計算");
 		//どの座標系かを先に求める
 		int index = -1;
