@@ -88,6 +88,7 @@ public class DataSetGenerator {
 	//ガウス誤差の分散
 	//double variance;
 	//ガウスの種
+
 	Random rand;
 
 	//コンストラクタ
