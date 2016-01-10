@@ -29,6 +29,7 @@ public class DataSetGenerator {
 		Random rand = new Random();
 		double[] temperror = new double[2];
 		int[] selected= new int[2];
+		int[] secondselected= new int[2];
 
 		int count = 0;
 
@@ -39,8 +40,10 @@ public class DataSetGenerator {
 			//selected,secondselectedを初期化
 			selected[0] = -1;
 			selected[1] = -1;
+			secondselected[0] = -1;
+			secondselected[1] = -1;
 			frame.setSelected(selected);
-			frame.setSecondSelected(selected);
+			frame.setSecondSelected(secondselected);
 
 			//トラジェクタと青いオブジェクトを検索
 			for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
@@ -58,11 +61,11 @@ public class DataSetGenerator {
 
 						if(	i+temperror[0] > 0
 								&&j+temperror[1] > 0
-								&&i+temperror[0] < MyFrame.NUMBEROFPANEL
-								&&j+temperror[1] < MyFrame.NUMBEROFPANEL){
-							selected[0] =    i+(int)(temperror[0]+0.5);//四捨五入
-							selected[1] = 15+j+(int)(temperror[1]+0.5);//四捨五入
-							frame.setSecondSelected(selected);
+								&&   i+temperror[0] < MyFrame.NUMBEROFPANEL-1
+								&&15+j+temperror[1] < MyFrame.NUMBEROFPANEL-1){
+							secondselected[0] =    i+(int)(temperror[0]+0.5);//四捨五入
+							secondselected[1] = 15+j+(int)(temperror[1]+0.5);//四捨五入
+							frame.setSecondSelected(secondselected);
 						}
 
 					}
@@ -78,7 +81,7 @@ public class DataSetGenerator {
 
 
 	}
-	//RIGHT_TO_BLUEの自動生成
+	//MOVE_THE_CENTERの自動生成
 	public void generate_MOVE_THE_CENTER(MyFrame frame,double variance){
 
 		Random rand = new Random();
