@@ -345,6 +345,7 @@ public class SampleTask_100s extends MySerialFrame{
 		//ほかのキーを押し、logdata.txtが問題なく使えるか確認
 	}
 	public void functionPluginW(){
+		this.pw.close();
 		File file = new File("log/logdata.txt");
 		if (file.exists()){
 			if (file.delete()){
