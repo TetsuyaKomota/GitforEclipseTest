@@ -272,6 +272,25 @@ public void pushSPACE(){
 	public void functionPlugin9(){
 		System.out.println("No Function in This Key.");
 	}
+	public void functionPluginQ(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPluginW(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPluginE(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPluginR(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPluginT(){
+		System.out.println("No Function in This Key.");
+	}
+	public void functionPluginY(){
+		System.out.println("No Function in This Key.");
+	}
+
 
 	//タイマータスク
 	class RenderTask extends TimerTask{
@@ -433,6 +452,25 @@ public void pushSPACE(){
 			else if(e.getKeyCode() == KeyEvent.VK_9){
 				MyFrame.this.functionPlugin9();
 			}
+			else if(e.getKeyCode() == KeyEvent.VK_Q){
+				MyFrame.this.functionPluginQ();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_W){
+				MyFrame.this.functionPluginW();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_E){
+				MyFrame.this.functionPluginE();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_R){
+				MyFrame.this.functionPluginR();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_T){
+				MyFrame.this.functionPluginT();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_Y){
+				MyFrame.this.functionPluginY();
+			}
+
 
 		}
 
