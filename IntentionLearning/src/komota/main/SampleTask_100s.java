@@ -275,7 +275,7 @@ public class SampleTask_100s extends MySerialFrame{
 	public void functionPlugin7(){
 		System.out.println("各パターン認識クラスのインスタンスを生成(データの読み込み順をランダマイズしてから)");
 		LogRandomizer r = new LogRandomizer();
-		r.randomize("logdata.txt", "outputfromRandomizer.txt");
+		r.randomize("log_NEAR_BY_ORANGE.txt", "outputfromRandomizer.txt");
 		this.pr_LT = new PR_100_LT(9,"outputfromRandomizer.txt");
 		this.pr_ID = new PR_100_ID(9,"outputfromRandomizer.txt");
 		this.pr_GL = new PR_100_GL(9,"outputfromRandomizer.txt");
@@ -322,6 +322,7 @@ public class SampleTask_100s extends MySerialFrame{
 		System.out.println("データジェネレート完了！");
 
 	}
+	@Override
 	public void functionPluginQ(){
 		//まず、logdataを削除するテスト
 		//functionPlugin9でデータ生成
@@ -331,6 +332,7 @@ public class SampleTask_100s extends MySerialFrame{
 		this.functionPlugin2();
 		this.functionPlugin3();
 		//logdataを削除
+		this.pw.close();
 		if (this.file.exists()){
 			if (this.file.delete()){
 				System.out.println("ログファイルを削除しました");
@@ -343,19 +345,5 @@ public class SampleTask_100s extends MySerialFrame{
 		//logdataを生成
 		this.setOutputFile("logdata.txt");
 		//ほかのキーを押し、logdata.txtが問題なく使えるか確認
-	}
-	public void functionPluginW(){
-		this.pw.close();
-		File file = new File("log/logdata.txt");
-		if (file.exists()){
-			if (file.delete()){
-				System.out.println("ログファイルを削除しました");
-			}else{
-				System.out.println("ログファイルの削除に失敗しました");
-			}
-		}else{
-			System.out.println("ファイルが見つかりません");
-		}
-
 	}
 }
