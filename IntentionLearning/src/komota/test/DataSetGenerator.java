@@ -59,12 +59,12 @@ public class DataSetGenerator {
 						temperror[0] = rand.nextGaussian()*variance;
 						temperror[1] = rand.nextGaussian()*variance;
 
-						if(	i+temperror[0] > 0
-								&&j+temperror[1] > 0
-								&&   i+temperror[0] < MyFrame.NUMBEROFPANEL-1
-								&&15+j+temperror[1] < MyFrame.NUMBEROFPANEL-1){
-							secondselected[0] =    i+(int)(temperror[0]+0.5);//四捨五入
-							secondselected[1] = 15+j+(int)(temperror[1]+0.5);//四捨五入
+						if(	i+(int)(temperror[0]+0.5-variance/2) > 0
+								&&15+j+(int)(temperror[1]+0.5-variance/2) > 0
+								&&   i+(int)(temperror[0]+0.5-variance/2) < MyFrame.NUMBEROFPANEL-2
+								&&15+j+(int)(temperror[1]+0.5-variance/2) < MyFrame.NUMBEROFPANEL-2){
+							secondselected[0] =    i+(int)(temperror[0]+0.5-variance/2);//四捨五入
+							secondselected[1] = 15+j+(int)(temperror[1]+0.5-variance/2);//四捨五入
 							frame.setSecondSelected(secondselected);
 						}
 
