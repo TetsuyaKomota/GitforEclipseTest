@@ -201,15 +201,10 @@ public class SampleTask_101s extends MySerialFrame{
  * 6. disの最も小さいタスクのtasknameを出力する
  */
 
-		double dis_RtB = 10000;
-		double dis_NbO = 10000;
-		double dis_MtS = 10000;
-
 		double[] dis_tasks = new double[NUMBEROFTASKS];
 		for(int i=0;i<NUMBEROFTASKS;i++){
 			dis_tasks[i] = 10000;
 		}
-
 		int[] tempselected = new int[2];
 		this.save = new PR_101();
 		this.save.setLog(this);
@@ -240,55 +235,11 @@ public class SampleTask_101s extends MySerialFrame{
 				}
 			}
 		}
-
 		//上位3つのタスク名を標準出力
+		//実験時はここをフィールドに持たせたりして別メソッドで評価する感じになると思う
 		for(int i=0;i<highest_point.length;i++){
 			System.out.println(i+". "+this.tasks[highest_idx[i]].taskname);
 		}
-
-
-
-
-
-/*
-		//1.
-		this.save = new PR_101();
-		this.save.setLog(this);
-		//2.
-		this.save.loadLastStartLog(this);
-		//3.
-		this.task_RtB.reproductionTask(this);
-		tempselected = this.getSecondSelected();
-		//4.
-		dis_RtB = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
-
-		//2.
-		this.save.loadLastStartLog(this);
-		//3.
-		this.task_NbO.reproductionTask(this);
-		tempselected = this.getSecondSelected();
-		//4.
-		dis_NbO = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
-
-		//2.
-		this.save.loadLastStartLog(this);
-		//3.
-		this.task_MtS.reproductionTask(this);
-		tempselected = this.getSecondSelected();
-		//4.
-		dis_MtS = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
-
-		//6.
-		if(dis_RtB<dis_NbO && dis_RtB<dis_MtS){
-			this.tasktitle = this.task_RtB.getTaskName();
-		}
-		else if(dis_NbO<dis_RtB && dis_NbO<dis_MtS){
-			this.tasktitle = this.task_NbO.getTaskName();
-		}
-		else{
-			this.tasktitle = this.task_MtS.getTaskName();
-		}
-*/
 		//一応、見栄えのためにsecondselectedを初期化しておく
 		this.secondselected[0] = -1;
 		this.secondselected[1] = -1;

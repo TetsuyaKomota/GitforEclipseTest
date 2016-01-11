@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-import komota.pr.main.PR_100;
 import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
+import komota.pr.main.PR_101;
 import komota.test.DataSetGenerator;
 import komota.test.LogRandomizer;
 
@@ -33,11 +33,19 @@ public class SampleTask_100s extends MySerialFrame{
 	PR_100_ID pr_ID;
 	PR_100_GL pr_GL;
 
+	//タスククラス
+	MyTask[] tasks;
+	static final int NUMBEROFTASKS = 6;
+	//盤面記憶用PRクラス(識別で使用)
+	PR_101 save;
+
+
 	//コンストラクタ
 	public SampleTask_100s(){
 		super();
 //		this.tpr = new TestPatternRecognition();
 		this.tasktitle = "動作名";
+		this.howtouse = "1,2:logdata学習 3:再現 4:識別用学習 5:押しちゃダメ 6:*** 7:ランダマイズ 8:順序問題,学習データ量テスト 9:データセット生成";
 		setOutputFile("logdata.txt");
 		initialize();
 	}
@@ -169,6 +177,23 @@ public class SampleTask_100s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin4(){
+		//識別用タスククラスのインスタンス生成
+		System.out.println("[SampleTask_100s]functionPlugin4:タスククラスのインスタンス生成");
+		this.expranation = "[SampleTask_100s]functionPlugin4:タスククラスのインスタンス生成";
+
+		this.tasks = new MyTask[NUMBEROFTASKS];
+		this.tasks[0] = new MyTask("log_MOVE_THE_CENTER.txt","赤を中央に移動する");
+		this.tasks[1] = new MyTask("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
+		this.tasks[2] = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
+		this.tasks[3] = new MyTask("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
+		this.tasks[4] = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
+		this.tasks[5] = new MyTask("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
+
+
+		System.out.println("インスタンス生成完了");
+		this.expranation = "インスタンス生成完了";
+
+/*
 		System.out.println("再現動作の評価値を計算");
 		if(this.pr_ID.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_ID.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
 			System.out.println("evaluation point:"+this.pr_ID.evaluate(this));
@@ -179,6 +204,7 @@ public class SampleTask_100s extends MySerialFrame{
 		else{
 			System.out.println("evaluation point:"+this.pr_GL.evaluate(this));
 		}
+*/
 	}
 	@Override
 	public void functionPlugin5(){
@@ -230,6 +256,61 @@ public class SampleTask_100s extends MySerialFrame{
 	}
 	@Override
 	public void functionPlugin6(){
+		/*
+		 * 1. 現在の盤面と、直前のstartログの盤面を何らかの方法で保持する
+		 * 2. 保持したstartログに盤面を合わせる
+		 * 3. task_RtBでreproductionTask
+		 * 4. secondselectedと、保持した最終状態の位置との距離をdis_RtBとして保存
+		 * 5. タスクを切り替え、2. に戻る
+		 * 6. disの最も小さいタスクのtasknameを出力する
+		 */
+
+				double[] dis_tasks = new double[NUMBEROFTASKS];
+				for(int i=0;i<NUMBEROFTASKS;i++){
+					dis_tasks[i] = 10000;
+				}
+				int[] tempselected = new int[2];
+				this.save = new PR_101();
+				this.save.setLog(this);
+				for(int t=0;t<NUMBEROFTASKS;t++){
+					this.save.loadLastStartLog(this);
+					this.tasks[t].reproductionTask(this);
+					tempselected = this.getSecondSelected();
+					dis_tasks[t] = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
+					dis_tasks[t] = Math.sqrt(dis_tasks[t]);
+				}
+				//上位3タスクを取得
+				int[] highest_idx = new int[3];
+				double[] highest_point = new double[highest_idx.length];
+				for(int i=0;i<highest_point.length;i++){
+					highest_idx[i] = -1;
+					highest_point[i] = 100000;
+				}
+				for(int t=0;t<NUMBEROFTASKS;t++){
+					System.out.println(t+":"+this.tasks[t].taskname+":"+dis_tasks[t]);
+					for(int i=0;i<highest_point.length;i++){
+						if(dis_tasks[t]<highest_point[i]){
+							for(int j=highest_point.length-1;j>i;j--){
+								highest_idx[j] = highest_idx[j-1];
+								highest_point[j] = highest_point[j-1];
+							}
+							highest_idx[i] = t;
+							highest_point[i] = dis_tasks[t];
+							break;
+						}
+					}
+				}
+				//上位3つのタスク名を標準出力
+				//実験時はここをフィールドに持たせたりして別メソッドで評価する感じになると思う
+				System.out.println("[SampleTask_100s]functionPlugin6:recognition result:");
+				for(int i=0;i<highest_point.length;i++){
+					System.out.println(i+". "+this.tasks[highest_idx[i]].taskname);
+				}
+				//一応、見栄えのためにsecondselectedを初期化しておく
+				this.secondselected[0] = -1;
+				this.secondselected[1] = -1;
+
+/*
 		System.out.println("再現動作の評価値を、視野を増やしながら計算");
 
 		MyPR.setNumberofEvaluation(1000);
@@ -274,6 +355,7 @@ public class SampleTask_100s extends MySerialFrame{
 		}
 		this.initialize();
 		System.out.println("計算が終了しました。logdataを確認してください");
+*/
 	}
 	@Override
 	public void functionPlugin7(){
