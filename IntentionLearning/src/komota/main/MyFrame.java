@@ -104,7 +104,7 @@ public class MyFrame extends JFrame{
 			e.printStackTrace();
 		}
 		Timer t = new Timer();
-		t.schedule(new RenderTask(), 0,200);
+		t.schedule(new RenderTask(), 0,12);
 
 		this.initialize();
 	}
