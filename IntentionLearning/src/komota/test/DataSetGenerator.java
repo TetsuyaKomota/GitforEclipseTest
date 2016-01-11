@@ -23,7 +23,7 @@ public class DataSetGenerator {
 			un[i] = 0;
 		}
 		int count = 0;
-		while(count++ < 30){
+		while(count++ < 100000000){
 			ran = g.nextError(1);
 //			System.out.println("output,"+ran);
 			if(ran>max){
