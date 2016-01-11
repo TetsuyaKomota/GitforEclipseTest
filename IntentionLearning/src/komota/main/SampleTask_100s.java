@@ -376,7 +376,7 @@ public class SampleTask_100s extends MySerialFrame{
 		DataSetGenerator g = new DataSetGenerator();
 		for(int error=0;error<21;error++){
 			//各誤差を50回ずつ計算
-			for(int t=0;t<30;t++){
+			for(int t=0;t<50;t++){
 				this.pw.println("result,error:"+error/2);
 				add_Q(g,error/2);
 				this.functionPlugin1();

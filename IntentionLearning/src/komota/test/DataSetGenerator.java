@@ -210,19 +210,22 @@ public class DataSetGenerator {
 					}
 				}
 			}
-			secondselected[0] = (tempred[0]+temporange[0]*3)/4 + temperror[0];
-			secondselected[1] = (tempred[1]+temporange[1]*3)/4 + temperror[1];
+			int[] tempsecondselected = new int[2];
+			tempsecondselected[0] = (tempred[0]+temporange[0]*3)/4 + temperror[0];
+			tempsecondselected[1] = (tempred[1]+temporange[1]*3)/4 + temperror[1];
 
-			if(		  secondselected[0] > 0
-					&&secondselected[1] > 0
-					&&secondselected[0] < MyFrame.NUMBEROFPANEL - 2
-					&&secondselected[1] < MyFrame.NUMBEROFPANEL - 2
+			if(		  tempsecondselected[0] > 0
+					&&tempsecondselected[1] > 0
+					&&tempsecondselected[0] < MyFrame.NUMBEROFPANEL - 2
+					&&tempsecondselected[1] < MyFrame.NUMBEROFPANEL - 2
 					){
+				secondselected[0] = tempsecondselected[0];
+				secondselected[1] = tempsecondselected[1];
 				frame.setSecondSelected(secondselected);
 			}
 
 			//トラジェクタと目標位置がセットされたはずなので、移動する
-			if(frame.getSecondSelected()[0] != -1 && frame.getSecondSelected()[1] != -1){
+			if(frame.getSecondSelected()[0] > 0 && frame.getSecondSelected()[1] > 0){
 				frame.pushSPACE();
 				frame.pushGoal();
 				count++;
