@@ -163,6 +163,73 @@ public class DataSetGenerator {
 		}
 
 
+	}	//NEAR_BY_ORANGEの自動生成
+	public void generate_NEAR_BY_ORANGE(MyFrame frame,double variance){
+
+		int[] temperror = new int[2];
+		int[] selected= new int[2];
+		int[] secondselected= new int[2];
+		int[] tempred = new int[2];
+		int[] temporange = new int[2];
+
+		int count = 0;
+
+		while(count < NUMBEROFDATASET){
+
+			//startログを生成
+			frame.initialize();
+			//selected,secondselectedを初期化
+			selected[0] = -1;
+			selected[1] = -1;
+			secondselected[0] = -1;
+			secondselected[1] = -1;
+			tempred[0] = -1;
+			tempred[1] = -1;
+			temporange[0] = -1;
+			temporange[1] = -1;
+			frame.setSelected(selected);
+			frame.setSecondSelected(secondselected);
+
+			//トラジェクタと青いオブジェクトを検索
+			for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+				for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+					if(frame.panels[i][j].getStatus() == 1){
+						selected[0] = i;
+						selected[1] = j;
+						frame.setSelected(selected);
+						tempred[0] = i;
+						tempred[1] = j;
+					}
+					else if(frame.panels[i][j].getStatus() == 5){
+
+						temperror[0] = nextError(variance);
+						temperror[1] = nextError(variance);
+
+						temporange[0] = i;
+						temporange[1] = j;
+					}
+				}
+			}
+			secondselected[0] = (tempred[0]+temporange[0]*3)/4 + temperror[0];
+			secondselected[1] = (tempred[1]+temporange[1]*3)/4 + temperror[1];
+
+			if(		  secondselected[0] > 0
+					&&secondselected[1] > 0
+					&&secondselected[0] < MyFrame.NUMBEROFPANEL - 2
+					&&secondselected[1] < MyFrame.NUMBEROFPANEL - 2
+					){
+				frame.setSecondSelected(secondselected);
+			}
+
+			//トラジェクタと目標位置がセットされたはずなので、移動する
+			if(frame.getSecondSelected()[0] != -1 && frame.getSecondSelected()[1] != -1){
+				frame.pushSPACE();
+				frame.pushGoal();
+				count++;
+			}
+		}
+
+
 	}
 	//MOVE_THE_CENTERの自動生成
 	public void generate_MOVE_THE_CENTER(MyFrame frame,double variance){
