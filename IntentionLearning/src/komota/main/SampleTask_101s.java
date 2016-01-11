@@ -174,8 +174,7 @@ public class SampleTask_101s extends MySerialFrame{
 		this.task_RtB = new MyTask("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
 		this.task_NbO = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
 		this.task_MtS = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
-		//一応、現在のログでPRインスタンスを生成し直しておく
-		//this.functionPlugin1();
+
 		System.out.println("インスタンス生成完了");
 		this.expranation = "インスタンス生成完了";
 	}
@@ -233,6 +232,10 @@ public class SampleTask_101s extends MySerialFrame{
 		else{
 			this.tasktitle = this.task_MtS.getTaskName();
 		}
+		//一応、見栄えのためにsecondselectedを初期化しておく
+		this.secondselected[0] = -1;
+		this.secondselected[1] = -1;
+
 	}
 	@Override
 	public void functionPlugin6(){
