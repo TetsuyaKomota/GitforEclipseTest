@@ -6,6 +6,8 @@ import komota.main.MyPR;
 public class PR_101 extends MyPR {
 	//識別動作テストの100の、盤面の記憶と再現のみに使用するPR
 
+
+
 	//フィールド
 	//最終状態の目標位置
 	int[] lastposition;

@@ -408,7 +408,7 @@ public class SampleTask_100s extends MySerialFrame{
 //		g.generate_NEAR_BY_ORANGE(this, 2);
 //		g.generate_AWAY_FROM_GREEN(this, 2);
 //		g.generate_MAKE_THE_SIGNAL(this, 2);
-//		g.generate_MAKE_THE_TRIANGLE(this, 2);
+		g.generate_MAKE_THE_TRIANGLE(this, 2);
 		System.out.println("データジェネレート完了！");
 
 	}
@@ -527,4 +527,44 @@ public class SampleTask_100s extends MySerialFrame{
 	}
 	/* ************************************************************************************************************* */
 
+	@Override
+	public void functionPluginW(){
+		DataSetGenerator g = new DataSetGenerator();
+		//識別の実験のテスト
+		System.out.println("識別テストはじめるよぉ～");
+		this.functionPlugin4();
+		for(int t=0;t<50;t++){
+			//logdataを削除
+			this.pw.close();
+			if (this.file.exists()){
+				if (this.file.delete()){
+					System.out.println("ログファイルを削除しました");
+				}else{
+					System.out.println("ログファイルの削除に失敗しました");
+				}
+			}else{
+				System.out.println("ファイルが見つかりません");
+			}
+			//logdataを生成
+			this.setOutputFile("logdata.txt");
+
+			//ジェネレート
+			g.generate_MOVE_THE_CENTER(this, 2);
+			//saveインスタンス生成
+			this.save = new PR_101();
+			//saveのlogdataの最後のgoalをarrangeField
+			int idx = 0;
+			while(true){
+				if(this.save.logdata[idx] == null){
+					break;
+				}
+				else if(this.save.logdata[idx].getType() == MyPR.GOAL){
+					this.save.arrangeField(this, this.save.logdata[idx]);
+				}
+				idx++;
+			}
+			//functionPlugin6
+			this.functionPlugin6();
+		}
+	}
 }
