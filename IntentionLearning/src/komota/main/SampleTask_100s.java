@@ -38,6 +38,8 @@ public class SampleTask_100s extends MySerialFrame{
 	static final int NUMBEROFTASKS = 6;
 	//盤面記憶用PRクラス(識別で使用)
 	PR_101 save;
+	//識別結果
+	int[] highest;
 
 
 	//コンストラクタ
@@ -306,6 +308,7 @@ public class SampleTask_100s extends MySerialFrame{
 				for(int i=0;i<highest_point.length;i++){
 					System.out.println(i+". "+this.tasks[highest_idx[i]].taskname);
 				}
+				this.highest = highest_idx;
 				//一応、見栄えのためにsecondselectedを初期化しておく
 				this.secondselected[0] = -1;
 				this.secondselected[1] = -1;
@@ -530,41 +533,125 @@ public class SampleTask_100s extends MySerialFrame{
 	@Override
 	public void functionPluginW(){
 		DataSetGenerator g = new DataSetGenerator();
+		int errorcount = 0;
 		//識別の実験のテスト
 		System.out.println("識別テストはじめるよぉ～");
 		this.functionPlugin4();
-		for(int t=0;t<50;t++){
-			//logdataを削除
-			this.pw.close();
-			if (this.file.exists()){
-				if (this.file.delete()){
-					System.out.println("ログファイルを削除しました");
-				}else{
-					System.out.println("ログファイルの削除に失敗しました");
-				}
-			}else{
-				System.out.println("ファイルが見つかりません");
-			}
-			//logdataを生成
-			this.setOutputFile("logdata.txt");
 
-			//ジェネレート
-			g.generate_MOVE_THE_CENTER(this, 2);
-			//saveインスタンス生成
-			this.save = new PR_101();
-			//saveのlogdataの最後のgoalをarrangeField
-			int idx = 0;
-			while(true){
-				if(this.save.logdata[idx] == null){
+		//結果を出力するファイルの生成
+	      PrintWriter pw_W = null;
+		try {
+		      FileOutputStream fos_W = new FileOutputStream("log/output_W.txt",true);
+		      OutputStreamWriter osw_W = new OutputStreamWriter(fos_W);
+		      pw_W = new PrintWriter(osw_W);
+		      //fos_W.close();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			System.out.println("ファイルなし");
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e1) {
+				// TODO 自動生成された catch ブロック
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+
+		//各動作で識別の実験
+		for(int taskidx=0;taskidx<this.tasks.length;taskidx++){
+
+			switch(taskidx){
+			case 0:
+				pw_W.println("task,MOVE_THE_CENTER");
+				break;
+			case 1:
+				pw_W.println("task,RIGHT_TO_BLUE");
+				break;
+			case 2:
+				pw_W.println("task,NEAR_BY_ORANGE");
+				break;
+			case 3:
+				pw_W.println("task,AWAY_FROM_GREEN");
+				break;
+			case 4:
+				pw_W.println("task,MAKE_THE_SIGNAL");
+				break;
+			case 5:
+				pw_W.println("task,MAKE_THE_TRIANGLE");
+				break;
+			}
+
+			for(int t=0;t<500;t++){
+				//logdataを削除
+				this.pw.close();
+				if (this.file.exists()){
+					if (this.file.delete()){
+						System.out.println("ログファイルを削除しました");
+					}else{
+						System.out.println("ログファイルの削除に失敗しました");
+					}
+				}else{
+					System.out.println("ファイルが見つかりません");
+				}
+				//logdataを生成
+				this.setOutputFile("logdata.txt");
+
+				//ジェネレート
+				//識別誤差は分散10とする
+				int var = 10;
+				switch(taskidx){
+				case 0:
+					g.generate_MOVE_THE_CENTER(this, var);
+					break;
+				case 1:
+					g.generate_RIGHT_TO_BLUE(this, var);
+					break;
+				case 2:
+					g.generate_NEAR_BY_ORANGE(this, var);
+					break;
+				case 3:
+					g.generate_AWAY_FROM_GREEN(this, var);
+					break;
+				case 4:
+					g.generate_MAKE_THE_SIGNAL(this, var);
+					break;
+				case 5:
+					g.generate_MAKE_THE_TRIANGLE(this, var);
 					break;
 				}
-				else if(this.save.logdata[idx].getType() == MyPR.GOAL){
-					this.save.arrangeField(this, this.save.logdata[idx]);
+				//saveインスタンス生成
+				this.save = new PR_101();
+				//saveのlogdataの最後のgoalをarrangeField
+				int idx = 0;
+				while(true){
+					if(this.save.logdata[idx] == null){
+						break;
+					}
+					else if(this.save.logdata[idx].getType() == MyPR.GOAL){
+						this.save.arrangeField(this, this.save.logdata[idx]);
+					}
+					idx++;
 				}
-				idx++;
+				//functionPlugin6
+				this.functionPlugin6();
+				if(this.highest[0] != taskidx){
+					System.out.println(t+"回目で識別に失敗しました。");
+					//エラーが生じた初期状態を出力
+					save.loadLastStartLog(this);
+					pw_W.print("start ");
+					for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+						for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+							pw_W.print(","+this.panels[i][j].status);
+						}
+					}
+					pw_W.println("");
+					errorcount++;
+				}
 			}
-			//functionPlugin6
-			this.functionPlugin6();
+			System.out.println("誤識別は " + errorcount + " 回ありました");
+			pw_W.println("result,"+errorcount);
 		}
+		pw_W.close();
+		System.out.println("おまたせ！計算終わったよー！");
 	}
 }
