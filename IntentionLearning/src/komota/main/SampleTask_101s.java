@@ -33,6 +33,9 @@ public class SampleTask_101s extends MySerialFrame{
 	MyTask task_NbO;
 	MyTask task_MtS;
 
+	MyTask[] tasks;
+	static final int NUMBEROFTASKS = 6;
+
 	//コンストラクタ
 	public SampleTask_101s(){
 		super();
@@ -175,6 +178,15 @@ public class SampleTask_101s extends MySerialFrame{
 		this.task_NbO = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
 		this.task_MtS = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
 
+		this.tasks = new MyTask[NUMBEROFTASKS];
+		this.tasks[0] = new MyTask("log_MOVE_THE_CENTER.txt","赤を中央に移動する");
+		this.tasks[1] = new MyTask("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
+		this.tasks[2] = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
+		this.tasks[3] = new MyTask("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
+		this.tasks[4] = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
+		this.tasks[5] = new MyTask("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
+
+
 		System.out.println("インスタンス生成完了");
 		this.expranation = "インスタンス生成完了";
 	}
@@ -193,8 +205,52 @@ public class SampleTask_101s extends MySerialFrame{
 		double dis_NbO = 10000;
 		double dis_MtS = 10000;
 
-		int[] tempselected = new int[2];
+		double[] dis_tasks = new double[NUMBEROFTASKS];
+		for(int i=0;i<NUMBEROFTASKS;i++){
+			dis_tasks[i] = 10000;
+		}
 
+		int[] tempselected = new int[2];
+		this.save = new PR_101();
+		this.save.setLog(this);
+		for(int t=0;t<NUMBEROFTASKS;t++){
+			this.save.loadLastStartLog(this);
+			this.tasks[t].reproductionTask(this);
+			tempselected = this.getSecondSelected();
+			dis_tasks[t] = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
+		}
+		//上位3タスクを取得
+		int[] highest_idx = new int[3];
+		double[] highest_point = new double[highest_idx.length];
+		for(int i=0;i<highest_point.length;i++){
+			highest_idx[i] = -1;
+			highest_point[i] = 100000;
+		}
+		for(int t=0;t<NUMBEROFTASKS;t++){
+			System.out.println(t+":"+this.tasks[t].taskname+":"+dis_tasks[t]);
+			for(int i=0;i<highest_point.length;i++){
+				if(dis_tasks[t]<highest_point[i]){
+					for(int j=highest_point.length-1;j>i;j--){
+						highest_idx[j] = highest_idx[j-1];
+						highest_point[j] = highest_point[j-1];
+					}
+					highest_idx[i] = t;
+					highest_point[i] = dis_tasks[t];
+					break;
+				}
+			}
+		}
+
+		//上位3つのタスク名を標準出力
+		for(int i=0;i<highest_point.length;i++){
+			System.out.println(i+". "+this.tasks[highest_idx[i]].taskname);
+		}
+
+
+
+
+
+/*
 		//1.
 		this.save = new PR_101();
 		this.save.setLog(this);
@@ -232,6 +288,7 @@ public class SampleTask_101s extends MySerialFrame{
 		else{
 			this.tasktitle = this.task_MtS.getTaskName();
 		}
+*/
 		//一応、見栄えのためにsecondselectedを初期化しておく
 		this.secondselected[0] = -1;
 		this.secondselected[1] = -1;
