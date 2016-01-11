@@ -559,7 +559,7 @@ public class SampleTask_100s extends MySerialFrame{
 
 		//各動作で識別の実験
 		for(int taskidx=0;taskidx<this.tasks.length;taskidx++){
-
+			errorcount = 0;
 			switch(taskidx){
 			case 0:
 				pw_W.println("task,MOVE_THE_CENTER");
