@@ -324,7 +324,8 @@ public class SampleTask_100s extends MySerialFrame{
 //		g.generate_MOVE_THE_CENTER(this, 1);
 //		g.generate_RIGHT_TO_BLUE(this, 3);
 //		g.generate_NEAR_BY_ORANGE(this, 2);
-		g.generate_AWAY_FROM_GREEN(this, 2);
+//		g.generate_AWAY_FROM_GREEN(this, 2);
+		g.generate_MAKE_THE_SIGNAL(this, 2);
 		System.out.println("データジェネレート完了！");
 
 	}

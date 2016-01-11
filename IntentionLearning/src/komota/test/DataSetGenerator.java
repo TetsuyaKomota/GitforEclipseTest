@@ -306,6 +306,83 @@ public class DataSetGenerator {
 
 
 	}
+	//MAKE_THE_SIGNALの自動生成
+	public void generate_MAKE_THE_SIGNAL(MyFrame frame,double variance){
+
+		int[] temperror = new int[2];
+		int[] selected= new int[2];
+		int[] secondselected= new int[2];
+		int[] tempred = new int[2];
+		int[] tempblue = new int[2];
+		int[] tempyellow = new int[2];
+
+		int count = 0;
+
+		while(count < NUMBEROFDATASET){
+
+			//startログを生成
+			frame.initialize();
+			//selected,secondselectedを初期化
+			selected[0] = -1;
+			selected[1] = -1;
+			secondselected[0] = -1;
+			secondselected[1] = -1;
+			tempred[0] = -1;
+			tempred[1] = -1;
+			tempblue[0] = -1;
+			tempblue[1] = -1;
+			tempyellow[0] = -1;
+			tempyellow[1] = -1;
+
+			frame.setSelected(selected);
+			frame.setSecondSelected(secondselected);
+
+			//トラジェクタと青いオブジェクトと黄色いオブジェクトを検索
+			for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+				for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+					if(frame.panels[i][j].getStatus() == 1){
+						selected[0] = i;
+						selected[1] = j;
+						frame.setSelected(selected);
+						tempred[0] = i;
+						tempred[1] = j;
+					}
+					else if(frame.panels[i][j].getStatus() == 2){
+						tempblue[0] = i;
+						tempblue[1] = j;
+					}
+					else if(frame.panels[i][j].getStatus() == 3){
+						tempyellow[0] = i;
+						tempyellow[1] = j;
+					}
+				}
+			}
+			temperror[0] = nextError(variance);
+			temperror[1] = nextError(variance);
+			int[] tempsecondselected = new int[2];
+			tempsecondselected[0] = 2*tempyellow[0]-tempblue[0] + temperror[0];
+			tempsecondselected[1] = 2*tempyellow[1]-tempblue[1] + temperror[1];
+
+			if(		  tempsecondselected[0] > 0
+					&&tempsecondselected[1] > 0
+					&&tempsecondselected[0] < MyFrame.NUMBEROFPANEL - 2
+					&&tempsecondselected[1] < MyFrame.NUMBEROFPANEL - 2
+					){
+				secondselected[0] = tempsecondselected[0];
+				secondselected[1] = tempsecondselected[1];
+				frame.setSecondSelected(secondselected);
+			}
+
+			//トラジェクタと目標位置がセットされたはずなので、移動する
+			if(frame.getSecondSelected()[0] > 0 && frame.getSecondSelected()[1] > 0){
+				frame.pushSPACE();
+				frame.pushGoal();
+				count++;
+			}
+		}
+
+
+	}
 	//MOVE_THE_CENTERの自動生成
 	public void generate_MOVE_THE_CENTER(MyFrame frame,double variance){
 
