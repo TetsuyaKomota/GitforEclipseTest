@@ -308,6 +308,7 @@ public class SampleTask_100s extends MySerialFrame{
 				for(int i=0;i<highest_point.length;i++){
 					System.out.println(i+". "+this.tasks[highest_idx[i]].taskname);
 				}
+				this.tasktitle = this.tasks[highest_idx[0]].taskname;
 				this.highest = highest_idx;
 				//一応、見栄えのためにsecondselectedを初期化しておく
 				this.secondselected[0] = -1;
