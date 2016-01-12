@@ -497,7 +497,9 @@ public class SampleTask_100s extends MySerialFrame{
 	private void add_Q(DataSetGenerator g,double variance){
 		//g.generate_NEAR_BY_ORANGE(this, variance);
 		//g.generate_RIGHT_TO_BLUE(this, variance);
-		g.generate_AWAY_FROM_GREEN(this, variance);
+		//g.generate_AWAY_FROM_GREEN(this, variance);
+		//g.generate_MAKE_THE_SIGNAL(this, variance);
+		g.generate_MAKE_THE_TRIANGLE(this, variance);
 	}
 	/* *************************************************** */
 	private void add_Q_Learn(double error,PrintWriter pw){
@@ -581,7 +583,7 @@ public class SampleTask_100s extends MySerialFrame{
 				break;
 			}
 
-			for(int t=0;t<500;t++){
+			for(int t=0;t<50;t++){
 				//logdataを削除
 				this.pw.close();
 				if (this.file.exists()){
