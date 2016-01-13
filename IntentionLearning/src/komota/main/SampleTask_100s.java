@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
+import komota.pr.main.PR_100_FE;
 import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
 import komota.pr.main.PR_101;
-import komota.pr.main.PR_100_FE;
 import komota.test.DataSetGenerator;
 import komota.test.LogRandomizer;
 
@@ -38,7 +38,7 @@ public class SampleTask_100s extends MySerialFrame{
 
 	//タスククラス
 	MyTaskPrimitive[] tasks;
-	static final int NUMBEROFTASKS = 6;
+	static final int NUMBEROFTASKS = 8;
 	//盤面記憶用PRクラス(識別で使用)
 	PR_101 save;
 	//識別結果
@@ -199,6 +199,8 @@ public class SampleTask_100s extends MySerialFrame{
 		this.tasks[3] = new MyTaskPrimitive("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
 		this.tasks[4] = new MyTaskPrimitive("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
 		this.tasks[5] = new MyTaskPrimitive("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
+		this.tasks[6] = new MyTaskPrimitive("log_TILT_RED_LITTLE.txt","赤を少し傾ける");
+		this.tasks[7] = new MyTaskPrimitive("log_TILT_RED_HARD.txt","赤を大きく傾ける");
 
 
 		System.out.println("インスタンス生成完了");
