@@ -51,6 +51,7 @@ public class PR_Features extends MyPR{
 		}
 		this.logdata_feature = new StepLog_Feature[1000];
 		int step = 0;
+		int temptype = -1;
 		while(true){
 			String line = null;
 			try {
@@ -62,9 +63,22 @@ public class PR_Features extends MyPR{
 			if(line == null){
 				break;
 			}
+			//どのログにおける特徴量ログなのかを特徴量ログに付与するため、直前のログのタイプを取得しておく
+			else if(line.split(",")[0].equals("start ") == true){
+				temptype = START;
+			}
+			else if(line.split(",")[0].equals("goal  ") == true){
+				temptype = GOAL;
+			}
+			else if(line.split(",")[0].equals("change") == true){
+				temptype = CHANGE;
+			}
+			else if(line.split(",")[0].equals("status") == true){
+				temptype = STATUS;
+			}
 			//FEATUREログのみインスタンス生成
 			else if(line.split(",")[0].equals("featur") == true){
-				this.logdata_feature[step] = new StepLog_Feature(step,line);
+				this.logdata_feature[step] = new StepLog_Feature(step,temptype,line);
 				step++;
 			}
 		}
@@ -87,10 +101,10 @@ public class PR_Features extends MyPR{
 		double[][] features = null;
 
 		//コンストラクタ
-		StepLog_Feature(int step , String line){
+		StepLog_Feature(int step ,int type , String line){
 			this.step = step;
 			String[] tempstrings = line.split(",");
-			this.type = FEATURE;
+			this.type = type;
 			this.features = new double[PR_Features.this.numref][MyPanel.NUMBEROFFEATURE];
 
 			int idx = 0;
@@ -137,6 +151,19 @@ public class PR_Features extends MyPR{
 		//表示
 		void show(){
 			String typename = "ふぃーちゃー";
+			switch(this.type){
+			case START:
+				typename = "start ,";
+				break;
+			case GOAL:
+				typename = "goal  ,";
+				break;
+			case CHANGE:
+				typename = "change,";
+				break;
+			case STATUS:
+				typename = "status,";
+			}
 			System.out.print(typename);
 
 			for(int s=0;s<PR_Features.this.numref;s++){
