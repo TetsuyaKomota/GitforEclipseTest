@@ -159,6 +159,7 @@ public class SampleTask_100s extends MySerialFrame{
 		this.pr_LT = new PR_100_LT(9,this.file_name);
 		this.pr_ID = new PR_100_ID(9,this.file_name);
 		this.pr_GL = new PR_100_GL(9,this.file_name);
+		this.pr_FE = new PR_Features(9,this.file_name);
 	}
 	@Override
 	public void functionPlugin2(){
@@ -166,12 +167,16 @@ public class SampleTask_100s extends MySerialFrame{
 		this.pr_LT.learnfromLog();
 		this.pr_ID.learnfromLog();
 		this.pr_GL.learnfromLog();
+		this.pr_FE.learnfromLog();
 	}
 	@Override
 	public void functionPlugin3(){
 		System.out.println("学習結果から、動作を再現");
-		System.out.println("[SampleTask_100s]functionPlugin3:MaxLikelihood: ID:"+this.pr_ID.getMaxLikelihood()+" LT:"+pr_LT.getMaxLikelihood()+" GL:"+pr_GL.getMaxLikelihood());
-		if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
+		System.out.println("[SampleTask_100s]functionPlugin3:MaxLikelihood: ID:"+this.pr_ID.getMaxLikelihood()+" LT:"+pr_LT.getMaxLikelihood()+" GL:"+pr_GL.getMaxLikelihood() + " FE:"+pr_FE.getMaxLikelihood());
+		if(this.pr_FE.getMaxLikelihood() > 0){
+			this.pr_FE.reproduction(this);
+		}
+		else if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
 			this.pr_GL.reproduction(this);
 		}
 		else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){

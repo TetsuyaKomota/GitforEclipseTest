@@ -159,7 +159,7 @@ public class PR_Features extends MyPR{
 		int tempf = -1;
 		for(int s=0;s<this.numref;s++){
 			for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
-				System.out.println("[PR_Features]reproduction:status:"+s+" feature:"+f+" likelihood*"+this.likelihood[s][f]);
+				//System.out.println("[PR_Features]reproduction:status:"+s+" feature:"+f+" likelihood*"+this.likelihood[s][f]);
 				if(tempmaxlikelihood < this.likelihood[s][f]){
 					tempmaxlikelihood = this.likelihood[s][f];
 					temps = s;
@@ -177,7 +177,7 @@ public class PR_Features extends MyPR{
 				}
 			}
 		}
-		System.out.println("[PR_Features]reproduction:選ばれたのは、("+temps+","+tempf+")デス");
+		//System.out.println("[PR_Features]reproduction:選ばれたのは、("+temps+","+tempf+")デス");
 	}
 	//参照点の学習結果リセット
 	@Override
