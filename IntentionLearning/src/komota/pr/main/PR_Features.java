@@ -135,7 +135,6 @@ public class PR_Features extends MyPR{
 					}
 				}
 
-
 				count++;
 			}
 			//"change"ログの場合、何もしない
@@ -151,6 +150,30 @@ public class PR_Features extends MyPR{
 	//位置遷移に関するPRとの比較が難しいと思う。要考察
 	@Override
 	public void reproduction(MyFrame frame){
+		double tempmaxlikelihood = -10000;
+		int temps = -1;
+		int tempf = -1;
+		for(int s=0;s<this.numref;s++){
+			for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
+				System.out.println(this.goalmean[s][f]/(this.goalvariance[s][f]+1));
+				if(tempmaxlikelihood < this.goalmean[s][f]/(this.goalvariance[s][f]+1)){
+					tempmaxlikelihood = this.goalmean[s][f]/(this.goalvariance[s][f]+1);
+					temps = s;
+					tempf = f;
+				}
+			}
+		}
+		//盤面から、選択されたオブジェクトを探す
+		for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+			for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+				if(frame.panels[i][j].getStatus() == temps){
+					double[] features = frame.panels[i][j].getFeatures();
+					features[tempf] += this.goalmean[temps][tempf];
+					frame.panels[i][j].setFeatures(features);
+				}
+			}
+		}
+		System.out.println("[PR_Features]reproduction:選ばれたのは、("+temps+","+tempf+")デス");
 	}
 	//参照点の学習結果リセット
 	@Override
