@@ -61,7 +61,7 @@ public class MyPR {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		this.logdata = new StepLog[1000];
+		this.logdata = new StepLog[2000];
 		int step = 0;
 		while(true){
 			String line = null;

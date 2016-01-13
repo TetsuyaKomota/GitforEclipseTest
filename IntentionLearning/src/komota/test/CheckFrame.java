@@ -46,7 +46,7 @@ public class CheckFrame extends MySerialFrame{
 			if(line == null){
 				break;
 			}
-			if(line.split(",")[0].equals("moved  ") == true){
+			if(line.split(",")[0].equals("moved ") == true){
 				this.goal[count][0] = Integer.parseInt(line.split(",")[1]);
 				this.goal[count][1] = Integer.parseInt(line.split(",")[2]);
 				count++;
