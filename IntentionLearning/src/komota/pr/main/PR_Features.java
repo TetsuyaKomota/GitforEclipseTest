@@ -37,6 +37,7 @@ public class PR_Features extends MyPR{
 	double[][] goalmean;
 	double[][] goalQ;
 	double[][] goalvariance;
+	double[][] likelihood;
 	//オブジェクト数
 	int numref;
 
@@ -93,11 +94,13 @@ public class PR_Features extends MyPR{
 		this.goalmean = new double[this.numref][MyPanel.NUMBEROFFEATURE];
 		this.goalQ = new double[this.numref][MyPanel.NUMBEROFFEATURE];
 		this.goalvariance = new double[this.numref][MyPanel.NUMBEROFFEATURE];
+		this.likelihood = new double[this.numref][MyPanel.NUMBEROFFEATURE];
 		for(int i=0;i<this.goalmean.length;i++){
 			for(int j=0;j<MyPanel.NUMBEROFFEATURE;j++){
 				this.goalmean[i][j] = 0;
 				this.goalQ[i][j] = 0;
 				this.goalvariance[i][j] = 0;
+				this.likelihood[i][j] = 0;
 			}
 		}
 	}
@@ -132,6 +135,7 @@ public class PR_Features extends MyPR{
 						this.goalmean[s][f] = (count * this.goalmean[s][f] + temp)/(count+1);
 						this.goalQ[s][f] = (count * this.goalQ[s][f] + temp*temp)/(count+1);
 						this.goalvariance[s][f] = this.goalQ[s][f] - this.goalmean[s][f]*this.goalmean[s][f];
+						this.likelihood[s][f] = this.goalmean[s][f]/(this.goalvariance[s][f]+1);
 					}
 				}
 
@@ -155,9 +159,9 @@ public class PR_Features extends MyPR{
 		int tempf = -1;
 		for(int s=0;s<this.numref;s++){
 			for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
-				System.out.println(this.goalmean[s][f]/(this.goalvariance[s][f]+1));
-				if(tempmaxlikelihood < this.goalmean[s][f]/(this.goalvariance[s][f]+1)){
-					tempmaxlikelihood = this.goalmean[s][f]/(this.goalvariance[s][f]+1);
+				System.out.println("[PR_Features]reproduction:status:"+s+" feature:"+f+" likelihood*"+this.likelihood[s][f]);
+				if(tempmaxlikelihood < this.likelihood[s][f]){
+					tempmaxlikelihood = this.likelihood[s][f];
 					temps = s;
 					tempf = f;
 				}
@@ -178,6 +182,19 @@ public class PR_Features extends MyPR{
 	//参照点の学習結果リセット
 	@Override
 	public void initialize(){
+	}
+
+	//最尤値の出力。一応likelihoodの計算式は位置情報のPRと同じく、距離の２乗の逆数の平均値としている
+	public double getMaxLikelihood(){
+		double output = 0;
+		for(int s=0;s<this.numref;s++){
+			for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
+				if(this.likelihood[s][f] > output){
+					output = this.likelihood[s][f];
+				}
+			}
+		}
+		return output;
 	}
 
 

@@ -683,6 +683,10 @@ public class SampleTask_100s extends MySerialFrame{
 		this.pr_FE = new PR_Features(9,"logdata.txt");
 		this.pr_FE.learnfromLog();
 		this.pr_FE.reproduction(this);
+		System.out.println("特徴量PRの最尤値は"+this.pr_FE.getMaxLikelihood()+"デス");
+		System.out.println("PR_IDの最尤値は"+this.pr_ID.getMaxLikelihood()+"デス");
+		System.out.println("PR_LTの最尤値は"+this.pr_LT.getMaxLikelihood()+"デス");
+		System.out.println("PR_GLの最尤値は"+this.pr_GL.getMaxLikelihood()+"デス");
 		System.out.println("実験終了");
 	}
 }
