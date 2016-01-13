@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-import komota.pr.main.PR_100_FE;
 import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
@@ -34,7 +33,7 @@ public class SampleTask_100s extends MySerialFrame{
 	PR_100_ID pr_ID;
 	PR_100_GL pr_GL;
 
-	PR_100_FE pr_FE;
+	//PR_100_FE pr_FE;
 
 	//タスククラス
 	MyTaskPrimitive[] tasks;
@@ -159,7 +158,7 @@ public class SampleTask_100s extends MySerialFrame{
 		this.pr_LT = new PR_100_LT(9,this.file_name);
 		this.pr_ID = new PR_100_ID(9,this.file_name);
 		this.pr_GL = new PR_100_GL(9,this.file_name);
-		this.pr_FE = new PR_100_FE(9,this.file_name);
+		//this.pr_FE = new PR_100_FE(9,this.file_name);
 	}
 	@Override
 	public void functionPlugin2(){
@@ -167,16 +166,16 @@ public class SampleTask_100s extends MySerialFrame{
 		this.pr_LT.learnfromLog();
 		this.pr_ID.learnfromLog();
 		this.pr_GL.learnfromLog();
-		this.pr_FE.learnfromLog();
+		//this.pr_FE.learnfromLog();
 	}
 	@Override
 	public void functionPlugin3(){
 		System.out.println("学習結果から、動作を再現");
-		System.out.println("[SampleTask_100s]functionPlugin3:MaxLikelihood: ID:"+this.pr_ID.getMaxLikelihood()+" LT:"+pr_LT.getMaxLikelihood()+" GL:"+pr_GL.getMaxLikelihood() + " FE:"+pr_FE.getMaxLikelihood());
-		if(this.pr_FE.getMaxLikelihood() > 0){
+		//System.out.println("[SampleTask_100s]functionPlugin3:MaxLikelihood: ID:"+this.pr_ID.getMaxLikelihood()+" LT:"+pr_LT.getMaxLikelihood()+" GL:"+pr_GL.getMaxLikelihood() + " FE:"+pr_FE.getMaxLikelihood());
+		/*if(this.pr_FE.getMaxLikelihood() > 0){
 			this.pr_FE.reproduction(this);
 		}
-		else if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
+		else */if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
 			this.pr_GL.reproduction(this);
 		}
 		else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
@@ -507,11 +506,12 @@ public class SampleTask_100s extends MySerialFrame{
 	//functionPluginQ(誤差を変化させながらの再現誤差計算)の内部で生成する教示動作の種類を選択するメソッド。
 	//ここを変更することで異なる動作の評価ができる
 	private void add_Q(DataSetGenerator g,double variance){
+		g.generate_MOVE_THE_CENTER(this, variance);
 		//g.generate_NEAR_BY_ORANGE(this, variance);
 		//g.generate_RIGHT_TO_BLUE(this, variance);
 		//g.generate_AWAY_FROM_GREEN(this, variance);
 		//g.generate_MAKE_THE_SIGNAL(this, variance);
-		g.generate_MAKE_THE_TRIANGLE(this, variance);
+		//g.generate_MAKE_THE_TRIANGLE(this, variance);
 	}
 	/* *************************************************** */
 	private void add_Q_Learn(double error,PrintWriter pw){
@@ -688,6 +688,7 @@ public class SampleTask_100s extends MySerialFrame{
 		System.out.println(temp[0]+","+temp[1]+","+temp[2]);
 		this.outputStatus();
 	}
+/*
 	@Override
 	public void functionPluginR(){
 		System.out.println("特徴量遷移の実験");
@@ -700,4 +701,5 @@ public class SampleTask_100s extends MySerialFrame{
 		System.out.println("PR_GLの最尤値は"+this.pr_GL.getMaxLikelihood()+"デス");
 		System.out.println("実験終了");
 	}
+*/
 }
