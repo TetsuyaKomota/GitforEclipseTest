@@ -672,5 +672,6 @@ public class SampleTask_100s extends MySerialFrame{
 		}
 		temp[0] += 0.1;
 		System.out.println(temp[0]+","+temp[1]+","+temp[2]);
+		this.outputStatus();
 	}
 }

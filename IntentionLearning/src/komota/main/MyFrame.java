@@ -286,17 +286,18 @@ public void pushSPACE(){
 	/* *************************************************************************************************** */
 	//各ログの直後に、各オブジェクトの特徴量状態を出力する
 	public void outputFeatures(){
+		pw.print("featur");
 		for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
 			for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
 				if(this.panels[i][j].getStatus() != 0){
-					pw.print("featur,"+this.panels[i][j].getStatus());
+					pw.print(",***,"+this.panels[i][j].getStatus());
 					for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
 						pw.print(","+this.panels[i][j].getFeatures()[f]);
 					}
-					pw.println();
 				}
 			}
 		}
+		pw.println();
 	}
 	/* *************************************************************************************************** */
 	/* *************************************************************************************************** */

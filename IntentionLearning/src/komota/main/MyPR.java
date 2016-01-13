@@ -73,6 +73,8 @@ public class MyPR {
 			//ログデータ中に書きだされたコメントや実行結果などを無視する
 			else if(line.split(",")[0].equals("result") == true){
 			}
+			else if(line.split(",")[0].equals("featur") == true){
+			}
 			//ログデータが壊れている部分は無視する
 			else if(line.split(",").length != MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL + 1){
 			}
