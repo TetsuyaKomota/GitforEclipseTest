@@ -659,6 +659,10 @@ public class SampleTask_100s extends MySerialFrame{
 						}
 					}
 					pw_W.println("");
+					//最終状態も出力
+					pw_W.println("moved  ,"+save.getLastPosition()[0]+","+save.getLastPosition()[1]);
+					//何と間違えたのか
+					pw_W.println("suggest,"+highest[0]);
 					errorcount++;
 				}
 			}

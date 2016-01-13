@@ -13,7 +13,8 @@ public class CheckFrame extends MySerialFrame{
 	int idx = 0;
 	@Override
 	public void functionPlugin1(){
-		this.pr = new MyPR("ERROR_W/output_W_each50.txt");
+		//this.pr = new MyPR("ERROR_W/output_W_each50.txt");
+		this.pr = new MyPR("output_W.txt");
 	}
 	@Override
 	public void functionPlugin2(){
