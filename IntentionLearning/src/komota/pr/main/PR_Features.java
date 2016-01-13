@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import komota.main.MyFrame;
 import komota.main.MyPR;
 import komota.main.MyPanel;
 
@@ -33,6 +34,9 @@ public class PR_Features extends MyPR{
 
 	//フィールド
 	StepLog_Feature[] logdata_feature;
+	double[][] goalmean;
+	double[][] goalQ;
+	double[][] goalvariance;
 	//オブジェクト数
 	int numref;
 
@@ -86,6 +90,71 @@ public class PR_Features extends MyPR{
 		//this.logdata[step-1] = null;
 		this.close();
 
+		this.goalmean = new double[this.numref][MyPanel.NUMBEROFFEATURE];
+		this.goalQ = new double[this.numref][MyPanel.NUMBEROFFEATURE];
+		this.goalvariance = new double[this.numref][MyPanel.NUMBEROFFEATURE];
+		for(int i=0;i<this.goalmean.length;i++){
+			for(int j=0;j<MyPanel.NUMBEROFFEATURE;j++){
+				this.goalmean[i][j] = 0;
+				this.goalQ[i][j] = 0;
+				this.goalvariance[i][j] = 0;
+			}
+		}
+	}
+
+	//学習
+	@Override
+	public void learnfromLog(){
+		//goal参照回数
+		int count = 0;
+		double[][] tempfeatures = new double[this.numref][MyPanel.NUMBEROFFEATURE];
+		for(int t=0;t<this.logdata_feature.length;t++){
+			if(logdata_feature[t] == null || count > MyPR.getNumberofEvaluation()){
+				break;
+			}
+			//"start "ログの場合、初期状態として特徴量を保持する
+			if(logdata_feature[t].getType() == START){
+				for(int s=0;s<tempfeatures.length;s++){
+					for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
+						tempfeatures[s][f] = this.logdata_feature[t].getStepFeaturesField()[s][f];
+					}
+				}
+			}
+			//"goal  "ログの場合、初期状態との特徴量の変化量を取得し、平均値goalpointを更新する
+			else if(logdata_feature[t].getType() == GOAL){
+
+				double temp = 0;
+				for(int s=0;s<this.numref;s++){
+					for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
+						temp = this.logdata_feature[t].getStepFeaturesField()[s][f] - tempfeatures[s][f];
+
+						//更新
+						this.goalmean[s][f] = (count * this.goalmean[s][f] + temp)/(count+1);
+						this.goalQ[s][f] = (count * this.goalQ[s][f] + temp*temp)/(count+1);
+						this.goalvariance[s][f] = this.goalQ[s][f] - this.goalmean[s][f]*this.goalmean[s][f];
+					}
+				}
+
+
+				count++;
+			}
+			//"change"ログの場合、何もしない
+			else if(logdata_feature[t].getType() == CHANGE){
+			}
+			//"status"ログの場合、何もしない
+			else if(logdata_feature[t].getType() == STATUS){
+			}
+		}
+	}
+	//再現
+	//最も尤もらしい特徴量は、平均遷移量が大きく、分散の小さい特徴量。よって、goalmean/goalvarianceで評価する
+	//位置遷移に関するPRとの比較が難しいと思う。要考察
+	@Override
+	public void reproduction(MyFrame frame){
+	}
+	//参照点の学習結果リセット
+	@Override
+	public void initialize(){
 	}
 
 

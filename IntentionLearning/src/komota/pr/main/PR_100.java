@@ -164,7 +164,7 @@ public class PR_100 extends MyPR{
 		//goal参照回数
 		int count = 0;
 		for(int t=0;t<this.logdata.length;t++){
-			if(logdata[t] == null || count > this.getNumberofEvaluation()){
+			if(logdata[t] == null || count > MyPR.getNumberofEvaluation()){
 				break;
 			}
 			//"start "ログの場合、参照点の座標を更新する
