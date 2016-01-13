@@ -1,5 +1,6 @@
 package komota.main;
 
+import komota.pr.main.PR_100_FE;
 import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
@@ -12,6 +13,7 @@ public class MyTaskPrimitive {
 	PR_100_ID pr_ID;
 	PR_100_LT pr_LT;
 	PR_100_GL pr_GL;
+	PR_100_FE pr_FE;
 
 	//タスク名。識別時にこれを出力する
 	String taskname;
@@ -22,10 +24,12 @@ public class MyTaskPrimitive {
 		this.pr_ID = new PR_100_ID(9,filename);
 		this.pr_LT = new PR_100_LT(9,filename);
 		this.pr_GL = new PR_100_GL(9,filename);
+		this.pr_FE = new PR_100_FE(9,filename);
 
 		pr_ID.learnfromLog();
 		pr_LT.learnfromLog();
 		pr_GL.learnfromLog();
+		pr_FE.learnfromLog();
 
 		this.taskname = taskname;
 	}
@@ -36,8 +40,11 @@ public class MyTaskPrimitive {
 
 	//最も尤もらしいPRのreproductionを実行する
 	public void reproductionTask(MyFrame frame){
-		System.out.println("[MyTask]reproductionTask:MaxLikelihood: ID:"+this.pr_ID.getMaxLikelihood()+" LT:"+pr_LT.getMaxLikelihood()+" GL:"+pr_GL.getMaxLikelihood());
-		if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
+		System.out.println("[MyTask]reproductionTask:MaxLikelihood: ID:"+this.pr_ID.getMaxLikelihood()+" LT:"+pr_LT.getMaxLikelihood()+" GL:"+pr_GL.getMaxLikelihood()+" FE:"+pr_FE.getMaxLikelihood());
+		if(this.pr_FE.getMaxLikelihood() > 0){
+			this.pr_FE.reproduction(frame);
+		}
+		else if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
 			this.pr_GL.reproduction(frame);
 		}
 		else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
