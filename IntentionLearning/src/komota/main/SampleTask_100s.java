@@ -657,4 +657,19 @@ public class SampleTask_100s extends MySerialFrame{
 		pw_W.close();
 		System.out.println("おまたせ！計算終わったよー！");
 	}
+	@Override
+	public void functionPluginE(){
+		//特徴量ベクトルで描画状態を変えられているかのテスト。消してよい
+		double[] temp = null;
+		for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+			for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+				if(this.panels[i][j].getStatus() == 1){
+					temp = this.panels[i][j].getFeatures();
+					break;
+				}
+			}
+		}
+		temp[0] += 0.1;
+		System.out.println(temp[0]+","+temp[1]+","+temp[2]);
+	}
 }

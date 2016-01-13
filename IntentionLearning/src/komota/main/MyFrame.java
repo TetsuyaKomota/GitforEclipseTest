@@ -149,6 +149,14 @@ public void pushSPACE(){
 		int temp = this.panels[selected[0]][selected[1]].getStatus();
 		this.panels[selected[0]][selected[1]].setStatus(this.panels[secondselected[0]][secondselected[1]].getStatus());
 		this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+		double[] tempfeatures = this.panels[selected[0]][selected[1]].getFeatures();
+		this.panels[selected[0]][selected[1]].setFeatures(this.panels[secondselected[0]][secondselected[1]].getFeatures());
+		this.panels[secondselected[0]][secondselected[1]].setFeatures(tempfeatures);
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+
 		//下記、changeログとstatusログは現状使用していないため、使用するまでコメントアウト
 		//→statusログはTaskのreproductionで使用するため、コメントアウトを外す
 /*
@@ -171,7 +179,7 @@ public void pushSPACE(){
 		}
 		pw.println();
 */
-/*
+
 		this.pw.print("status,");
 		for(int i=0;i<this.panels.length;i++){
 			for(int j=0;j<this.panels[0].length;j++){
@@ -182,7 +190,7 @@ public void pushSPACE(){
 			}
 		}
 		pw.println();
-*/
+
 		this.selected[0] = -1;
 		this.selected[1] = -1;
 		this.secondselected[0] = -1;
@@ -346,52 +354,10 @@ public void pushSPACE(){
 		public void keyPressed(KeyEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
-/* ************************************************************************************************************************** */
-/* ほかのクラスからコマンドを実行できるように、メソッドの中身をMyFrame自身に移植 */
-/*
-				if(MyFrame.this.selected[0] != -1 && MyFrame.this.selected[1] != -1 && MyFrame.this.secondselected[0] != -1 && MyFrame.this.secondselected[1] != -1){
-					int temp = MyFrame.this.panels[selected[0]][selected[1]].getStatus();
-					MyFrame.this.panels[selected[0]][selected[1]].setStatus(MyFrame.this.panels[secondselected[0]][secondselected[1]].getStatus());
-					MyFrame.this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
-					//下記、changeログとstatusログは現状使用していないため、使用するまでコメントアウト
-					//→statusログはTaskのreproductionで使用するため、コメントアウトを外す
-					MyFrame.this.pw.print("change,");
-					for(int i=0;i<MyFrame.this.panels.length;i++){
-						for(int j=0;j<MyFrame.this.panels[0].length;j++){
-							if(i == selected[0] && j == selected[1]){
-								pw.print("1");
-							}
-							else if(i == secondselected[0] && j == secondselected[1]){
-								pw.print("2");
-							}
-							else{
-								pw.print("0");
-							}
-							if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
-								pw.print(",");
-							}
-						}
-					}
-					pw.println();
-
-					MyFrame.this.pw.print("status,");
-					for(int i=0;i<MyFrame.this.panels.length;i++){
-						for(int j=0;j<MyFrame.this.panels[0].length;j++){
-							pw.print(MyFrame.this.panels[i][j].status);
-							if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
-								pw.print(",");
-							}
-						}
-					}
-					pw.println();
-
-					MyFrame.this.selected[0] = -1;
-					MyFrame.this.selected[1] = -1;
-					MyFrame.this.secondselected[0] = -1;
-					MyFrame.this.secondselected[1] = -1;
-				}
-*/
 				MyFrame.this.pushSPACE();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_G){
+				MyFrame.this.pushGoal();
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_Z){
 				if(MyFrame.this.secondselected[0] != -1 || MyFrame.this.secondselected[1] != -1){
@@ -402,9 +368,6 @@ public void pushSPACE(){
 					MyFrame.this.selected[0] = -1;
 					MyFrame.this.selected[1] = -1;
 				}
-			}
-			else if(e.getKeyCode() == KeyEvent.VK_G){
-				MyFrame.this.pushGoal();
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_NUMPAD0
 					||e.getKeyCode() == KeyEvent.VK_NUMPAD1
