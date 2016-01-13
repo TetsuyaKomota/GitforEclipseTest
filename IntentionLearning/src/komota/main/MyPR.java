@@ -21,6 +21,7 @@ public class MyPR {
 	public static final int GOAL = 1;
 	public static final int CHANGE = 2;
 	public static final int STATUS = 3;
+	public static final int FEATURE = 4;
 
 	//スタティックフィールド
 	//クロスバリデーションにおける使用するデータ量
@@ -34,7 +35,10 @@ public class MyPR {
 	public StepLog[] logdata = null;
 
 	//座標変換クラス
-	public MyCoordinate coordinate = new Coordinate_ID();;
+	public MyCoordinate coordinate = new Coordinate_ID();
+
+	//オブジェクト数
+	public int numref;
 
 	/**
 	 * @param args
@@ -73,11 +77,15 @@ public class MyPR {
 			//ログデータ中に書きだされたコメントや実行結果などを無視する
 			else if(line.split(",")[0].equals("result") == true){
 			}
+			/*
 			else if(line.split(",")[0].equals("featur") == true){
 			}
+			*/
 			//ログデータが壊れている部分は無視する
-			else if(line.split(",").length != MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL + 1){
+			/*
+			else if(line.split(",")[0].equals("featur") == false && line.split(",").length != MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL + 1){
 			}
+			*/
 			else{
 				this.logdata[step] = new StepLog(step,line);
 				step++;
@@ -86,6 +94,8 @@ public class MyPR {
 		//StepLogのコンストラクタで壊れたデータは受け付けないように変更したため、ここでの前処理は不要になった。
 		//this.logdata[step-1] = null;
 		this.close();
+
+		this.numref = 0;
 	}
 	public MyPR(){
 		this("logdata.txt");
@@ -216,15 +226,24 @@ public class MyPR {
 		int type = -1;
 		//状態配列
 		int[][] statuses = null;
+		//特徴量配列
+		double[][] features = null;
+
 
 		//コンストラクタ
 		StepLog(int step , String line){
 			this.step = step;
 			String[] tempstrings = line.split(",");
 			if(tempstrings.length < MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL){
-				return;
+				if(tempstrings[0].equals("featur") == true){
+					System.out.println("いえぇーい！");
+					this.type = FEATURE;
+				}
+				else{
+					return;
+				}
 			}
-			if(tempstrings[0].equals("start ")){
+			else if(tempstrings[0].equals("start ")){
 				this.type = START;
 			}
 			else if(tempstrings[0].equals("goal  ")){
@@ -236,11 +255,44 @@ public class MyPR {
 			else if(tempstrings[0].equals("status")){
 				this.type = STATUS;
 			}
-			this.statuses = new int[MyFrame.NUMBEROFPANEL][MyFrame.NUMBEROFPANEL];
-			for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
-				for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
-					statuses[i][j] = Integer.parseInt(tempstrings[i * MyFrame.NUMBEROFPANEL + j + 1]);
+			if(this.type != FEATURE){
+				this.statuses = new int[MyFrame.NUMBEROFPANEL][MyFrame.NUMBEROFPANEL];
+				for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+					for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+						statuses[i][j] = Integer.parseInt(tempstrings[i * MyFrame.NUMBEROFPANEL + j + 1]);
+					}
 				}
+			}
+			else{
+				this.features = new double[MyPR.this.numref][MyPanel.NUMBEROFFEATURE];
+
+				int idx = 0;
+				int tempref = -1;
+				int tempfeature = 0;
+				while(true){
+					//データ読み終わりまでwhile
+					if(idx >= tempstrings.length){
+						break;
+					}
+					//ログタイプとパーティションは無視
+					else if(tempstrings[idx].equals("featur") == true){
+					}
+					else if(tempstrings[idx].equals("***") == true){
+						tempref = -1;
+						tempfeature = 0;
+					}
+					//tempref を設定
+					else if(tempref == -1){
+						tempref = Integer.parseInt(tempstrings[idx]);
+					}
+					//特徴量を格納
+					else{
+						this.features[tempref][tempfeature] = Double.parseDouble(tempstrings[idx]);
+						tempfeature++;
+					}
+					idx++;
+				}
+
 			}
 		}
 		//セッター、ゲッター
@@ -256,6 +308,13 @@ public class MyPR {
 		public int getType(){
 			return this.type;
 		}
+		public double getStepFeature(int status,int feature){
+			return this.features[status][feature];
+		}
+		public double[][] getStepFeaturesField(){
+			return this.features;
+		}
+
 
 		//表示
 		void show(){

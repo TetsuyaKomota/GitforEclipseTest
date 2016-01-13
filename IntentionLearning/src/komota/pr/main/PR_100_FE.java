@@ -182,6 +182,13 @@ public class PR_100_FE extends MyPR{
 	//参照点の学習結果リセット
 	@Override
 	public void initialize(){
+		for(int s=0;s<this.numref;s++){
+			for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
+				this.goalmean[s][f] = 0;
+				this.goalQ[s][f] = 0;
+				this.goalvariance[s][f] = 0;
+			}
+		}
 	}
 
 	//最尤値の出力。一応likelihoodの計算式は位置情報のPRと同じく、距離の２乗の逆数の平均値としている

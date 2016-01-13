@@ -19,8 +19,6 @@ public class PR_100 extends MyPR{
 	private static double view_range = 400;
 
 	//フィールド
-	//参照点の個数
-	int numref = 0;
 	//参照点クラス
 	ReferencePoint_100[] refs;
 	//空間のサイズ

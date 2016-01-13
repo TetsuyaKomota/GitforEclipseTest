@@ -10,8 +10,6 @@ public class PR_100_GL extends MyPR{
 	//定数
 
 	//フィールド
-	//参照点の個数
-	int numref = 0;
 	//参照点クラス
 	ReferencePoint_100[] refs;
 	//空間のサイズ
