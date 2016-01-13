@@ -77,15 +77,11 @@ public class MyPR {
 			//ログデータ中に書きだされたコメントや実行結果などを無視する
 			else if(line.split(",")[0].equals("result") == true){
 			}
-			/*
 			else if(line.split(",")[0].equals("featur") == true){
 			}
-			*/
 			//ログデータが壊れている部分は無視する
-			/*
 			else if(line.split(",")[0].equals("featur") == false && line.split(",").length != MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL + 1){
 			}
-			*/
 			else{
 				this.logdata[step] = new StepLog(step,line);
 				step++;
@@ -203,15 +199,15 @@ public class MyPR {
 			}
 		}
 		//計算結果をresult.txtに出力する
-  		frame.pw.println(
+		frame.pw.println(
 				"result,"+output
 				);
 		//盤面をいじくってしまっているので、最後にinitializeを実行する
-  		//条件を変えながら評価値を何度も計算する場合、initializeによるstartログ発生が煩わしいため、引数でinitializeを行わないようにできる
+		//条件を変えながら評価値を何度も計算する場合、initializeによるstartログ発生が煩わしいため、引数でinitializeを行わないようにできる
 		if(initialize == true){
 			frame.initialize();
 		}
- 		return output;
+		return output;
 	}
 	public double evaluate(MyFrame frame){
 		return evaluate(frame,true);
@@ -226,8 +222,6 @@ public class MyPR {
 		int type = -1;
 		//状態配列
 		int[][] statuses = null;
-		//特徴量配列
-		double[][] features = null;
 
 
 		//コンストラクタ
@@ -235,13 +229,7 @@ public class MyPR {
 			this.step = step;
 			String[] tempstrings = line.split(",");
 			if(tempstrings.length < MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL){
-				if(tempstrings[0].equals("featur") == true){
-					System.out.println("いえぇーい！");
-					this.type = FEATURE;
-				}
-				else{
-					return;
-				}
+				return;
 			}
 			else if(tempstrings[0].equals("start ")){
 				this.type = START;
@@ -255,44 +243,11 @@ public class MyPR {
 			else if(tempstrings[0].equals("status")){
 				this.type = STATUS;
 			}
-			if(this.type != FEATURE){
-				this.statuses = new int[MyFrame.NUMBEROFPANEL][MyFrame.NUMBEROFPANEL];
-				for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
-					for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
-						statuses[i][j] = Integer.parseInt(tempstrings[i * MyFrame.NUMBEROFPANEL + j + 1]);
-					}
+			this.statuses = new int[MyFrame.NUMBEROFPANEL][MyFrame.NUMBEROFPANEL];
+			for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+				for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+					statuses[i][j] = Integer.parseInt(tempstrings[i * MyFrame.NUMBEROFPANEL + j + 1]);
 				}
-			}
-			else{
-				this.features = new double[MyPR.this.numref][MyPanel.NUMBEROFFEATURE];
-
-				int idx = 0;
-				int tempref = -1;
-				int tempfeature = 0;
-				while(true){
-					//データ読み終わりまでwhile
-					if(idx >= tempstrings.length){
-						break;
-					}
-					//ログタイプとパーティションは無視
-					else if(tempstrings[idx].equals("featur") == true){
-					}
-					else if(tempstrings[idx].equals("***") == true){
-						tempref = -1;
-						tempfeature = 0;
-					}
-					//tempref を設定
-					else if(tempref == -1){
-						tempref = Integer.parseInt(tempstrings[idx]);
-					}
-					//特徴量を格納
-					else{
-						this.features[tempref][tempfeature] = Double.parseDouble(tempstrings[idx]);
-						tempfeature++;
-					}
-					idx++;
-				}
-
 			}
 		}
 		//セッター、ゲッター
@@ -308,13 +263,6 @@ public class MyPR {
 		public int getType(){
 			return this.type;
 		}
-		public double getStepFeature(int status,int feature){
-			return this.features[status][feature];
-		}
-		public double[][] getStepFeaturesField(){
-			return this.features;
-		}
-
 
 		//表示
 		void show(){
