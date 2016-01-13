@@ -37,7 +37,7 @@ public class SampleTask_100s extends MySerialFrame{
 	PR_Features pr_FE;
 
 	//タスククラス
-	MyTask[] tasks;
+	MyTaskPrimitive[] tasks;
 	static final int NUMBEROFTASKS = 6;
 	//盤面記憶用PRクラス(識別で使用)
 	PR_101 save;
@@ -192,13 +192,13 @@ public class SampleTask_100s extends MySerialFrame{
 		System.out.println("[SampleTask_100s]functionPlugin4:タスククラスのインスタンス生成");
 		this.expranation = "[SampleTask_100s]functionPlugin4:タスククラスのインスタンス生成";
 
-		this.tasks = new MyTask[NUMBEROFTASKS];
-		this.tasks[0] = new MyTask("log_MOVE_THE_CENTER.txt","赤を中央に移動する");
-		this.tasks[1] = new MyTask("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
-		this.tasks[2] = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
-		this.tasks[3] = new MyTask("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
-		this.tasks[4] = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
-		this.tasks[5] = new MyTask("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
+		this.tasks = new MyTaskPrimitive[NUMBEROFTASKS];
+		this.tasks[0] = new MyTaskPrimitive("log_MOVE_THE_CENTER.txt","赤を中央に移動する");
+		this.tasks[1] = new MyTaskPrimitive("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
+		this.tasks[2] = new MyTaskPrimitive("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
+		this.tasks[3] = new MyTaskPrimitive("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
+		this.tasks[4] = new MyTaskPrimitive("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
+		this.tasks[5] = new MyTaskPrimitive("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
 
 
 		System.out.println("インスタンス生成完了");

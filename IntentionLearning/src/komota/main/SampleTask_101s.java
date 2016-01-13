@@ -29,11 +29,11 @@ public class SampleTask_101s extends MySerialFrame{
 	PR_101 save;
 
 	//タスククラス
-	MyTask task_RtB;
-	MyTask task_NbO;
-	MyTask task_MtS;
+	MyTaskPrimitive task_RtB;
+	MyTaskPrimitive task_NbO;
+	MyTaskPrimitive task_MtS;
 
-	MyTask[] tasks;
+	MyTaskPrimitive[] tasks;
 	static final int NUMBEROFTASKS = 6;
 
 	//コンストラクタ
@@ -174,17 +174,17 @@ public class SampleTask_101s extends MySerialFrame{
 	public void functionPlugin4(){
 		System.out.println("[SampleTask_101s]functionPlugin4:タスククラスのインスタンス生成");
 		this.expranation = "[SampleTask_101s]functionPlugin4:タスククラスのインスタンス生成";
-		this.task_RtB = new MyTask("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
-		this.task_NbO = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
-		this.task_MtS = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
+		this.task_RtB = new MyTaskPrimitive("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
+		this.task_NbO = new MyTaskPrimitive("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
+		this.task_MtS = new MyTaskPrimitive("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
 
-		this.tasks = new MyTask[NUMBEROFTASKS];
-		this.tasks[0] = new MyTask("log_MOVE_THE_CENTER.txt","赤を中央に移動する");
-		this.tasks[1] = new MyTask("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
-		this.tasks[2] = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
-		this.tasks[3] = new MyTask("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
-		this.tasks[4] = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
-		this.tasks[5] = new MyTask("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
+		this.tasks = new MyTaskPrimitive[NUMBEROFTASKS];
+		this.tasks[0] = new MyTaskPrimitive("log_MOVE_THE_CENTER.txt","赤を中央に移動する");
+		this.tasks[1] = new MyTaskPrimitive("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
+		this.tasks[2] = new MyTaskPrimitive("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
+		this.tasks[3] = new MyTaskPrimitive("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
+		this.tasks[4] = new MyTaskPrimitive("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
+		this.tasks[5] = new MyTaskPrimitive("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
 
 
 		System.out.println("インスタンス生成完了");

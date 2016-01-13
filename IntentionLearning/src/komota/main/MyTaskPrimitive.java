@@ -4,7 +4,7 @@ import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
 
-public class MyTask {
+public class MyTaskPrimitive {
 
 	//学習させたタスクごとのクラス
 	//フィールド
@@ -18,7 +18,7 @@ public class MyTask {
 
 	//コンストラクタ
 	//インスタンス生成時に学習する
-	public MyTask(String filename,String taskname){
+	public MyTaskPrimitive(String filename,String taskname){
 		this.pr_ID = new PR_100_ID(9,filename);
 		this.pr_LT = new PR_100_LT(9,filename);
 		this.pr_GL = new PR_100_GL(9,filename);
