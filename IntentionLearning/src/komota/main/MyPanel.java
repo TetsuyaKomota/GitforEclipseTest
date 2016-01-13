@@ -67,6 +67,12 @@ public class MyPanel {
 		}
 		return this;
 	}
+	public MyPanel setFeatures(){
+		for(int i=0;i<this.features.length;i++){
+			this.features[i] = 0;
+		}
+		return this;
+	}
 	public double[] getFeatures(){
 		return this.features;
 	}

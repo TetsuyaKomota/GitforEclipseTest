@@ -54,6 +54,7 @@ public class SampleTask_100s extends MySerialFrame{
 
 	@Override
 	public void initialize(){
+		super.initialize();
 
 		for(int i=0;i<this.panels.length;i++){
 			for(int j=0;j<this.panels[0].length;j++){
