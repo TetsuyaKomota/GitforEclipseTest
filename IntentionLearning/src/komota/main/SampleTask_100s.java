@@ -10,7 +10,7 @@ import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
 import komota.pr.main.PR_101;
-import komota.pr.main.PR_Features;
+import komota.pr.main.PR_100_FE;
 import komota.test.DataSetGenerator;
 import komota.test.LogRandomizer;
 
@@ -34,7 +34,7 @@ public class SampleTask_100s extends MySerialFrame{
 	PR_100_ID pr_ID;
 	PR_100_GL pr_GL;
 
-	PR_Features pr_FE;
+	PR_100_FE pr_FE;
 
 	//タスククラス
 	MyTaskPrimitive[] tasks;
@@ -159,7 +159,7 @@ public class SampleTask_100s extends MySerialFrame{
 		this.pr_LT = new PR_100_LT(9,this.file_name);
 		this.pr_ID = new PR_100_ID(9,this.file_name);
 		this.pr_GL = new PR_100_GL(9,this.file_name);
-		this.pr_FE = new PR_Features(9,this.file_name);
+		this.pr_FE = new PR_100_FE(9,this.file_name);
 	}
 	@Override
 	public void functionPlugin2(){
@@ -685,7 +685,7 @@ public class SampleTask_100s extends MySerialFrame{
 	@Override
 	public void functionPluginR(){
 		System.out.println("特徴量遷移の実験");
-		this.pr_FE = new PR_Features(9,"logdata.txt");
+		this.pr_FE = new PR_100_FE(9,"logdata.txt");
 		this.pr_FE.learnfromLog();
 		this.pr_FE.reproduction(this);
 		System.out.println("特徴量PRの最尤値は"+this.pr_FE.getMaxLikelihood()+"デス");
