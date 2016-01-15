@@ -461,7 +461,6 @@ public class SampleTask_100s extends MySerialFrame{
 		      fos_Q = new FileOutputStream("log/output_Q.txt",true);
 		      OutputStreamWriter osw_Q = new OutputStreamWriter(fos_Q);
 		      pw_Q = new PrintWriter(osw_Q);
-		      //fos_Q.close();
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			System.out.println("ファイルなし");
@@ -478,8 +477,8 @@ public class SampleTask_100s extends MySerialFrame{
 		DataSetGenerator g = new DataSetGenerator();
 		for(int error=0;error<21;error++){
 			//各誤差を50回ずつ計算
-			for(int t=0;t<1;t++){
-				this.pw.println("result,error:"+error/2);
+			for(int t=0;t<50;t++){
+				this.pw.println("result,error:"+(double)error/2);
 				add_Q(g,(double)error/2);
 				this.functionPlugin1();
 				this.functionPlugin2();
@@ -540,7 +539,6 @@ public class SampleTask_100s extends MySerialFrame{
 
 		double evaluationpoint = 0;
 		MyPR.setNumberofEvaluation(1000);
-		//評価値が4回連続同じ値になるまで、データ量を増やす
 			if(index == 0){
 				evaluationpoint = this.pr_ID.evaluate(this,false);
 			}else if(index == 1){
@@ -564,11 +562,11 @@ public class SampleTask_100s extends MySerialFrame{
 
 		//結果を出力するファイルの生成
 	      PrintWriter pw_W = null;
+	      FileOutputStream fos_W = null;
 		try {
-		      FileOutputStream fos_W = new FileOutputStream("log/output_W.txt",true);
+		      fos_W = new FileOutputStream("log/output_W.txt",true);
 		      OutputStreamWriter osw_W = new OutputStreamWriter(fos_W);
 		      pw_W = new PrintWriter(osw_W);
-		      //fos_W.close();
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			System.out.println("ファイルなし");
@@ -623,7 +621,7 @@ public class SampleTask_100s extends MySerialFrame{
 
 				//ジェネレート
 				//識別誤差は分散10とする
-				int var = 10;
+				double var = 10;
 				switch(taskidx){
 				case 0:
 					g.generate_MOVE_THE_CENTER(this, var);
@@ -681,6 +679,12 @@ public class SampleTask_100s extends MySerialFrame{
 			pw_W.println("result,"+errorcount);
 		}
 		pw_W.close();
+		try {
+			fos_W.close();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 		System.out.println("おまたせ！計算終わったよー！");
 	}
 	@Override
