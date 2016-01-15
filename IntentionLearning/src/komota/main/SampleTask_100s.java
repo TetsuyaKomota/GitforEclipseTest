@@ -438,8 +438,11 @@ public class SampleTask_100s extends MySerialFrame{
 		this.functionPlugin3();
 		//logdataを削除
 		this.pw.close();
-		if (this.file.exists()){
-			if (this.file.delete()){
+
+		File file = new File("log/"+this.file_name);
+
+		if (file.exists()){
+			if (file.delete()){
 				System.out.println("ログファイルを削除しました");
 			}else{
 				System.out.println("ログファイルの削除に失敗しました");
@@ -483,8 +486,9 @@ public class SampleTask_100s extends MySerialFrame{
 				add_Q_Learn(error/2,pw_Q);
 				//logdataを削除
 				this.pw.close();
-				if (this.file.exists()){
-					if (this.file.delete()){
+				file = new File("log/"+this.file_name);
+				if (file.exists()){
+					if (file.delete()){
 						System.out.println("ログファイルを削除しました");
 					}else{
 						System.out.println("ログファイルの削除に失敗しました");
@@ -598,8 +602,9 @@ public class SampleTask_100s extends MySerialFrame{
 			for(int t=0;t<100;t++){
 				//logdataを削除
 				this.pw.close();
-				if (this.file.exists()){
-					if (this.file.delete()){
+				File file = new File("log/"+this.file_name);
+				if (file.exists()){
+					if (file.delete()){
 						System.out.println("ログファイルを削除しました");
 					}else{
 						System.out.println("ログファイルの削除に失敗しました");

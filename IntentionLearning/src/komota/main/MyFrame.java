@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -56,7 +55,7 @@ public class MyFrame extends JFrame{
 	public String howtouse = "SPACE:exchange the first clicked and the second clicked.   G:finish the task.";
 
 	//出力先ファイル
-	File file;
+	//File file;
 	String file_name = "test.txt";
 	PrintWriter pw;
 
@@ -93,7 +92,7 @@ public class MyFrame extends JFrame{
 		this.addKeyListener(new MyKeyListener());
 		this.addMouseListener(new MyMouseListener());
 
-		this.file = new File("log/"+file_name);
+		//this.file = new File("log/"+file_name);
 		try {
 		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
 		      OutputStreamWriter osw = new OutputStreamWriter(fos);
@@ -127,7 +126,7 @@ public class MyFrame extends JFrame{
 
 	//出力先ファイル名を変更
 	public void setOutputFile(){
-		this.file = new File("log/"+file_name);
+		//this.file = new File("log/"+file_name);
 		try {
 		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
 		      OutputStreamWriter osw = new OutputStreamWriter(fos);

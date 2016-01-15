@@ -16,7 +16,6 @@ public class Coordinate_LT extends MyCoordinate{
 
 	@Override
 	public double[] convert(double[][] inputs){
-//		System.out.println("[Coordinate2_1]convert:done");
 		//ベクトル長を正規化する
 		double[] normalizedvec = inputs[0];
 /* **************************************************************************************************** */
@@ -33,10 +32,7 @@ public class Coordinate_LT extends MyCoordinate{
 		//正弦、余弦を求める
 		double tempcos = tempvec[1]/tempsize;
 		double tempsin = tempvec[0]/tempsize;
-/*
-		output[1] = inputs[0][1]*tempcos + inputs[0][0]*tempsin;
-		output[0] = inputs[0][0]*tempcos - inputs[0][1]*tempsin;
-*/
+
 		output[1] = normalizedvec[1]*tempcos + inputs[0][0]*tempsin;
 		output[0] = normalizedvec[0]*tempcos - inputs[0][1]*tempsin;
 
@@ -44,7 +40,6 @@ public class Coordinate_LT extends MyCoordinate{
 	}
 	@Override
 	public double[] inverseConvert(double[][] inputs){
-//		System.out.println("[Coordinate2_1]inverseConvert:done");
 		double[] output = new double[2];
 		//参照点、動作開始点ベクトルV(=startpoint - reference)を作る
 		double[] tempvec = new double[2];
