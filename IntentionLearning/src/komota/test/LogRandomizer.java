@@ -156,15 +156,17 @@ public class LogRandomizer {
 			if(line.split(",")[0].equals("result")){
 				encodeddata[i][j] = line.split(",")[1];
 				i++;
+				tempflag = true;
 			}
 			//resultログ以外で、次データフラグが立っている場合は、j++
 			else if(tempflag == true){
 				i=0;
 				j++;
+				tempflag = false;
 			}
 			//フラグが立っていない場合、フラグを立てる
 			else{
-				tempflag = true;
+				//tempflag = true;
 			}
 		}
 		//取れたデータを出力
