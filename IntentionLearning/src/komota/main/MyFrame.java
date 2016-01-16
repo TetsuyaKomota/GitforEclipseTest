@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -126,15 +127,18 @@ public class MyFrame extends JFrame{
 
 	//出力先ファイル名を変更
 	public void setOutputFile(){
-		//this.file = new File("log/"+file_name);
-		try {
-		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
-		      OutputStreamWriter osw = new OutputStreamWriter(fos);
-		      this.pw = new PrintWriter(osw);
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			System.out.println("ファイルなし");
-			e.printStackTrace();
+		File file = null;
+		while(file == null || file.exists() == false){
+			try {
+				FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
+				OutputStreamWriter osw = new OutputStreamWriter(fos);
+				this.pw = new PrintWriter(osw);
+			} catch (IOException e) {
+				// TODO 自動生成された catch ブロック
+				System.out.println("ファイルなし");
+				e.printStackTrace();
+			}
+			file = new File("log/"+file_name);
 		}
 	}
 	public void setOutputFile(String file_name){

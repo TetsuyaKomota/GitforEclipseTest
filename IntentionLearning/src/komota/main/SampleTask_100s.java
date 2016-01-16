@@ -618,7 +618,6 @@ public class SampleTask_100s extends MySerialFrame{
 				}
 				//logdataを生成
 				this.setOutputFile("logdata.txt");
-
 				//ジェネレート
 				//識別誤差は分散10とする
 				double var = 10;
