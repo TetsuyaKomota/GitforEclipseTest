@@ -497,7 +497,7 @@ public class DataSetGenerator {
 			temperror[1] = rand.nextGaussian()*variance;
 
 			secondselected[0] = MyFrame.NUMBEROFPANEL/2+(int)(temperror[0]+0.5-variance/2);
-			secondselected[1] = MyFrame.NUMBEROFPANEL/2+(int)(temperror[0]+0.5-variance/2);
+			secondselected[1] = MyFrame.NUMBEROFPANEL/2+(int)(temperror[1]+0.5-variance/2);
 			frame.setSecondSelected(secondselected);
 			frame.pushSPACE();
 			frame.pushGoal();
