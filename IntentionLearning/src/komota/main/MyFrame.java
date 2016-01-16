@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -56,7 +55,7 @@ public class MyFrame extends JFrame{
 	public String howtouse = "SPACE:exchange the first clicked and the second clicked.   G:finish the task.";
 
 	//出力先ファイル
-	File file;
+	//File file;
 	String file_name = "test.txt";
 	PrintWriter pw;
 
@@ -93,7 +92,7 @@ public class MyFrame extends JFrame{
 		this.addKeyListener(new MyKeyListener());
 		this.addMouseListener(new MyMouseListener());
 
-		this.file = new File("log/"+file_name);
+		//this.file = new File("log/"+file_name);
 		try {
 		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
 		      OutputStreamWriter osw = new OutputStreamWriter(fos);
@@ -104,7 +103,7 @@ public class MyFrame extends JFrame{
 			e.printStackTrace();
 		}
 		Timer t = new Timer();
-		t.schedule(new RenderTask(), 0,1);
+		t.schedule(new RenderTask(), 0,12);
 
 		this.initialize();
 	}
@@ -127,7 +126,7 @@ public class MyFrame extends JFrame{
 
 	//出力先ファイル名を変更
 	public void setOutputFile(){
-		this.file = new File("log/"+file_name);
+		//this.file = new File("log/"+file_name);
 		try {
 		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
 		      OutputStreamWriter osw = new OutputStreamWriter(fos);
@@ -149,40 +148,21 @@ public void pushSPACE(){
 		int temp = this.panels[selected[0]][selected[1]].getStatus();
 		this.panels[selected[0]][selected[1]].setStatus(this.panels[secondselected[0]][secondselected[1]].getStatus());
 		this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+		double[] tempfeatures = this.panels[selected[0]][selected[1]].getFeatures();
+		this.panels[selected[0]][selected[1]].setFeatures(this.panels[secondselected[0]][secondselected[1]].getFeatures());
+		this.panels[secondselected[0]][secondselected[1]].setFeatures(tempfeatures);
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+
 		//下記、changeログとstatusログは現状使用していないため、使用するまでコメントアウト
 		//→statusログはTaskのreproductionで使用するため、コメントアウトを外す
-/*
-		this.pw.print("change,");
-		for(int i=0;i<this.panels.length;i++){
-			for(int j=0;j<this.panels[0].length;j++){
-				if(i == selected[0] && j == selected[1]){
-					pw.print("1");
-				}
-				else if(i == secondselected[0] && j == secondselected[1]){
-					pw.print("2");
-				}
-				else{
-					pw.print("0");
-				}
-				if(i<this.panels.length-1 || j<this.panels.length-1){
-					pw.print(",");
-				}
-			}
-		}
-		pw.println();
-*/
-/*
-		this.pw.print("status,");
-		for(int i=0;i<this.panels.length;i++){
-			for(int j=0;j<this.panels[0].length;j++){
-				pw.print(this.panels[i][j].status);
-				if(i<this.panels.length-1 || j<this.panels.length-1){
-					pw.print(",");
-				}
-			}
-		}
-		pw.println();
-*/
+
+		//outputChange();
+		outputStatus();
+
+
 		this.selected[0] = -1;
 		this.selected[1] = -1;
 		this.secondselected[0] = -1;
@@ -202,9 +182,17 @@ public void pushSPACE(){
 
 	//初期化
 	public void initialize(){
-
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+		//パネルの特徴量情報を初期化
+		for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+			for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+				this.panels[i][j].setFeatures();
+			}
+		}
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
 	}
-
 	//初期化時に初期状態を出力する
 	public void outputStart(){
 		pw.print("start ,");
@@ -217,6 +205,60 @@ public void pushSPACE(){
 			}
 		}
 		pw.println();
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+		outputFeatures();
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+
+	}
+
+	//（位置）遷移情報を出力する
+	public void outputChange(){
+		this.pw.print("change,");
+		for(int i=0;i<this.panels.length;i++){
+			for(int j=0;j<this.panels[0].length;j++){
+				if(i == selected[0] && j == selected[1]){
+					pw.print("1");
+				}
+				else if(i == secondselected[0] && j == secondselected[1]){
+					pw.print("2");
+				}
+				else{
+					pw.print("0");
+				}
+				if(i<this.panels.length-1 || j<this.panels.length-1){
+					pw.print(",");
+				}
+			}
+		}
+		pw.println();
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+		outputFeatures();
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+
+	}
+
+	//途中状態を出力する
+	public void outputStatus(){
+		this.pw.print("status,");
+		for(int i=0;i<this.panels.length;i++){
+			for(int j=0;j<this.panels[0].length;j++){
+				pw.print(this.panels[i][j].status);
+				if(i<this.panels.length-1 || j<this.panels.length-1){
+					pw.print(",");
+				}
+			}
+		}
+		pw.println();
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+		outputFeatures();
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+
 	}
 
 	//ゴール時に最終状態を出力する
@@ -231,7 +273,33 @@ public void pushSPACE(){
 			}
 		}
 		pw.println();
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+		outputFeatures();
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+
 	}
+	/* *************************************************************************************************** */
+	/* *************************************************************************************************** */
+	//各ログの直後に、各オブジェクトの特徴量状態を出力する
+	public void outputFeatures(){
+		pw.print("featur");
+		for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+			for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+				if(this.panels[i][j].getStatus() != 0){
+					pw.print(",***,"+this.panels[i][j].getStatus());
+					for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
+						pw.print(","+this.panels[i][j].getFeatures()[f]);
+					}
+				}
+			}
+		}
+		pw.println();
+	}
+	/* *************************************************************************************************** */
+	/* *************************************************************************************************** */
+
 
 	//計算結果などをresult.txtに出力
 	public void printResult(String out){
@@ -346,52 +414,10 @@ public void pushSPACE(){
 		public void keyPressed(KeyEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
-/* ************************************************************************************************************************** */
-/* ほかのクラスからコマンドを実行できるように、メソッドの中身をMyFrame自身に移植 */
-/*
-				if(MyFrame.this.selected[0] != -1 && MyFrame.this.selected[1] != -1 && MyFrame.this.secondselected[0] != -1 && MyFrame.this.secondselected[1] != -1){
-					int temp = MyFrame.this.panels[selected[0]][selected[1]].getStatus();
-					MyFrame.this.panels[selected[0]][selected[1]].setStatus(MyFrame.this.panels[secondselected[0]][secondselected[1]].getStatus());
-					MyFrame.this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
-					//下記、changeログとstatusログは現状使用していないため、使用するまでコメントアウト
-					//→statusログはTaskのreproductionで使用するため、コメントアウトを外す
-					MyFrame.this.pw.print("change,");
-					for(int i=0;i<MyFrame.this.panels.length;i++){
-						for(int j=0;j<MyFrame.this.panels[0].length;j++){
-							if(i == selected[0] && j == selected[1]){
-								pw.print("1");
-							}
-							else if(i == secondselected[0] && j == secondselected[1]){
-								pw.print("2");
-							}
-							else{
-								pw.print("0");
-							}
-							if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
-								pw.print(",");
-							}
-						}
-					}
-					pw.println();
-
-					MyFrame.this.pw.print("status,");
-					for(int i=0;i<MyFrame.this.panels.length;i++){
-						for(int j=0;j<MyFrame.this.panels[0].length;j++){
-							pw.print(MyFrame.this.panels[i][j].status);
-							if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
-								pw.print(",");
-							}
-						}
-					}
-					pw.println();
-
-					MyFrame.this.selected[0] = -1;
-					MyFrame.this.selected[1] = -1;
-					MyFrame.this.secondselected[0] = -1;
-					MyFrame.this.secondselected[1] = -1;
-				}
-*/
 				MyFrame.this.pushSPACE();
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_G){
+				MyFrame.this.pushGoal();
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_Z){
 				if(MyFrame.this.secondselected[0] != -1 || MyFrame.this.secondselected[1] != -1){
@@ -402,9 +428,6 @@ public void pushSPACE(){
 					MyFrame.this.selected[0] = -1;
 					MyFrame.this.selected[1] = -1;
 				}
-			}
-			else if(e.getKeyCode() == KeyEvent.VK_G){
-				MyFrame.this.pushGoal();
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_NUMPAD0
 					||e.getKeyCode() == KeyEvent.VK_NUMPAD1

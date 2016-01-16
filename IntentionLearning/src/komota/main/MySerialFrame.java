@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
 
 public class MySerialFrame extends MyFrame{
 
@@ -30,6 +31,13 @@ public class MySerialFrame extends MyFrame{
 	@Override
 	public void draw(){
 		Graphics2D  g = (Graphics2D)this.buffer.getDrawGraphics();
+
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+		AffineTransform af = new AffineTransform();
+		/* *************************************************************************************************** */
+		/* *************************************************************************************************** */
+
 		for(int i=0;i<this.panels.length;i++){
 			for(int j=0;j<this.panels[0].length;j++){
 				int tempstatus = this.panels[i][j].status;
@@ -66,6 +74,12 @@ public class MySerialFrame extends MyFrame{
 						g.setColor(Color.black);
 						break;
 					}
+					/* *************************************************************************************************** */
+					/* *************************************************************************************************** */
+					af.setToRotation(Math.PI*this.panels[i][j].getFeatures()[0],MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*j,MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*i);
+					g.setTransform(af);
+					/* *************************************************************************************************** */
+					/* *************************************************************************************************** */
 					g.fillRect(MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*j - ((MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*SIZE_OBJECT)/2,MyPanel.SIZE_FRAME+(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*i - ((MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*SIZE_OBJECT)/2,(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*SIZE_OBJECT,(MyPanel.SIZE_PANEL+MyPanel.SIZE_SEPALATOR)*SIZE_OBJECT);
 
 					if(this.selected[0] == i && this.selected[1] == j){

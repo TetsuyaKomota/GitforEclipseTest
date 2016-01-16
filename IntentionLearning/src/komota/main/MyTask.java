@@ -1,34 +1,64 @@
 package komota.main;
 
-import komota.pr.main.PR_100_GL;
-import komota.pr.main.PR_100_ID;
-import komota.pr.main.PR_100_LT;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class MyTask {
+	//複数のタスクプリミティブの列で動作を認識し、位置遷移と状態遷移を含むより高度な動作の再現を行うクラス
 
-	//学習させたタスクごとのクラス
 	//フィールド
-	//学習させたPR
-	PR_100_ID pr_ID;
-	PR_100_LT pr_LT;
-	PR_100_GL pr_GL;
-
-	//タスク名。識別時にこれを出力する
-	String taskname;
+	//動作プリミティブ数
+	int numberofprimitives;
+	//動作プリミティブ列
+	MyTaskPrimitive[] primitives;
+	//動作名
+	String taskname = "";
 
 	//コンストラクタ
-	//インスタンス生成時に学習する
+	//コンストラクタ時にログデータから動作プリミティブ数を把握してインスタンスを生成する
 	public MyTask(String filename,String taskname){
-		this.pr_ID = new PR_100_ID(9,filename);
-		this.pr_LT = new PR_100_LT(9,filename);
-		this.pr_GL = new PR_100_GL(9,filename);
-
-		pr_ID.learnfromLog();
-		pr_LT.learnfromLog();
-		pr_GL.learnfromLog();
-
 		this.taskname = taskname;
+		File file = new File("log/"+filename);
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		//startログからgoalログの間のstatusログの数+1個のタスクプリミティブを生成する
+		int count = 0;
+		while(true){
+			String templine = null;
+			try {
+				templine = br.readLine();
+			} catch (IOException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+			if(templine == null){
+				System.out.println("[MyTask]ログねぇじゃんクソかよ");
+				break;
+			}
+			if(templine.split(",")[0].equals("start ") == true){
+				count = 1;
+			}
+			else if(templine.split(",")[0].equals("status") == true){
+				count++;
+			}
+			else if(templine.split(",")[0].equals("goal  ") == true){
+				break;
+			}
+		}
+		this.primitives = new MyTaskPrimitive[count];
+		for(int i=0;i<this.primitives.length;i++){
+			this.primitives[i] = new MyTaskPrimitive(filename,taskname+"_"+i);
+		}
 	}
+
 	//タスク名のゲッター
 	public String getTaskName(){
 		return this.taskname;
@@ -36,33 +66,7 @@ public class MyTask {
 
 	//最も尤もらしいPRのreproductionを実行する
 	public void reproductionTask(MyFrame frame){
-		System.out.println("[MyTask]reproductionTask:MaxLikelihood: ID:"+this.pr_ID.getMaxLikelihood()+" LT:"+pr_LT.getMaxLikelihood()+" GL:"+pr_GL.getMaxLikelihood());
-		if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
-			this.pr_GL.reproduction(frame);
-		}
-		else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
-			this.pr_LT.reproduction(frame);
-		}
-		else{
-			this.pr_ID.reproduction(frame);
-		}
 	}
 
-	//最尤値を出力する
-	//※※※本質的には何の意味もないことに気付いたのでコメントアウト
-/*
-	public double getMaxLikelihood(){
-		double output = 0;
-		if(this.pr_GL.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_GL.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood()){
-			output = this.pr_GL.getMaxLikelihood();
-		}
-		else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
-			output = this.pr_LT.getMaxLikelihood();
-		}
-		else{
-			output = this.pr_ID.getMaxLikelihood();
-		}
-		return output;
-	}
-*/
+
 }

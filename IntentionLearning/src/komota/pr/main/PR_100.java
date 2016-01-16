@@ -19,8 +19,6 @@ public class PR_100 extends MyPR{
 	private static double view_range = 400;
 
 	//フィールド
-	//参照点の個数
-	int numref = 0;
 	//参照点クラス
 	ReferencePoint_100[] refs;
 	//空間のサイズ
@@ -164,7 +162,7 @@ public class PR_100 extends MyPR{
 		//goal参照回数
 		int count = 0;
 		for(int t=0;t<this.logdata.length;t++){
-			if(logdata[t] == null || count > this.getNumberofEvaluation()){
+			if(logdata[t] == null || count > MyPR.getNumberofEvaluation()){
 				break;
 			}
 			//"start "ログの場合、参照点の座標を更新する

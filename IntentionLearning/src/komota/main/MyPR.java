@@ -21,6 +21,7 @@ public class MyPR {
 	public static final int GOAL = 1;
 	public static final int CHANGE = 2;
 	public static final int STATUS = 3;
+	public static final int FEATURE = 4;
 
 	//スタティックフィールド
 	//クロスバリデーションにおける使用するデータ量
@@ -34,7 +35,10 @@ public class MyPR {
 	public StepLog[] logdata = null;
 
 	//座標変換クラス
-	public MyCoordinate coordinate = new Coordinate_ID();;
+	public MyCoordinate coordinate = new Coordinate_ID();
+
+	//オブジェクト数
+	public int numref;
 
 	/**
 	 * @param args
@@ -57,7 +61,7 @@ public class MyPR {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		this.logdata = new StepLog[1000];
+		this.logdata = new StepLog[2000];
 		int step = 0;
 		while(true){
 			String line = null;
@@ -73,8 +77,10 @@ public class MyPR {
 			//ログデータ中に書きだされたコメントや実行結果などを無視する
 			else if(line.split(",")[0].equals("result") == true){
 			}
+			else if(line.split(",")[0].equals("featur") == true){
+			}
 			//ログデータが壊れている部分は無視する
-			else if(line.split(",").length != MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL + 1){
+			else if(line.split(",")[0].equals("featur") == false && line.split(",").length != MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL + 1){
 			}
 			else{
 				this.logdata[step] = new StepLog(step,line);
@@ -84,6 +90,8 @@ public class MyPR {
 		//StepLogのコンストラクタで壊れたデータは受け付けないように変更したため、ここでの前処理は不要になった。
 		//this.logdata[step-1] = null;
 		this.close();
+
+		this.numref = 0;
 	}
 	public MyPR(){
 		this("logdata.txt");
@@ -191,15 +199,15 @@ public class MyPR {
 			}
 		}
 		//計算結果をresult.txtに出力する
-  		frame.pw.println(
+		frame.pw.println(
 				"result,"+output
 				);
 		//盤面をいじくってしまっているので、最後にinitializeを実行する
-  		//条件を変えながら評価値を何度も計算する場合、initializeによるstartログ発生が煩わしいため、引数でinitializeを行わないようにできる
+		//条件を変えながら評価値を何度も計算する場合、initializeによるstartログ発生が煩わしいため、引数でinitializeを行わないようにできる
 		if(initialize == true){
 			frame.initialize();
 		}
- 		return output;
+		return output;
 	}
 	public double evaluate(MyFrame frame){
 		return evaluate(frame,true);
@@ -215,6 +223,7 @@ public class MyPR {
 		//状態配列
 		int[][] statuses = null;
 
+
 		//コンストラクタ
 		StepLog(int step , String line){
 			this.step = step;
@@ -222,7 +231,7 @@ public class MyPR {
 			if(tempstrings.length < MyFrame.NUMBEROFPANEL*MyFrame.NUMBEROFPANEL){
 				return;
 			}
-			if(tempstrings[0].equals("start ")){
+			else if(tempstrings[0].equals("start ")){
 				this.type = START;
 			}
 			else if(tempstrings[0].equals("goal  ")){

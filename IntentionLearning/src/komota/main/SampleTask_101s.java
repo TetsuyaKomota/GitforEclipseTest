@@ -29,9 +29,12 @@ public class SampleTask_101s extends MySerialFrame{
 	PR_101 save;
 
 	//タスククラス
-	MyTask task_RtB;
-	MyTask task_NbO;
-	MyTask task_MtS;
+	MyTaskPrimitive task_RtB;
+	MyTaskPrimitive task_NbO;
+	MyTaskPrimitive task_MtS;
+
+	MyTaskPrimitive[] tasks;
+	static final int NUMBEROFTASKS = 6;
 
 	//コンストラクタ
 	public SampleTask_101s(){
@@ -171,11 +174,19 @@ public class SampleTask_101s extends MySerialFrame{
 	public void functionPlugin4(){
 		System.out.println("[SampleTask_101s]functionPlugin4:タスククラスのインスタンス生成");
 		this.expranation = "[SampleTask_101s]functionPlugin4:タスククラスのインスタンス生成";
-		this.task_RtB = new MyTask("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
-		this.task_NbO = new MyTask("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
-		this.task_MtS = new MyTask("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
-		//一応、現在のログでPRインスタンスを生成し直しておく
-		//this.functionPlugin1();
+		this.task_RtB = new MyTaskPrimitive("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
+		this.task_NbO = new MyTaskPrimitive("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
+		this.task_MtS = new MyTaskPrimitive("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
+
+		this.tasks = new MyTaskPrimitive[NUMBEROFTASKS];
+		this.tasks[0] = new MyTaskPrimitive("log_MOVE_THE_CENTER.txt","赤を中央に移動する");
+		this.tasks[1] = new MyTaskPrimitive("log_RIGHT_TO_BLUE.txt","赤を青の右に動かす");
+		this.tasks[2] = new MyTaskPrimitive("log_NEAR_BY_ORANGE.txt","赤を橙に近づける");
+		this.tasks[3] = new MyTaskPrimitive("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
+		this.tasks[4] = new MyTaskPrimitive("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
+		this.tasks[5] = new MyTaskPrimitive("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
+
+
 		System.out.println("インスタンス生成完了");
 		this.expranation = "インスタンス生成完了";
 	}
@@ -190,49 +201,49 @@ public class SampleTask_101s extends MySerialFrame{
  * 6. disの最も小さいタスクのtasknameを出力する
  */
 
-		double dis_RtB = 10000;
-		double dis_NbO = 10000;
-		double dis_MtS = 10000;
-
+		double[] dis_tasks = new double[NUMBEROFTASKS];
+		for(int i=0;i<NUMBEROFTASKS;i++){
+			dis_tasks[i] = 10000;
+		}
 		int[] tempselected = new int[2];
-
-		//1.
 		this.save = new PR_101();
 		this.save.setLog(this);
-		//2.
-		this.save.loadLastStartLog(this);
-		//3.
-		this.task_RtB.reproductionTask(this);
-		tempselected = this.getSecondSelected();
-		//4.
-		dis_RtB = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
-
-		//2.
-		this.save.loadLastStartLog(this);
-		//3.
-		this.task_NbO.reproductionTask(this);
-		tempselected = this.getSecondSelected();
-		//4.
-		dis_NbO = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
-
-		//2.
-		this.save.loadLastStartLog(this);
-		//3.
-		this.task_MtS.reproductionTask(this);
-		tempselected = this.getSecondSelected();
-		//4.
-		dis_MtS = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
-
-		//6.
-		if(dis_RtB<dis_NbO && dis_RtB<dis_MtS){
-			this.tasktitle = this.task_RtB.getTaskName();
+		for(int t=0;t<NUMBEROFTASKS;t++){
+			this.save.loadLastStartLog(this);
+			this.tasks[t].reproductionTask(this);
+			tempselected = this.getSecondSelected();
+			dis_tasks[t] = (tempselected[0] - this.save.getLastPosition()[0])*(tempselected[0] - this.save.getLastPosition()[0])+(tempselected[1] - this.save.getLastPosition()[1])*(tempselected[1] - this.save.getLastPosition()[1]);
 		}
-		else if(dis_NbO<dis_RtB && dis_NbO<dis_MtS){
-			this.tasktitle = this.task_NbO.getTaskName();
+		//上位3タスクを取得
+		int[] highest_idx = new int[3];
+		double[] highest_point = new double[highest_idx.length];
+		for(int i=0;i<highest_point.length;i++){
+			highest_idx[i] = -1;
+			highest_point[i] = 100000;
 		}
-		else{
-			this.tasktitle = this.task_MtS.getTaskName();
+		for(int t=0;t<NUMBEROFTASKS;t++){
+			System.out.println(t+":"+this.tasks[t].taskname+":"+dis_tasks[t]);
+			for(int i=0;i<highest_point.length;i++){
+				if(dis_tasks[t]<highest_point[i]){
+					for(int j=highest_point.length-1;j>i;j--){
+						highest_idx[j] = highest_idx[j-1];
+						highest_point[j] = highest_point[j-1];
+					}
+					highest_idx[i] = t;
+					highest_point[i] = dis_tasks[t];
+					break;
+				}
+			}
 		}
+		//上位3つのタスク名を標準出力
+		//実験時はここをフィールドに持たせたりして別メソッドで評価する感じになると思う
+		for(int i=0;i<highest_point.length;i++){
+			System.out.println(i+". "+this.tasks[highest_idx[i]].taskname);
+		}
+		//一応、見栄えのためにsecondselectedを初期化しておく
+		this.secondselected[0] = -1;
+		this.secondselected[1] = -1;
+
 	}
 	@Override
 	public void functionPlugin6(){
