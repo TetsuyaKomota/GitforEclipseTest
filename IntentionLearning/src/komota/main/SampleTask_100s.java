@@ -516,8 +516,8 @@ public class SampleTask_100s extends MySerialFrame{
 	//ここを変更することで異なる動作の評価ができる
 	private void add_Q(DataSetGenerator g,double variance){
 		//g.generate_MOVE_THE_CENTER(this, variance);
-		//g.generate_NEAR_BY_ORANGE(this, variance);
-		g.generate_RIGHT_TO_BLUE(this, variance);
+		g.generate_NEAR_BY_ORANGE(this, variance);
+		//g.generate_RIGHT_TO_BLUE(this, variance);
 		//g.generate_AWAY_FROM_GREEN(this, variance);
 		//g.generate_MAKE_THE_SIGNAL(this, variance);
 		//g.generate_MAKE_THE_TRIANGLE(this, variance);
