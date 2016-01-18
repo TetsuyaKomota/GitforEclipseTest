@@ -55,7 +55,7 @@ public class DataSetGenerator {
 //定数
 
 	//生成するデータセット量
-	final int NUMBEROFDATASET = 10;
+	final int NUMBEROFDATASET = 30;
 	//分散値に対する外れ値の比率. 3 なら、0.1%の割合で生じる外れ値を除外する
 	final int OUTLIER = 3;
 

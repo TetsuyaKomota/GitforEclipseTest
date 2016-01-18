@@ -24,8 +24,8 @@ public class MyCounter {
 			System.out.println("AfG:"+counter.countGoal("log_AWAY_FROM_GREEN.txt"));
 			System.out.println("MtS:"+counter.countGoal("log_MAKE_THE_SIGNAL.txt"));
 			System.out.println("MtT:"+counter.countGoal("log_MAKE_THE_TRIANGLE.txt"));
-			System.out.println("TRL:"+counter.countGoal("log_TILT_RED_LITTLE.txt"));
-			System.out.println("TRH:"+counter.countGoal("log_TILT_RED_HARD.txt"));
+//			System.out.println("TRL:"+counter.countGoal("log_TILT_RED_LITTLE.txt"));
+//			System.out.println("TRH:"+counter.countGoal("log_TILT_RED_HARD.txt"));
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
