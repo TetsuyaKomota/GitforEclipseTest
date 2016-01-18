@@ -10,21 +10,23 @@ public class DataSetGenerator {
 	//データセットを自動生成するクラス
 
 	public static void main(String[] args){
+
+		double bunsan = 2;
+		int universe = 100000000;
+
 		Random r = new Random();
 		DataSetGenerator g = new DataSetGenerator();
-		int ran = 0;
+		double ran = 0;
 		double max = 0;
 		double min = 0;
 		double mean = 0;
 		double sqmean = 0;
 		double variance = 0;
-		int[] un = new int[11];
-		for(int i=0;i<11;i++){
-			un[i] = 0;
-		}
 		int count = 0;
-		while(count++ < 100000000){
-			ran = g.nextError(1);
+		int sup = 0;
+		int inf = 0;
+		while(count++ < universe){
+			ran = g.nextError(bunsan);
 //			System.out.println("output,"+ran);
 			if(ran>max){
 				max = ran;
@@ -32,54 +34,27 @@ public class DataSetGenerator {
 			if(ran<min){
 				min = ran;
 			}
-			switch(ran){
-			case -5:
-				un[0]++;
-				break;
-			case -4:
-				un[1]++;
-				break;
-			case -3:
-				un[2]++;
-				break;
-			case -2:
-				un[3]++;
-				break;
-			case -1:
-				un[4]++;
-				break;
-			case 0:
-				un[5]++;
-				break;
-			case 1:
-				un[6]++;
-				break;
-			case 2:
-				un[7]++;
-				break;
-			case 3:
-				un[8]++;
-				break;
-			case 4:
-				un[9]++;
-				break;
-			case 5:
-				un[10]++;
+			if(ran>Math.sqrt(bunsan)*3){
+				sup++;
 			}
+			if(ran<-Math.sqrt(bunsan)*3){
+				inf++;
+			}
+
 			mean = mean*(count-1)/count+ran/count;
 			sqmean = sqmean*(count-1)/count+ran*ran/count;
 			variance = sqmean - mean*mean;
 		}
 		System.out.println("まっくす"+max+" みにまむ"+min+" へいきん"+mean+" ぶんさん"+variance);
-		for(int i=0;i<11;i++){
-			System.out.println(un[i]);
-		}
+		System.out.println("0.998になると嬉しいけど、"+(double)(universe - sup - inf)/universe+"でした。 sup:"+sup+" inf:"+inf);
+		System.out.println(-0.5+"って"+(int)(-0.5)+"だよ");
 	}
+
 
 //定数
 
 	//生成するデータセット量
-	final int NUMBEROFDATASET = 30;
+	final int NUMBEROFDATASET = 10;
 	//分散値に対する外れ値の比率. 3 なら、0.1%の割合で生じる外れ値を除外する
 	final int OUTLIER = 3;
 
@@ -96,15 +71,15 @@ public class DataSetGenerator {
 		this.rand = new Random();
 	}
 
-	//(-variance,variance)のガウス誤差(四捨五入したint)を生成する
-	int nextError(double variance){
-		double output = (this.rand.nextGaussian() - 0.5)*Math.sqrt(variance);
+	//ガウス誤差を生成する
+	double nextError(double variance){
+		double output = this.rand.nextGaussian()*Math.sqrt(variance);
 /*
 		while(output > variance*OUTLIER || output < -variance*OUTLIER){
 			output = (this.rand.nextGaussian() - 0.5)*variance;
 		}
 */
-		return (int)(output+0.5);
+		return output;
 	}
 
 	//RIGHT_TO_BLUEの自動生成
@@ -139,8 +114,8 @@ public class DataSetGenerator {
 					else if(frame.panels[i][j].getStatus() == 2){
 
 						//青の右＋ガウス誤差 の位置が画面内かどうか
-						temperror[0] = nextError(variance);
-						temperror[1] = nextError(variance);
+						temperror[0] = (int)nextError(variance);
+						temperror[1] = (int)nextError(variance);
 
 						if(		     i+temperror[0] > 0
 								&&15+j+temperror[1] > 0
@@ -203,8 +178,8 @@ public class DataSetGenerator {
 					}
 					else if(frame.panels[i][j].getStatus() == 5){
 
-						temperror[0] = nextError(variance);
-						temperror[1] = nextError(variance);
+						temperror[0] = (int)nextError(variance);
+						temperror[1] = (int)nextError(variance);
 
 						temporange[0] = i;
 						temporange[1] = j;
@@ -212,8 +187,8 @@ public class DataSetGenerator {
 				}
 			}
 			int[] tempsecondselected = new int[2];
-			tempsecondselected[0] = (tempred[0]+temporange[0]*3)/4 + temperror[0];
-			tempsecondselected[1] = (tempred[1]+temporange[1]*3)/4 + temperror[1];
+			tempsecondselected[0] = (int)((double)(tempred[0]+temporange[0])/2+0.5) + temperror[0];
+			tempsecondselected[1] = (int)((double)(tempred[1]+temporange[1])/2+0.5) + temperror[1];
 
 			if(		  tempsecondselected[0] > 0
 					&&tempsecondselected[1] > 0
@@ -274,8 +249,8 @@ public class DataSetGenerator {
 					}
 					else if(frame.panels[i][j].getStatus() == 4){
 
-						temperror[0] = nextError(variance);
-						temperror[1] = nextError(variance);
+						temperror[0] = (int)nextError(variance);
+						temperror[1] = (int)nextError(variance);
 
 						tempgreen[0] = i;
 						tempgreen[1] = j;
@@ -357,8 +332,8 @@ public class DataSetGenerator {
 					}
 				}
 			}
-			temperror[0] = nextError(variance);
-			temperror[1] = nextError(variance);
+			temperror[0] = (int)nextError(variance);
+			temperror[1] = (int)nextError(variance);
 			int[] tempsecondselected = new int[2];
 			tempsecondselected[0] = 2*tempyellow[0]-tempblue[0] + temperror[0];
 			tempsecondselected[1] = 2*tempyellow[1]-tempblue[1] + temperror[1];
@@ -434,12 +409,12 @@ public class DataSetGenerator {
 					}
 				}
 			}
-			temperror[0] = nextError(variance);
-			temperror[1] = nextError(variance);
+			temperror[0] = (int)nextError(variance);
+			temperror[1] = (int)nextError(variance);
 			int[] tempsecondselected = new int[2];
 
-			tempsecondselected[0] = (int)(((double)(tempgreen[0]+tempblue[0]))/2 - ((double)(tempgreen[1]-tempblue[1]))*Math.sqrt(3)/2) + temperror[0];
-			tempsecondselected[1] = (int)(((double)(tempgreen[1]+tempblue[1]))/2 + ((double)(tempgreen[0]-tempblue[0]))*Math.sqrt(3)/2) + temperror[0];
+			tempsecondselected[0] = (int)(((double)(tempgreen[0]+tempblue[0]))/2 - ((double)(tempgreen[1]-tempblue[1]))*Math.sqrt(3)/2 + 0.5) + temperror[0];
+			tempsecondselected[1] = (int)(((double)(tempgreen[1]+tempblue[1]))/2 + ((double)(tempgreen[0]-tempblue[0]))*Math.sqrt(3)/2 + 0.5) + temperror[1];
 
 			if(		  tempsecondselected[0] > 0
 					&&tempsecondselected[1] > 0
@@ -464,8 +439,7 @@ public class DataSetGenerator {
 	//MOVE_THE_CENTERの自動生成
 	public void generate_MOVE_THE_CENTER(MyFrame frame,double variance){
 
-		Random rand = new Random();
-		double[] temperror = new double[2];
+		int[] temperror = new int[2];
 		int[] selected= new int[2];
 		int[] secondselected= new int[2];
 
@@ -493,11 +467,11 @@ public class DataSetGenerator {
 					}
 				}
 			}
-			temperror[0] = rand.nextGaussian()*variance;
-			temperror[1] = rand.nextGaussian()*variance;
+			temperror[0] = (int)nextError(variance);
+			temperror[1] = (int)nextError(variance);
 
-			secondselected[0] = MyFrame.NUMBEROFPANEL/2+(int)(temperror[0]+0.5-variance/2);
-			secondselected[1] = MyFrame.NUMBEROFPANEL/2+(int)(temperror[1]+0.5-variance/2);
+			secondselected[0] = MyFrame.NUMBEROFPANEL/2+temperror[0];
+			secondselected[1] = MyFrame.NUMBEROFPANEL/2+temperror[1];
 			frame.setSecondSelected(secondselected);
 			frame.pushSPACE();
 			frame.pushGoal();
