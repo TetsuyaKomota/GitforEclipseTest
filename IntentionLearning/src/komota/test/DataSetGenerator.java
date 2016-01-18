@@ -11,7 +11,7 @@ public class DataSetGenerator {
 
 	public static void main(String[] args){
 
-		double bunsan = 2;
+		double bunsan = 1;
 		int universe = 100000000;
 
 		Random r = new Random();
@@ -26,7 +26,8 @@ public class DataSetGenerator {
 		int sup = 0;
 		int inf = 0;
 		while(count++ < universe){
-			ran = g.nextError(bunsan);
+//			ran = g.nextError(bunsan);
+			ran = Math.abs(g.nextError(bunsan));
 //			System.out.println("output,"+ran);
 			if(ran>max){
 				max = ran;
