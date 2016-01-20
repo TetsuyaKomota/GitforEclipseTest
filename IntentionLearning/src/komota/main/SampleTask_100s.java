@@ -435,7 +435,7 @@ public class SampleTask_100s extends MySerialFrame{
 //		g.generate_RIGHT_TO_(DataSetGenerator.YELLOW, this, 2);
 //		g.generate_NEAR_BY_(DataSetGenerator.YELLOW, this, 2);
 //		g.generate_AWAY_FROM_(DataSetGenerator.YELLOW, this, 2);
-//		g.generate_MAKE_THE_SIG_(DataSetGenerator.GREEN, DataSetGenerator.ORANGE, this, 2);
+		g.generate_MAKE_THE_SIG_(DataSetGenerator.YELLOW, DataSetGenerator.GREEN, this, 2);
 //		g.generate_MAKE_THE_TRI_(DataSetGenerator.YELLOW, DataSetGenerator.BLUE, this, 2);
 		System.out.println("データジェネレート完了！");
 
