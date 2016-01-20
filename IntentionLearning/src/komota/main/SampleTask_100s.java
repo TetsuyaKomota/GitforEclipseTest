@@ -417,12 +417,12 @@ public class SampleTask_100s extends MySerialFrame{
 		//ランダムのログデータを生成
 		System.out.println("データジェネレート！");
 		DataSetGenerator g = new DataSetGenerator();
-//		g.generate_MOVE_THE_CENTER(this, 1);
-//		g.generate_RIGHT_TO_BLUE(this, 3);
-//		g.generate_NEAR_BY_ORANGE(this, 2);
-//		g.generate_AWAY_FROM_GREEN(this, 2);
-//		g.generate_MAKE_THE_SIGNAL(this, 2);
-		g.generate_MAKE_THE_TRIANGLE(this, 2);
+//		g.generate_MOVE_THE_CENTER(this, 5);
+//		g.generate_RIGHT_TO_BLUE(this, 5);
+//		g.generate_NEAR_BY_ORANGE(this, 5);
+//		g.generate_AWAY_FROM_GREEN(this, 5);
+//		g.generate_MAKE_THE_SIGNAL(this, 5);
+		g.generate_MAKE_THE_TRIANGLE(this, 5);
 		System.out.println("データジェネレート完了！");
 
 	}
