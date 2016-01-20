@@ -26,6 +26,16 @@ public class MyCounter {
 			System.out.println("MtT:"+counter.countGoal("log_MAKE_THE_TRIANGLE.txt"));
 //			System.out.println("TRL:"+counter.countGoal("log_TILT_RED_LITTLE.txt"));
 //			System.out.println("TRH:"+counter.countGoal("log_TILT_RED_HARD.txt"));
+			System.out.println("************************MORE***************************");
+			System.out.println("RtO:"+counter.countGoal("log_MORE_RIGHT_TO_ORANGE.txt"));
+			System.out.println("RtG:"+counter.countGoal("log_MORE_RIGHT_TO_GREEN.txt"));
+			System.out.println("RtY:"+counter.countGoal("log_MORE_RIGHT_TO_YELLOW.txt"));
+			System.out.println("NbB:"+counter.countGoal("log_MORE_NEAR_BY_BLUE.txt"));
+			System.out.println("NbG:"+counter.countGoal("log_MORE_NEAR_BY_GREEN.txt"));
+			System.out.println("NbY:"+counter.countGoal("log_MORE_NEAR_BY_YELLOW.txt"));
+			System.out.println("AfB:"+counter.countGoal("log_MORE_AWAY_FROM_BLUE.txt"));
+			System.out.println("AfO:"+counter.countGoal("log_MORE_AWAY_FROM_ORANGE.txt"));
+			System.out.println("AfY:"+counter.countGoal("log_MORE_AWAY_FROM_YELLOW.txt"));
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

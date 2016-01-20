@@ -37,7 +37,7 @@ public class SampleTask_100s extends MySerialFrame{
 
 	//タスククラス
 	MyTaskPrimitive[] tasks;
-	static final int NUMBEROFTASKS = 6;
+	static final int NUMBEROFTASKS = 15;
 	//盤面記憶用PRクラス(識別で使用)
 	PR_101 save;
 	//識別結果
@@ -198,6 +198,15 @@ public class SampleTask_100s extends MySerialFrame{
 		this.tasks[3] = new MyTaskPrimitive("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
 		this.tasks[4] = new MyTaskPrimitive("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
 		this.tasks[5] = new MyTaskPrimitive("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
+		this.tasks[6] = new MyTaskPrimitive("log_MORE_RIGHT_TO_ORANGE.txt","赤を橙の右に動かす");
+		this.tasks[7] = new MyTaskPrimitive("log_MORE_RIGHT_TO_GREEN.txt","赤を緑の右に動かす");
+		this.tasks[8] = new MyTaskPrimitive("log_MORE_RIGHT_TO_YELLOW.txt","赤を黄の右に動かす");
+		this.tasks[9] = new MyTaskPrimitive("log_MORE_NEAR_BY_BLUE.txt","赤を青に近づける");
+		this.tasks[10] = new MyTaskPrimitive("log_MORE_NEAR_BY_GREEN.txt","赤を緑に近づける");
+		this.tasks[11] = new MyTaskPrimitive("log_MORE_NEAR_BY_YELLOW.txt","赤を黄に近づける");
+		this.tasks[12] = new MyTaskPrimitive("log_MORE_AWAY_FROM_BLUE.txt","赤を青から遠ざける");
+		this.tasks[13] = new MyTaskPrimitive("log_MORE_AWAY_FROM_ORANGE.txt","赤を橙から遠ざける");
+		this.tasks[14] = new MyTaskPrimitive("log_MORE_AWAY_FROM_YELLOW.txt","赤を黄から遠ざける");
 		//this.tasks[6] = new MyTaskPrimitive("log_TILT_RED_LITTLE.txt","赤を少し傾ける");
 		//this.tasks[7] = new MyTaskPrimitive("log_TILT_RED_HARD.txt","赤を大きく傾ける");
 
@@ -417,17 +426,17 @@ public class SampleTask_100s extends MySerialFrame{
 		//ランダムのログデータを生成
 		System.out.println("データジェネレート！");
 		DataSetGenerator g = new DataSetGenerator();
-//		g.generate_MOVE_THE_CENTER(this, 5);
-//		g.generate_RIGHT_TO_BLUE(this, 5);
-//		g.generate_NEAR_BY_ORANGE(this, 5);
-//		g.generate_AWAY_FROM_GREEN(this, 5);
-//		g.generate_MAKE_THE_SIGNAL(this, 5);
-//		g.generate_MAKE_THE_TRIANGLE(this, 5);
-//		g.generate_RIGHT_TO_(DataSetGenerator.ORANGE, this, 3);
-//		g.generate_NEAR_BY_(DataSetGenerator.GREEN, this, 3);
-//		g.generate_AWAY_FROM_(DataSetGenerator.BLUE, this, 3);
-//		g.generate_MAKE_THE_SIG_(DataSetGenerator.GREEN, DataSetGenerator.ORANGE, this, 3);
-		g.generate_MAKE_THE_TRI_(DataSetGenerator.YELLOW, DataSetGenerator.BLUE, this, 3);
+//		g.generate_MOVE_THE_CENTER(this, 2);
+//		g.generate_RIGHT_TO_BLUE(this, 2);
+//		g.generate_NEAR_BY_ORANGE(this, 2);
+//		g.generate_AWAY_FROM_GREEN(this, 2);
+//		g.generate_MAKE_THE_SIGNAL(this, 2);
+//		g.generate_MAKE_THE_TRIANGLE(this, 2);
+//		g.generate_RIGHT_TO_(DataSetGenerator.YELLOW, this, 2);
+//		g.generate_NEAR_BY_(DataSetGenerator.YELLOW, this, 2);
+//		g.generate_AWAY_FROM_(DataSetGenerator.YELLOW, this, 2);
+//		g.generate_MAKE_THE_SIG_(DataSetGenerator.GREEN, DataSetGenerator.ORANGE, this, 2);
+//		g.generate_MAKE_THE_TRI_(DataSetGenerator.YELLOW, DataSetGenerator.BLUE, this, 2);
 		System.out.println("データジェネレート完了！");
 
 	}
