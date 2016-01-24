@@ -1,0 +1,69 @@
+﻿\documentclass[a4j,12pt,onecolumn,oneside,final]{jreport}
+
+%\usepackage{gthesis}
+\usepackage{gthesis_myown}
+
+\usepackage{amsmath,amsthm,amssymb,ascmac}
+\usepackage{fancybox}
+\usepackage{slashbox}
+%\usepackage[dviout]{color,graphics}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+%\usepackage{upgreek}
+\usepackage{bm}
+\usepackage{wrapfig}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{my-macros}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\年度{平成27年度}
+%\提出年月{平成27年7月}
+\提出年月{平成28年2月}
+
+\題名{○○の高性能化に関する研究}
+\梗概題名{○○の高性能化に関する研究}
+%\題名{楽に卒業する方法に関する基礎的研究\\
+%			--- そもそもそれは可能か？ ---}
+%\梗概題名{楽に卒業する方法に関する基礎的研究\\
+%			--- そもそもそれは可能か？ ---}
+
+\指導教員名A{工大 一郎}
+\職名A{教授}
+
+\指導教員名B{理工 二郎}
+\職名B{准教授}
+
+%\所属学科{電気電子工学科}{}
+\所属学科{情報工学科}{}
+\学籍番号{12\_34567}
+\氏名{大岡山 太郎}
+
+\内容梗概{\input{abstract}}
+
+
+\begin{document}
+% ----------------------------------------------------------------------
+% 表紙
+\maketitle
+% ----------------------------------------------------------------------
+% 目次
+\setcounter{page}{1}
+\renewcommand{\thepage}{\roman{page}}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\clearpage
+% ----------------------------------------------------------------------
+% 内容
+\setcounter{page}{1}
+\renewcommand{\thepage}{\arabic{page}}
+\input{introduction}
+\input{body-a}
+\input{body-b}
+\input{body-c}
+\input{conclusion}
+\input{acknowledgment}
+\input{reference}
+\input{appendix}
+% ----------------------------------------------------------------------
+\end{document}

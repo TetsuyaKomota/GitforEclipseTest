@@ -1,0 +1,464 @@
+﻿%%      Filename : gthesis.sty ver 1.2
+%%
+%%      $BEl5~9)6HBg3X9)3XIt(B      $BEE5$!&EE;R!"EE;RJ*M}!">pJs9)3X2J(B
+%%      $BJ?@.#7G/EYHG$K4p$E$/B46HO@J8MQ%9%?%$%k%U%!%$%k(B
+%%      $B!J@5<0$J$b$N$G$O$"$j$^$;$s!KL5J]>Z!*(B
+%%
+\typeout{Style for 'T.I.Tech. graduation thesis'.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%      $B%=!<%9$N5-=RNc(B                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \documentstyle[12pt,gthesis]{jreport}
+%
+% \$BG/EY(B{$BJ?@.(B6$BG/EY(B}
+% \$BDs=PG/7n(B{$BJ?@.(B7$BG/(B2$B7n(B}
+% \$BBjL>(B{$B$3$3$O%?%$%H%k$G$9!#(B}
+% \$B;XF3650wL>(B{$B>eED(B  $B8w9((B}
+% \$B?&L>(B{$B65<x(B}
+% \$B=jB03X2J(B{$BEE5$EE;R9)3X2J(B}{}
+% \$B3X@RHV9f(B{91xxxxx}
+% \$B;aL>(B{$B0KF#(B  $BL@E5(B}
+% \$BFbMF9<35(B{$B35MW$r$3$3$K$+$/(B. }
+% 
+% \begin{document}
+% \maketitle
+% \tableofcontents
+% \chapter{$B=tO@(B}
+%     :
+%     :
+% \chapter*{$B<U<-(B}
+% \addchapter{$B<U<-(B}
+%     :
+% \end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%      $BJQ99$7$F$$$k$N$O!"%-%c%W%7%g%s!"869FMQ;f$N@#K!!"2~9TI}!">OHV9f0LCV!"(B
+%%      $B;29MJ88%!";29MJ88%$N0zMQ!"%U%C%H%N!<%H!"FbMF9<35!"I=;f$G$9!#(B
+%%
+%%  $B;29MJ88%!'(B
+%%      $BJ?@.#7G/EYHGB46HO@J8$NDs=P$K4X$9$k=tCm0U(B
+%%      $BJ#?t$N%a!<%k(B
+%%      LaTeX $B%H!<%?%k%,%$%I$N$_(B
+%%      TeX Book $B$J$7!JL5KE!K(B^^;
+%%  $BMzNr!'(B
+%%       ver. 1.0       1994/Dec/14 writtten by akito@pi.titech.ac.jp
+%%       ver. 1.1       1994/Dec/15 added footnote by akito@pi
+%%       ver. 1.2       1994/Dec/26 $B#A#4%9%?%$%k$KBP1~(B by akito@pi,
+%%                      $B2~9TI}$NJQ99(B ieeej.sty $B$+$i0zMQ(B,
+%%                      $B%?%$%H%k%Z!<%8$N%Q%i!<%a%?$N;XDjJ}K!$NJQ99(B
+%%                      by ichizawa@tithp0.phys.titech.ac.jp
+%%                      $B>OHV9f$N0LCV9g$o$;(B by ichizawa@tithp0.phys
+%%                      $BFbMF9<35$NCJMn$o$1(B by ichizawa@tithp0.phys
+%%                      $B;z$N4V3V$ND4@0(B ieeej.sty $B$+$i0zMQ(B
+%%                      \parindent  $B$ND4@0(B by ichizawa@tithp0.phys
+%%      ver. 1.2a       $B>O!"?^!"I=$NF|K\8l2=(B by saibara@ctrl.titech
+%%                      $BCJMn4V$N5wN%$ND4@0(B by saibara@ctrl.titech
+%%                      jreport$B$X$NBP1~(B by saibara@ctrl.titech
+%%      ver. 1.2b       $BIUO?$NBP1~(B by rui@ctrl.titech
+%%                      $BL\<!$N%?%$%H%k$N4A;z2=(B by rui@ctrl.titech
+%%                      $B<U<-!";29MJ88%$rL\<!$K:\$;$k$?$a$N(B\addchapter$B$NDI2C(B
+%%                      by rui@ctrl.titech
+%%                      jreport$B$K$*$1$kCl$NDI2C(B by rui@ctrl.titech
+%%      ver. 1.2c       $B?^$r$a$$$C$Q$$I=<(=PMh$k$h$&$K$9$k(B
+%%                       by saibara@ctrl.titech
+%%      ver. 1.2d       \noinccaption$B$NDI2C(B by saibara@ctrl.titech
+%%      ver. 1.2e       $BB4O@I=;f$NDI2C(B -1$B%Z!<%8$K:n$k!#(Bby saibara@ctrl.titech
+%%      ver. warhol(1.2e.001)
+%%                      $BHyL/$KJQ$($?(B.$B:dDm!&;3ED8&%P!<%8%g%s(B by warhol
+%%      ver. nozaki     $B>O$H;29MJ88%$NI=5-!'1Q8l$KBP1~(B
+%%                      (English/Japanese $B$H$"$kItJ,!'(B4$B2U=j(B)
+\typeout{ver. warhol(1.2e.001)      1999/Jan/22 ko-ji@mars.dti.ne.jp}
+
+%%
+%%      $B;z$H;z$N4V(B
+%%
+\kanjiskip 4.2857mm plus .2zw
+\advance \kanjiskip by -1zw
+\xkanjiskip 2pt plus 2pt minus .5pt
+\def\baselinestretch{1}
+\def\arraystretch{1}
+
+%%
+%%      $B9T%T%C%A(B
+%%
+\newdimen \lineheight
+\lineheight 7.9mm
+
+%%
+%%      $B2~9TI}$NJQ99(B
+%%
+\def\@normalsize{\@setsize\normalsize{\lineheight}\xiipt\@xiipt
+ \abovedisplayskip 10pt plus2pt minus5pt
+ \belowdisplayskip \abovedisplayskip
+ \abovedisplayshortskip \z@ plus3pt
+ \belowdisplayshortskip 6pt plus3pt minus3pt
+ \let\@listi\@listI
+}
+\def\small{\@setsize\small{5.29mm}\xipt\@xipt
+ \abovedisplayskip 8.5pt plus3pt minus4pt
+ \belowdisplayskip \abovedisplayskip
+ \abovedisplayshortskip \z@ plus2pt
+ \belowdisplayshortskip 4pt plus2pt minus2pt
+ \def\@listi{\leftmargin\leftmargini \parsep \z@
+  \itemsep 2pt plus 1pt minus 1pt
+  \topsep 4pt plus 2pt minus 2pt}
+}
+\def\scriptsize{\@setsize\scriptsize{3.9mm}\viiipt\@viiipt}
+\@normalsize
+
+%%
+%%      $B6uGr9T$NDj5A(B
+%%
+\newdimen \blankline
+\blankline 2\lineheight
+\advance \blankline by -12pt
+\def\bline{\vskip\blankline}
+
+%%
+%%      $B869FMQ;f$N@#K!(B
+%%
+\setlength{\baselineskip}{\lineheight}
+\setlength{\topskip}{\baselineskip}
+
+\setlength{\topmargin}{-1in}
+
+%       $B0J2<$N#39T$,9g$o$;$F#3#0#m#m$K$J$k$h$&$K$7$^$9!#(B
+\addtolength{\topmargin}{10mm}
+\setlength{\headheight}{10mm}
+\setlength{\headsep}{10mm}
+
+
+\setlength{\oddsidemargin}{-1in}
+\addtolength{\oddsidemargin}{29mm}
+%\addtolength{\oddsidemargin}{22mm}
+
+\setlength{\evensidemargin}{-1in}
+\addtolength{\evensidemargin}{30mm}
+%\addtolength{\evensidemargin}{22mm}
+
+%\setlength{\textheight}{237mm}
+%%\setlength{\textwidth}{150mm}
+\setlength{\textwidth}{150mm}
+%\setlength{\footskip}{15mm}
+%\setlength{\footheight}{\lineheight}
+
+\setlength{\parindent}{1zw}
+\addtolength{\parindent}{\kanjiskip}
+
+\setlength{\parskip}{\lineheight}      % deleted by saibara.
+\setlength{\parskip}{0mm}               % add by saibara.
+
+\setlength{\floatsep}{\lineheight}      % add by saibara.
+\setlength{\textfloatsep}{\lineheight}  % add by saibara.
+\setlength{\intextsep}{\lineheight}     % add by saibara.
+
+%%
+%%      $B;29MJ88%(B
+%%
+%% English/Japanese %%%%%
+%\def\thebibliography#1{\chapter*{References \@mkboth
+% {References}{References}}\list
+\def\thebibliography#1{\chapter*{$B;29MJ88%(B\@mkboth
+ {$B;2(B $B9M(B $BJ8(B $B8%(B}{$B;2(B $B9M(B $BJ8(B $B8%(B}}\list
+%
+  {[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+  \advance\leftmargin\labelsep
+  \usecounter{enumi}}
+  \def\newblock{\hskip .11em plus .33em minus .07em}
+  \sloppy
+  \sfcode`\.=1000\relax}
+ \let\endthebibliography=\endlist
+
+%%
+%%      $B;29MJ88%$N0zMQ(B
+%%
+%%      \cite[text]{key} : text $B$O;H$C$F$^$;$s(B
+%%
+%\def\@cite#1#2{\unskip\nobreak\relax
+%    \def\@tempa{$\m@th^{\hbox{\the\scriptfont0 [#1]}}$}%        %% by rui
+%    \futurelet\@tempc\@citexx}
+%\def\@citexx{\ifx.\@tempc\let\@tempd=\@citepunct\else
+%    \ifx,\@tempc\let\@tempd=\@citepunct\else
+%    \let\@tempd=\@tempa\fi\fi\@tempd}
+%\def\@citepunct{\@tempc\edef\@sf{\spacefactor=\the\spacefactor\relax}\@tempa
+%    \@sf\@gobble}
+
+%%
+%%      $B>OHV9f0LCV$ND4@0(B
+%%
+\def\@makechapterhead#1{ \vspace*{\lineheight} { \parindent 0pt \raggedright
+ \ifnum \c@secnumdepth >\m@ne \huge\bf \@chapapp{} \thechapter \par
+ \vskip 20pt \fi \Huge \bf #1\par
+ \nobreak \vskip 40pt } }
+
+\def\@makeschapterhead#1{ \vspace*{\lineheight} { \parindent 0pt \raggedright
+ \Huge \bf #1\par
+ \nobreak \vskip 40pt } }
+
+%%
+%%      $BI=;f(B & $BFbMF9<35(B         by saibara
+%%
+\def\$BG/EY(B#1{\gdef\@$BG/EY(B{#1}}
+\def\$BBjL>(B#1{\gdef\@$BBjL>(B{#1}}
+\def\$B9<35BjL>(B#1{\gdef\@$B9<35BjL>(B{#1}}
+\def\$B;XF3650wL>(BA#1{\gdef\@$B;XF3650wL>(BA{#1}}
+\def\$B?&L>(BA#1{\gdef\@$B?&L>(BA{#1}}
+\def\$B;XF3650wL>(BB#1{\gdef\@$B;XF3650wL>(BB{#1}}
+\def\$B?&L>(BB#1{\gdef\@$B?&L>(BB{#1}}
+%\def\$BI{;XF3650wL>(B#1{\gdef\@$BI{;XF3650wL>(B{#1}}
+%\def\$BI{?&L>(B#1{\gdef\@$BI{?&L>(B{#1}}
+%\def\$BI{I{;XF3650wL>(B#1{\gdef\@$BI{I{;XF3650wL>(B{#1}}
+%\def\$BI{I{?&L>(B#1{\gdef\@$BI{I{?&L>(B{#1}}
+\def\$B3X@RHV9f(B#1{\gdef\@$B3X@RHV9f(B{#1}}
+\def\$B;aL>(B#1{\gdef\@$B;aL>(B{#1}}
+
+\def\$BDs=PG/7n(B#1{\gdef\@$BDs=PG/7n(B{#1}}
+%\def\$B=jB03X2J(B#1{\gdef\@$B=jB03X2J(B{#1}}
+\def\$B=jB03X2J(B#1#2{\gdef\@$B=jB03X2J(B{#1}\gdef\@$B=jB0%3!<%9(B{#2}
+  \setbox0=\hbox{#2}
+  \ifdim\wd0>0em {\gdef\@$B=jB0(B2$B3X2J(B{#1\hspace{1zw}(#2)}}
+  \else {\gdef\@$B=jB0(B2$B3X2J(B{#1}} \fi}
+\long\def\$BFbMF9<35(B#1{\gdef\@$BFbMF9<35(B{#1}}
+\def\maketitle{\begin{titlepage}
+
+\setcounter{page}{-1}
+{\huge
+  \begin{center} $BEl5~9)6HBg3X9)3XIt(B\\
+    \vspace{5mm} $B3X;NO@J8(B\\
+    \vspace{0mm} \ \\
+    \fbox{
+      \begin{tabular}{c}
+	  \@$BBjL>(B
+      \end{tabular}
+    } 
+    \\
+    \vspace{5mm}
+    \begin{tabular}{llr}
+      $B;XF3650w(B            &\@$B;XF3650wL>(BA&\@$B?&L>(BA \\
+                          &\@$B;XF3650wL>(BB&\@$B?&L>(BB \\
+      %       &\@$BI{;XF3650wL>(B&\@$BI{?&L>(B\\
+      %       &\@$BI{I{;XF3650wL>(B&\@$BI{I{?&L>(B
+    \end{tabular}
+    
+    \vspace{10mm} \@$BDs=PG/7n(B \\
+    \vspace{8mm} $BDs=P<T(B \\
+    \vspace{-4mm} \ \\
+    \begin{tabular}{ll}
+      $B3X2J(B    &\@$B=jB03X2J(B \\
+%              &\@$B=jB0%3!<%9(B \\
+      $B3X@RHV9f(B&\@$B3X@RHV9f(B \\
+      $B;aL>(B    &\@$B;aL>(B 
+    \end{tabular}
+    \vspace{5mm}
+    \begin{flushright}
+      \begin{tabular}{|l|p{10mm}|p{10mm}|}
+	\hline \raisebox{-1.4ex}{\raisebox{1.2ex}{$B;XF3650wG'Dj0u(B}} &
+	&\\ \hline 
+%	\multicolumn{2}{|c|}{\raisebox{-1.4ex}{\raisebox{1.2ex}{$B3X2JD9G'Dj0u(B}}}
+%	& \\ \hline
+	\raisebox{-1.4ex}{\raisebox{1.2ex}{$B3X2JD9G'Dj0u(B}}
+	& \multicolumn{2}{|c|}{}\\ \hline
+      \end{tabular}
+    \end{flushright}
+\end{center}}
+
+\newpage
+\thispagestyle{empty}
+ \let\footnotesize\small \let\footnoterule\relax \setcounter{page}{0}
+\begin{flushleft}
+ \@$BG/EY(B\hspace{1zw}$B3X;NO@J8FbMF9<35(B
+\end{flushleft}
+\begin{center}
+ \Large \@$B9<35BjL>(B
+\end{center}
+\begin{flushright}
+\begin{tabular}{ll}
+ $B;XF3650w(B\hspace{1zw}&\@$B;XF3650wL>(BA\hspace{1zw}\@$B?&L>(BA \\
+ \hspace{1zw}&\@$B;XF3650wL>(BB\hspace{1zw}\@$B?&L>(BB \\
+% \hphantom{$B;XF3650w(B}\hspace{1zw}\@$BI{;XF3650wL>(B\hspace{1zw}\@$BI{?&L>(B\\ 
+% \@$B=jB03X2J(B (\@$B=jB0%3!<%9(B)\\
+ \@$B=jB03X2J(B &\@$B=jB0%3!<%9(B\\
+ \@$B3X@RHV9f(B\hspace{1zw}&\@$B;aL>(B
+\end{tabular}
+\end{flushright}
+ 
+\@$BFbMF9<35(B
+\thispagestyle{empty}
+\vfil
+%\null                                  % deleted by saibara
+\end{titlepage}
+\setcounter{footnote}{0} \let\thanks\relax
+\gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\maketitle\relax}
+%%
+%%      $B%U%C%H%N!<%H(B
+%%
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+%%
+%%      $B%-%c%W%7%g%s(B
+%%
+% $B?^$dI=$,(B Fig. Table $B$G$J$1$l$P$J$i$J$$?M$O0J2<$N(B2$B9T$r;HMQ$7$F$/$@$5$$!#(B
+\def\fnum@figure{{\bf Fig. \thefigure}}        % deleted by saibara
+\def\fnum@table{\sc Table \thetable}           % deleted by saibara
+% $BF|K\8l$,9%$-$J?M$O2<$NJ}$r;HMQ$7$F$/$@$5$$!#(B by saibara
+%\def\fnum@figure{{\bf $B?^(B \thefigure}}   % changed by saibara
+%\def\fnum@table{\sc $BI=(B \thetable}       % changed by saibara
+
+%\def\thetable{\Roman{table}}           % changed by saibara
+
+%%
+%%      $B>OHV9f0LCV$ND4@0(B                by rui
+%%
+%% English/Japanese %%%%%
+%\def\@chapapp#1{Chapter #1}
+\def\@chapapp#1{$BBh(B#1$B>O(B}     
+
+
+\def\@makechapterhead#1{ \vspace*{\lineheight} { \parindent 0pt \raggedright
+ \ifnum \c@secnumdepth >\m@ne \huge\bf \@chapapp \thechapter \par
+ \vskip 20pt \fi \Huge \bf #1\par
+ \nobreak \vskip 40pt } }
+
+\def\@makeschapterhead#1{ \vspace*{\lineheight} { \parindent 0pt \raggedright
+ \Huge \bf #1\par
+ \nobreak \vskip 40pt } }
+
+%%
+%%      $BIUO?(B                    by rui
+%%
+\def\appendix{
+  \par
+  \setcounter{chapter}{0}
+  \setcounter{section}{0}
+%% English/Japanese %%%%%
+%  \def\@chapapp{Appendix }
+  \def\@chapapp{$BIUO?(B }
+  \def\thechapter{\Alph{chapter}}
+}
+
+%%
+%%      $BL\<!(B                    by rui
+%%
+
+%% English/Japanese %%%%%
+%% Contents/$BL\<!(B
+%\renewcommand{\contentsname}{Contents}
+\renewcommand{\contentsname}{$BL\(B\quad $B<!(B}
+
+\def\@pnumwidth{3em}
+\def\chapter{\newpage \thispagestyle{plain} \global\@topnum\z@
+\@afterindentfalse \secdef\@chapter\@schapter} 
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+ \refstepcounter{chapter}
+ \typeout{\@chapapp{\thechapter}.}
+ \addcontentsline{toc}{chapter}{\protect
+% \numberline{\thechapter}#1}\else
+  {\advance\hangindent1in {\@chapapp{\thechapter}}} ~ #1}\else
+ \addcontentsline{toc}{chapter}{#1}\fi
+ \chaptermark{#1}
+ \addtocontents{lof}{\protect\addvspace{10pt}}
+\addtocontents{lot}{\protect\addvspace{10pt}} \if@twocolumn
+\@topnewpage[\@makechapterhead{#2}] 
+ \else \@makechapterhead{#2}
+ \@afterheading \fi} 
+\def\@schapter#1{\if@twocolumn \@topnewpage[\@makeschapterhead{#1}]
+ \else \@makeschapterhead{#1} 
+ \@afterheading\fi}
+
+%%
+%%      $BL\<!$KHV9f$J$7$N>O$r2C$($k!%Nc!'(B\addchapter{$B;29MJ88%(B} by rui
+%%
+\newcommand{\addchapter}[1]{\addcontentsline{toc}{chapter}{\bf #1}}
+
+%%
+%% $BCl$r2C$($k!%(B         by rui
+%%
+%       jbook$B$N;~$O$+$($C$FITMW$+$b$7$l$^$;$s$M!#(B
+\mark{{}{}}   % Initializes TeX's marks
+
+%\def\ps@headings{\let\@mkboth\markboth
+%\def\@oddfoot{\thepage}
+%\def\@evenfoot{\thepage}
+%\def\@evenhead{}
+%\def\@oddhead{}
+%\def\@evenhead{\hbox{}\sl\rightmark \hfil \rm\thepage}
+%\def\@oddhead{\hbox{}\sl \rightmark \hfil \rm\thepage}
+%\def\chaptermark##1{
+%  \markboth {
+%     \ifnum \c@secnumdepth >\m@ne
+%       \thechapter. \ \
+%         \fi ##1}{}}
+%\def\sectionmark##1{ \markright {
+%   \ifnum \c@secnumdepth >\z@
+%      \thesection. \ \fi ##1}}}
+
+%  \uppercase{
+%     \@chapapp \thechapter. \ \fi ##1}}}} % added by saibara but not fine.
+
+%\def\ps@myheadings{\let\@mkboth\@gobbletwo
+% \def\@oddfoot{}
+% \def\@evenfoot{}
+% \def\@oddhead{\hbox{}\sl \rightmark \hfil \rm\thepage}
+% \def\@evenhead{\hbox{}\sl\rightmark \hfil \rm\thepage}
+% \def\sectionmark##1{}
+% \def\subsectionmark##1{}}
+
+%\ps@headings \pagenumbering{arabic} \onecolumn 
+
+%%
+%% $B?^$rL\$$$C$Q$$I=<(=PMh$k$h$&$K$9$k(B    by saibara
+%%
+\renewcommand{\textfraction}{0.0}
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+
+%%
+%% $B?^!">OHV9f$rA}$d$5$J$$(B caption       by saibara
+%%
+%  $B#2%Z!<%80J>e$K$^$?$,$k?^$N;~$K;HMQ$7$F$/$@$5$$!#(B
+% $B;HMQNc(B
+%\begin{figure}
+%\caption{sample No.1}
+%\end{figure}
+%\newpage
+%\begin{figure}
+%\noinccaption{sample No.2}
+%\end{figure}
+
+\def\refcounter#1{\let\@tempa\protect
+\def\protect{\noexpand\protect\noexpand}%
+\edef\@currentlabel{\csname p@#1\endcsname\csname the#1\endcsname}%
+\let\protect\@tempa}
+
+\def\noinccaption{\refcounter\@captype \@dblarg{\@caption\@captype}}
+
+\makeatletter
+ \renewcommand{\theequation}{%
+    \thesection.\arabic{equation}}
+ \@addtoreset{equation}{section}
+\makeatother
+%\newcommand{\defeq}{\stackrel{\rm def}{=}}%$BDj5A(Bcommand
+\newcommand{\qed}{\hbox{\rule[-2pt]{3pt}{6pt}}}%Proof End!
+\newcommand{\pend}{\hfill\qed}
+\newcommand{\bsquare}{\hbox{\rule{6pt}{6pt}}}%Proof End in Black!
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\newtheorem{df}{$BDj5A(B}[chapter]
+\newtheorem{pr}{$BL?Bj(B}[chapter]
+\newtheorem{theo}{$BDjM}(B}[chapter]
+\newtheorem{col}{$B7O(B}[chapter]
+\newtheorem{lem}{$BJdBj(B}[chapter]
+\newtheorem{pot}{ \small \it proof}
+\newtheorem{pol}[lem]{\small \it proof}
+\newtheorem{ex}{$BNc(B}
+%\newfont{\bg}{cmr10 scaled\magstep4}
+\newcommand{\bigzerou}{\smash{\hbox{0}}}
+%\newcommand{\bigzerou}{\smash{\lower1.7ex\hbox{\bg 0}}}
+\newcommand{\bm}[1]{\mbox{\boldmath $#1$}}
+\newcommand{\tdeg}{\mbox{\rm tdeg}}
+\newcommand{\myappendix}{%
+ \setcounter{secnumdepth}{-1}
+ \appendix\chapter{Appendix}
+ \setcounter{secnumdepth}{2}
+ \setcounter{chapter}{1}}
+
