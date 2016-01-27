@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  26 JAN 2016 15:02
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  27 JAN 2016 14:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -293,24 +293,25 @@ LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 12.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 12.
-[4]) (./body-b.tex [5]
+File: apple.png Graphic file (type bmp)
+<apple.png> [4]
+File: apple.png Graphic file (type bmp)
+ <apple.png> [5] [6]) (./body-b.tex [7]
 第3章.
-) (./body-c.tex [6]
+) (./conclusion.tex [8]
 第4章.
-) (./conclusion.tex [7]
-第5章.
-) (./acknowledgment.tex [8]) (./reference.tex [9]) (./appendix.tex [10]
+) (./acknowledgment.tex [9]) (./reference.tex [10]) (./appendix.tex [11]
 付録 {A}.
-[11]
+[12]
 付録 {B}.
-) [12] (./main.aux) ) 
+) [13] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 2623 strings out of 493742
- 31614 string characters out of 6154161
- 101734 words of memory out of 5000000
- 6078 multiletter control sequences out of 15000+600000
+ 2626 strings out of 493742
+ 31660 string characters out of 6154161
+ 102734 words of memory out of 5000000
+ 6080 multiletter control sequences out of 15000+600000
  27446 words of font info for 106 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,8n,26p,1050b,289s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,8n,26p,1050b,319s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (15 pages, 34944 bytes).
+Output written on main.dvi (16 pages, 41744 bytes).
