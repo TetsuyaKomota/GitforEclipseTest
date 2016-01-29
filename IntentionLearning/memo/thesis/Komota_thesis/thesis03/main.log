@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  30 JAN 2016 00:13
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  30 JAN 2016 01:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -314,20 +314,28 @@ LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <17.28> not available
 
 ] [2]) (./body-a.tex [3]
 第2章.
-) (./body-b.tex [4]
-第3章.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 12.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 11.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 12.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 11.
 File: figure1.png Graphic file (type bmp)
 <figure1.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5]
+[4]
 File: figure2.png Graphic file (type bmp)
- <figure2.png> [6] [7] [8]) (./body-c.tex [9]
+ <figure2.png>) (./body-b.tex [5] [6]
+第3章.
+File: figure2.png Graphic file (type bmp)
+<figure2.png> [7]
+File: chart1.png Graphic file (type bmp)
+ <chart1.png>
+Overfull \hbox (56.9055pt too wide) in paragraph at lines 62--62
+ [] 
+ []
+
+[8]) (./body-c.tex [9]
 第4章.
 File: figure3.png Graphic file (type bmp)
 <figure3.png>
@@ -359,41 +367,43 @@ File: figure4.png Graphic file (type bmp)
 第5章.
 ) (./acknowledgment.tex [14]) (./reference.tex [15]) (./appendix.tex [16]
 付録 {A}.
+[17] [18]
+付録 {B}.
 File: chart6.png Graphic file (type bmp)
 <chart6.png>
-Overfull \hbox (14.22638pt too wide) in paragraph at lines 17--17
+Overfull \hbox (14.22638pt too wide) in paragraph at lines 67--67
  [] 
  []
 
 File: chart7.png Graphic file (type bmp)
 <chart7.png>
-Overfull \hbox (14.22638pt too wide) in paragraph at lines 18--18
+Overfull \hbox (14.22638pt too wide) in paragraph at lines 68--68
  [][] 
  []
 
 File: chart8.png Graphic file (type bmp)
 <chart8.png>
-Overfull \hbox (14.22638pt too wide) in paragraph at lines 19--19
+Overfull \hbox (14.22638pt too wide) in paragraph at lines 69--69
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 30.90483pt on input line 23.
+LaTeX Warning: Float too large for page by 30.90483pt on input line 73.
 
-[17] [18]
-付録 {B}.
-[19]) [20] (./main.aux)
+[19] [20]
+付録 {C}.
+[21]) [22] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 2942 strings out of 493742
- 35623 string characters out of 6154161
+ 2950 strings out of 493742
+ 35798 string characters out of 6154161
  109418 words of memory out of 5000000
- 6367 multiletter control sequences out of 15000+600000
+ 6373 multiletter control sequences out of 15000+600000
  27747 words of font info for 107 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  27i,16n,26p,1074b,647s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (23 pages, 70044 bytes).
+Output written on main.dvi (25 pages, 74068 bytes).
