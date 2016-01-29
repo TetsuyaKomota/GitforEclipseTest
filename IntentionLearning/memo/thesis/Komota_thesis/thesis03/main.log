@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  29 JAN 2016 16:06
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  29 JAN 2016 19:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -200,11 +200,8 @@ Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
 (c:/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: dvips.def on input line 142.
+Package color Info: Driver file: dvipdfmx.def on input line 142.
 
-(c:/texlive/2015/texmf-dist/tex/latex/graphics/dvips.def
-File: dvips.def 2014/10/14 v3.0j Driver-dependent file (DPC,SPQR)
-)
 (c:/texlive/2015/texmf-dist/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 2014/10/14 v3.0j Driver-dependent file (DPC,SPQR)
 ))
@@ -234,32 +231,32 @@ Package: wrapfig 2003/01/31  v 3.6
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 39.
-LaTeX Font Info:    ... okay on input line 39.
-LaTeX Font Info:    Try loading font information for U+msa on input line 42.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Try loading font information for U+msa on input line 44.
  (c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 42.
+LaTeX Font Info:    Try loading font information for U+msb on input line 44.
 
 (c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (48.95557pt too wide) in paragraph at lines 42--42
+Overfull \hbox (48.95557pt too wide) in paragraph at lines 44--44
  [][] 
  []
 
@@ -267,9 +264,9 @@ Overfull \hbox (48.95557pt too wide) in paragraph at lines 42--42
 
 ] (./abstract.tex) [0]
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 48.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 50.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 48.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 50.
  (./main.toc
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 1.
@@ -293,53 +290,87 @@ LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 12.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 12.
-File: appele.png Graphic file (type bmp)
-<appele.png> [4]
-File: apple.png Graphic file (type bmp)
- <apple.png> [5] [6]) (./body-b.tex [7]
+File: figure1.png Graphic file (type bmp)
+<figure1.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[4]
+File: figure2.png Graphic file (type bmp)
+ <figure2.png> [5] [6]) (./body-b.tex [7]
 第3章.
-File: apple.png Graphic file (type bmp)
-<apple.png>
+File: figure3.png Graphic file (type bmp)
+<figure3.png>
 
 LaTeX Font Warning: Font shape `JT1/mc/m/sc' undefined
-(Font)              using `JT1/mc/m/n' instead on input line 21.
+(Font)              using `JT1/mc/m/n' instead on input line 18.
 
 
 LaTeX Font Warning: Font shape `JY1/mc/m/sc' undefined
-(Font)              using `JY1/mc/m/n' instead on input line 21.
+(Font)              using `JY1/mc/m/n' instead on input line 18.
 
 
-Overfull \hbox (48.81473pt too wide) in paragraph at lines 23--114
+Overfull \hbox (48.81473pt too wide) in paragraph at lines 20--111
 [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8] [9]
-File: apple.png Graphic file (type bmp)
- <apple.png>
+[8]
+File: chart2.png Graphic file (type bmp)
+ <chart2.png> [9] [10]
+File: figure4.png Graphic file (type bmp)
+ <figure4.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10]
-File: apple.png Graphic file (type bmp)
- <apple.png>) (./conclusion.tex [11]
+) (./conclusion.tex [11]
 第4章.
 ) (./acknowledgment.tex [12]) (./reference.tex [13]) (./appendix.tex [14]
 付録 {A}.
-) [15] (./main.aux)
+File: chart6.png Graphic file (type bmp)
+<chart6.png>
+Overfull \hbox (14.22638pt too wide) in paragraph at lines 10--10
+ [] 
+ []
+
+File: chart7.png Graphic file (type bmp)
+<chart7.png>
+Overfull \hbox (14.22638pt too wide) in paragraph at lines 11--11
+ [][] 
+ []
+
+File: chart8.png Graphic file (type bmp)
+<chart8.png>
+Overfull \hbox (14.22638pt too wide) in paragraph at lines 12--12
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 30.90483pt on input line 16.
+
+
+LaTeX Warning: Reference `Cr2' on page 15 undefined on input line 36.
+
+[15] [16]) [17] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 2640 strings out of 493742
- 31902 string characters out of 6154161
- 102734 words of memory out of 5000000
- 6091 multiletter control sequences out of 15000+600000
+ 2658 strings out of 493742
+ 32169 string characters out of 6154161
+ 102504 words of memory out of 5000000
+ 6100 multiletter control sequences out of 15000+600000
  27747 words of font info for 107 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,17n,26p,1050b,319s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,16n,26p,1050b,325s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (18 pages, 55432 bytes).
+Output written on main.dvi (20 pages, 58604 bytes).
