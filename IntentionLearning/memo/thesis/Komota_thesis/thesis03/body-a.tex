@@ -56,6 +56,29 @@
 \section{従来手法}
 
 杉浦ら\cite{sugiura}の手法のアルゴリズムを以下に示す。(***これ以下、アルゴリズムはまだ書いてません***)
+
+	\begin{algorithm}
+		\caption{Algorithm of the conventional method(まだ途中)}
+		\begin{algorithmic}
+			\REQUIRE
+				$N : the number of training data$ \\
+				$M : the number of reference points$ \\
+				$O : the number of objects$ \\
+				$D = \{D_{1} , D_{2} , \ldots , D_{N}\} : training dataset$ \\
+				$L = \{l_{1} , l_{2} , \ldots , l_{M}\} : the candidates of the reference point$ \\
+		\end{algorithmic}
+		\begin{algorithmic}[1]
+			\IF{$n < 0$}
+			\STATE $X \leftarrow 1 / x$
+			\STATE $N \leftarrow -n$
+			\ELSE
+			\STATE $X \leftarrow x$
+			\STATE $N \leftarrow n$
+			\ENDIF
+		\end{algorithmic}
+	\end{algorithm}
+
+
 杉浦らは参照点を各物体の位置、軌道開始点、画面中央に定め、座標系は原点の取り方、軸の向きの異なる数種類をあらかじめ設定し、最適な座標系および参照点を探索しながら、軌道に関する確率モデルである隠れマルコフモデルのパラメータを尤度最大化基準により学習する。この手法では参照点を各物体および軌道開始点、画面中央に限定しているため、複数の物体の位置関係を考慮した動作を学習できない。
 
 \section{提案手法}
@@ -66,8 +89,49 @@
 \section{動作学習}
 
 与えられた教示動作を用いて、各観点における確率モデルを更新し、学習を行う。以下に、提案手法の学習のアルゴリズムを示す。
+	\begin{algorithm}[h]
+		\caption{ Learning algorithm of the proposed method}
+		\begin{algorithmic}
+			\REQUIRE
+				$N$ : the number of training data \\
+				$M$ : the number of reference points , 
+				$O$ : the number of objects \\
+				$D = \{D_{1} , D_{2} , \ldots , D_{N}\}$ : training dataset \\
+				$L = \{l_{1} , l_{2} , \ldots , l_{M}\}$ : the candidates of the reference point \\
+				$K = \{k_{id} , k_{lt} , k_{gl}\}$ : coordinate systems \\
+				$V = <L , K>$ : the candidates of the viewpoints \\
+				$μ_{lk}$ : mean of the Probabilistic model of $<l , k>$ \\
+				$Q_{lk}$ : mean-square of the Probabilistic model of $<l , k>$ \\
+				$σ_{lk}$ : variance of the Probabilistic model of $<l , k>$ \\
+				$T_{lk}(v)$ : Affine transfomation , 
+				$F_{lk}(v)$ : Normalization
+		\end{algorithmic}
+		\begin{algorithmic}[1]
+			\STATE$M \leftarrow 2^{O}$
+			
+			\FOR{$n=1$ to $N$}
+				\STATE $d \leftarrow D_{n}$
+				\FOR{$m=1$ to $M$}
+					\FOR{all $k ∈K$}
+						\STATE $d_{l_{m}k} \leftarrow F_{l_{m}k}(T_{l_{m}k}(d))$
+						\STATE $μ_{l_{m}k} \leftarrow \frac{n-1}{n}μ_{l_{m}k} + \frac{1}{n}d_{l_{m}k}$
+						\STATE $Q_{l_{m}k} \leftarrow \frac{n-1}{n}Q_{l_{m}k} + \frac{1}{n}(d_{l_{m}k})^2$
+						\STATE $σ_{l_{m}k} \leftarrow Q_{l_{m}k} - (μ_{l_{m}k})^2$
+					\ENDFOR
+				\ENDFOR
+			\ENDFOR
+		\end{algorithmic}
+	\end{algorithm}
+ここで、$k_{id} , k_{lt} , k_{gl}$は座標系を表し、それぞれ画面に平行、参照点からトラジェクタの初期位置方向、参照点から重心の構成物体方向とする。参照点が複数の物体の重心でない場合、$k_{gl}$は考慮しない。また$F_{lk}(v)$は正規化関数を表し、次のように定める。
+\[
+	F_{lk}(v) = 
+	\begin{cases}
+		v & (if\,\,k=k_{id}) \\
+		unit * \frac{v}{|v|} & (otherwise)
+	\end{cases}
+\]
 
-
+$unit$は正規化長を表す。
 
 \section{動作再現}
 

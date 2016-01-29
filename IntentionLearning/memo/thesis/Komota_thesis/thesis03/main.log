@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  29 JAN 2016 20:31
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  29 JAN 2016 22:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -227,36 +227,64 @@ LaTeX Info: Redefining \bm on input line 207.
 \WF@box=\box55
 \WF@everypar=\toks32
 Package: wrapfig 2003/01/31  v 3.6
+)
+(c:/texlive/2015/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+
+(c:/texlive/2015/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@ALC@unique=\count117
+\c@ALC@line=\count118
+\c@ALC@rem=\count119
+\c@ALC@depth=\count120
+\ALC@tlm=\skip49
+\algorithmicindent=\skip50
+)
+(c:/texlive/2015/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(c:/texlive/2015/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count121
+\float@exts=\toks33
+\float@box=\box56
+\@float@everytoks=\toks34
+\@floatcapt=\box57
+)
+\@float@every@algorithm=\toks35
+\c@algorithm=\count122
 ) (./my-macros.tex)
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Try loading font information for U+msa on input line 44.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Try loading font information for U+msa on input line 45.
  (c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 44.
+LaTeX Font Info:    Try loading font information for U+msb on input line 45.
 
 (c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (48.95557pt too wide) in paragraph at lines 44--44
+Overfull \hbox (48.95557pt too wide) in paragraph at lines 45--45
  [][] 
  []
 
@@ -264,9 +292,9 @@ Overfull \hbox (48.95557pt too wide) in paragraph at lines 44--44
 
 ] (./abstract.tex) [0]
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 50.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 51.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 50.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 51.
  (./main.toc
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 1.
@@ -297,7 +325,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [4]
 File: figure2.png Graphic file (type bmp)
- <figure2.png> [5] [6]) (./body-b.tex [7]
+ <figure2.png> [5] [6] [7]) (./body-b.tex [8]
 第3章.
 File: figure3.png Graphic file (type bmp)
 <figure3.png>
@@ -317,19 +345,19 @@ Overfull \hbox (48.81473pt too wide) in paragraph at lines 20--111
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8]
+[9]
 File: chart2.png Graphic file (type bmp)
- <chart2.png> [9] [10]
+ <chart2.png> [10] [11]
 File: figure4.png Graphic file (type bmp)
  <figure4.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (./conclusion.tex [11]
+) (./conclusion.tex [12]
 第4章.
-) (./acknowledgment.tex [12]) (./reference.tex [13]) (./appendix.tex [14]
+) (./acknowledgment.tex [13]) (./reference.tex [14]) (./appendix.tex [15]
 付録 {A}.
-[15]
+[16]
 File: chart6.png Graphic file (type bmp)
  <chart6.png>
 Overfull \hbox (14.22638pt too wide) in paragraph at lines 60--60
@@ -351,18 +379,18 @@ Overfull \hbox (14.22638pt too wide) in paragraph at lines 62--62
 
 LaTeX Warning: Float too large for page by 30.90483pt on input line 66.
 
-) [16] [17] (./main.aux)
+) [17] [18] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 2661 strings out of 493742
- 32190 string characters out of 6154161
- 102504 words of memory out of 5000000
- 6103 multiletter control sequences out of 15000+600000
+ 2938 strings out of 493742
+ 35584 string characters out of 6154161
+ 108418 words of memory out of 5000000
+ 6366 multiletter control sequences out of 15000+600000
  27747 words of font info for 107 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,16n,26p,1050b,325s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,16n,26p,1050b,647s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (20 pages, 61656 bytes).
+Output written on main.dvi (21 pages, 66512 bytes).
