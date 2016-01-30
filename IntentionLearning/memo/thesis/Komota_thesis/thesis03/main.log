@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  30 JAN 2016 12:25
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.25)  30 JAN 2016 21:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -354,8 +354,12 @@ Overfull \hbox (77.10423pt too wide) in paragraph at lines 20--111
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [11]
+
+LaTeX Warning: Reference `appendix1に示す．' on page 12 undefined on input line
+ 121.
+
 File: chart2.png Graphic file (type bmp)
- <chart2.png> [12] [13]
+<chart2.png> [12] [13]
 File: figure4.png Graphic file (type bmp)
  <figure4.png>) (./conclusion.tex [14]
 第5章.
@@ -399,14 +403,17 @@ LaTeX Warning: Float too large for page by 30.90483pt on input line 153.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 2963 strings out of 493742
- 36036 string characters out of 6154161
- 109418 words of memory out of 5000000
- 6382 multiletter control sequences out of 15000+600000
+ 2964 strings out of 493742
+ 36055 string characters out of 6154161
+ 107418 words of memory out of 5000000
+ 6383 multiletter control sequences out of 15000+600000
  27747 words of font info for 107 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,16n,26p,1074b,647s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,16n,26p,930b,647s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (29 pages, 86252 bytes).
+Output written on main.dvi (29 pages, 86436 bytes).
