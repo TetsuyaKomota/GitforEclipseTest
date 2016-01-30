@@ -766,15 +766,15 @@ public class SampleTask_100s extends MySerialFrame{
 
 		double oldunit = Normalizer.getUNIT();
 
-		//正規化長を0～50まで（1刻み）変化させて再現誤差を評価する
+		//正規化長を1～50まで（1刻み）変化させて再現誤差を評価する
 		DataSetGenerator g = new DataSetGenerator();
-		for(int unit=0;unit<50;unit++){
+		for(int unit=1;unit<51;unit++){
 			Normalizer.setUNIT(unit);
 			//各誤差を50回ずつ計算
 			for(int t=0;t<50;t++){
 				this.pw.println("result,UNIT:"+(double)unit);
 				//教示誤差は,動作再現実験時に差が出始めている分散6とする
-				add_R(g,6);
+				add_R(g,10);
 				this.functionPlugin1();
 				this.functionPlugin2();
 				add_R_Learn((double)unit,pw_R);
