@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
+import komota.coordinate.Normalizer;
 import komota.pr.main.PR_100_GL;
 import komota.pr.main.PR_100_ID;
 import komota.pr.main.PR_100_LT;
@@ -716,6 +717,138 @@ public class SampleTask_100s extends MySerialFrame{
 		System.out.println(temp[0]+","+temp[1]+","+temp[2]);
 		this.outputStatus();
 	}
+	@Override
+	public void functionPluginR(){
+		//まず、logdataを削除するテスト
+		System.out.println("正規化長変える実験するよ～。ちょっと待ってね～");
+		//functionPlugin9でデータ生成
+		this.functionPlugin9();
+		//functionPlugin1,2,3で学習、再現し、データが存在していたことを確認
+		this.functionPlugin1();
+		this.functionPlugin2();
+		this.functionPlugin3();
+		//logdataを削除
+		this.pw.close();
+
+		File file = new File("log/"+this.file_name);
+
+		if (file.exists()){
+			if (file.delete()){
+				System.out.println("ログファイルを削除しました");
+			}else{
+				System.out.println("ログファイルの削除に失敗しました");
+			}
+		}else{
+			System.out.println("ファイルが見つかりません");
+		}
+		//logdataを生成
+		this.setOutputFile("logdata.txt");
+		//ほかのキーを押し、logdata.txtが問題なく使えるか確認
+
+		//結果を出力するファイルの生成
+	      PrintWriter pw_R = null;
+	      FileOutputStream fos_R = null;
+		try {
+		      fos_R = new FileOutputStream("log/output_R.txt",true);
+		      OutputStreamWriter osw_R = new OutputStreamWriter(fos_R);
+		      pw_R = new PrintWriter(osw_R);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			System.out.println("ファイルなし");
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e1) {
+				// TODO 自動生成された catch ブロック
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+
+		double oldunit = Normalizer.getUNIT();
+
+		//正規化長を0～50まで（1刻み）変化させて再現誤差を評価する
+		DataSetGenerator g = new DataSetGenerator();
+		for(int unit=0;unit<50;unit++){
+			Normalizer.setUNIT(unit);
+			//各誤差を50回ずつ計算
+			for(int t=0;t<50;t++){
+				this.pw.println("result,UNIT:"+(double)unit);
+				//教示誤差は,動作再現実験時に差が出始めている分散6とする
+				add_R(g,6);
+				this.functionPlugin1();
+				this.functionPlugin2();
+				add_R_Learn((double)unit,pw_R);
+				//logdataを削除
+				this.pw.close();
+				file = new File("log/"+this.file_name);
+				if (file.exists()){
+					if (file.delete()){
+						System.out.println("ログファイルを削除しました");
+					}else{
+						System.out.println("ログファイルの削除に失敗しました");
+					}
+				}else{
+					System.out.println("ファイルが見つかりません");
+				}
+				//logdataを生成
+				this.setOutputFile("logdata.txt");
+			}
+			pw_R.println("padding,999");
+		}
+		pw_R.close();
+		try {
+			fos_R.close();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		LogRandomizer r = new LogRandomizer();
+		r.encodeToCSV("output_R.txt", "output_R.csv");
+		Normalizer.setUNIT(oldunit);
+		System.out.println("計算終わったよ～");
+	}
+	/* ************************************************************************************************************* */
+	//functionPluginQ(誤差を変化させながらの再現誤差計算)の内部で生成する教示動作の種類を選択するメソッド。
+	//ここを変更することで異なる動作の評価ができる
+	private void add_R(DataSetGenerator g,double variance){
+		//g.generate_MOVE_THE_CENTER(this, variance);
+		g.generate_NEAR_BY_ORANGE(this, variance);
+		//g.generate_RIGHT_TO_BLUE(this, variance);
+		//g.generate_AWAY_FROM_GREEN(this, variance);
+		//g.generate_MAKE_THE_SIGNAL(this, variance);
+		//g.generate_MAKE_THE_TRIANGLE(this, variance);
+	}
+	/* *************************************************** */
+	private void add_R_Learn(double unit,PrintWriter pw){
+		System.out.println("再現動作の評価値を計算");
+		//どの座標系かを先に求める
+		int index = -1;
+		if(this.pr_ID.getMaxLikelihood() >= this.pr_LT.getMaxLikelihood() && this.pr_ID.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
+			index = 0;
+		}
+		else if(this.pr_LT.getMaxLikelihood() >= this.pr_ID.getMaxLikelihood() && this.pr_LT.getMaxLikelihood() >= this.pr_GL.getMaxLikelihood()){
+			index = 1;
+		}
+		else{
+			index = 2;
+		}
+
+		double evaluationpoint = 0;
+		MyPR.setNumberofEvaluation(1000);
+			if(index == 0){
+				evaluationpoint = this.pr_ID.evaluate(this,false);
+			}else if(index == 1){
+				evaluationpoint = this.pr_LT.evaluate(this,false);
+			}else{
+				evaluationpoint = this.pr_GL.evaluate(this,false);
+			}
+		this.initialize();
+		System.out.println("計算が終了しました。logdataを確認してください");
+		pw.println("result,"+evaluationpoint+","+unit);
+	}
+	/* ************************************************************************************************************* */
+
+
 /*
 	@Override
 	public void functionPluginR(){

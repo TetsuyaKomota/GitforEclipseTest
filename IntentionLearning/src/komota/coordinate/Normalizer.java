@@ -43,7 +43,15 @@ public class Normalizer {
 
 	//定数
 	//正規化後のベクトル長。normalizeでベクトルをこの長さに、inverseNormalizeでこの長さのベクトルをもとの長さに変換する
-	static final double UNIT = 20;
+	static double UNIT = 20;
+
+	//正規化長のセッターとゲッター
+	public static void setUNIT(double unit){
+		Normalizer.UNIT = unit;
+	}
+	public static double getUNIT(){
+		return Normalizer.UNIT;
+	}
 
 	//引数は「goalpoint(変換元ベクトル),reference(基準となる点),startpoint(基準となる点)」と定める
 	//referenceとstartpointに明確な違いはない。あくまでMyCoordinateとそろえるため
