@@ -721,12 +721,16 @@ public class SampleTask_100s extends MySerialFrame{
 	public void functionPluginR(){
 		//まず、logdataを削除するテスト
 		System.out.println("正規化長変える実験するよ～。ちょっと待ってね～");
+		//フレームの描画を終了する。これだけで劇的に早くなったしバカじゃないの？
+		this.t.cancel();
 		//functionPlugin9でデータ生成
+/*
 		this.functionPlugin9();
 		//functionPlugin1,2,3で学習、再現し、データが存在していたことを確認
 		this.functionPlugin1();
 		this.functionPlugin2();
 		this.functionPlugin3();
+*/
 		//logdataを削除
 		this.pw.close();
 
@@ -775,8 +779,10 @@ public class SampleTask_100s extends MySerialFrame{
 				this.pw.println("result,UNIT:"+(double)unit);
 				//教示誤差は,動作再現実験時に差が出始めている分散6とする
 				add_R(g,10);
-//				this.functionPlugin1();
-				this.add_R_init();
+				if(t == 0){
+					System.out.println("次は正規化長"+unit+"だよ!");
+				}
+				this.functionPlugin1();
 				this.functionPlugin2();
 				add_R_Learn((double)unit,pw_R);
 				//logdataを削除
@@ -835,7 +841,7 @@ public class SampleTask_100s extends MySerialFrame{
 		}
 
 		double evaluationpoint = 0;
-		MyPR.setNumberofEvaluation(1000);
+		MyPR.setNumberofEvaluation(10);
 			if(index == 0){
 				evaluationpoint = this.pr_ID.evaluate(this,false);
 			}else if(index == 1){
@@ -846,13 +852,6 @@ public class SampleTask_100s extends MySerialFrame{
 		this.initialize();
 		System.out.println("計算が終了しました。logdataを確認してください");
 		pw.println("result,"+evaluationpoint+","+unit);
-	}
-	/* *************************************************** */
-	private void add_R_init(){
-		System.out.println("[SampleTask_100s]add_R_init:PRクラスを初期化します");
-		this.pr_ID.initialize();
-		this.pr_LT.initialize();
-		this.pr_GL.initialize();
 	}
 	/* ************************************************************************************************************* */
 

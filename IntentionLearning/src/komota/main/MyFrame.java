@@ -60,6 +60,9 @@ public class MyFrame extends JFrame{
 	String file_name = "test.txt";
 	PrintWriter pw;
 
+	//タイマークラス
+	Timer t;
+
 	//コンストラクタ
 	public MyFrame(){
 		this.setTitle("IntentionLearning");
@@ -103,7 +106,7 @@ public class MyFrame extends JFrame{
 			System.out.println("ファイルなし");
 			e.printStackTrace();
 		}
-		Timer t = new Timer();
+		this.t = new Timer();
 		t.schedule(new RenderTask(), 0,12);
 
 		this.initialize();
