@@ -28,68 +28,68 @@
 	$
     	\left( x_{blue}+15 , y_{blue} \right)+G_{error}
     	$
+%    	\\
+%    	$T_{3}$ : 赤を橙の右に移動する & 
+%	$
+%    	\left( x_{orange}+15 , y_{orange} \right)+G_{error}
+%    	$
+%    	\\
+%    	$T_{4}$ : 赤を緑の右に移動する & 
+%	$
+%    	\left( x_{green}+15 , y_{green} \right)+G_{error}
+%    	$
+%    	\\
+%    	$T_{5}$ : 赤を黄の右に移動する & 
+%	$
+%    	\left( x_{yellow}+15 , y_{yellow} \right)+G_{error}
+%    	$
+%    	\\
+%    	$T_{6}$ : 赤を青に近づける & 
+%	$
+%    	\left( \frac{x_{red}+x_{blue}}{2} , \frac{y_{red}+y_{blue}}{2} \right)+G_{error}
+%    	$
     	\\
-    	$T_{3}$ : 赤を橙の右に移動する & 
-	$
-    	\left( x_{orange}+15 , y_{orange} \right)+G_{error}
-    	$
-    	\\
-    	$T_{4}$ : 赤を緑の右に移動する & 
-	$
-    	\left( x_{green}+15 , y_{green} \right)+G_{error}
-    	$
-    	\\
-    	$T_{5}$ : 赤を黄の右に移動する & 
-	$
-    	\left( x_{yellow}+15 , y_{yellow} \right)+G_{error}
-    	$
-    	\\
-    	$T_{6}$ : 赤を青に近づける & 
-	$
-    	\left( \frac{x_{red}+x_{blue}}{2} , \frac{y_{red}+y_{blue}}{2} \right)+G_{error}
-    	$
-    	\\
-    	$T_{7}$ : 赤を橙に近づける & 
+    	$T_{3}$ : 赤を橙に近づける & 
 	$
     	\left( \frac{x_{red}+x_{orange}}{2} , \frac{y_{red}+y_{orange}}{2} \right)+G_{error}
     	$
+%   	\\
+%   	$T_{8}$ : 赤を緑に近づける & 
+%	$
+%    	\left( \frac{x_{red}+x_{green}}{2} , \frac{y_{red}+y_{green}}{2} \right)+G_{error}
+%    	$
+%    	\\
+%    	$T_{9}$ : 赤を黄に近づける & 
+%	$
+%    	\left( \frac{x_{red}+x_{yellow}}{2} , \frac{y_{red}+y_{yellow}}{2} \right)+G_{error}
+%    	$
+%    	\\
+%    	$T_{10}$ : 赤を青から遠ざける & 
+%	$
+%    	\left( 2x_{red}-x_{blue} , 2y_{red}-y_{blue} \right)+G_{error}
+%    	$
+%    	\\
+%    	$T_{11}$ : 赤を橙から遠ざける & 
+%	$
+%    	\left( 2x_{red}-x_{orange} , 2y_{red}-y_{orange} \right)+G_{error}
+%    	$
     	\\
-    	$T_{8}$ : 赤を緑に近づける & 
-	$
-    	\left( \frac{x_{red}+x_{green}}{2} , \frac{y_{red}+y_{green}}{2} \right)+G_{error}
-    	$
-    	\\
-    	$T_{9}$ : 赤を黄に近づける & 
-	$
-    	\left( \frac{x_{red}+x_{yellow}}{2} , \frac{y_{red}+y_{yellow}}{2} \right)+G_{error}
-    	$
-    	\\
-    	$T_{10}$ : 赤を青から遠ざける & 
-	$
-    	\left( 2x_{red}-x_{blue} , 2y_{red}-y_{blue} \right)+G_{error}
-    	$
-    	\\
-    	$T_{11}$ : 赤を橙から遠ざける & 
-	$
-    	\left( 2x_{red}-x_{orange} , 2y_{red}-y_{orange} \right)+G_{error}
-    	$
-    	\\
-    	$T_{12}$ : 赤を緑から遠ざける & 
+    	$T_{4}$ : 赤を緑から遠ざける & 
 	$
     	\left( 2x_{red}-x_{green} , 2y_{red}-y_{green} \right)+G_{error}
     	$
+%    	\\
+%    	$T_{13}$ : 赤を黄から遠ざける & 
+%	$
+%    	\left( 2x_{red}-x_{yellow} , 2y_{red}-y_{yellow} \right)+G_{error}
+%    	$
     	\\
-    	$T_{13}$ : 赤を黄から遠ざける & 
-	$
-    	\left( 2x_{red}-x_{yellow} , 2y_{red}-y_{yellow} \right)+G_{error}
-    	$
-    	\\
-    	$T_{14}$ : 等間隔に赤，黄，青と並べる & 
+    	$T_{5}$ : 等間隔に赤，黄，青と並べる & 
 	$
     	\left( 2x_{yellow}-x_{blue} , 2y_{yellow}-y_{blue} \right)+G_{error}
     	$
     	\\
-    	$T_{15}$ : 時計回りに赤，緑，青と並べる & 
+    	$T_{6}$ : 時計回りに赤，緑，青と並べる & 
 	$
 	\begin{pmatrix}
         	\cos \frac{\pi}{3} & -\sin \frac{\pi}{3} \\
@@ -116,9 +116,9 @@
 \section{動作再現}
 
 観点がコンピュータにとって未知である教示動作を与え，観点を推定し動作を再現する実験を行った．
-動作再現の実験にはTable \ref{table:taskname_15}の15動作のうち，$T_{1} , T_{2} , T_{7} , T_{10} , T_{14} , T_{15}$の6動作を使用した．
+動作再現の実験にはTable \ref{table:taskname_15}の6動作を使用した．
 教示時の誤差（教示誤差）をガウス誤差の分散0.5間隔で0から20まで増やしながらそれぞれ500データ生成し，10データ1セットの一つ抜き法で再現時の誤差（再現誤差）の計算を各教示誤差で計50回ずつ行った．
-観点推定の成否の判定は計算結果のうち各教示誤差における標準偏差の2.896倍以上の誤差が生じた再現結果を推定失敗と定めた．Fig.\ref{figure:success_rate}に，そのようにして各再現結果を成功と失敗に分けた観点推定の正答率のグラフを示す．なお，正答率の計算に用いた実験結果については付録\ref{appendix1に示す．}また付録\ref{appendix2}に，各教示誤差と再現誤差の関係と，判定基準を上記のように定められることの詳細を示す．
+観点推定の成否の判定は計算結果のうち各教示誤差における標準偏差の2.896倍\footnote{付録\ref{appendix2}参照}以上の誤差が生じた再現結果を推定失敗と定めた．Fig.\ref{figure:success_rate}に，そのようにして各再現結果を成功と失敗に分けた観点推定の正答率のグラフを示す．なお，正答率の計算に用いた実験結果については付録\ref{appendix1}に示す．また付録\ref{appendix2}に，各教示誤差と再現誤差の関係と，判定基準を上記のように定められることの詳細を示す．
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{figure}[h]
 %中央ぞろえ
@@ -138,8 +138,10 @@ Fig.\ref{figure:success_rate}から，教示時の誤差が十分に小さい場
 \section{動作識別}
 
 動作名が未知である例示動作を与え，それが既学習動作のうちいずれであるかを推定する実験を行った．
-既学習動作はTable \ref{table:taskname_15}の15動作とし，
+既学習動作はTable \ref{table:taskname_15}の6動作に，各動作に関して変位が等しく参照点を変えて生成した9動作を加えた計15動作とした．
 各動作において教示動作として分散3のガウス誤差を持つ30データを生成し学習を行った．例示動作は動作再現実験と同様の6動作を使用し，各動作分散10のガウス誤差を持つ100データを生成してテストを行った．Table \ref{table:result}に各例示動作の識別正答率を示す．
+Table \ref{table:result}より，学習済みの動作に関して例示動作の識別が適切に行えていることがわかる．また，誤識別が生じた初期環境と例示動作の例をFig.\ref{figure:failure}に示す．Fig.\ref{subfigure:failure1}は赤を橙に近づける例示動作だが，赤を緑から遠ざける動作だと誤って識別されている．誤識別が生じた例示動作に関しては，ほとんどがこのように人間にとっても適切な動作が判別し難いものであった．
+
 \begin{table}[h]
 	\caption{動作識別の正答率}
 	\label{table:result}
@@ -160,19 +162,23 @@ Fig.\ref{figure:success_rate}から，教示時の誤差が十分に小さい場
     	\\ \hline
   	\end{tabular}
 \end{table}
-Table \ref{table:result}より，学習済みの動作に関して例示動作の識別が適切に行えていることがわかる．また，誤識別が生じた初期環境と例示動作の例をFig.\ref{figure:failure}に示す．Fig.\ref{figure:failure}左は赤を橙に近づける例示動作だが，赤を緑から遠ざける動作だと誤って識別されている．誤識別が生じた例示動作に関しては，このように人間にとっても適切な動作が判別しづらいものが多かった．
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Fig.が入れらんねぇ
-
-	\begin{figure}[h]
-%中央ぞろえ
-		\begin{center}
-			\includegraphics[width=10cm]{figure4.png} \\ %TeXの基本として, \\ で緊急改行ができる．（今回の場合や行列などを除き，あまり使わない）
-			\caption{誤識別例}
-			\label{figure:failure}
-		\end{center}
-	\end{figure}
-
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{.47\textwidth}
+		\centering
+		\includegraphics[width=7cm]{figure4_a.png} \\ %TeXの基本として, \\ で緊急改行ができる．（今回の場合や行列などを除き，あまり使わない）
+		\subcaption{誤識別の例1}
+		\label{subfigure:failure1}    
+	\end{minipage}
+	\begin{minipage}[t]{.47\textwidth}
+		\centering
+		\includegraphics[width=7cm]{figure4_b.png} \\ %TeXの基本として, \\ で緊急改行ができる．（今回の場合や行列などを除き，あまり使わない）
+		\subcaption{誤識別の例2}
+		\label{subfigure:failure2}
+	\end{minipage}
+	\caption{誤識別の例}
+	\label{figure:failure}
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -21,7 +21,7 @@
 				$Q_{lk}$ : mean-square of the Probabilistic model of $<l , k>$ \\
 				$σ_{lk}$ : variance of the Probabilistic model of $<l , k>$ \\
 				$Transform_{lk}(v)$ : Affine transfomation , 
-				$Function_{lk}(v)$ : Normalization
+				$Normalize_{lk}(v)$ : Normalization
 		\end{algorithmic}
 		\begin{algorithmic}[1]
 			\STATE $M \leftarrow 2^{O}$
@@ -30,7 +30,7 @@
 				\STATE $d \leftarrow D_{n}$
 				\FOR{$m=1$ to $M$}
 					\FOR{all $k ∈K$}
-						\STATE $d_{l_{m}k} \leftarrow Function_{l_{m}k}(Transform_{l_{m}k}(d))$
+						\STATE $d_{l_{m}k} \leftarrow Normalize_{l_{m}k}(Transform_{l_{m}k}(d))$
 						\STATE $μ_{l_{m}k} \leftarrow \frac{n-1}{n}μ_{l_{m}k} + \frac{1}{n}d_{l_{m}k}$
 						\STATE $Q_{l_{m}k} \leftarrow \frac{n-1}{n}Q_{l_{m}k} + \frac{1}{n}(d_{l_{m}k})^2$
 						\STATE $σ_{l_{m}k} \leftarrow Q_{l_{m}k} - (μ_{l_{m}k})^2$
@@ -39,16 +39,16 @@
 			\ENDFOR
 		\end{algorithmic}
 	\end{algorithm}
-ここで，$k_{id} , k_{lt} , k_{gl}$は座標系を表し，それぞれ画面に平行，参照点からトラジェクタの初期位置方向，参照点から重心の構成物体方向とする．参照点が複数の物体の重心でない場合，$k_{gl}$は考慮しない．また$F_{lk}(v)$は正規化関数を表し，次のように定める．
+ここで，$k_{id} , k_{lt} , k_{gl}$は座標系を表し，それぞれ画面に平行，参照点からトラジェクタの初期位置方向，参照点から重心の構成物体方向とする．参照点が複数の物体の重心でない場合，$k_{gl}$は考慮しない．また$Normalize_{lk}(v)$は正規化関数を表し，次のように定める．
 \[
-	F_{lk}(v) = 
+	Normalize_{lk}(v) = 
 	\begin{cases}
 		v & (if\,\,k=k_{id}) \\
 		\frac{unit}{|v|}v & (otherwise)
 	\end{cases}
 \]
 
-$unit$は正規化長を表す．正規化関数$F_{lk}(v)$は，教示動作から得られた参照点から目標位置までの相対位置ベクトルを，あらかじめ定めた正規化長に正規化する．これは例えば物体に近づける動作など，距離的な位置関係よりも初期位置からの変化の割合が重視されるような動作や，複数の物体と相似的な配置を目標とする動作の学習に必要になる処理である．学習時，教示動作から得られるベクトル$v$の分散は\ref{equation:V_unit}式で与えられる．
+$unit$は正規化長を表す．正規化関数$Normalize_{lk}(v)$は，教示動作から得られた参照点から目標位置までの相対位置ベクトルを，あらかじめ定めた正規化長に正規化する．これは例えば物体に近づける動作など，距離的な位置関係よりも初期位置からの変化の割合が重視されるような動作や，複数の物体と相似的な配置を目標とする動作の学習に必要になる処理である．学習時，教示動作から得られるベクトル$v$の分散は\ref{equation:V_unit}式で与えられる．
 \begin{equation}
 	\label{equation:V_unit}
 	V(v) = mean((F_{lk}(v))^{2}) - (mean(F_{lk}(v)))^{2} = \left(\frac{unit}{|v|}\right)^{2}(mean(v^{2}) - ((mean(v))^{2})
@@ -72,7 +72,7 @@ $unit$は正規化長を表す．正規化関数$F_{lk}(v)$は，教示動作か
 				$Q_{lk}$ : mean-square of the Probabilistic model of $<l , k>$ \\
 				$σ_{lk}$ : variance of the Probabilistic model of $<l , k>$ \\
 				$Transform_{lk}(v)$ : Affine transfomation , 
-				$Function_{lk}(v)$ : Normalization \\
+				$Normalize_{lk}(v)$ : Normalization \\
 				$Position(l)$ : Position of the reference point $l$
 		\end{algorithmic}
 		\begin{algorithmic}[1]
@@ -82,7 +82,7 @@ $unit$は正規化長を表す．正規化関数$F_{lk}(v)$は，教示動作か
 					\STATE $<l_{max} , k_{max}> \leftarrow <l , k>$
 				\ENDIF
 			\ENDFOR
-			\STATE $d \leftarrow Transform^{-1}(Function^{-1}(μ_{l_{max}k_{max}}))$
+			\STATE $d \leftarrow Transform^{-1}(Normalize^{-1}(μ_{l_{max}k_{max}}))$
 			\STATE $d \leftarrow d + Position(l_{max})$
 		\end{algorithmic}
 	\end{algorithm}
@@ -107,7 +107,7 @@ $unit$は正規化長を表す．正規化関数$F_{lk}(v)$は，教示動作か
 				$Q_{lk}$ : mean-square of the Probabilistic model of $<l , k>$ \\
 				$σ_{lk}$ : variance of the Probabilistic model of $<l , k>$ \\
 				$Transform_{lk}(v)$ : Affine transfomation , 
-				$Function_{lk}(v)$ : Normalization \\
+				$Normalize_{lk}(v)$ : Normalization \\
 				$Probability(<i , k> , x)$ : Probability that $x$ is generated from $<l , k>$
 		\end{algorithmic}
 		\begin{algorithmic}[1]

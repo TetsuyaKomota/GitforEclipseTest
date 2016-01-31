@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.25)  30 JAN 2016 21:40
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  31 JAN 2016 20:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -255,36 +255,74 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 \@float@every@algorithm=\toks35
 \c@algorithm=\count122
-) (./my-macros.tex)
-(./main.aux)
+)
+(c:/texlive/2015/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2015/09/15 v1.1-100 Sub-captions (AR)
+
+(c:/texlive/2015/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2015/09/17 v3.3-111 Customizing captions (AR)
+
+(c:/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2015/09/20 v1.7-115 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen145
+\captionmargin@=\dimen146
+\captionwidth=\dimen147
+\caption@tempdima=\dimen148
+\caption@indent=\dimen149
+\caption@parindent=\dimen150
+\caption@hangindent=\dimen151
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->\vskip \abovecaptionski
+p \iftdir \sbox \@tempboxa {#1\hskip 1zw#2}\else \sbox \@tempboxa {#1: #2}\fi \
+ifdim \wd \@tempboxa >\hsize \iftdir #1\hskip 1zw#2\relax \par \else #1: #2\rel
+ax \par \fi \else \global \@minipagefalse \hbox to\hsize {\hfil \box \@tempboxa
+ \hfil }\fi \vskip \belowcaptionskip .
+\c@ContinuedFloat=\count123
+Package caption Info: float package is loaded.
+Package caption Info: wrapfig package is loaded.
+)
+\c@subfigure=\count124
+\c@subtable=\count125
+) (./my-macros.tex) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Try loading font information for U+msa on input line 45.
- (c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+msa on input line 46.
+
+(c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 45.
+LaTeX Font Info:    Try loading font information for U+msb on input line 46.
 
 (c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (48.95557pt too wide) in paragraph at lines 45--45
+Overfull \hbox (48.95557pt too wide) in paragraph at lines 46--46
  [][] 
  []
 
@@ -292,9 +330,9 @@ Overfull \hbox (48.95557pt too wide) in paragraph at lines 45--45
 
 ] (./abstract.tex) [0]
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 51.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 52.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <24.88> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 51.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 52.
  (./main.toc
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 1.
@@ -318,22 +356,61 @@ LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 11.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 11.
-File: figure1.png Graphic file (type bmp)
-<figure1.png>
+[4]
+File: figure1_sub_a.png Graphic file (type bmp)
+ <figure1_sub_a.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 39--39
+ [][] 
+ []
+
+File: figure1_sub_b.png Graphic file (type bmp)
+<figure1_sub_b.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 45--45
+ [][] 
+ []
+
+File: figure1_sub_c.png Graphic file (type bmp)
+<figure1_sub_c.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 51--51
+ [][] 
+ []
+
+File: figure2_2_sub_a.png Graphic file (type bmp)
+<figure2_2_sub_a.png>
+File: figure2_2_sub_b.png Graphic file (type bmp)
+ <figure2_2_sub_b.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4]
-File: figure2_2.png Graphic file (type bmp)
- <figure2_2.png> [5]) (./body-b.tex [6]
+[5]) (./body-b.tex [6]
 第3章.
 [7]
-File: figure2.png Graphic file (type bmp)
- <figure2.png>
+File: figure2_sub_a.png Graphic file (type bmp)
+ <figure2_sub_a.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 45--45
+ [][] 
+ []
+
+File: figure2_sub_b.png Graphic file (type bmp)
+<figure2_sub_b.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 51--51
+ [][] 
+ []
+
+File: figure2_sub_c.png Graphic file (type bmp)
+<figure2_sub_c.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 57--57
+ [][] 
+ []
+
 File: chart9.png Graphic file (type bmp)
- <chart9.png> [8] [9]
-File: chart10.png Graphic file (type bmp)
- <chart10.png>) (./body-c.tex [10]
+<chart9.png> [8] [9]
+Overfull \hbox (8.04915pt too wide) detected at line 108
+\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 h\OT1/cmr/m/n/12 ]\OML/cmm/m/it/12 Probabilit
+y\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 < l; k >; p\OT1/cmr/m/n/12 ) = [] [] []
+ []
+
+) (./body-c.tex [10]
 第4章.
 File: figure3.png Graphic file (type bmp)
 <figure3.png>
@@ -346,7 +423,7 @@ LaTeX Font Warning: Font shape `JY1/mc/m/sc' undefined
 (Font)              using `JY1/mc/m/n' instead on input line 18.
 
 
-Overfull \hbox (77.10423pt too wide) in paragraph at lines 20--111
+Overfull \hbox (72.85417pt too wide) in paragraph at lines 20--111
 [][] 
  []
 
@@ -354,14 +431,25 @@ Overfull \hbox (77.10423pt too wide) in paragraph at lines 20--111
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [11]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 121.
 
-LaTeX Warning: Reference `appendix1に示す．' on page 12 undefined on input line
- 121.
-
+ (c:/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 121.
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 121.
 File: chart2.png Graphic file (type bmp)
-<chart2.png> [12] [13]
-File: figure4.png Graphic file (type bmp)
- <figure4.png>) (./conclusion.tex [14]
+ <chart2.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[12] [13]
+File: figure4_a.png Graphic file (type bmp)
+ <figure4_a.png>
+File: figure4_b.png Graphic file (type bmp)
+ <figure4_b.png>) (./conclusion.tex [14]
 第5章.
 ) (./acknowledgment.tex [15]) (./reference.tex [16]) (./appendix.tex [17]
 付録 {A}.
@@ -393,7 +481,7 @@ Overfull \hbox (14.22638pt too wide) in paragraph at lines 149--149
  []
 
 
-LaTeX Warning: Float too large for page by 30.90483pt on input line 153.
+LaTeX Warning: Float too large for page by 28.5715pt on input line 153.
 
 [22
 
@@ -403,17 +491,14 @@ LaTeX Warning: Float too large for page by 30.90483pt on input line 153.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
  ) 
 Here is how much of TeX's memory you used:
- 2964 strings out of 493742
- 36055 string characters out of 6154161
- 107418 words of memory out of 5000000
- 6383 multiletter control sequences out of 15000+600000
- 27747 words of font info for 107 fonts, out of 8000000 for 9000
+ 4143 strings out of 493742
+ 57803 string characters out of 6154161
+ 136342 words of memory out of 5000000
+ 7530 multiletter control sequences out of 15000+600000
+ 33155 words of font info for 128 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 27i,16n,26p,930b,647s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,16n,40p,930b,732s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (29 pages, 86436 bytes).
+Output written on main.dvi (29 pages, 89584 bytes).

@@ -775,7 +775,8 @@ public class SampleTask_100s extends MySerialFrame{
 				this.pw.println("result,UNIT:"+(double)unit);
 				//教示誤差は,動作再現実験時に差が出始めている分散6とする
 				add_R(g,10);
-				this.functionPlugin1();
+//				this.functionPlugin1();
+				this.add_R_init();
 				this.functionPlugin2();
 				add_R_Learn((double)unit,pw_R);
 				//logdataを削除
@@ -813,9 +814,9 @@ public class SampleTask_100s extends MySerialFrame{
 	private void add_R(DataSetGenerator g,double variance){
 		//g.generate_MOVE_THE_CENTER(this, variance);
 		//g.generate_NEAR_BY_ORANGE(this, variance);
-		g.generate_RIGHT_TO_BLUE(this, variance);
+		//g.generate_RIGHT_TO_BLUE(this, variance);
 		//g.generate_AWAY_FROM_GREEN(this, variance);
-		//g.generate_MAKE_THE_SIGNAL(this, variance);
+		g.generate_MAKE_THE_SIGNAL(this, variance);
 		//g.generate_MAKE_THE_TRIANGLE(this, variance);
 	}
 	/* *************************************************** */
@@ -845,6 +846,13 @@ public class SampleTask_100s extends MySerialFrame{
 		this.initialize();
 		System.out.println("計算が終了しました。logdataを確認してください");
 		pw.println("result,"+evaluationpoint+","+unit);
+	}
+	/* *************************************************** */
+	private void add_R_init(){
+		System.out.println("[SampleTask_100s]add_R_init:PRクラスを初期化します");
+		this.pr_ID.initialize();
+		this.pr_LT.initialize();
+		this.pr_GL.initialize();
 	}
 	/* ************************************************************************************************************* */
 
