@@ -24,8 +24,10 @@ public class PR_100_GL extends MyPR{
 	//左から、中心、トラジェクタ、ランドマーク（２～９）、座標系に対応させるランドマーク  であり、最後のインデックスのみ０～８
 	ReferencePoint_100[][][][][][][][][][] refs_GL;
 
-	//空間内に、土のオブジェクトが存在するかのリスト。実装を単純にするためだけのものであり、一般的には不要
+	//空間内に、どのオブジェクトが存在するかのリスト。実装を単純にするためだけのものであり、一般的には不要
 	int[] objectlist;
+	//軸を決める最尤ランドマークを保持.きたねえな...
+	public int mostlikelyland = -1;
 
 	//コンストラクタ
 	public PR_100_GL(int numref,String filename){
@@ -705,6 +707,8 @@ public class PR_100_GL extends MyPR{
 													if(this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood > templikelihood){
 														templikelihood = this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a].likelihood;
 														temprefpoint = this.refs_GL[tempidx[0]][tempidx[1]][tempidx[2]][tempidx[3]][tempidx[4]][tempidx[5]][tempidx[6]][tempidx[7]][tempidx[8]][a];
+														//最尤ランドマークを保持
+														this.mostlikelyland = a;
 														for(int k=0;k<refs.length;k++){
 															if(refs[k] != null && refs[k].status == a){
 																System.out.println("[PR_004_GL]reproduction:tempa:"+a);
@@ -746,6 +750,8 @@ public class PR_100_GL extends MyPR{
 		int[] output = new int[2];
 		output[0] = (int)(tempoutput[0] + 0.5);
 		output[1] = (int)(tempoutput[1] + 0.5);
+		//最尤参照点を記憶
+		this.mostlikelyreference = temprefpoint;
 		frame.setSecondSelected(output);
 	}
 

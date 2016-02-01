@@ -846,5 +846,55 @@ public class DataSetGenerator {
 
 
 	}
+	//MOVE_AT_RANDOMの自動生成(識別時にのみ利用)
+	public void generate_MOVE_AT_RANDOM(MyFrame frame,double variance){
+
+		int[] temperror = new int[2];
+		int[] selected= new int[2];
+		int[] secondselected= new int[2];
+
+		int count = 0;
+
+		while(count < NUMBEROFDATASET){
+
+			//startログを生成
+			frame.initialize();
+			//selected,secondselectedを初期化
+			selected[0] = -1;
+			selected[1] = -1;
+			secondselected[0] = -1;
+			secondselected[1] = -1;
+			frame.setSelected(selected);
+			frame.setSecondSelected(selected);
+
+			//トラジェクタを検索
+			for(int i=0;i<MyFrame.NUMBEROFPANEL;i++){
+				for(int j=0;j<MyFrame.NUMBEROFPANEL;j++){
+					if(frame.panels[i][j].getStatus() == 1){
+						selected[0] = i;
+						selected[1] = j;
+						frame.setSelected(selected);
+					}
+				}
+			}
+			temperror[0] = (int)nextError(variance);
+			temperror[1] = (int)nextError(variance);
+
+			//目標位置はランダム
+			while(true){
+				secondselected[0] = (int)((MyFrame.NUMBEROFPANEL-4)*Math.random());
+				secondselected[1] = (int)((MyFrame.NUMBEROFPANEL-4)*Math.random());
+				if(frame.panels[secondselected[0]][secondselected[1]].getStatus() == 0){
+					break;
+				}
+			}
+			frame.setSecondSelected(secondselected);
+			frame.pushSPACE();
+			frame.pushGoal();
+			count++;
+		}
+
+
+	}
 
 }

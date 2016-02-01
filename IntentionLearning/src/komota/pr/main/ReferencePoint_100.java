@@ -12,7 +12,7 @@ import komota.main.MyPR;
 
 
 
-class ReferencePoint_100{
+public class ReferencePoint_100{
 	//定数
 	//この参照点を保持するPRクラス。coordinateの確認に使う
 	MyPR pr = null;
@@ -22,7 +22,7 @@ class ReferencePoint_100{
 	//参照点の状態。0は画面中央。10は重心位置。11はG_ランドマーク
 	int status;
 	//参照点の位置ベクトル[0]=行 [1]=列
-	double[] reference;
+	public double[] reference;
 	//参照点からの位置ベクトル
 	double[] goalpoint;
 	//分散
@@ -37,7 +37,7 @@ class ReferencePoint_100{
 	int numlearninglikelihood;
 
 	//ガウス
-	Gauss gauss;
+	public Gauss gauss;
 
 	//コンストラクタ
 	ReferencePoint_100(MyPR pr, int status, double referenceg,double referencer){

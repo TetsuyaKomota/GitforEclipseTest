@@ -696,6 +696,8 @@ public class PR_100 extends MyPR{
 		int[] output = new int[2];
 		output[0] = (int)(tempoutput[0] + 0.5);
 		output[1] = (int)(tempoutput[1] + 0.5);
+		//最尤参照点を記憶
+		this.mostlikelyreference = temprefpoint;
 		frame.setSecondSelected(output);
 	}
 

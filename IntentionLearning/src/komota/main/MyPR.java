@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import komota.coordinate.Coordinate_ID;
 import komota.coordinate.MyCoordinate;
+import komota.pr.main.ReferencePoint_100;
 
 
 
@@ -39,6 +40,9 @@ public class MyPR {
 
 	//オブジェクト数
 	public int numref;
+
+	//最尤参照点．保持しておけば何かと便利
+	public ReferencePoint_100 mostlikelyreference = null;
 
 	/**
 	 * @param args

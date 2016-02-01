@@ -199,15 +199,15 @@ public class SampleTask_100s extends MySerialFrame{
 		this.tasks[3] = new MyTaskPrimitive("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
 		this.tasks[4] = new MyTaskPrimitive("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
 		this.tasks[5] = new MyTaskPrimitive("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
-		this.tasks[6] = new MyTaskPrimitive("log_MORE_RIGHT_TO_ORANGE.txt","赤を橙の右に動かす");
-		this.tasks[7] = new MyTaskPrimitive("log_MORE_RIGHT_TO_GREEN.txt","赤を緑の右に動かす");
-		this.tasks[8] = new MyTaskPrimitive("log_MORE_RIGHT_TO_YELLOW.txt","赤を黄の右に動かす");
-		this.tasks[9] = new MyTaskPrimitive("log_MORE_NEAR_BY_BLUE.txt","赤を青に近づける");
-		this.tasks[10] = new MyTaskPrimitive("log_MORE_NEAR_BY_GREEN.txt","赤を緑に近づける");
-		this.tasks[11] = new MyTaskPrimitive("log_MORE_NEAR_BY_YELLOW.txt","赤を黄に近づける");
-		this.tasks[12] = new MyTaskPrimitive("log_MORE_AWAY_FROM_BLUE.txt","赤を青から遠ざける");
-		this.tasks[13] = new MyTaskPrimitive("log_MORE_AWAY_FROM_ORANGE.txt","赤を橙から遠ざける");
-		this.tasks[14] = new MyTaskPrimitive("log_MORE_AWAY_FROM_YELLOW.txt","赤を黄から遠ざける");
+//		this.tasks[6] = new MyTaskPrimitive("log_MORE_RIGHT_TO_ORANGE.txt","赤を橙の右に動かす");
+//		this.tasks[7] = new MyTaskPrimitive("log_MORE_RIGHT_TO_GREEN.txt","赤を緑の右に動かす");
+//		this.tasks[8] = new MyTaskPrimitive("log_MORE_RIGHT_TO_YELLOW.txt","赤を黄の右に動かす");
+//		this.tasks[9] = new MyTaskPrimitive("log_MORE_NEAR_BY_BLUE.txt","赤を青に近づける");
+//		this.tasks[10] = new MyTaskPrimitive("log_MORE_NEAR_BY_GREEN.txt","赤を緑に近づける");
+//		this.tasks[11] = new MyTaskPrimitive("log_MORE_NEAR_BY_YELLOW.txt","赤を黄に近づける");
+//		this.tasks[12] = new MyTaskPrimitive("log_MORE_AWAY_FROM_BLUE.txt","赤を青から遠ざける");
+//		this.tasks[13] = new MyTaskPrimitive("log_MORE_AWAY_FROM_ORANGE.txt","赤を橙から遠ざける");
+//		this.tasks[14] = new MyTaskPrimitive("log_MORE_AWAY_FROM_YELLOW.txt","赤を黄から遠ざける");
 		//this.tasks[6] = new MyTaskPrimitive("log_TILT_RED_LITTLE.txt","赤を少し傾ける");
 		//this.tasks[7] = new MyTaskPrimitive("log_TILT_RED_HARD.txt","赤を大きく傾ける");
 
@@ -573,6 +573,8 @@ public class SampleTask_100s extends MySerialFrame{
 		int errorcount = 0;
 		//識別の実験のテスト
 		System.out.println("識別テストはじめるよぉ～");
+		//フレームの描画を終了する
+		this.t.cancel();
 		this.functionPlugin4();
 
 		//結果を出力するファイルの生成
@@ -595,7 +597,7 @@ public class SampleTask_100s extends MySerialFrame{
 		}
 
 		//各動作で識別の実験
-		for(int taskidx=0;taskidx<this.tasks.length;taskidx++){
+		for(int taskidx=0;taskidx<this.tasks.length+1;taskidx++){
 			errorcount = 0;
 			switch(taskidx){
 			case 0:
@@ -615,6 +617,9 @@ public class SampleTask_100s extends MySerialFrame{
 				break;
 			case 5:
 				pw_W.println("task,MAKE_THE_TRIANGLE");
+				break;
+			case 6:
+				pw_W.println("task,MOVE_AT_RANDOM");
 				break;
 			}
 
@@ -655,6 +660,8 @@ public class SampleTask_100s extends MySerialFrame{
 				case 5:
 					g.generate_MAKE_THE_TRIANGLE(this, var);
 					break;
+				case 6:
+					g.generate_MOVE_AT_RANDOM(this, var);
 				}
 				//saveインスタンス生成
 				this.save = new PR_101();
@@ -688,6 +695,16 @@ public class SampleTask_100s extends MySerialFrame{
 					pw_W.println("suggest,"+highest[0]);
 					errorcount++;
 				}
+				/* **********************************???????????????????????????????????********************************* */
+				//最尤動作の尤度を出力
+				//saveフィールドから最終状態を取得
+				int[] goalposition = this.save.getLastPosition();
+				//saveフィールドから初期状態を再現
+				this.save.loadLastStartLog(this);
+				pw_W.println("likely,"+this.tasks[highest[0]].getLikelihood(goalposition,this));
+				System.out.println("likely,"+this.tasks[highest[0]].getLikelihood(goalposition,this));
+				/* **********************************???????????????????????????????????********************************* */
+
 			}
 			System.out.println("誤識別は " + errorcount + " 回ありました");
 			pw_W.println("result,"+errorcount);
