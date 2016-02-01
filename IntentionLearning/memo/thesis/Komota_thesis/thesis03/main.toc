@@ -16,7 +16,7 @@
 \contentsline {subsection}{\numberline {3.2.2}変位}{7}
 \contentsline {section}{\numberline {3.3}動作学習}{8}
 \contentsline {section}{\numberline {3.4}動作再現}{9}
-\contentsline {section}{\numberline {3.5}動作識別}{9}
+\contentsline {section}{\numberline {3.5}動作識別}{10}
 \contentsline {chapter}{{\advance \hangindent 1in {第4章}} \nobreakspace {} 実験と考察}{12}
 \contentsline {section}{\numberline {4.1}実験環境，前提}{12}
 \contentsline {section}{\numberline {4.2}動作再現}{13}

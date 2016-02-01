@@ -64,11 +64,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-Fig.\ref{subfigure:difference_displacement3}の例として，トラジェクタをある物体とある物体の間に動かすという動作などがあり，これは複数の物体を考慮した参照点の設定を行う必要がある．
+Fig.\ref{subfigure:difference_displacement3}の例として，トラジェクタをある物体とある物体の間に動かすという動作などが挙げられる．
+推定すべき観点は$2^{n}$個の参照点$l∈L$と3つの座標系$k∈K$の対として表される．以下，参照点$l$，座標系$k$の観点を$<l , k> ∈ V$と表すこととする．各観点$<l , k>$は確率モデルであるガウスモデルを持ち，その平均，2状平均，標準偏差をそれぞれ$μ_{lk}$，$Q_{lk}$，$σ_{lk}$とする．
 
 \section{動作学習}
 
-与えられた教示動作から，各観点のガウスモデルを学習する．まず教示動作の目標位置の，各参照点を原点とした相対位置を求め，各座標系ごとに座標変換，正規化を行う．それにより得たベクトル$v$を用いて，参照点$l$，座標系$k$の対で表される観点$<l , k>$のガウスモデルの平均$μ_{lk}$，2乗平均$Q_{lk}$，標準偏差$σ_{lk}$を以下のように更新する．
+与えられた教示動作から，以下のように各観点のガウスモデルを学習する．
 
 \begin{equation}
 	v = Normalize_{lk}(Transform_{lk}(p))
@@ -86,7 +87,7 @@ Fig.\ref{subfigure:difference_displacement3}の例として，トラジェクタ
 
 ここで，$p$は教示動作の目標位置を指す．$Normalize_{lk}$，$Transform_{lk}$はそれぞれその観点における正規化関数と座標変換を指し，以下の式で与えられる．
 
-
+%まず教示動作の目標位置の，各参照点を原点とした相対位置を求め，各座標系ごとに座標変換，正規化を行う．それにより得たベクトル$v$を用いて，観点$<l , k>$のガウスモデルの平均$μ_{lk}$，2乗平均$Q_{lk}$，標準偏差$σ_{lk}$をそれぞれ更新する．
 \begin{equation}
 	Transform_{lk}(v) = 
 	\begin{pmatrix}
@@ -111,14 +112,21 @@ Fig.\ref{subfigure:difference_displacement3}の例として，トラジェクタ
 \]
 
 であり，$Position(l)$は参照点$l$の位置ベクトルを表す．また$L_{k}$は座標系$k$に特有の参照点を表す．例えば座標系$k_{lt}$の場合，$L_{k_{lt}}$はトラジェクタの初期位置を表す．
-
+正規化関数の必要性と性質については\ref{subsection:UNIT}で述べる．
 
 動作学習のアルゴリズムの詳細については付録\ref{appendix3}に示す．
 
-
 \section{動作再現}
 
-教示動作から学習された各観点における確率モデルを用いて，異なる初期環境での動作再現を行う．まず学習された各観点のガウスモデルのうち，最も分散の小さいものを探索する．分散が小さいとは教示動作がその観点に対して常に類似した目標位置に遷移していたことを意味し，教示者が意図した観点である可能性が高いと考えられるためである．選択された観点のガウスモデルの平均を，その観点と再現時の初期環境に応じた正規化と座標変換の逆関数を計算し，初期環境における参照点の位置に平行移動することで再現動作のトラジェクタの目標位置を推定する．
+教示動作から学習された各観点$<l , k>$における確率モデルを用いて，トラジェクタの目標位置$v$を以下のように求めることで，学習動作の再現を行う．
+\begin{equation}
+	v =  Position(\hat{l}) +Transform^{-1}(Normalize^{-1}(μ_{\hat{l}\hat{k}})) 
+\end{equation}
+\begin{equation}
+	<\hat{l} , \hat{k}> =  \mathop{\arg\min}_{k , l}σ_{lk}
+\end{equation}
+
+まず学習された各観点のガウスモデルのうち，最も分散の小さいものを探索する．分散が小さいとは教示動作がその観点に対して常に類似した目標位置に遷移していたことを意味し，教示者が意図した観点である可能性が高いと考えられるためである．選択された観点のガウスモデルの平均を，その観点と再現時の初期環境に応じた正規化と座標変換の逆関数を計算し，初期環境における参照点の位置に平行移動することで再現動作のトラジェクタの目標位置を推定する．
 Fig.\ref{figure:learning_and_reproduction_model}に，提案手法における動作学習と動作再現の模式図を示す．
 また付録\ref{appendix3}に，動作再現のアルゴリズムの詳細を示す．
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -134,20 +142,32 @@ Fig.\ref{figure:learning_and_reproduction_model}に，提案手法における�
 
 \section{動作識別}
 
-モデルが学習された各動作から例示動作の生起確率を計算することで，例示動作が既学習動作のうちいずれであるかを識別することが可能である．まず各動作において学習されたガウスモデルのうち分散が最小である観点を選択する．選択された観点のガウスモデルから，例示動作の目標位置が生起される確率をそれぞれ求め，生起確率が最大となるガウスモデルを持つ動作を識別結果とする．参照点$l$，座標系$k$の観点における例示動作の目標位置$p$の生起確率は\ref{equation:generation probability}式で表される．
-\begin{equation}[h]
-	\label{equation:generation probability}
-	Probability(<l , k> , p) = \frac{1}{\sqrt{2\pi}σ_{lk}}\exp \left(\frac{|Normalize_{lk}(Transform_{lk}(p))-μ_{lk}|}{2σ_{lk}^2}\right)
-\end{equation}
-
-
-動作識別時には，与えられた$p$に対して\ref{equation:identification function}式を用いて参照点$\hat{l}$，座標系$\hat{k}$を推定する．
-付録\ref{appendix3}に，動作識別のアルゴリズムの詳細を示す．
+動作ごとに学習された観点集合$V_{t}$を用いて，目標位置が$p$である例示動作の属する動作$t∈T$を以下のように推定することで，例示動作の識別を行う．
 
 \begin{equation}
 	\label{equation:identification function}
-	(\hat{k} , \hat{l}) =  \mathop{\arg\max}_{k , l}P(<l , k> , p)
+	t =  \mathop{\arg\max}_{t}Probability(<l , k>∈V_{t} , p)
 \end{equation}
+
+\begin{equation}
+	\label{equation:generation probability}
+	Probability(<l , k> , p) = \frac{1}{\sqrt{2\pi}σ_{lk}}\exp \left(\frac{|Normalize_{lk}(Transform_{lk}(p))-μ_{lk}|^2}{2σ_{lk}^2}\right)
+\end{equation}
+
+ここで$T$は既学習動作集合を表し，$V_{t}$とは動作$t$を学習した観点の集合を表す．
+まず各動作において学習されたガウスモデルから，$p$が生起される確率である\ref{equation:generation probability}式をそれぞれ求め，生起確率が最大となるガウスモデルを持つ動作を識別結果とする．また，\ref{equation:identification function}式に閾値を設定し，以下のように定義し直すことで，未学習動作の推定が可能になる．
+
+\begin{equation}
+	\label{equation:identification function2}
+	t =
+	\begin{cases}
+		\mathop{\arg\max}_{t}Probability(V_{t} , p)		& (\mathop{\max}_{t}Probability(V_{t} , p) > Threshold) \\
+		t_{unknown}					 			& (otherwise)
+	\end{cases}	
+\end{equation}
+ここで，$t_{unknown}$は未学習動作を表す．
+付録\ref{appendix3}に，動作識別のアルゴリズムの詳細を示す．
+
 
 %Fig.\ref{figure:identification_model}に，提案手法における動作識別の模式図を示す．
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

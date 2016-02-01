@@ -28,6 +28,10 @@ public class SampleTask_100s extends MySerialFrame{
 	/* ************************************************************************************************************** */
 	/* ************************************************************************************************************** */
 
+	//定数
+	//識別時の未学習動作閾値
+	final double THRESHOLD = 10;
+
 	//解析クラス
 //	TestPatternRecognition tpr;
 	PR_100_LT pr_LT;
@@ -38,7 +42,7 @@ public class SampleTask_100s extends MySerialFrame{
 
 	//タスククラス
 	MyTaskPrimitive[] tasks;
-	static final int NUMBEROFTASKS = 6;
+	static final int NUMBEROFTASKS = 15;
 	//盤面記憶用PRクラス(識別で使用)
 	PR_101 save;
 	//識別結果
@@ -46,6 +50,8 @@ public class SampleTask_100s extends MySerialFrame{
 
 	//識別実験で使用．あとで消す
 	double atodekesu = -1;
+
+
 
 
 	//コンストラクタ
@@ -202,15 +208,15 @@ public class SampleTask_100s extends MySerialFrame{
 		this.tasks[3] = new MyTaskPrimitive("log_AWAY_FROM_GREEN.txt","赤を緑から遠ざける");
 		this.tasks[4] = new MyTaskPrimitive("log_MAKE_THE_SIGNAL.txt","等間隔に赤、黄、青と並べる");
 		this.tasks[5] = new MyTaskPrimitive("log_MAKE_THE_TRIANGLE.txt","時計回りに赤、緑、青と並べる");
-//		this.tasks[6] = new MyTaskPrimitive("log_MORE_RIGHT_TO_ORANGE.txt","赤を橙の右に動かす");
-//		this.tasks[7] = new MyTaskPrimitive("log_MORE_RIGHT_TO_GREEN.txt","赤を緑の右に動かす");
-//		this.tasks[8] = new MyTaskPrimitive("log_MORE_RIGHT_TO_YELLOW.txt","赤を黄の右に動かす");
-//		this.tasks[9] = new MyTaskPrimitive("log_MORE_NEAR_BY_BLUE.txt","赤を青に近づける");
-//		this.tasks[10] = new MyTaskPrimitive("log_MORE_NEAR_BY_GREEN.txt","赤を緑に近づける");
-//		this.tasks[11] = new MyTaskPrimitive("log_MORE_NEAR_BY_YELLOW.txt","赤を黄に近づける");
-//		this.tasks[12] = new MyTaskPrimitive("log_MORE_AWAY_FROM_BLUE.txt","赤を青から遠ざける");
-//		this.tasks[13] = new MyTaskPrimitive("log_MORE_AWAY_FROM_ORANGE.txt","赤を橙から遠ざける");
-//		this.tasks[14] = new MyTaskPrimitive("log_MORE_AWAY_FROM_YELLOW.txt","赤を黄から遠ざける");
+		this.tasks[6] = new MyTaskPrimitive("log_MORE_RIGHT_TO_ORANGE.txt","赤を橙の右に動かす");
+		this.tasks[7] = new MyTaskPrimitive("log_MORE_RIGHT_TO_GREEN.txt","赤を緑の右に動かす");
+		this.tasks[8] = new MyTaskPrimitive("log_MORE_RIGHT_TO_YELLOW.txt","赤を黄の右に動かす");
+		this.tasks[9] = new MyTaskPrimitive("log_MORE_NEAR_BY_BLUE.txt","赤を青に近づける");
+		this.tasks[10] = new MyTaskPrimitive("log_MORE_NEAR_BY_GREEN.txt","赤を緑に近づける");
+		this.tasks[11] = new MyTaskPrimitive("log_MORE_NEAR_BY_YELLOW.txt","赤を黄に近づける");
+		this.tasks[12] = new MyTaskPrimitive("log_MORE_AWAY_FROM_BLUE.txt","赤を青から遠ざける");
+		this.tasks[13] = new MyTaskPrimitive("log_MORE_AWAY_FROM_ORANGE.txt","赤を橙から遠ざける");
+		this.tasks[14] = new MyTaskPrimitive("log_MORE_AWAY_FROM_YELLOW.txt","赤を黄から遠ざける");
 		//this.tasks[6] = new MyTaskPrimitive("log_TILT_RED_LITTLE.txt","赤を少し傾ける");
 		//this.tasks[7] = new MyTaskPrimitive("log_TILT_RED_HARD.txt","赤を大きく傾ける");
 
@@ -325,13 +331,33 @@ public class SampleTask_100s extends MySerialFrame{
 						}
 					}
 				}
+				//距離を求め,閾値を超えていれば見学習動作と判定する
+				if(highest_point[0] > THRESHOLD){
+					highest_idx[2] = highest_idx[1];
+					highest_point[2] = highest_point[1];
+					highest_idx[1] = highest_idx[0];
+					highest_point[2] = highest_point[1];
+					highest_idx[0] = -1;
+					highest_point[0] = -2;
+				}
+
 				//上位3つのタスク名を標準出力
 				//実験時はここをフィールドに持たせたりして別メソッドで評価する感じになると思う
 				System.out.println("[SampleTask_100s]functionPlugin6:recognition result:");
 				for(int i=0;i<highest_point.length;i++){
-					System.out.println(i+". "+this.tasks[highest_idx[i]].taskname);
+					if(highest_idx[i] >= 0){
+						System.out.println(i+". "+this.tasks[highest_idx[i]].taskname);
+					}
+					else{
+						System.out.println(i+". "+"未学習動作");
+					}
 				}
-				this.tasktitle = this.tasks[highest_idx[0]].taskname;
+				if(highest_idx[0] >= 0){
+					this.tasktitle = this.tasks[highest_idx[0]].taskname;
+				}
+				else{
+					this.tasktitle = "未学習動作";
+				}
 				this.highest = highest_idx;
 				//最も近い動作との誤差を投げておく
 				this.atodekesu = highest_point[0];
@@ -683,7 +709,19 @@ public class SampleTask_100s extends MySerialFrame{
 				}
 				//functionPlugin6
 				this.functionPlugin6();
-				if(this.highest[0] != taskidx){
+
+				boolean flag = false;
+				if(this.highest[0] == -1){
+					if(taskidx != 6){
+						flag = true;
+					}
+				}
+				else if(this.highest[0] != taskidx){
+					flag = true;
+				}
+
+
+				if(flag == true){
 					System.out.println(t+"回目で識別に失敗しました。");
 					//エラーが生じた初期状態を出力
 					save.loadLastStartLog(this);
