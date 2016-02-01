@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  1 FEB 2016 17:47
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  1 FEB 2016 19:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -470,15 +470,20 @@ Overfull \hbox (4.26556pt too wide) in paragraph at lines 187--187
 File: figure4_a.png Graphic file (type bmp)
  <figure4_a.png>
 File: figure4_b.png Graphic file (type bmp)
- <figure4_b.png>) (./conclusion.tex [17]
-第5章.
-) (./acknowledgment.tex [18]) (./reference.tex [19]) (./appendix.tex [20]
-付録 {A}.
-[21]
+ <figure4_b.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[22] [23]
+) (./conclusion.tex [17]
+第5章.
+[18]) (./acknowledgment.tex [19]) (./reference.tex [20]) (./appendix.tex
+[21]
+付録 {A}.
+[22]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[23] [24]
 付録 {B}.
 File: chart6.png Graphic file (type bmp)
 <chart6.png>
@@ -501,11 +506,11 @@ Overfull \hbox (14.22638pt too wide) in paragraph at lines 135--135
 
 LaTeX Warning: Float too large for page by 28.5715pt on input line 139.
 
-[24
+[25
 
-] [25]
+] [26]
 付録 {C}.
-[26]) [27] (./main.aux)
+[27]) [28] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -519,4 +524,4 @@ Here is how much of TeX's memory you used:
  929 hyphenation exceptions out of 8191
  42i,16n,40p,930b,732s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (31 pages, 96664 bytes).
+Output written on main.dvi (32 pages, 98284 bytes).

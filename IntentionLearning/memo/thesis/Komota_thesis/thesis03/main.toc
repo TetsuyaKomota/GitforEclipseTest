@@ -26,11 +26,11 @@
 \contentsline {section}{\numberline {4.3}動作識別}{16}
 \contentsline {chapter}{{\advance \hangindent 1in {第5章}} \nobreakspace {} 結論}{18}
 \contentsline {section}{\numberline {5.1}結びと課題}{18}
-\contentsline {chapter}{\bf 謝辞}{19}
-\contentsline {chapter}{\bf 参考文献}{19}
-\contentsline {chapter}{{\advance \hangindent 1in {付録 {A}}} \nobreakspace {} 提案手法のアルゴリズム}{21}
-\contentsline {section}{\numberline {A.1}動作学習のアルゴリズム}{21}
-\contentsline {section}{\numberline {A.2}動作再現のアルゴリズム}{22}
-\contentsline {section}{\numberline {A.3}動作識別のアルゴリズム}{22}
-\contentsline {chapter}{{\advance \hangindent 1in {付録 {B}}} \nobreakspace {} 動作再現実験における実験結果}{24}
-\contentsline {chapter}{{\advance \hangindent 1in {付録 {C}}} \nobreakspace {} 動作再現における観点推定の成否の判定}{26}
+\contentsline {chapter}{\bf 謝辞}{20}
+\contentsline {chapter}{\bf 参考文献}{20}
+\contentsline {chapter}{{\advance \hangindent 1in {付録 {A}}} \nobreakspace {} 提案手法のアルゴリズム}{22}
+\contentsline {section}{\numberline {A.1}動作学習のアルゴリズム}{22}
+\contentsline {section}{\numberline {A.2}動作再現のアルゴリズム}{23}
+\contentsline {section}{\numberline {A.3}動作識別のアルゴリズム}{23}
+\contentsline {chapter}{{\advance \hangindent 1in {付録 {B}}} \nobreakspace {} 動作再現実験における実験結果}{25}
+\contentsline {chapter}{{\advance \hangindent 1in {付録 {C}}} \nobreakspace {} 動作再現における観点推定の成否の判定}{27}
