@@ -44,6 +44,9 @@ public class SampleTask_100s extends MySerialFrame{
 	//識別結果
 	int[] highest;
 
+	//識別実験で使用．あとで消す
+	double atodekesu = -1;
+
 
 	//コンストラクタ
 	public SampleTask_100s(){
@@ -330,6 +333,8 @@ public class SampleTask_100s extends MySerialFrame{
 				}
 				this.tasktitle = this.tasks[highest_idx[0]].taskname;
 				this.highest = highest_idx;
+				//最も近い動作との誤差を投げておく
+				this.atodekesu = highest_point[0];
 				//一応、見栄えのためにsecondselectedを初期化しておく
 				this.secondselected[0] = -1;
 				this.secondselected[1] = -1;
@@ -696,6 +701,7 @@ public class SampleTask_100s extends MySerialFrame{
 					errorcount++;
 				}
 				/* **********************************???????????????????????????????????********************************* */
+/*
 				//最尤動作の尤度を出力
 				//saveフィールドから最終状態を取得
 				int[] goalposition = this.save.getLastPosition();
@@ -703,8 +709,10 @@ public class SampleTask_100s extends MySerialFrame{
 				this.save.loadLastStartLog(this);
 				pw_W.println("likely,"+this.tasks[highest[0]].getLikelihood(goalposition,this));
 				System.out.println("likely,"+this.tasks[highest[0]].getLikelihood(goalposition,this));
+*/
 				/* **********************************???????????????????????????????????********************************* */
-
+				//距離を出力．正答時と誤答時に距離に差が出るのか検証する
+				pw_W.println("dis   ,"+this.atodekesu);
 			}
 			System.out.println("誤識別は " + errorcount + " 回ありました");
 			pw_W.println("result,"+errorcount);

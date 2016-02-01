@@ -36,6 +36,8 @@ public class MyCounter {
 			System.out.println("AfB:"+counter.countGoal("log_MORE_AWAY_FROM_BLUE.txt"));
 			System.out.println("AfO:"+counter.countGoal("log_MORE_AWAY_FROM_ORANGE.txt"));
 			System.out.println("AfY:"+counter.countGoal("log_MORE_AWAY_FROM_YELLOW.txt"));
+
+			counter.countW_disMm();
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -62,6 +64,60 @@ public class MyCounter {
 		br.close();
 
 		return output;
+	}
+
+	//output_W.txtの結果から，各動作のdisの最大値と再招致を算出
+	public void countW_disMm() throws IOException{
+		//動作の種類が変わっても求められるようにする
+		double[] Max = new double[100];
+		double[] min = new double[100];
+		int[][] bunpu = new int[100][15];
+		for(int i=0;i<Max.length;i++){
+			Max[i] = -1;
+			min[i] = 100000;
+		}
+		int idx = -1;
+
+		File file = new File("log/output_W.txt");
+		BufferedReader br = null;
+
+		br = new BufferedReader(new FileReader(file));
+
+		String line = br.readLine();
+
+		while(true){
+			if(line == null){
+				break;
+			}
+			else if(line.split(",")[0].equals("task") == true){
+				idx++;
+			}
+			else if(line.split(",")[0].equals("dis   ") == true){
+				if(Double.parseDouble(line.split(",")[1]) > Max[idx]){
+					Max[idx] = Double.parseDouble(line.split(",")[1]);
+				}
+				else if(Double.parseDouble(line.split(",")[1]) < min[idx]){
+					min[idx] = Double.parseDouble(line.split(",")[1]);
+				}
+
+				if(Double.parseDouble(line.split(",")[1]) < bunpu[0].length-1){
+					bunpu[idx][(int)Double.parseDouble(line.split(",")[1])]++;
+				}
+				else{
+					bunpu[idx][bunpu[0].length-1]++;
+				}
+			}
+			line = br.readLine();
+		}
+		for(int i=0;i<=idx;i++){
+			System.out.print("Task:"+i+" Max:"+Max[i]+" min:"+min[i]+" bunpu:");
+			for(int j=0;j<bunpu[0].length;j++){
+				System.out.print(" ["+j+"]:"+bunpu[i][j]);
+			}
+			System.out.println();
+		}
+		br.close();
+
 	}
 
 }
