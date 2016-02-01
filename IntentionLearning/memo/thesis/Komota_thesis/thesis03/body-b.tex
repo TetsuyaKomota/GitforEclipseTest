@@ -68,17 +68,50 @@
 
 \section{動作学習}
 
-与えられた教示動作から，各観点のガウスモデルを学習する．まず教示動作の目標位置の，各参照点を原点とした相対位置を求め，各座標系ごとに座標変換，正規化を行う．それにより得たベクトル$v$を用いて，各ガウスモデルの平均$μ$，2乗平均$Q$，標準偏差$σ$を以下のように更新する．
+与えられた教示動作から，各観点のガウスモデルを学習する．まず教示動作の目標位置の，各参照点を原点とした相対位置を求め，各座標系ごとに座標変換，正規化を行う．それにより得たベクトル$v$を用いて，参照点$l$，座標系$k$の対で表される観点$<l , k>$のガウスモデルの平均$μ_{lk}$，2乗平均$Q_{lk}$，標準偏差$σ_{lk}$を以下のように更新する．
+
+\begin{equation}
+	v = Normalize_{lk}(Transform_{lk}(p))
+\end{equation}
+
+\begin{equation}
+	μ_{lk}  \leftarrow \frac{N}{N+1}μ_{lk}+\frac{1}{N+1}v
+\end{equation}
+\begin{equation}
+	Q_{lk}  \leftarrow \frac{N}{N+1}Q_{lk}+\frac{1}{N+1}v^2	
+\end{equation}
+\begin{equation}
+	σ_{lk}  \leftarrow \sqrt{Q_{lk} - μ_{lk}^2}
+\end{equation}
+
+ここで，$p$は教示動作の目標位置を指す．$Normalize_{lk}$，$Transform_{lk}$はそれぞれその観点における正規化関数と座標変換を指し，以下の式で与えられる．
+
+
+\begin{equation}
+	Transform_{lk}(v) = 
+	\begin{pmatrix}
+        	\cos θ_{lkv} & \sin θ_{lkv} \\
+        	-\sin θ_{lkv} & \cos θ_{lkv}
+	\end{pmatrix}
+	(v-Position(l))
+\end{equation}
+\begin{equation}
+	\label{equation:normalize}
+	Normalize_{lk}(v) = 
+	\begin{cases}
+		v & (if\,\,k=k_{id}) \\
+		\frac{unit}{| Position(L_{k})-Position(l) |}v & (otherwise)
+	\end{cases}
+\end{equation}
+
+ただし，$unit$は正規化長を表し，
 
 \[
-	μ  \leftarrow \frac{N}{N+1}μ+\frac{1}{N+1}v
+	\cos θ_{lkv} = \frac{(v-Position(l))・(Position(L_{k})-Position(l))}{| v-Position(l) || Position(L_{k})-Position(l) |}
 \]
-\[
-	Q  \leftarrow \frac{N}{N+1}Q+\frac{1}{N+1}v^2	
-\]
-\[
-	σ  \leftarrow \sqrt{Q - μ^2}
-\]
+
+であり，$Position(l)$は参照点$l$の位置ベクトルを表す．また$L_{k}$は座標系$k$に特有の参照点を表す．例えば座標系$k_{lt}$の場合，$L_{k_{lt}}$はトラジェクタの初期位置を表す．
+
 
 動作学習のアルゴリズムの詳細については付録\ref{appendix3}に示す．
 
@@ -106,32 +139,6 @@ Fig.\ref{figure:learning_and_reproduction_model}に，提案手法における�
 	\label{equation:generation probability}
 	Probability(<l , k> , p) = \frac{1}{\sqrt{2\pi}σ_{lk}}\exp \left(\frac{|Normalize_{lk}(Transform_{lk}(p))-μ_{lk}|}{2σ_{lk}^2}\right)
 \end{equation}
-ここで，$σ_{lk}$，$μ_{lk}$はそれぞれ学習されたガウスモデルの標準偏差と平均であり，$Normalize_{lk}$，$Transform_{lk}$はそれぞれその観点における正規化関数と座標変換を指し，以下の式で与えられる．
-
-
-\[
-	Transform_{lk}(v) = 
-	\begin{pmatrix}
-        	\cos θ_{lkv} & \sin θ_{lkv} \\
-        	-\sin θ_{lkv} & \cos θ_{lkv}
-	\end{pmatrix}
-	(v-Position(l))
-\]
-\[
-	Normalize_{lk}(v) = 
-	\begin{cases}
-		v & (if\,\,k=k_{id}) \\
-		\frac{unit}{|v|}v & (otherwise)
-	\end{cases}
-\]
-
-ただし，$unit$は正規化長を表し，
-
-\[
-	\cos θ_{lkv} = \frac{(v-Position(l))・(Position(L_{k})-Position(l))}{| v-Position(l) || Position(L_{k})-Position(l) |}
-\]
-
-であり，$Position(l)$は参照点$l$の位置ベクトルを表す．また$L_{k}$は座標系$k$に特有の参照点を表す．例えば座標系$k_{lt}$の場合，$L_{k_{lt}}$はトラジェクタの初期位置を表す．
 
 
 動作識別時には，与えられた$p$に対して\ref{equation:identification function}式を用いて参照点$\hat{l}$，座標系$\hat{k}$を推定する．

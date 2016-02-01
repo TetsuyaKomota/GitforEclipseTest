@@ -38,7 +38,7 @@ public class SampleTask_100s extends MySerialFrame{
 
 	//タスククラス
 	MyTaskPrimitive[] tasks;
-	static final int NUMBEROFTASKS = 15;
+	static final int NUMBEROFTASKS = 6;
 	//盤面記憶用PRクラス(識別で使用)
 	PR_101 save;
 	//識別結果
@@ -768,62 +768,139 @@ public class SampleTask_100s extends MySerialFrame{
 			e.printStackTrace();
 		}
 
-		double oldunit = Normalizer.getUNIT();
+		//各動作で実行する
+		for(int taskidx=0;taskidx<4/*NUMBEROFTASKS*/;taskidx++){
+			double oldunit = Normalizer.getUNIT();
 
-		//正規化長を1～50まで（1刻み）変化させて再現誤差を評価する
-		DataSetGenerator g = new DataSetGenerator();
-		for(int unit=1;unit<51;unit++){
-			Normalizer.setUNIT(unit);
-			//各誤差を50回ずつ計算
-			for(int t=0;t<50;t++){
-				this.pw.println("result,UNIT:"+(double)unit);
-				//教示誤差は,動作再現実験時に差が出始めている分散6とする
-				add_R(g,10);
-				if(t == 0){
-					System.out.println("次は正規化長"+unit+"だよ!");
-				}
-				this.functionPlugin1();
-				this.functionPlugin2();
-				add_R_Learn((double)unit,pw_R);
-				//logdataを削除
-				this.pw.close();
-				file = new File("log/"+this.file_name);
-				if (file.exists()){
-					if (file.delete()){
-						System.out.println("ログファイルを削除しました");
+			//output_R.txtを削除
+
+			if(pw_R != null){
+				pw_R.close();
+
+				File file_R = new File("log/output_R.txt");
+
+				if (file_R.exists()){
+					if (file_R.delete()){
+						System.out.println("output_R.txtを削除しました");
 					}else{
-						System.out.println("ログファイルの削除に失敗しました");
+						System.out.println("output_R.txtの削除に失敗しました");
 					}
 				}else{
 					System.out.println("ファイルが見つかりません");
 				}
-				//logdataを生成
-				this.setOutputFile("logdata.txt");
+				while(true){
+					try {
+					      fos_R = new FileOutputStream("log/output_R.txt",true);
+					      OutputStreamWriter osw_R = new OutputStreamWriter(fos_R);
+					      pw_R = new PrintWriter(osw_R);
+					      break;
+					} catch (IOException e) {
+						// TODO 自動生成された catch ブロック
+						System.out.println("ファイルなし");
+						try {
+							Thread.sleep(10000);
+						} catch (InterruptedException e1) {
+							// TODO 自動生成された catch ブロック
+							e1.printStackTrace();
+						}
+						e.printStackTrace();
+					}
+				}
 			}
-			pw_R.println("padding,999");
+
+			//正規化長を1～50まで（1刻み）変化させて再現誤差を評価する
+			DataSetGenerator g = new DataSetGenerator();
+			for(int unit=1;unit<201;unit++){
+				Normalizer.setUNIT(unit);
+				//各誤差を50回ずつ計算
+				for(int t=0;t<50;t++){
+					this.pw.println("result,UNIT:"+(double)unit);
+					//教示誤差は,動作再現実験時に差が出始めている分散6とする
+					add_R(g,10,taskidx);
+					if(t == 0){
+						System.out.println("次は正規化長"+unit+"だよ!");
+					}
+					this.functionPlugin1();
+					this.functionPlugin2();
+					add_R_Learn((double)unit,pw_R);
+					//logdataを削除
+					this.pw.close();
+					file = new File("log/"+this.file_name);
+					if (file.exists()){
+						if (file.delete()){
+							System.out.println("ログファイルを削除しました");
+							System.out.println("現在計算中なのは動作:"+taskidx+" 正規化長:"+unit+" の"+t+"回目です");
+						}else{
+							System.out.println("ログファイルの削除に失敗しました");
+						}
+					}else{
+						System.out.println("ファイルが見つかりません");
+					}
+					//logdataを生成
+					this.setOutputFile("logdata.txt");
+				}
+				pw_R.println("padding,999");
+				if(unit>50){
+					unit+=3;
+				}
+			}
+			pw_R.close();
+			try {
+				fos_R.close();
+			} catch (IOException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+			LogRandomizer r = new LogRandomizer();
+			String outputtaskCSV = "";
+			switch(taskidx){
+			case 0:
+				outputtaskCSV = "MOVE_THE_CENTER";
+			break;
+			case 1:
+				outputtaskCSV = "AWAY_FROM_GREEN";
+			break;
+			case 2:
+				outputtaskCSV = "MAKE_THE_TRIANGLE";
+			break;
+			case 3:
+				outputtaskCSV = "MAKE_THE_SIG_RGB";
+			break;
+			case 4:
+				outputtaskCSV = "RIGHT_TO_BLUE";
+			break;
+			case 5:
+				outputtaskCSV = "NEAR_BY_ORANGE";
+			break;
+			}
+			r.encodeToCSV("output_R.txt", "ERROR_R_"+outputtaskCSV+".csv");
+			Normalizer.setUNIT(oldunit);
 		}
-		pw_R.close();
-		try {
-			fos_R.close();
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		LogRandomizer r = new LogRandomizer();
-		r.encodeToCSV("output_R.txt", "output_R.csv");
-		Normalizer.setUNIT(oldunit);
 		System.out.println("計算終わったよ～");
 	}
 	/* ************************************************************************************************************* */
 	//functionPluginQ(誤差を変化させながらの再現誤差計算)の内部で生成する教示動作の種類を選択するメソッド。
 	//ここを変更することで異なる動作の評価ができる
-	private void add_R(DataSetGenerator g,double variance){
-		//g.generate_MOVE_THE_CENTER(this, variance);
-		//g.generate_NEAR_BY_ORANGE(this, variance);
-		//g.generate_RIGHT_TO_BLUE(this, variance);
-		//g.generate_AWAY_FROM_GREEN(this, variance);
-		g.generate_MAKE_THE_SIGNAL(this, variance);
-		//g.generate_MAKE_THE_TRIANGLE(this, variance);
+	private void add_R(DataSetGenerator g,double variance , int type){
+		switch(type){
+		case 0:
+			g.generate_MOVE_THE_CENTER(this, variance);
+		break;
+		case 1:
+			g.generate_AWAY_FROM_GREEN(this, variance);
+		break;
+		case 2:
+			g.generate_MAKE_THE_TRIANGLE(this, variance);
+		break;
+		case 3:
+			g.generate_MAKE_THE_SIG_(4,2,this, variance);
+		break;
+		case 4:
+			g.generate_RIGHT_TO_BLUE(this, variance);
+		break;
+		case 5:
+			g.generate_NEAR_BY_ORANGE(this, variance);
+		}
 	}
 	/* *************************************************** */
 	private void add_R_Learn(double unit,PrintWriter pw){
