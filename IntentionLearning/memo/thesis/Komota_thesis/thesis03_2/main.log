@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  3 FEB 2016 05:22
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  3 FEB 2016 05:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -394,7 +394,7 @@ LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 21.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 21.
- [2]) (./body-a.tex [3] [4]
+ [2]) (./body-a.tex [3]
 第2章.
 File: figure1_sub_a.png Graphic file (type bmp)
 <figure1_sub_a.png>
@@ -417,13 +417,15 @@ Overfull \hbox (5.68916pt too wide) in paragraph at lines 43--43
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5]
+[4]
 File: figure2_2_sub_a.png Graphic file (type bmp)
  <figure2_2_sub_a.png>
 File: figure2_2_sub_b.png Graphic file (type bmp)
- <figure2_2_sub_b.png> [6]) (./body-b.tex [7]
+ <figure2_2_sub_b.png> [5]) (./body-b.tex [6
+
+]
 第3章.
-[8]
+[7]
 File: figure2_sub_a.png Graphic file (type bmp)
  <figure2_sub_a.png>
 Overfull \hbox (5.68916pt too wide) in paragraph at lines 34--34
@@ -442,13 +444,9 @@ Overfull \hbox (5.68916pt too wide) in paragraph at lines 46--46
  [][] 
  []
 
-[9]
+[8]
 File: chart9.png Graphic file (type bmp)
- <chart9.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[10] [11]) (./body-c.tex [12]
+ <chart9.png> [9] [10]) (./body-c.tex [11]
 第4章.
 File: figure3.png Graphic file (type bmp)
 <figure3.png>
@@ -468,7 +466,7 @@ Overfull \hbox (40.62221pt too wide) in paragraph at lines 20--111
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[13]
+[12]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 126.
 
  (c:/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
@@ -480,7 +478,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 126.
 File: chart2.png Graphic file (type bmp)
  <chart2.png>
-[14] [15] [16]
+[13] [14] [15]
 File: chart11_a.png Graphic file (type bmp)
  <chart11_a.png>
 Overfull \hbox (4.26556pt too wide) in paragraph at lines 169--169
@@ -505,7 +503,7 @@ Overfull \hbox (4.26556pt too wide) in paragraph at lines 187--187
  [][] 
  []
 
-[17]
+[16]
 File: figure4_a.png Graphic file (type bmp)
  <figure4_a.png>
 File: figure4_b.png Graphic file (type bmp)
@@ -513,14 +511,16 @@ File: figure4_b.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (./conclusion.tex [18]
+[17] [18]) (./conclusion.tex
 第5章.
-[19]) (./acknowledgment.tex [20]) (./reference.tex [21]
+) (./acknowledgment.tex [19
+
+]) (./reference.tex [20]
 Missing character: There is no ^^e2 in font cmr12!
 Missing character: There is no ^^80 in font cmr12!
 Missing character: There is no ^^93 in font cmr12!
- [22]) (./appendix.tex
-Excluding 'comment' comment. [23]
+ [21]) (./appendix.tex
+Excluding 'comment' comment. [22]
 付録 {A}.
 File: スライド2.PNG Graphic file (type bmp)
 <スライド2.PNG>
@@ -561,9 +561,9 @@ Overfull \hbox (4.26556pt too wide) in paragraph at lines 169--169
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Excluding 'comment' comment. [24]
+Excluding 'comment' comment. [23]
 付録 {B}.
-[25] [26]) [27] (./main.aux)
+[24] [25]) [26] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -572,12 +572,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4203 strings out of 493742
- 59198 string characters out of 6154161
+ 4204 strings out of 493742
+ 59204 string characters out of 6154161
  134342 words of memory out of 5000000
- 7571 multiletter control sequences out of 15000+600000
+ 7572 multiletter control sequences out of 15000+600000
  35598 words of font info for 137 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 42i,16n,40p,930b,591s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,16n,40p,948b,591s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (30 pages, 92548 bytes).
+Output written on main.dvi (29 pages, 92572 bytes).
