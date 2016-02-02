@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  3 FEB 2016 03:12
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  3 FEB 2016 04:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -294,7 +294,44 @@ Package caption Info: wrapfig package is loaded.
 ) (c:/texlive/2015/texmf-dist/tex/latex/comment/comment.sty
 \CommentStream=\write5
 
-Excluding comment 'comment') (./my-macros.tex) (./main.aux)
+Excluding comment 'comment') (./my-macros.tex) (./main.aux
+
+LaTeX Warning: Label `subfigure:unit_a' multiply defined.
+
+
+LaTeX Warning: Label `sub@subfigure:unit_a' multiply defined.
+
+
+LaTeX Warning: Label `subfigure:unit_b' multiply defined.
+
+
+LaTeX Warning: Label `sub@subfigure:unit_b' multiply defined.
+
+
+LaTeX Warning: Label `subfigure:unit_c' multiply defined.
+
+
+LaTeX Warning: Label `sub@subfigure:unit_c' multiply defined.
+
+
+LaTeX Warning: Label `subfigure:unit_d' multiply defined.
+
+
+LaTeX Warning: Label `sub@subfigure:unit_d' multiply defined.
+
+
+LaTeX Warning: Label `subfigure:unit_d' multiply defined.
+
+
+LaTeX Warning: Label `sub@subfigure:unit_d' multiply defined.
+
+
+LaTeX Warning: Label `subfigure:unit_d' multiply defined.
+
+
+LaTeX Warning: Label `sub@subfigure:unit_d' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
@@ -316,8 +353,7 @@ LaTeX Font Info:    ... okay on input line 44.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Try loading font information for U+msa on input line 47.
-
-(c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
+ (c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 47.
@@ -486,44 +522,62 @@ Missing character: There is no ^^93 in font cmr12!
  [22]) (./appendix.tex
 Excluding 'comment' comment. [23]
 付録 {A}.
-File: chart6.png Graphic file (type bmp)
-<chart6.png>
-Overfull \hbox (14.22638pt too wide) in paragraph at lines 137--137
- [] 
- []
-
-File: chart7.png Graphic file (type bmp)
-<chart7.png>
-Overfull \hbox (14.22638pt too wide) in paragraph at lines 138--138
+File: スライド2.PNG Graphic file (type bmp)
+<スライド2.PNG>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 139--139
  [][] 
  []
 
-File: chart8.png Graphic file (type bmp)
-<chart8.png>
-Overfull \hbox (14.22638pt too wide) in paragraph at lines 139--139
+File: スライド3.PNG Graphic file (type bmp)
+<スライド3.PNG>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 145--145
+ [][] 
+ []
+
+File: スライド4.PNG Graphic file (type bmp)
+<スライド4.PNG>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 151--151
+ [][] 
+ []
+
+File: スライド5.PNG Graphic file (type bmp)
+<スライド5.PNG>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 157--157
+ [][] 
+ []
+
+File: スライド6.PNG Graphic file (type bmp)
+<スライド6.PNG>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 163--163
+ [][] 
+ []
+
+File: スライド7.PNG Graphic file (type bmp)
+<スライド7.PNG>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 169--169
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 28.5715pt on input line 143.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-[24] [25]
+Excluding 'comment' comment. [24]
 付録 {B}.
-[26]) [27] (./main.aux)
+[25] [26]) [27] (./main.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4187 strings out of 493742
- 58876 string characters out of 6154161
+ 4200 strings out of 493742
+ 59162 string characters out of 6154161
  134342 words of memory out of 5000000
- 7562 multiletter control sequences out of 15000+600000
+ 7568 multiletter control sequences out of 15000+600000
  35598 words of font info for 137 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  42i,16n,40p,930b,591s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (30 pages, 90368 bytes).
+Output written on main.dvi (30 pages, 91324 bytes).

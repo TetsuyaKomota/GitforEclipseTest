@@ -128,8 +128,54 @@
 \[
 	r = \sqrt{t}
 \]
-という関係が満たされていることが期待される．実際のグラフ中には，無理関数に従うように見える結果と，相関が見られ難い結果が存在している．これらの違いと判別基準については付録\ref{appendix2}で説明する．
+という関係が満たされていることが期待される．
+\ref{figure:errors}において，付録\ref{appendix2}で述べる成否の判別境界を曲線で示した．
+実際のグラフ中には，境界内で無理関数に従うように見える結果と，境界外で相関が見られ難い結果が存在している．
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[h]
+	\centering
+	\begin{minipage}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{スライド2.PNG} \\ %TeXの基本として, \\ で緊急改行ができる．（今回の場合や行列などを除き，あまり使わない）
+		\subcaption{$T_{1}$:赤を中央に移動する}
+		\label{subfigure:unit_a}    
+	\end{minipage}
+	\begin{minipage}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{スライド3.PNG} \\ %TeXの基本として, \\ で緊急改行ができる．（今回の場合や行列などを除き，あまり使わない）
+		\subcaption{$T_{2}$:赤を青の右に動かす}
+		\label{subfigure:unit_b}
+	\end{minipage}
+	\begin{minipage}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{スライド4.PNG} \\ %TeXの基本として, \\ で緊急改行ができる．（今回の場合や行列などを除き，あまり使わない）
+		\subcaption{$T_{3}$:赤を橙に近づける}
+		\label{subfigure:unit_c}
+	\end{minipage}
+	\begin{minipage}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{スライド5.PNG} \\ %TeXの基本として, \\ で緊急改行ができる．（今回の場合や行列などを除き，あまり使わない）
+		\subcaption{$T_{4}$:赤を緑から遠ざける}
+		\label{subfigure:unit_d}
+	\end{minipage}
+	\begin{minipage}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{スライド6.PNG} \\ %TeXの基本として, \\ で緊急改行ができる．（今回の場合や行列などを除き，あまり使わない）
+		\subcaption{$T_{5}$:等間隔に赤黄青と並べる}
+		\label{subfigure:unit_d}
+	\end{minipage}
+	\begin{minipage}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=7.5cm]{スライド7.PNG} \\ %TeXの基本として, \\ で緊急改行ができる．（今回の場合や行列などを除き，あまり使わない）
+		\subcaption{$T_{6}$:時計回りに赤緑青と並べる}
+		\label{subfigure:unit_d}
+	\end{minipage}
+	\caption{教示誤差と再現誤差}
+	\label{figure:errors}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{figure}
 %中央ぞろえ
@@ -142,7 +188,7 @@
 		\end{center}
 	\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\end{comment}
 
 \chapter{動作再現における観点推定の成否の判定}\label{appendix2}
 

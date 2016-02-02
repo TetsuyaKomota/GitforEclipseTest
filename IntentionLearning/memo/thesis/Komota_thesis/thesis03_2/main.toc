@@ -30,4 +30,4 @@
 \contentsline {chapter}{\bf 謝辞}{21}
 \contentsline {chapter}{\bf 参考文献}{21}
 \contentsline {chapter}{{\advance \hangindent 1in {付録 {A}}} \nobreakspace {} 動作再現実験における実験結果}{24}
-\contentsline {chapter}{{\advance \hangindent 1in {付録 {B}}} \nobreakspace {} 動作再現における観点推定の成否の判定}{26}
+\contentsline {chapter}{{\advance \hangindent 1in {付録 {B}}} \nobreakspace {} 動作再現における観点推定の成否の判定}{25}
