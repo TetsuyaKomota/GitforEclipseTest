@@ -1,0 +1,529 @@
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  3 FEB 2016 03:12
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**./main.tex
+(./main.tex
+pLaTeX2e <2006/11/10> (based on LaTeX2e <2015/10/01> patch level 2)
+Babel <3.9n> and hyphenation patterns for 79 languages loaded.
+(c:/texlive/2015/texmf-dist/tex/platex/base/jreport.cls
+Document Class: jreport 2006/06/27 v1.6 Standard pLaTeX class
+\c@@paper=\count81
+(c:/texlive/2015/texmf-dist/tex/platex/base/jsize12.clo
+File: jsize12.clo 2006/06/27 v1.6 Standard pLaTeX file (size option)
+)
+\c@part=\count82
+\c@chapter=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@subparagraph=\count88
+\c@figure=\count89
+\c@table=\count90
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\symmincho=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `mincho' in version `bold'
+(Font)                  JY1/mc/m/n --> JY1/gt/m/n on input line 677.
+\toclineskip=\dimen118
+\@lnumwidth=\dimen119
+\bibindent=\dimen120
+\heisei=\count91
+) (./gthesis_myown.sty
+Style for 'T.I.Tech. graduation thesis'.
+ver. warhol(1.2e.001) 1999/Jan/22 ko-ji@mars.dti.ne.jp
+\lineheight=\dimen121
+\blankline=\dimen122
+\c@df=\count92
+\c@pr=\count93
+\c@theo=\count94
+\c@col=\count95
+\c@lem=\count96
+\c@pot=\count97
+\c@ex=\count98
+) (c:/texlive/2015/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(c:/texlive/2015/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(c:/texlive/2015/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks15
+\ex@=\dimen123
+))
+(c:/texlive/2015/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen124
+)
+(c:/texlive/2015/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count99
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count100
+\leftroot@=\count101
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count102
+\DOTSCASE@=\count103
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box41
+\strutbox@=\box42
+\big@size=\dimen125
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count104
+\c@MaxMatrixCols=\count105
+\dotsspace@=\muskip10
+\c@parentequation=\count106
+\dspbrk@lvl=\count107
+\tag@help=\toks16
+\row@=\count108
+\column@=\count109
+\maxfields@=\count110
+\andhelp@=\toks17
+\eqnshift@=\dimen126
+\alignsep@=\dimen127
+\tagshift@=\dimen128
+\tagwidth@=\dimen129
+\totwidth@=\dimen130
+\lineht@=\dimen131
+\@envbody=\toks18
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(c:/texlive/2015/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2015/03/04 v2.20.2
+\thm@style=\toks20
+\thm@bodyfont=\toks21
+\thm@headfont=\toks22
+\thm@notefont=\toks23
+\thm@headpunct=\toks24
+\thm@preskip=\skip46
+\thm@postskip=\skip47
+\thm@headsep=\skip48
+\dth@everypar=\toks25
+LaTeX Info: Redefining \qed on input line 264.
+)
+(c:/texlive/2015/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(c:/texlive/2015/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(c:/texlive/2015/texmf-dist/tex/platex/base/ascmac.sty
+(c:/texlive/2015/texmf-dist/tex/platex/base/tascmac.sty
+\@savetbaselineshift=\dimen132
+\@saveybaselineshift=\dimen133
+\scb@x=\box43
+\scscb@x=\box44
+\@bw=\dimen134
+\@nbox=\box45
+\@nbody=\box46
+\@scw=\dimen135
+\@itemh=\dimen136
+\@iboxpos=\toks26
+\@iboxstr=\box47
+\@bwsp=\box48
+\@@bwsp=\box49
+\@bcal=\count111
+\shaderule=\dimen137
+))
+(c:/texlive/2015/texmf-dist/tex/latex/fancybox/fancybox.sty
+Package: fancybox 2010/05/15 1.4
+
+Style option: `fancybox' v1.4 <2010/05/15> (tvz)
+\@fancybox=\box50
+\shadowsize=\dimen138
+\@Sbox=\box51
+\do@VerbBox=\toks27
+\the@fancyput=\toks28
+\this@fancyput=\toks29
+\EndVerbatimTokens=\toks30
+\Verbatim@Outfile=\write3
+\Verbatim@Infile=\read1
+) (./slashbox.sty
+slashbox style by K.Yasuoka, May 1993.
+\@slashboxa=\box52
+\@slashboxb=\box53
+\@slashboxc=\box54
+\@slashboxwd=\count112
+\@slashboxht=\count113
+\@slashsepl=\dimen139
+\@slashsepr=\dimen140
+) (c:/texlive/2015/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(c:/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks31
+)
+(c:/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+(c:/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(c:/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvipdfmx.def on input line 94.
+
+(c:/texlive/2015/texmf-dist/tex/latex/dvipdfmx-def/dvipdfmx.def
+File: dvipdfmx.def 2015/11/04 v4.07 LaTeX color/graphics driver for dvipdfmx (T
+eX Live/ChoF)
+
+(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)))
+\Gin@req@height=\dimen141
+\Gin@req@width=\dimen142
+)
+(c:/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+(c:/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: dvipdfmx.def on input line 142.
+
+(c:/texlive/2015/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 2014/10/14 v3.0j Driver-dependent file (DPC,SPQR)
+))
+(c:/texlive/2015/texmf-dist/tex/latex/psfrag/psfrag.sty
+Package: psfrag 1998/04/11 v3.04 PSfrag (MCG)
+\pfg@pcount=\count114
+\pfg@scount=\count115
+\pfg@temp=\write4
+)
+(c:/texlive/2015/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2014/10/28 v1.1c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup7
+\symboldletters=\mathgroup8
+\symboldsymbols=\mathgroup9
+\symboldmincho=\mathgroup10
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
+LaTeX Info: Redefining \bm on input line 207.
+)
+(c:/texlive/2015/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen143
+\WF@size=\dimen144
+\c@WF@wrappedlines=\count116
+\WF@box=\box55
+\WF@everypar=\toks32
+Package: wrapfig 2003/01/31  v 3.6
+)
+(c:/texlive/2015/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+
+(c:/texlive/2015/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@ALC@unique=\count117
+\c@ALC@line=\count118
+\c@ALC@rem=\count119
+\c@ALC@depth=\count120
+\ALC@tlm=\skip49
+\algorithmicindent=\skip50
+)
+(c:/texlive/2015/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(c:/texlive/2015/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count121
+\float@exts=\toks33
+\float@box=\box56
+\@float@everytoks=\toks34
+\@floatcapt=\box57
+)
+\@float@every@algorithm=\toks35
+\c@algorithm=\count122
+)
+(c:/texlive/2015/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2015/09/15 v1.1-100 Sub-captions (AR)
+
+(c:/texlive/2015/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2015/09/17 v3.3-111 Customizing captions (AR)
+
+(c:/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2015/09/20 v1.7-115 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen145
+\captionmargin@=\dimen146
+\captionwidth=\dimen147
+\caption@tempdima=\dimen148
+\caption@indent=\dimen149
+\caption@parindent=\dimen150
+\caption@hangindent=\dimen151
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->\vskip \abovecaptionski
+p \iftdir \sbox \@tempboxa {#1\hskip 1zw#2}\else \sbox \@tempboxa {#1: #2}\fi \
+ifdim \wd \@tempboxa >\hsize \iftdir #1\hskip 1zw#2\relax \par \else #1: #2\rel
+ax \par \fi \else \global \@minipagefalse \hbox to\hsize {\hfil \box \@tempboxa
+ \hfil }\fi \vskip \belowcaptionskip .
+\c@ContinuedFloat=\count123
+Package caption Info: float package is loaded.
+Package caption Info: wrapfig package is loaded.
+)
+\c@subfigure=\count124
+\c@subtable=\count125
+) (c:/texlive/2015/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write5
+
+Excluding comment 'comment') (./my-macros.tex) (./main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+msa on input line 47.
+
+(c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 47.
+
+(c:/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Overfull \hbox (48.95557pt too wide) in paragraph at lines 47--47
+ [][] 
+ []
+
+[-1
+
+] (./abstract.tex) [0]
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <24.88> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 53.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <24.88> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 53.
+ (./main.toc
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 1.
+)
+\tf@toc=\write6
+\openout6 = `main.toc'.
+
+ [1] (./introduction.tex
+第1章.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <17.28> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 4.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <17.28> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 4.
+[1
+
+]
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 21.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 21.
+ [2]) (./body-a.tex [3] [4]
+第2章.
+File: figure1_sub_a.png Graphic file (type bmp)
+<figure1_sub_a.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 31--31
+ [][] 
+ []
+
+File: figure1_sub_b.png Graphic file (type bmp)
+<figure1_sub_b.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 37--37
+ [][] 
+ []
+
+File: figure1_sub_c.png Graphic file (type bmp)
+<figure1_sub_c.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 43--43
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5]
+File: figure2_2_sub_a.png Graphic file (type bmp)
+ <figure2_2_sub_a.png>
+File: figure2_2_sub_b.png Graphic file (type bmp)
+ <figure2_2_sub_b.png> [6]) (./body-b.tex [7]
+第3章.
+[8]
+File: figure2_sub_a.png Graphic file (type bmp)
+ <figure2_sub_a.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 34--34
+ [][] 
+ []
+
+File: figure2_sub_b.png Graphic file (type bmp)
+<figure2_sub_b.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 40--40
+ [][] 
+ []
+
+File: figure2_sub_c.png Graphic file (type bmp)
+<figure2_sub_c.png>
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 46--46
+ [][] 
+ []
+
+[9]
+File: chart9.png Graphic file (type bmp)
+ <chart9.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10] [11]) (./body-c.tex [12]
+第4章.
+File: figure3.png Graphic file (type bmp)
+<figure3.png>
+
+LaTeX Font Warning: Font shape `JT1/mc/m/sc' undefined
+(Font)              using `JT1/mc/m/n' instead on input line 18.
+
+
+LaTeX Font Warning: Font shape `JY1/mc/m/sc' undefined
+(Font)              using `JY1/mc/m/n' instead on input line 18.
+
+
+Overfull \hbox (40.62221pt too wide) in paragraph at lines 20--111
+[][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[13]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 126.
+
+ (c:/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 126.
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 126.
+File: chart2.png Graphic file (type bmp)
+ <chart2.png>
+[14] [15] [16]
+File: chart11_a.png Graphic file (type bmp)
+ <chart11_a.png>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 169--169
+ [][] 
+ []
+
+File: chart11_b.png Graphic file (type bmp)
+<chart11_b.png>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 175--175
+ [][] 
+ []
+
+File: chart11_c.png Graphic file (type bmp)
+<chart11_c.png>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 181--181
+ [][] 
+ []
+
+File: chart11_d.png Graphic file (type bmp)
+<chart11_d.png>
+Overfull \hbox (4.26556pt too wide) in paragraph at lines 187--187
+ [][] 
+ []
+
+[17]
+File: figure4_a.png Graphic file (type bmp)
+ <figure4_a.png>
+File: figure4_b.png Graphic file (type bmp)
+ <figure4_b.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./conclusion.tex [18]
+第5章.
+[19]) (./acknowledgment.tex [20]) (./reference.tex [21]
+Missing character: There is no ^^e2 in font cmr12!
+Missing character: There is no ^^80 in font cmr12!
+Missing character: There is no ^^93 in font cmr12!
+ [22]) (./appendix.tex
+Excluding 'comment' comment. [23]
+付録 {A}.
+File: chart6.png Graphic file (type bmp)
+<chart6.png>
+Overfull \hbox (14.22638pt too wide) in paragraph at lines 137--137
+ [] 
+ []
+
+File: chart7.png Graphic file (type bmp)
+<chart7.png>
+Overfull \hbox (14.22638pt too wide) in paragraph at lines 138--138
+ [][] 
+ []
+
+File: chart8.png Graphic file (type bmp)
+<chart8.png>
+Overfull \hbox (14.22638pt too wide) in paragraph at lines 139--139
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 28.5715pt on input line 143.
+
+[24] [25]
+付録 {B}.
+[26]) [27] (./main.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4187 strings out of 493742
+ 58876 string characters out of 6154161
+ 134342 words of memory out of 5000000
+ 7562 multiletter control sequences out of 15000+600000
+ 35598 words of font info for 137 fonts, out of 8000000 for 9000
+ 929 hyphenation exceptions out of 8191
+ 42i,16n,40p,930b,591s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on main.dvi (30 pages, 90368 bytes).
