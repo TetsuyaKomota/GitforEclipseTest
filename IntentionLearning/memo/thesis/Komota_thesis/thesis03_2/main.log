@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.23)  3 FEB 2016 11:00
+This is e-pTeX, Version 3.14159265-p3.6-141210-2.6 (utf8.sjis) (TeX Live 2015/W32TeX) (preloaded format=platex 2016.1.25)  3 FEB 2016 21:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -296,40 +296,16 @@ Package caption Info: wrapfig package is loaded.
 
 Excluding comment 'comment') (./my-macros.tex) (./main.aux
 
-LaTeX Warning: Label `subfigure:unit_a' multiply defined.
+LaTeX Warning: Label `subfig:unit_d' multiply defined.
 
 
-LaTeX Warning: Label `sub@subfigure:unit_a' multiply defined.
+LaTeX Warning: Label `sub@subfig:unit_d' multiply defined.
 
 
-LaTeX Warning: Label `subfigure:unit_b' multiply defined.
+LaTeX Warning: Label `subfig:unit_d' multiply defined.
 
 
-LaTeX Warning: Label `sub@subfigure:unit_b' multiply defined.
-
-
-LaTeX Warning: Label `subfigure:unit_c' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfigure:unit_c' multiply defined.
-
-
-LaTeX Warning: Label `subfigure:unit_d' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfigure:unit_d' multiply defined.
-
-
-LaTeX Warning: Label `subfigure:unit_d' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfigure:unit_d' multiply defined.
-
-
-LaTeX Warning: Label `subfigure:unit_d' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfigure:unit_d' multiply defined.
+LaTeX Warning: Label `sub@subfig:unit_d' multiply defined.
 
 )
 \openout1 = `main.aux'.
@@ -428,25 +404,31 @@ File: figure2_2_sub_b.png Graphic file (type bmp)
 [7]
 File: figure2_sub_a.png Graphic file (type bmp)
  <figure2_sub_a.png>
-Overfull \hbox (5.68916pt too wide) in paragraph at lines 34--34
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 36--36
  [][] 
  []
 
 File: figure2_sub_b.png Graphic file (type bmp)
 <figure2_sub_b.png>
-Overfull \hbox (5.68916pt too wide) in paragraph at lines 40--40
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 42--42
  [][] 
  []
 
 File: figure2_sub_c.png Graphic file (type bmp)
 <figure2_sub_c.png>
-Overfull \hbox (5.68916pt too wide) in paragraph at lines 46--46
+Overfull \hbox (5.68916pt too wide) in paragraph at lines 48--48
  [][] 
  []
 
-[8]
+[8
+
+]
 File: chart9.png Graphic file (type bmp)
- <chart9.png> [9] [10]) (./body-c.tex [11]
+ <chart9.png>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[9] [10]) (./body-c.tex [11]
 第4章.
 File: figure3.png Graphic file (type bmp)
 <figure3.png>
@@ -511,7 +493,9 @@ File: figure4_b.png Graphic file (type bmp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[17] [18]) (./conclusion.tex
+[17
+
+] [18]) (./conclusion.tex
 第5章.
 ) (./acknowledgment.tex [19
 
@@ -572,12 +556,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4204 strings out of 493742
- 59204 string characters out of 6154161
+ 4212 strings out of 493742
+ 59335 string characters out of 6154161
  134342 words of memory out of 5000000
- 7572 multiletter control sequences out of 15000+600000
+ 7580 multiletter control sequences out of 15000+600000
  35598 words of font info for 137 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  42i,16n,40p,948b,591s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (29 pages, 92572 bytes).
+Output written on main.dvi (29 pages, 92588 bytes).

@@ -4,10 +4,10 @@
 
 \chapter{提案手法}
 
-\section{問題設定}
+\section{従来手法との相違点}
 
 従来手法では$L$を各物体の位置，トラジェクタ動作開始点，画面中央に限定しており，\ref{kadai}で述べた課題点を解決することができない．
-その点を踏まえ，提案手法では複数の参照点を学習に利用する手法を導入した．従来手法の拡張で複数の参照点を考慮できるようにするためには，参照点と変位（座標系）のいずれかに複数の参照点の情報を保持する機構を導入する必要がある．そこで参照点の候補に各参照点間の重心位置を採用することによって，参照点に複数の参照点の位置情報を含めることができると考えた．また本研究では物体移動動作を初期状態に対する最終状態の決定と定義し，動作軌跡に関しては考慮していないため，学習モデルはより単純なガウスモデルを使用した．
+その点を踏まえ，提案手法では複数の参照点を学習に利用する手法を導入した．従来手法の拡張で複数の参照点を考慮できるようにするためには，参照点と変位である座標系のいずれかに複数の参照点の情報を保持する機構を導入する必要がある．そこで参照点の候補に各参照点間の重心位置を採用する．また本研究では物体移動動作を初期状態に対する最終状態の決定と定義し，動作軌跡に関しては考慮しないため，学習モデルはより単純なガウスモデルを使用する．
 
 \section{提案手法の概要}
 
@@ -20,6 +20,8 @@
 複数の物体間の相対的な位置関係を考慮する場合，座標系$k$の定め方として，参照点を原点とし，他の物体方向に軸を向けた座標系を考慮する必要があると考えられる．
 そのため提案手法では，従来手法で採用されていた$k_{id}$，$k_{lt}$に，新たに1つの座標系を加えた以下の3種類が存在するとする．
 
+\clearpage
+　
 	\begin{enumerate}
 		\item 参照点を原点とし，常に一定の相対位置に遷移する
 		\item 参照点を原点とし，トラジェクタの初期位置に応じて遷移先が変化する
@@ -64,7 +66,7 @@ Fig.\ref{subfigure:difference_displacement3}の例として，トラジェクタ
 教示動作が与えられたとき，各観点のガウスモデルを以下のように更新する．
 
 \begin{equation}
-	v = Normalize_{lk}(Transform_{lk}(p))
+	v = Norm_{lk}(Trans_{lk}(p))
 \end{equation}
 
 \begin{equation}
@@ -77,40 +79,40 @@ Fig.\ref{subfigure:difference_displacement3}の例として，トラジェクタ
 	σ_{lk}  \leftarrow \sqrt{Q_{lk} - μ_{lk}^2}
 \end{equation}
 
-ここで，$p$は教示動作の目標位置を指す．$Normalize_{lk}$，$Transform_{lk}$はそれぞれその観点における正規化関数と座標変換を指し，以下の式で与えられる．
+ここで，$p$は教示動作の目標位置を指す．$Norm_{lk}$，$Trans_{lk}$はそれぞれその観点における正規化関数と座標変換を指し，以下の式で与えられる．
 
 %まず教示動作の目標位置の，各参照点を原点とした相対位置を求め，各座標系ごとに座標変換，正規化を行う．それにより得たベクトル$v$を用いて，観点$<l , k>$のガウスモデルの平均$μ_{lk}$，2乗平均$Q_{lk}$，標準偏差$σ_{lk}$をそれぞれ更新する．
 \begin{equation}
-	Transform_{lk}(v) = 
+	Trans_{lk}(v) = 
 	\begin{pmatrix}
         	\cos θ_{lkv} & \sin θ_{lkv} \\
         	-\sin θ_{lkv} & \cos θ_{lkv}
 	\end{pmatrix}
-	(v-Position(l))
+	(v-Pos(l))
 \end{equation}
 \begin{equation}
-	\label{equation:normalize}
-	Normalize_{lk}(v) = 
+	\label{equation:Norm}
+	Norm_{lk}(v) = 
 	\begin{cases}
 		v & (if\,\,k=k_{id}) \\
-		\frac{unit}{| Position(r_{k})-Position(l) |}v & (otherwise)
+		\frac{unit}{| Pos(r_{k})-Pos(l) |}v & (otherwise)
 	\end{cases}
 \end{equation}
 
 ただし，$unit$は正規化長を表し，
 
 \[
-	\cos θ_{lkv} = \frac{(v-Position(l))・(Position(r_{k})-Position(l))}{| v-Position(l) || Position(r_{k})-Position(l) |}
+	\cos θ_{lkv} = \frac{(v-Pos(l))・(Pos(r_{k})-Pos(l))}{| v-Pos(l) || Pos(r_{k})-Pos(l) |}
 \]
 
-であり，$Position(l)$は参照点$l$の位置ベクトルを表す．また$r_{k}$は座標系$k$が軸を向ける方向を決定する参照点を表す．例えば座標系$k_{lt}$の場合，$r_{k_{lt}}$はトラジェクタの初期位置を表す．
+であり，$Pos(l)$は参照点$l$の位置ベクトルを表す．また$r_{k}$は座標系$k$が軸を向ける方向を決定する参照点を表す．例えば座標系$k_{lt}$の場合，$r_{k_{lt}}$はトラジェクタの初期位置を表す．
 正規化関数の必要性と性質については\ref{subsection:UNIT}で述べる．
 
 \section{動作再現}
 
 教示動作から学習された各観点$<l , k>$における確率モデルを用いて，トラジェクタの目標位置$v$を以下のように求めることで，学習動作の再現を行う．
 \begin{equation}
-	v =  Position(\hat{l}) +Transform^{-1}(Normalize^{-1}(μ_{\hat{l}\hat{k}})) 
+	v =  Pos(\hat{l}) +Trans^{-1}(Norm^{-1}(μ_{\hat{l}\hat{k}})) 
 \end{equation}
 \begin{equation}
 	<\hat{l} , \hat{k}> =  \mathop{\arg\min}_{k , l}σ_{lk}
@@ -140,7 +142,7 @@ Fig.\ref{figure:learning_and_reproduction_model}に，提案手法における�
 
 \begin{equation}
 	\label{equation:generation probability}
-	Probability(<l , k> , p) = \frac{1}{\sqrt{2\pi}σ_{lk}}\exp \left(\frac{|Normalize_{lk}(Transform_{lk}(p))-μ_{lk}|^2}{2σ_{lk}^2}\right)
+	Probability(<l , k> , p) = \frac{1}{\sqrt{2\pi}σ_{lk}}\exp \left(\frac{|Norm_{lk}(Trans_{lk}(p))-μ_{lk}|^2}{2σ_{lk}^2}\right)
 \end{equation}
 
 ここで$T$は既学習動作の集合を表し，$V_{t}$とは動作$t$を学習した観点の学習モデルの集合を表す．

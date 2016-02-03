@@ -11,7 +11,7 @@
 \contentsline {subsection}{\numberline {2.2.2}変位}{5}
 \contentsline {subsection}{\numberline {2.2.3}学習，再現}{6}
 \contentsline {chapter}{{\advance \hangindent 1in {第3章}} \nobreakspace {} 提案手法}{7}
-\contentsline {section}{\numberline {3.1}問題設定}{7}
+\contentsline {section}{\numberline {3.1}従来手法との相違点}{7}
 \contentsline {section}{\numberline {3.2}提案手法の概要}{7}
 \contentsline {subsection}{\numberline {3.2.1}参照点}{7}
 \contentsline {subsection}{\numberline {3.2.2}変位}{7}
