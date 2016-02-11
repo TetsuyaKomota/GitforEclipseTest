@@ -12,10 +12,11 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
-public class LifeFrame extends JFrame{
+public abstract class LifeFrame extends JFrame{
 
 	public static void main(String[] args){
-		LifeFrame frame = new LifeFrame();
+		//LifeFrame frame = new LifeFrame();
+		System.out.println("このクラスを継承してruleを具象化して実行してください");
 	}
 
 
@@ -25,14 +26,15 @@ public class LifeFrame extends JFrame{
 	//タイマークラス
 	Timer t;
 
+	//描画フラグ
+	boolean renderflag = true;
+
 	//エージェント
 	Agent[][] agents;
 
-	//エージェントの量
-	static final int NUMBEROFAGENTS = 500;
+	//エージェント種類累計
+	int[] amounts;
 
-	//エージェントのサイズ
-	static final int SIZEOFAGENT = 1;
 
 	//コンストラクタ
 	public LifeFrame(){
@@ -54,75 +56,16 @@ public class LifeFrame extends JFrame{
 		this.initialize();
 
 		this.t = new Timer();
-		t.schedule(new RenderTask(), 0,50);
+		t.schedule(new RenderTask(), 0,1000/Statics.FRAMERATE);
 
 	}
 	/* ************************************************************************************************************************************************* */
 	/* ************************************************************************************************************************************************* */
 	/* ************************************************************************************************************************************************* */
 	//スペースキーを押したときに起こす処理
-public void pushSPACE(){
-	//エージェントをランダムに召喚
-	for(int i=0;i<NUMBEROFAGENTS;i++){
-		for(int j=0;j<NUMBEROFAGENTS;j++){
-			this.agents[i][j].status = (int)(Math.random()*2 - 0.5);
-		}
-	}
-	//生命の泉を召喚
-	this.agents[(int)(NUMBEROFAGENTS*Math.random())][(int)(NUMBEROFAGENTS*Math.random())].status = 6;
-}
+public abstract void startWORLD();
 //ライフゲーム．ここをオーバーライドしてゲームを作ろう
-public int gameofLIFE(int[] neighbors,int status){
-	int output = status;
-	//単純なライフゲーム
-	int count = 0;
-	for(int i=0;i<neighbors.length;i++){
-		if(neighbors[i] == 1){
-			count++;
-		}
-	}
-	if(status == 1 && (count < 2 || count > 3)){
-		if(Math.random()>0.02){
-			output = 0;
-		}
-	}
-	else if(status == 0 && (count == 3)){
-		output = 1;
-	}
-	//生命の泉
-	int mother = 0;
-	for(int i=0;i<neighbors.length;i++){
-		if(neighbors[i] == 6){
-			mother++;
-		}
-	}
-	if(status == 6 && count > 5){
-		output = 8;
-	}
-	if(status == 1 && mother >= 3){
-		output = 6;
-	}
-	if(status == 0 && Math.random()*mother > 0.5){
-		output = 1;
-	}
-	if(status == 0 && mother == 1 && Math.random() > 0.9){
-		output = 6;
-	}
-	//腐食した泉
-	int lostmother = 0;
-	for(int i=0;i<neighbors.length;i++){
-		if(neighbors[i] == 8){
-			lostmother++;
-		}
-	}
-	if(status == 6 && lostmother > 0 && Math.random()*lostmother > 0.9){
-		output = 8;
-	}
-	if(status == 8 && mother < 2){
-		output = 0;
-	}
-	return output;
-}
+public abstract int rule(int[] neighbors,int status);
 /* ************************************************************************************************************************************************* */
 /* ************************************************************************************************************************************************* */
 /* ************************************************************************************************************************************************* */
@@ -135,12 +78,14 @@ public int gameofLIFE(int[] neighbors,int status){
 	//初期化
 	public void initialize(){
 		//エージェント作製
-		this.agents = new Agent[NUMBEROFAGENTS][NUMBEROFAGENTS];
-		for(int i=0;i<NUMBEROFAGENTS;i++){
-			for(int j=0;j<NUMBEROFAGENTS;j++){
+		this.agents = new Agent[Statics.NUMBEROFAGENTS][Statics.NUMBEROFAGENTS];
+		for(int i=0;i<Statics.NUMBEROFAGENTS;i++){
+			for(int j=0;j<Statics.NUMBEROFAGENTS;j++){
 				this.agents[i][j] = new Agent(i,j);
 			}
 		}
+		//累計
+		this.amounts = new int[Statics.NUMBEROFSTATUS];
 	}
 
 
@@ -205,31 +150,56 @@ public int gameofLIFE(int[] neighbors,int status){
 	//タイマータスク
 	class RenderTask extends TimerTask{
 
+		//背景色
+		Color backgrond;
+		//描画時に使用する，次状態を格納する配列
+		int[][] nexts;
+
+		//コンストラクタ
+		RenderTask(){
+			this.backgrond = new Color(240,240,240);
+			this.nexts = new int[Statics.NUMBEROFAGENTS][Statics.NUMBEROFAGENTS];
+		}
+
 		@Override
 		public void run() {
-			// TODO 自動生成されたメソッド・スタブ
+
+			if(LifeFrame.this.renderflag == false){
+				return;
+			}
+			//累計取り直し
+			for(int i=0;i<LifeFrame.this.amounts.length;i++){
+				LifeFrame.this.amounts[i] = 0;
+			}
 			Graphics2D g = (Graphics2D)LifeFrame.this.buffer.getDrawGraphics();
 			//背景の描画
-			g.setColor(new Color(240,240,240));
+			g.setColor(this.backgrond);
 			g.fillRect(0, 0, LifeFrame.this.getWidth(), LifeFrame.this.getHeight());
 
-			//エージェントの描画
-			for(int i=0;i<NUMBEROFAGENTS;i++){
-				for(int j=0;j<NUMBEROFAGENTS;j++){
+			//エージェントの描画と認識
+			for(int i=0;i<Statics.NUMBEROFAGENTS;i++){
+				for(int j=0;j<Statics.NUMBEROFAGENTS;j++){
+					LifeFrame.this.amounts[LifeFrame.this.agents[i][j].status]++;
 					LifeFrame.this.agents[i][j].draw();
+					LifeFrame.this.agents[i][j].recognize();
 				}
 			}
 			//エージェントの移動
-			int[][] nexts = new int[NUMBEROFAGENTS][NUMBEROFAGENTS];
-			for(int i=0;i<NUMBEROFAGENTS;i++){
-				for(int j=0;j<NUMBEROFAGENTS;j++){
+			for(int i=0;i<Statics.NUMBEROFAGENTS;i++){
+				for(int j=0;j<Statics.NUMBEROFAGENTS;j++){
 					nexts[i][j] = LifeFrame.this.agents[i][j].move();
 				}
 			}
-			for(int i=0;i<NUMBEROFAGENTS;i++){
-				for(int j=0;j<NUMBEROFAGENTS;j++){
+			for(int i=0;i<Statics.NUMBEROFAGENTS;i++){
+				for(int j=0;j<Statics.NUMBEROFAGENTS;j++){
 					LifeFrame.this.agents[i][j].status = nexts[i][j];
 				}
+			}
+			//累計出力
+			g.setColor(Color.black);
+			g.drawString("State : amount", 50, 50);
+			for(int i=0;i<Statics.NUMBEROFSTATUS;i++){
+				g.drawString(i+" : "+LifeFrame.this.amounts[i], 50, 70+20*i);
 			}
 			g.dispose();
 			LifeFrame.this.draw();
@@ -243,12 +213,15 @@ public int gameofLIFE(int[] neighbors,int status){
 		int[] position;
 		//状態
 		int status;
+		//周囲の状態
+		int[] neighbors;
 		//コンストラクタ
 		Agent(int gyou, int retsu, int status){
 			this.position = new int[2];
 			this.position[0] = gyou;
 			this.position[1] = retsu;
 			this.status = status;
+			this.neighbors = new int[Statics.NUMBEROFSTATUS];
 		}
 		Agent(int gyou, int retsu){
 			this(gyou,retsu,0);
@@ -256,7 +229,7 @@ public int gameofLIFE(int[] neighbors,int status){
 		//描画
 		void draw(){
 			Graphics2D g = (Graphics2D)LifeFrame.this.buffer.getDrawGraphics();
-			g.translate((LifeFrame.this.getWidth() - NUMBEROFAGENTS*SIZEOFAGENT)/2, (LifeFrame.this.getHeight() - NUMBEROFAGENTS*SIZEOFAGENT)/2);
+			g.translate((LifeFrame.this.getWidth() - Statics.NUMBEROFAGENTS*Statics.SIZEOFAGENT)/2, (LifeFrame.this.getHeight() - Statics.NUMBEROFAGENTS*Statics.SIZEOFAGENT)/2);
 			switch(this.status){
 			case 0:
 				g.setColor(Color.white);
@@ -289,45 +262,41 @@ public int gameofLIFE(int[] neighbors,int status){
 				g.setColor(Color.black);
 				break;
 			}
-			g.fillRect(this.position[1]*SIZEOFAGENT,this.position[0]*SIZEOFAGENT,SIZEOFAGENT,SIZEOFAGENT);
+			g.fillRect(this.position[1]*Statics.SIZEOFAGENT,this.position[0]*Statics.SIZEOFAGENT,Statics.SIZEOFAGENT,Statics.SIZEOFAGENT);
 			g.dispose();
 		}
-		//状態変化のルール
-		//ここをいろいろ改造して遊んでみて
-		int move(){
-			//周囲の状態を確認
-			/*
-			 *  0 1 2
-			 *  3[4]5
-			 *  6 7 8
-			 */
-			int[] neighbors = new int[9];
-
-			for(int i=0;i<3;i++){
-				for(int j=0;j<3;j++){
-					if(	this.position[0]+i-1<0
-						||this.position[1]+j-1<0
-						||this.position[0] + i - 1 > NUMBEROFAGENTS-1
-						||this.position[1] + j - 1 > NUMBEROFAGENTS-1){
-						neighbors[3*i + j] = 0;
+		//状態認識
+		void recognize(){
+			int gyou = -1;
+			int retsu= -1;
+			for(int i=0;i<this.neighbors.length;i++){
+				this.neighbors[i] = 0;
+			}
+			for(int i=-1;i<2;i++){
+				for(int j=-1;j<2;j++){
+					gyou = this.position[0]+i;
+					retsu = this.position[1]+j;
+					if(gyou<0){
+						gyou += Statics.NUMBEROFAGENTS;
 					}
-					else{
-						neighbors[3*i + j] = LifeFrame.this.agents[this.position[0]+i-1][this.position[1]+j-1].status;
+					if(gyou>Statics.NUMBEROFAGENTS-1){
+						gyou -= Statics.NUMBEROFAGENTS;
+					}
+					if(retsu<0){
+						retsu += Statics.NUMBEROFAGENTS;
+					}
+					if(retsu>Statics.NUMBEROFAGENTS-1){
+						retsu -= Statics.NUMBEROFAGENTS;
+					}
+					if(i!=0||j!=0){
+						this.neighbors[LifeFrame.this.agents[gyou][retsu].status]++;
 					}
 				}
 			}
-			//真ん中はダミーなので-1にしておく
-			neighbors[4] = -1;
-
-			//周囲取れてるか出力
-/*
-			System.out.print("[LifeFrame:Agent]move:neighbors("+this.position[0]+","+this.position[1]+"):");
-			for(int i=0;i<neighbors.length;i++){
-				System.out.print(" "+neighbors[i]);
-			}
-			System.out.println();
-*/
-			return LifeFrame.this.gameofLIFE(neighbors, this.status);
+		}
+		//状態変化
+		int move(){
+			return LifeFrame.this.rule(this.neighbors,this.status);
 		}
 	}
 
@@ -345,12 +314,13 @@ public int gameofLIFE(int[] neighbors,int status){
 		public void keyPressed(KeyEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
-				LifeFrame.this.pushSPACE();
+				LifeFrame.this.startWORLD();
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_G){
 				LifeFrame.this.pushGoal();
 			}
-			else if(e.getKeyCode() == KeyEvent.VK_Z){
+			else if(e.getKeyCode() == KeyEvent.VK_S){
+				LifeFrame.this.renderflag = (!LifeFrame.this.renderflag);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_X){
 			}
