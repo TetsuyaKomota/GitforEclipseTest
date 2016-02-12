@@ -314,7 +314,16 @@ public abstract int rule(int[] neighbors,int status);
 		public void keyPressed(KeyEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
+				LifeFrame.this.renderflag = false;
+				//描画がストップするまでの時間を置く
+				try {
+					Thread.sleep(1000/Statics.FRAMERATE);
+				} catch (InterruptedException e1) {
+					// TODO 自動生成された catch ブロック
+					e1.printStackTrace();
+				}
 				LifeFrame.this.startWORLD();
+				LifeFrame.this.renderflag = true;
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_G){
 				LifeFrame.this.pushGoal();

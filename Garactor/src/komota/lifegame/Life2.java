@@ -49,7 +49,7 @@ public class Life2 extends LifeFrame{
 	public static int RULE_gameofLIFE_ENEMY(int[] neighbors,int status){
 		int output = status;
 		if(status == 2/* && (neighbors[2] < 2 || neighbors[2] > 3)*/){
-			if(Math.random()>0.3 || neighbors[2] > 3){
+			if(Math.random()>0.35 || neighbors[2] > 3){
 				output = 0;
 			}
 		}
