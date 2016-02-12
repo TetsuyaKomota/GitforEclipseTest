@@ -10,7 +10,7 @@ public class Statics {
 	public static final int SIZEOFAGENT = 2;
 
 	//フレームレート[fps]
-	public static final int FRAMERATE = 20;
+	public static final int FRAMERATE = 60;
 
 	//状態数
 	public static final int NUMBEROFSTATUS = 10;

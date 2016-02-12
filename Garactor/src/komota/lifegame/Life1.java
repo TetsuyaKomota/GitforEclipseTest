@@ -12,6 +12,7 @@ public class Life1 extends LifeFrame{
 		for(int i=0;i<Statics.NUMBEROFAGENTS;i++){
 			for(int j=0;j<Statics.NUMBEROFAGENTS;j++){
 				this.agents[i][j].status = (int)(Math.random()*2 - 0.5);
+				//this.agents[i][j].status = 0;
 			}
 		}
 		//生命の泉を召喚
@@ -32,7 +33,7 @@ public class Life1 extends LifeFrame{
 	public static int RULE_gameofLIFE(int[] neighbors,int status){
 		int output = status;
 		if(status == 1 && (neighbors[1] < 2 || neighbors[1] > 3)){
-			if(Math.random()>0.02){
+			if(Math.random()>0.00){
 				output = 0;
 			}
 		}
@@ -57,7 +58,7 @@ public class Life1 extends LifeFrame{
 			output = 6;
 		}
 		//腐食した泉
-		if(status == 6 && neighbors[8] > 0 && Math.random()*neighbors[8] > 0.6){
+		if(status == 6 && neighbors[8] > 0 && Math.random()*neighbors[8] > 0.8){
 			output = 8;
 		}
 		if(status == 8 && neighbors[6] < 2){

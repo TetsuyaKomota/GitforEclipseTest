@@ -69,7 +69,7 @@ public class Life2 extends LifeFrame{
 	//生命の泉リベンジ
 	public static int RULE_rakeofLIFE(int[] neighbors,int status){
 		int output = status;
-		if(status == 0 && neighbors[6] > 0){
+		if(status == 0 && neighbors[6] > 2){
 			output = 2;
 		}
 		return output;
