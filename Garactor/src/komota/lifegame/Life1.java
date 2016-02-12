@@ -24,7 +24,7 @@ public class Life1 extends LifeFrame{
 		//単純なライフゲーム
 		output = Life1.RULE_gameofLIFE(neighbors, output);
 		//生命の泉
-		//output = Life1.RULE_influence(neighbors, output);
+		output = Life1.RULE_influence(neighbors, output);
 
 		return output;
 	}
