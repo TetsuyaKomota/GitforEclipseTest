@@ -4,7 +4,7 @@ public class Statics {
 
 	//定数置き場
 	//エージェントの量
-	public static final int NUMBEROFAGENTS = 300;
+	public static final int NUMBEROFAGENTS = 400;
 
 	//エージェントのサイズ
 	public static final int SIZEOFAGENT = 2;
