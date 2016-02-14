@@ -20,88 +20,20 @@ public class Lifev2_1 extends LifeFrame_v2 {
 	public double[] rule(int[] neighbors, int status) {
 		// TODO 自動生成されたメソッド・スタブ
 		double[] output = new double[Statics.NUMBEROFSTATUS];
-		double[] temp = new double[Statics.NUMBEROFSTATUS];
 
-
-		//単純なライフゲーム
-		if(status == 1 && neighbors[1] > 1 && neighbors[1] < 4){
-			for(int i=0;i<temp.length;i++){
-				if(i==1){
-					temp[i] = 1;
-				}
-				else{
-					temp[i] = 0;
-				}
-			}
-		}
-		else if(status == 1){
-			for(int i=0;i<temp.length;i++){
-				if(i==0){
-					temp[i] = 1;
-				}
-				else{
-					temp[i] = 0;
-				}
-			}
-		}
-		for(int i=0;i<output.length;i++){
-			output[i] += temp[i];
-			temp[i] = 0;
-		}
-		if(status == 0 && neighbors[1] == 3){
-			for(int i=0;i<temp.length;i++){
-				if(i==1){
-					temp[i] = 1;
-				}
-				else{
-					temp[i] = 0;
-				}
-			}
-		}
-		for(int i=0;i<output.length;i++){
-			output[i] += temp[i];
-			temp[i] = 0;
-		}
-		//対抗勢力
-		if(status == 2 && neighbors[2] > 1 && neighbors[2] < 4){
-			for(int i=0;i<temp.length;i++){
-				if(i==2){
-					temp[i] = 1;
-				}
-				else{
-					temp[i] = 0;
-				}
-			}
-		}
-		else if(status == 2){
-			for(int i=0;i<temp.length;i++){
-				if(i==0){
-					temp[i] = 1;
-				}
-				else{
-					temp[i] = 0;
-				}
-			}
-		}
-		for(int i=0;i<output.length;i++){
-			output[i] += temp[i];
-			temp[i] = 0;
-		}
-		if(status == 0 && neighbors[2] == 3){
-			for(int i=0;i<temp.length;i++){
-				if(i==2){
-					temp[i] = 1;
-				}
-				else{
-					temp[i] = 0;
-				}
-			}
-		}
-		for(int i=0;i<output.length;i++){
-			output[i] += temp[i];
-			temp[i] = 0;
-		}
-
+		//交配
+		Lifev2_1.RULE_crossing(output, neighbors, status, 1, 1, 1);
+		Lifev2_1.RULE_crossing(output, neighbors, status, 1, 2, 0);
+		Lifev2_1.RULE_crossing(output, neighbors, status, 2, 1, 0);
+		Lifev2_1.RULE_crossing(output, neighbors, status, 2, 2, 1);
+		//捕食
+		Lifev2_1.RULE_predation(output, neighbors, status, 1, 1, 0);
+		Lifev2_1.RULE_predation(output, neighbors, status, 1, 2, 1);
+		Lifev2_1.RULE_predation(output, neighbors, status, 2, 1, 1);
+		Lifev2_1.RULE_predation(output, neighbors, status, 2, 2, 0);
+		//生存
+		Lifev2_1.RULE_survive(output, neighbors, status, 1, 1, 1);
+		Lifev2_1.RULE_survive(output, neighbors, status, 2, 2, 1);
 		//各確率を1未満にする
 		int sum = 0;
 		for(int i=0;i<output.length;i++){
@@ -112,6 +44,38 @@ public class Lifev2_1 extends LifeFrame_v2 {
 		}
 		return output;
 	}
+
+	//交配
+	public static double[] RULE_crossing(double[] output,int[] neighbors,int status,int parents,int child,double probability){
+		if(status == 0 && neighbors[parents] == 3){
+			if(Math.random() > 1-probability){
+				output[child] += 1;
+			}
+		}
+		return output;
+	}
+	//生存
+	public static double[] RULE_survive(double[] output, int[] neighbors,int status,int parents,int child,double probability){
+		if(status == child && neighbors[parents] > 1 && neighbors[parents] < 4){
+			if(Math.random() > 1-probability){
+				output[child] += 1;
+			}
+		}
+		else if(status == child){
+			output[0] += 1;
+		}
+		return output;
+	}
+	//捕食
+	public static double[] RULE_predation(double[] output,int[] neighbors,int status,int predator,int victim,double probability){
+		if(status == victim && neighbors[predator] > 1){
+			if(Math.random() > 1-probability){
+				output[predator] += 1;
+			}
+		}
+		return output;
+	}
+
 
 	/**
 	 * @param args
