@@ -51,6 +51,7 @@ public class Life3 extends LifeFrame {
 		}
 		return output;
 	}
+
 	//交配
 	public static int RULE_crossing(int[] neighbors,int status, int parents,int child,double probability){
 		int output = status;
@@ -62,7 +63,34 @@ public class Life3 extends LifeFrame {
 		}
 		return output;
 	}
-
+	//生存
+	public static int RULE_survive(int[] neighbors,int status,int parents,int child,double probability){
+/*
+		int output = 0;
+		//親parentsが2匹か3匹隣接してる時，確率probabilityで子childは生存する
+		if(status == child && neighbors[parents] > 1 && neighbors[parents] < 4){
+			if(Math.random() > 1-probability){
+				output = status;
+			}
+		}
+		else if(status != child){
+			output = status;
+		}
+		return output;
+*/
+		int output = status;
+		if(status == 0){
+		}
+		else if(status != child){
+		}
+		else if(neighbors[parents] < 2 || neighbors[parents] > 3){
+			output = 0;
+		}
+		else if(Math.random() <= 1-probability){
+			output = 0;
+		}
+		return output;
+	}
 	//捕食
 	public static int RULE_predation(int[] neighbors,int status, int predator,int victim, double probability){
 		//捕食者predator2つ以上が被食者victimに隣接している場合，確率probabilityで捕食する
@@ -70,6 +98,17 @@ public class Life3 extends LifeFrame {
 		if(status == victim && neighbors[predator] > 1){
 			if(Math.random()>1-probability){
 				output = predator;
+			}
+		}
+		return output;
+	}
+	//変位
+	public static int RULE_metamorphose(int[] neighbors,int status,int parent,int child, double probability){
+		//親parentsは，確率probabilityで無条件に子childに突然変異する
+		int output = status;
+		if(status == parent){
+			if(Math.random() > 1-probability){
+				output = child;
 			}
 		}
 		return output;
