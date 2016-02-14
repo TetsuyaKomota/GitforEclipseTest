@@ -35,6 +35,9 @@ public abstract class LifeFrame_v2 extends JFrame{
 	//エージェント種類累計
 	int[] amounts;
 
+	//時計
+	int step;
+
 
 	//コンストラクタ
 	public LifeFrame_v2(){
@@ -63,12 +66,12 @@ public abstract class LifeFrame_v2 extends JFrame{
 	/* ************************************************************************************************************************************************* */
 	/* ************************************************************************************************************************************************* */
 	//スペースキーを押したときに起こす処理
-public abstract void startWORLD();
-//ライフゲーム．ここをオーバーライドしてゲームを作ろう
-public abstract double[] rule(int[] neighbors,int status);
-/* ************************************************************************************************************************************************* */
-/* ************************************************************************************************************************************************* */
-/* ************************************************************************************************************************************************* */
+	public abstract void startWORLD();
+	//ライフゲーム．ここをオーバーライドしてゲームを作ろう
+	public abstract double[] rule(int[] neighbors,int status);
+	/* ************************************************************************************************************************************************* */
+	/* ************************************************************************************************************************************************* */
+	/* ************************************************************************************************************************************************* */
 
 
 	//Gを押した時に起こす処理
@@ -208,7 +211,7 @@ public abstract double[] rule(int[] neighbors,int status);
 			}
 			//累計出力
 			g.setColor(Color.black);
-			g.drawString("State : amount", 50, 50);
+			g.drawString("State : amount    STEP:"+LifeFrame_v2.this.step++, 50, 50);
 			for(int i=0;i<Statics.NUMBEROFSTATUS;i++){
 				g.drawString(i+" : "+LifeFrame_v2.this.amounts[i], 50, 70+20*i);
 			}
@@ -328,12 +331,13 @@ public abstract double[] rule(int[] neighbors,int status);
 				LifeFrame_v2.this.renderflag = false;
 				//描画がストップするまでの時間を置く
 				try {
-					Thread.sleep(1000/Statics.FRAMERATE);
+					Thread.sleep(3000/Statics.FRAMERATE);
 				} catch (InterruptedException e1) {
 					// TODO 自動生成された catch ブロック
 					e1.printStackTrace();
 				}
 				LifeFrame_v2.this.startWORLD();
+				LifeFrame_v2.this.step = 0;
 				LifeFrame_v2.this.renderflag = true;
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_G){
