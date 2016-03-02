@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,6 +22,20 @@ import javax.swing.JFrame;
 
 public class MyFrame extends JFrame{
 
+	//描画関係の定数．Staticsじゃ作れないので泣く泣くここに集結
+	/** 選択オブジェクト及び選択マスの枠線．ほかでいじることはまずない*/
+	static BasicStroke wideStroke = new BasicStroke(Statics.FRAME_SIZE_OF_SELECTED_PANEL);
+	/** 背景色*/
+	static Color background = new Color(240,240,240);
+	/** 文字色*/
+	static Color colorofstring = Color.black;
+	/** 空きマスの色*/
+	static Color colorofspace = Color.white;
+	/** 選択中のオブジェクトの枠の色*/
+	static Color colorofselectedobject = Color.black;
+	/** 選択中の空きマスの枠の色*/
+	static Color colorofselectedspace = new Color(255,100,200);
+
 	/**
 	 * @param args
 	 */
@@ -30,6 +43,7 @@ public class MyFrame extends JFrame{
 		// TODO 自動生成されたメソッド・スタブ
 		@SuppressWarnings("unused")
 		MyFrame frame = new MyFrame();
+		frame.panels[0][0].setStatus(1);
 	}
 
 	//バッファストラテジ
@@ -53,7 +67,6 @@ public class MyFrame extends JFrame{
 	public String howtouse = "SPACE:exchange the first clicked and the second clicked.   G:finish the task.";
 
 	//出力先ファイル
-	//File file;
 	String file_name = "test.txt";
 	PrintWriter pw;
 
@@ -92,19 +105,7 @@ public class MyFrame extends JFrame{
 
 		this.addKeyListener(new MyKeyListener());
 		this.addMouseListener(new MyMouseListener());
-		this.addMouseListener(new MySerialMouseListener());
 
-
-		//this.file = new File("log/"+file_name);
-		try {
-		      FileOutputStream fos = new FileOutputStream("log/"+file_name,true);
-		      OutputStreamWriter osw = new OutputStreamWriter(fos);
-		      this.pw = new PrintWriter(osw);
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			System.out.println("ファイルなし");
-			e.printStackTrace();
-		}
 		this.t = new Timer();
 		t.schedule(new RenderTask(), 0,12);
 
@@ -115,13 +116,14 @@ public class MyFrame extends JFrame{
 	public MyPanel[][] getPanels(){
 		return this.panels;
 	}
-	public MyFrame setSelected(int[] selected){
+	public void setSelected(int[] selected){
 		this.selected = selected;
-		return this;
 	}
-	public MyFrame setSecondSelected(int[] selected){
+	public void setSecondSelected(int[] selected){
 		this.secondselected = selected;
-		return this;
+	}
+	public int[] getSelected(){
+		return this.selected;
 	}
 	public int[] getSecondSelected(){
 		return this.secondselected;
@@ -149,32 +151,21 @@ public class MyFrame extends JFrame{
 	}
 
 	//スペースキーを押したときに起こす処理
-public void pushSPACE(){
-	if(this.selected[0] != -1 && this.selected[1] != -1 && this.secondselected[0] != -1 && this.secondselected[1] != -1){
-		int temp = this.panels[selected[0]][selected[1]].getStatus();
-		this.panels[selected[0]][selected[1]].setStatus(this.panels[secondselected[0]][secondselected[1]].getStatus());
-		this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-		double[] tempfeatures = this.panels[selected[0]][selected[1]].getFeatures();
-		this.panels[selected[0]][selected[1]].setFeatures(this.panels[secondselected[0]][secondselected[1]].getFeatures());
-		this.panels[secondselected[0]][secondselected[1]].setFeatures(tempfeatures);
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
+	public void pushSPACE(){
+		if(this.selected[0] != -1 && this.selected[1] != -1 && this.secondselected[0] != -1 && this.secondselected[1] != -1){
+			int temp = this.panels[selected[0]][selected[1]].getStatus();
+			this.panels[selected[0]][selected[1]].setStatus(this.panels[secondselected[0]][secondselected[1]].getStatus());
+			this.panels[secondselected[0]][secondselected[1]].setStatus(temp);
 
-		//下記、changeログとstatusログは現状使用していないため、使用するまでコメントアウト
-		//→statusログはTaskのreproductionで使用するため、コメントアウトを外す
+			//途中状態ログ
+			outputStatus();
 
-		//outputChange();
-		outputStatus();
-
-
-		this.selected[0] = -1;
-		this.selected[1] = -1;
-		this.secondselected[0] = -1;
-		this.secondselected[1] = -1;
+			this.selected[0] = -1;
+			this.selected[1] = -1;
+			this.secondselected[0] = -1;
+			this.secondselected[1] = -1;
+		}
 	}
-}
 
 	//Gを押した時に起こす処理
 	public void pushGoal(){
@@ -188,20 +179,14 @@ public void pushSPACE(){
 
 	//初期化
 	public void initialize(){
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-		//パネルの特徴量情報を初期化
-		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
-			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
-				this.panels[i][j].setFeatures();
-			}
-		}
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
 	}
-	//初期化時に初期状態を出力する
-	public void outputStart(){
-		pw.print("start ,");
+
+
+	/* *************************************************************************************************************************** */
+	//ログ出力
+	//状態空間出力．
+	private void outputLog(String command){
+		pw.print(command);
 		for(int i=0;i<MyFrame.this.panels.length;i++){
 			for(int j=0;j<MyFrame.this.panels[0].length;j++){
 				pw.print(MyFrame.this.panels[i][j].status);
@@ -211,119 +196,31 @@ public void pushSPACE(){
 			}
 		}
 		pw.println();
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-		outputFeatures();
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-
 	}
-
-	//（位置）遷移情報を出力する
-	public void outputChange(){
-		this.pw.print("change,");
-		for(int i=0;i<this.panels.length;i++){
-			for(int j=0;j<this.panels[0].length;j++){
-				if(i == selected[0] && j == selected[1]){
-					pw.print("1");
-				}
-				else if(i == secondselected[0] && j == secondselected[1]){
-					pw.print("2");
-				}
-				else{
-					pw.print("0");
-				}
-				if(i<this.panels.length-1 || j<this.panels.length-1){
-					pw.print(",");
-				}
-			}
-		}
-		pw.println();
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-		outputFeatures();
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-
+	//初期状態を出力する．主に初期化直後に使用する
+	public void outputStart(){
+		outputLog("start ,");
 	}
-
 	//途中状態を出力する
 	public void outputStatus(){
-		this.pw.print("status,");
-		for(int i=0;i<this.panels.length;i++){
-			for(int j=0;j<this.panels[0].length;j++){
-				pw.print(this.panels[i][j].status);
-				if(i<this.panels.length-1 || j<this.panels.length-1){
-					pw.print(",");
-				}
-			}
-		}
-		pw.println();
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-		outputFeatures();
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-
+		outputLog("status,");
 	}
-
 	//ゴール時に最終状態を出力する
 	public void outputGoal(){
-		pw.print("goal  ,");
-		for(int i=0;i<MyFrame.this.panels.length;i++){
-			for(int j=0;j<MyFrame.this.panels[0].length;j++){
-				pw.print(MyFrame.this.panels[i][j].status);
-				if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
-					pw.print(",");
-				}
-			}
-		}
-		pw.println();
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-		outputFeatures();
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-
+		outputLog("goal  ,");
 	}
-	/* *************************************************************************************************** */
-	/* *************************************************************************************************** */
-	//各ログの直後に、各オブジェクトの特徴量状態を出力する
-	public void outputFeatures(){
-		pw.print("featur");
-		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
-			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
-				if(this.panels[i][j].getStatus() != 0){
-					pw.print(",***,"+this.panels[i][j].getStatus());
-					for(int f=0;f<MyPanel.NUMBEROFFEATURE;f++){
-						pw.print(","+this.panels[i][j].getFeatures()[f]);
-					}
-				}
-			}
-		}
-		pw.println();
-	}
-	/* *************************************************************************************************** */
-	/* *************************************************************************************************** */
-
-
 	//計算結果などをresult.txtに出力
-	public void printResult(String out){
+	public void outputResult(String out){
 		this.pw.print(out);
 	}
-	public void printlnResult(String out){
+	public void outputlnResult(String out){
 		this.pw.println(out);
 	}
-	//パネルの描画以外の特別な描画を行いたい場合はここをオーバーライド
-	//描画時、大きい四角を上書きする
-	public void draw(){
-		Graphics2D  g = (Graphics2D)this.buffer.getDrawGraphics();
+	/* *************************************************************************************************************************** */
 
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-		AffineTransform af = new AffineTransform();
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
+	//オブジェクトを描画
+	public void drawObjects(){
+		Graphics2D  g = (Graphics2D)this.buffer.getDrawGraphics();
 
 		for(int i=0;i<this.panels.length;i++){
 			for(int j=0;j<this.panels[0].length;j++){
@@ -361,20 +258,11 @@ public void pushSPACE(){
 						g.setColor(Color.black);
 						break;
 					}
-					/* *************************************************************************************************** */
-					/* *************************************************************************************************** */
-					af.setToRotation(Math.PI*this.panels[i][j].getFeatures()[0],Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*j,Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*i);
-					g.setTransform(af);
-					/* *************************************************************************************************** */
-					/* *************************************************************************************************** */
 					g.fillRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*j - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*i - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT);
 
 					if(this.selected[0] == i && this.selected[1] == j){
-						g.setColor(Color.black);
-						g.drawRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*j - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*i - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT);
-					}
-					else if(this.secondselected[0] == i && this.secondselected[1] == j){
-						g.setColor(new Color(255,100,200));
+						g.setColor(MyFrame.colorofselectedobject);
+						g.setStroke(MyFrame.wideStroke);
 						g.drawRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*j - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*i - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT);
 					}
 				}
@@ -439,35 +327,32 @@ public void pushSPACE(){
 			// TODO 自動生成されたメソッド・スタブ
 			Graphics2D g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
 			//背景の描画
-			g.setColor(new Color(240,240,240));
+			g.setColor(MyFrame.background);
 			g.fillRect(0, 0, MyFrame.this.getWidth(), MyFrame.this.getHeight());
-
-			g.setColor(Color.black);
+			//文字情報の描画
+			g.setColor(MyFrame.colorofstring);
 			g.drawString(MyFrame.this.expranation, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 10);
 			g.drawString(MyFrame.this.tasktitle, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 30);
 			g.drawString(MyFrame.this.howtouse, Statics.SIZE_FRAME, Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+40);
 
 			g.dispose();
 
+			//空白パネルの描画
 			for(int i=0;i<MyFrame.this.panels.length;i++){
 				for(int j=0;j<MyFrame.this.panels[0].length;j++){
-					MyFrame.this.panels[i][j].draw();
+					MyFrame.this.panels[i][j].drawSpace();
 				}
 			}
 
 			g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
-			BasicStroke wideStroke = new BasicStroke(Statics.FRAME_SIZE_OF_SELECTED_PANEL);
-			g.setStroke(wideStroke);
-			if(MyFrame.this.selected[0] >= 0 && MyFrame.this.selected[1] >= 0){
-				g.setColor(Color.black);
-				g.drawRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*(MyFrame.this.selected[1]) + (int)Statics.FRAME_SIZE_OF_SELECTED_PANEL/2,Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*(MyFrame.this.selected[0])+ (int)Statics.FRAME_SIZE_OF_SELECTED_PANEL/2,Statics.SIZE_PANEL - (int)Statics.FRAME_SIZE_OF_SELECTED_PANEL,Statics.SIZE_PANEL - (int)Statics.FRAME_SIZE_OF_SELECTED_PANEL);
-			}
+			g.setStroke(MyFrame.wideStroke);
 			if(MyFrame.this.secondselected[0] >= 0 && MyFrame.this.secondselected[1] >= 0){
-				g.setColor(new Color(255,100,200));
+				g.setColor(MyFrame.colorofselectedspace);
 				g.drawRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*(MyFrame.this.secondselected[1]),Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*(MyFrame.this.secondselected[0]),Statics.SIZE_PANEL,Statics.SIZE_PANEL);
 			}
 			g.dispose();
-			MyFrame.this.draw();
+
+			MyFrame.this.drawObjects();
 			MyFrame.this.buffer.show();
 		}
 	}
@@ -477,13 +362,9 @@ public void pushSPACE(){
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-
 		}
-
 		@Override
 		public void keyPressed(KeyEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
 				MyFrame.this.pushSPACE();
 			}
@@ -499,18 +380,6 @@ public void pushSPACE(){
 					MyFrame.this.selected[0] = -1;
 					MyFrame.this.selected[1] = -1;
 				}
-			}
-			else if(e.getKeyCode() == KeyEvent.VK_NUMPAD0
-					||e.getKeyCode() == KeyEvent.VK_NUMPAD1
-					||e.getKeyCode() == KeyEvent.VK_NUMPAD2
-					||e.getKeyCode() == KeyEvent.VK_NUMPAD3
-					||e.getKeyCode() == KeyEvent.VK_NUMPAD4
-					||e.getKeyCode() == KeyEvent.VK_NUMPAD5
-					||e.getKeyCode() == KeyEvent.VK_NUMPAD6
-					||e.getKeyCode() == KeyEvent.VK_NUMPAD7
-					||e.getKeyCode() == KeyEvent.VK_NUMPAD8
-					||e.getKeyCode() == KeyEvent.VK_NUMPAD9){
-				MyFrame.this.panels[MyFrame.this.selected[0]][selected[1]].setStatus(e.getKeyCode() - KeyEvent.VK_NUMPAD0);
 			}
 			else if(e.getKeyCode() == KeyEvent.VK_X){
 				MyFrame.this.selected[0] = -1;
@@ -567,87 +436,16 @@ public void pushSPACE(){
 			else{
 				System.out.println("[MyFrame.MyKeyListener]keyPressed:This key isn't used.");
 			}
-
-
 		}
-
 		@Override
 		public void keyReleased(KeyEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-
 		}
-
 	}
-
 	//マウスリスナー
 	class MyMouseListener implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-			for(int i=0;i<MyFrame.this.panels.length;i++){
-				for(int j=0;j<MyFrame.this.panels[0].length;j++){
-					if(MyFrame.this.panels[i][j].isClicked(e.getPoint().x, e.getPoint().y)){
-						if(MyFrame.this.selected[0] == -1 && MyFrame.this.selected[1] == -1 && MyFrame.this.panels[i][j].getStatus() != 0){
-							MyFrame.this.selected[0] = i;
-							MyFrame.this.selected[1] = j;
-						}
-						else if(MyFrame.this.secondselected[0] == -1 && MyFrame.this.secondselected[1] == -1 && (MyFrame.this.selected[0] != i || MyFrame.this.selected[1] != j) && MyFrame.this.panels[i][j].getStatus() == 0){
-							MyFrame.this.secondselected[0] = i;
-							MyFrame.this.secondselected[1] = j;
-						}
-						break;
-					}
-				}
-			}
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-			for(int i=0;i<MyFrame.this.panels.length;i++){
-				for(int j=0;j<MyFrame.this.panels[0].length;j++){
-					if(MyFrame.this.panels[i][j].isClicked(e.getPoint().x, e.getPoint().y)){
-						if(MyFrame.this.selected[0] == -1 && MyFrame.this.selected[1] == -1 && MyFrame.this.panels[i][j].getStatus() != 0){
-							MyFrame.this.selected[0] = i;
-							MyFrame.this.selected[1] = j;
-						}
-						else if(MyFrame.this.secondselected[0] == -1 && MyFrame.this.secondselected[1] == -1 && (MyFrame.this.selected[0] != i || MyFrame.this.selected[1] != j) && MyFrame.this.panels[i][j].getStatus() == 0){
-							MyFrame.this.secondselected[0] = i;
-							MyFrame.this.secondselected[1] = j;
-						}
-						break;
-					}
-				}
-			}
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-
-		}
-
-	}
-	/* **************************************************************************************************************************** */
-	//マウスリスナー。オブジェクトがパネルごとでなくなるため、クリックの判定も個別に作成しなければならない
-	class MySerialMouseListener implements MouseListener{
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
 			for(int i=0;i<MyFrame.this.panels.length;i++){
 				for(int j=0;j<MyFrame.this.panels[0].length;j++){
 					if(MyFrame.this.panels[i][j].isClicked(e.getPoint().x, e.getPoint().y)){
@@ -687,79 +485,32 @@ public void pushSPACE(){
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-			for(int i=0;i<MyFrame.this.panels.length;i++){
-				for(int j=0;j<MyFrame.this.panels[0].length;j++){
-					if(MyFrame.this.panels[i][j].isClicked(e.getPoint().x, e.getPoint().y)){
-						if(MyFrame.this.selected[0] == -1 && MyFrame.this.selected[1] == -1 && MyFrame.this.panels[i][j].getStatus() != 0){
-							MyFrame.this.selected[0] = i;
-							MyFrame.this.selected[1] = j;
-						}
-						else if(MyFrame.this.secondselected[0] == -1 && MyFrame.this.secondselected[1] == -1 && (MyFrame.this.selected[0] != i || MyFrame.this.selected[1] != j) && MyFrame.this.panels[i][j].getStatus() == 0){
-							MyFrame.this.secondselected[0] = i;
-							MyFrame.this.secondselected[1] = j;
-						}
-						break;
-					}
-				}
-			}
 		}
-
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-
 		}
-
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-
 		}
-
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO 自動生成されたメソッド・スタブ
-
 		}
-
 	}
 /* ********************************************************************************************************************* */
 // パネルクラス
 
 	class MyPanel {
 
-
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-		//特徴量の数
-		//テスト中は試しに、feature[0]を角度とする
-		public static final int NUMBEROFFEATURE = 3;
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-
 		//フィールド
 		//パネルの状態
-		int status;
+		private int status;
 		//パネルの場所
-		int[] position;
-		//特徴量ベクトル
-		double[] features;
+		private int[] position;
 
 		//コンストラクタ
 		public MyPanel(int status,int[] position){
 			this.status = status;
 			this.position = position;
-
-			/* *************************************************************************************************** */
-			/* *************************************************************************************************** */
-			//特徴量ベクトルの初期化
-			this.features = new double[NUMBEROFFEATURE];
-			for(int i=0;i<this.features.length;i++){
-				this.features[i] = 0;
-			}
-			/* *************************************************************************************************** */
-			/* *************************************************************************************************** */
 		}
 
 		//セッター、ゲッター
@@ -777,62 +528,11 @@ public void pushSPACE(){
 		public int[] getPosition(){
 			return this.position;
 		}
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-		public MyPanel setFeatures(double[] features){
-			if(features.length == NUMBEROFFEATURE){
-				this.features = features;
-			}
-			return this;
-		}
-		public MyPanel setFeatures(){
-			for(int i=0;i<this.features.length;i++){
-				this.features[i] = 0;
-			}
-			return this;
-		}
-		public double[] getFeatures(){
-			return this.features;
-		}
-		/* *************************************************************************************************** */
-		/* *************************************************************************************************** */
-
 
 		//描画
-		public void draw(){
+		public void drawSpace(){
 			Graphics2D  g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
-			switch(this.status){
-			case 0:
-				g.setColor(Color.white);
-				break;
-			case 1:
-				g.setColor(Color.red);
-				break;
-			case 2:
-				g.setColor(Color.blue);
-				break;
-			case 3:
-				g.setColor(Color.yellow);
-				break;
-			case 4:
-				g.setColor(Color.green);
-				break;
-			case 5:
-				g.setColor(Color.orange);
-				break;
-			case 6:
-				g.setColor(Color.pink);
-				break;
-			case 7:
-				g.setColor(Color.lightGray);
-				break;
-			case 8:
-				g.setColor(Color.gray);
-				break;
-			case 9:
-				g.setColor(Color.black);
-				break;
-			}
+			g.setColor(MyFrame.colorofspace);
 			g.fillRect(Statics.SIZE_FRAME + (Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*this.position[1],Statics.SIZE_FRAME + (Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*this.position[0],Statics.SIZE_PANEL,Statics.SIZE_PANEL);
 			g.dispose();
 		}
@@ -846,6 +546,5 @@ public void pushSPACE(){
 			}
 			return false;
 		}
-
 	}
 }
