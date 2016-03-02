@@ -18,7 +18,11 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
-
+/**
+ * 意図理解実験シミュレータ
+ * @author komota
+ * @version 2.0
+ */
 
 public class MyFrame extends JFrame{
 
@@ -46,31 +50,33 @@ public class MyFrame extends JFrame{
 		frame.panels[0][0].setStatus(1);
 	}
 
-	//バッファストラテジ
-	public BufferStrategy buffer;
+	//フィールド
+	/** バッファストラテジ*/
+	protected BufferStrategy buffer;
 
-	//パネル
-	//空間的な2次元配列は全て[行][列]に統一！！！！
+	/** パネル*/
 	public MyPanel[][] panels;
+	//空間的な2次元配列は全て[行][列]に統一！！！！
 
-	//選択状態パネル
+	/** 選択状態パネル*/
 	int[] selected = new int[2];
 	int[] secondselected = new int[2];
 
-	//説明文などの文字列出力。アンケートなどで使用する
+	/** 説明文などの文字列出力。アンケートなどで使用する*/
 	public String expranation = "";
 
-	//タスク表示
+	/** タスク名*/
 	public String tasktitle = "tasktitle";
 
-	//操作方法表示
+	/** 操作方法など*/
 	public String howtouse = "SPACE:exchange the first clicked and the second clicked.   G:finish the task.";
 
-	//出力先ファイル
+	/** 出力先ファイル*/
 	String file_name = "test.txt";
+	/** ファイル出力用クラス*/
 	PrintWriter pw;
 
-	//タイマークラス
+	/** タイマークラス*/
 	Timer t;
 
 	//コンストラクタ
@@ -266,6 +272,12 @@ public class MyFrame extends JFrame{
 						g.drawRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*j - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*i - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT);
 					}
 				}
+				else if(this.secondselected[0] == i && this.secondselected[1] == j){
+					g.setColor(MyFrame.colorofselectedspace);
+					g.setStroke(MyFrame.wideStroke);
+					g.drawRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*j - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*i - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT);
+				}
+
 			}
 		}
 		g.dispose();
@@ -343,15 +355,6 @@ public class MyFrame extends JFrame{
 					MyFrame.this.panels[i][j].drawSpace();
 				}
 			}
-
-			g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
-			g.setStroke(MyFrame.wideStroke);
-			if(MyFrame.this.secondselected[0] >= 0 && MyFrame.this.secondselected[1] >= 0){
-				g.setColor(MyFrame.colorofselectedspace);
-				g.drawRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*(MyFrame.this.secondselected[1]),Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*(MyFrame.this.secondselected[0]),Statics.SIZE_PANEL,Statics.SIZE_PANEL);
-			}
-			g.dispose();
-
 			MyFrame.this.drawObjects();
 			MyFrame.this.buffer.show();
 		}
