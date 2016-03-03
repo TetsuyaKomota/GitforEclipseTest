@@ -41,13 +41,13 @@ public class MyFrame extends JFrame{
 	static Color colorofselectedspace = new Color(255,100,200);
 
 	/**
-	 * @param args
+	 * @param args 使用しない
 	 */
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 		@SuppressWarnings("unused")
 		MyFrame frame = new MyFrame();
-		frame.panels[0][0].setStatus(1);
+		//frame.panels[0][0].setStatus(1);
 	}
 
 	//フィールド
@@ -79,9 +79,12 @@ public class MyFrame extends JFrame{
 	/** タイマークラス*/
 	Timer t;
 
-	//コンストラクタ
+	/**
+	 * コンストラクタ
+	 */
+
 	public MyFrame(){
-		this.setTitle("IntentionLearning");
+		this.setTitle("IntentionLearning v2.0");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.setSize(1000,1000);
@@ -118,24 +121,48 @@ public class MyFrame extends JFrame{
 		this.initialize();
 	}
 
-	//各種セッター、ゲッター
+	/**
+	 * 状態空間のゲッター
+	 * @return 状態空間配列
+	 */
 	public MyPanel[][] getPanels(){
 		return this.panels;
 	}
+	/**
+	 * 選択オブジェクトのセッター
+	 * @param selected 選択状態にするオブジェクトの座標
+	 */
 	public void setSelected(int[] selected){
 		this.selected = selected;
 	}
+	/**
+	 * 選択マスのセッター
+	 * @param selected 選択状態にする空きマスの座標
+	 */
 	public void setSecondSelected(int[] selected){
 		this.secondselected = selected;
 	}
+	/**
+	 * 選択中のオブジェクト座標のゲッター
+	 * @return 選択中のオブジェクトの座標
+	 */
 	public int[] getSelected(){
 		return this.selected;
 	}
+	/**
+	 * 選択中の空きマスの座標のゲッター
+	 * @return 選択中の空きマスの座標
+	 */
 	public int[] getSecondSelected(){
 		return this.secondselected;
 	}
 
-	//出力先ファイル名を変更
+	/**
+	 * 出力先ファイル名を変更
+	 * 出力先ファイルのファイル名をあらかじめfile_nameに保持しておく必要があるため，このメソッドを直接使用するべきではない．
+	 * 代わりにsetOutputFile(String file_name)を使用すること.
+	 */
+	@Deprecated
 	public void setOutputFile(){
 		File file = null;
 		while(file == null || file.exists() == false){
@@ -151,12 +178,20 @@ public class MyFrame extends JFrame{
 			file = new File("log/"+file_name);
 		}
 	}
+	/**
+	 * 出力先ファイル名を変更
+	 * 引数に与えた名前のファイルを出力先ファイルに設定する．
+	 * @param file_name 出力先ファイル名
+	 */
 	public void setOutputFile(String file_name){
 		this.file_name = file_name;
 		setOutputFile();
 	}
 
-	//スペースキーを押したときに起こす処理
+	/**
+	 * スペースキーを押したときに起こす処理.
+	 * オブジェクトと空きマスを選択中なら，選択オブジェクトを選択マスへ移動する．その後，途中状態としてログを出力する．
+	 */
 	public void pushSPACE(){
 		if(this.selected[0] != -1 && this.selected[1] != -1 && this.secondselected[0] != -1 && this.secondselected[1] != -1){
 			int temp = this.panels[selected[0]][selected[1]].getStatus();
@@ -173,7 +208,10 @@ public class MyFrame extends JFrame{
 		}
 	}
 
-	//Gを押した時に起こす処理
+	/**
+	 * Gを押した時に起こす処理.
+	 * Gを押した時点での状態を終了状態としてログを出力する．その後，自動的に初期化を行う．基本的にサブクラスではinitializeでオブジェクトの配置し直しと同時にoutputStartを実行するので，Gを押した時点で次の初期状態の出力まで行うと考えてよい．
+	 */
 	public void pushGoal(){
 		this.outputGoal();
 		this.selected[0] = -1;
@@ -183,14 +221,20 @@ public class MyFrame extends JFrame{
 		this.initialize();
 	}
 
-	//初期化
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 初期化を行う．サブクラスではここに盤面の設定ルールを記述した後，最後にoutputStart()を実行して初期状態をファイル出力する．
+	 */
 	public void initialize(){
 	}
 
 
 	/* *************************************************************************************************************************** */
-	//ログ出力
-	//状態空間出力．
+	/**
+	 * 状態空間を出力先ファイルに出力する．
+	 * このメソッドは直接使用せず，コマンドを指定した各メソッドを使用する．
+	 * @param command ログデータの先頭に付与するコマンド
+	 */
 	private void outputLog(String command){
 		pw.print(command);
 		for(int i=0;i<MyFrame.this.panels.length;i++){
@@ -203,28 +247,43 @@ public class MyFrame extends JFrame{
 		}
 		pw.println();
 	}
-	//初期状態を出力する．主に初期化直後に使用する
+	/**
+	 * 初期状態を出力する．主に初期化直後に使用する
+	 */
 	public void outputStart(){
 		outputLog("start ,");
 	}
-	//途中状態を出力する
+	/**
+	 * 途中状態を出力する.
+	 */
 	public void outputStatus(){
 		outputLog("status,");
 	}
-	//ゴール時に最終状態を出力する
+	/**
+	 * ゴール時に最終状態を出力する.
+	 */
 	public void outputGoal(){
 		outputLog("goal  ,");
 	}
-	//計算結果などをresult.txtに出力
+	/**
+	 * 出力先ファイルへ文字列を出力する汎用メソッド．主に計算結果などを出力するのに使用する．コマンドなどのフォーマットは行わないので使用する場合は書式に注意すること．
+	 * @param out 出力文字列
+	 */
 	public void outputResult(String out){
 		this.pw.print(out);
 	}
+	/**
+	 * 出力先ファイルへ文字列を出力する汎用メソッド．出力後に改行する．主に計算結果などを出力するのに使用する．コマンドなどのフォーマットは行わないので使用する場合は書式に注意すること．
+	 * @param out 出力文字列
+	 */
 	public void outputlnResult(String out){
 		this.pw.println(out);
 	}
 	/* *************************************************************************************************************************** */
 
-	//オブジェクトを描画
+	/**
+	 * オブジェクトを描画する．
+	 */
 	public void drawObjects(){
 		Graphics2D  g = (Graphics2D)this.buffer.getDrawGraphics();
 
@@ -283,58 +342,138 @@ public class MyFrame extends JFrame{
 		g.dispose();
 		this.buffer.show();
 	}
-	//各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 1キーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPlugin1(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 2キーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPlugin2(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 3キーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPlugin3(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 4キーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPlugin4(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 5キーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPlugin5(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 6キーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPlugin6(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 7キーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPlugin7(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 8キーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPlugin8(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * 9キーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPlugin9(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * Qキーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPluginQ(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * Wキーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPluginW(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * Eキーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPluginE(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * Rキーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPluginR(){
 		System.out.println("No Function in This Key.");
 	}
+	/**
+	 * ※オーバーライドされるべきメソッド
+	 * Tキーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPluginT(){
 		System.out.println("No Function in This Key.");
-	}
+	}	/**
+	 * ※オーバーライドされるべきメソッド
+	 * Yキーで実行するプラグインメソッド．
+	 * 各サブクラスでキーに反応する機能を追加したい場合にオーバーライドする
+	 */
 	public void functionPluginY(){
 		System.out.println("No Function in This Key.");
 	}
 
 
-	//タイマータスク
+	/**
+	 * タイマータスク．主に描画を行う．
+	 * @author komota
+	 *
+	 */
 	class RenderTask extends TimerTask{
 
 		@Override
+		/**
+		 * runメソッド．主に描画を行う．
+		 */
 		public void run() {
 			// TODO 自動生成されたメソッド・スタブ
 			Graphics2D g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
@@ -360,7 +499,11 @@ public class MyFrame extends JFrame{
 		}
 	}
 
-	//キーリスナー
+	/**
+	 * キーリスナー
+	 * @author komota
+	 *
+	 */
 	class MyKeyListener implements KeyListener{
 
 		@Override
@@ -444,7 +587,11 @@ public class MyFrame extends JFrame{
 		public void keyReleased(KeyEvent e) {
 		}
 	}
-	//マウスリスナー
+	/**
+	 * マウスリスナー
+	 * @author komota
+	 *
+	 */
 	class MyMouseListener implements MouseListener{
 
 		@Override
@@ -499,47 +646,63 @@ public class MyFrame extends JFrame{
 		public void mouseExited(MouseEvent e) {
 		}
 	}
-/* ********************************************************************************************************************* */
-// パネルクラス
-
+	/**
+	 * パネルクラス
+	 * @author komota
+	 *
+	 */
 	class MyPanel {
 
 		//フィールド
-		//パネルの状態
+		/**
+		 * パネルの状態
+		 */
 		private int status;
-		//パネルの場所
+		/**
+		 * パネルの座標
+		 */
 		private int[] position;
 
-		//コンストラクタ
+		/**
+		 * コンストラクタ
+		 * @param status パネルの初期状態
+		 * @param position パネルの座標
+		 */
 		public MyPanel(int status,int[] position){
 			this.status = status;
 			this.position = position;
 		}
-
-		//セッター、ゲッター
-		public MyPanel setStatus(int status){
+		/**
+		 * パネルの状態のセッター
+		 * @param status パネルの状態
+		 */
+		public void setStatus(int status){
 			this.status = status;
-			return this;
 		}
+		/**
+		 * パネルの状態のゲッター
+		 * @return パネルの状態
+		 */
 		public int getStatus(){
 			return this.status;
 		}
-		public MyPanel setPosition(int[] position){
-			this.position = position;
-			return this;
-		}
-		public int[] getPosition(){
-			return this.position;
-		}
 
-		//描画
+		/**
+		 * パネルを描画する.
+		 * オブジェクトの描画はMyFrame.drawObject()で行うため，このメソッドで行うのは空きマスを白で描画するのみである．
+		 */
 		public void drawSpace(){
 			Graphics2D  g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
 			g.setColor(MyFrame.colorofspace);
 			g.fillRect(Statics.SIZE_FRAME + (Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*this.position[1],Statics.SIZE_FRAME + (Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*this.position[0],Statics.SIZE_PANEL,Statics.SIZE_PANEL);
 			g.dispose();
 		}
-		//クリックした位置が、このパネルかどうかを判定する
+		/**
+		 * クリックした位置が、このパネルかどうかを判定する.マウスリスナーによってクリックを検知した時，すべてのパネルのこのメソッドを実行してクリックされたパネルを探索する．
+		 * @param x クリックされた地点のx座標
+		 * @param y クリックされた地点のy座標
+		 * @return クリックされた地点がこのパネル内ならtrue,そうでないならfalse
+		 */
 		public boolean isClicked(int x,int y){
 			if(		x>=Statics.SIZE_FRAME + (Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*this.position[1]
 				&&	x<=Statics.SIZE_FRAME + (Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*this.position[1] + Statics.SIZE_PANEL
