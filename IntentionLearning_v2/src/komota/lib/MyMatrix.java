@@ -127,7 +127,7 @@ public class MyMatrix{
 
 				//平均を更新
 				//一定回数で出力
-				if(count == Math.pow(10, time+1)){
+				if(count == Math.pow(10, time+1)/*100000*time+1*/){
 					break;
 				}
 			}
@@ -137,6 +137,10 @@ public class MyMatrix{
 
 	}
 
+
+	//定数
+	//行列式の切り捨て境界.これより小さな行列式はゼロとして扱う
+	final double INFERIOR = 0.00000001;
 
 	//次元
 	int dimension;
@@ -237,58 +241,6 @@ public class MyMatrix{
 		}
 		return output;
 	}
-	//行列式
-/*
-	public double getDetV(){
-
-		//※※アルゴリズムに問題があることが判明したので修正中
-
-		double[][] tempv = new double[this.dimension][this.dimension];
-		//分散行列を変更しないようにコピー
-		for(int i=0;i<this.dimension;i++){
-			for(int j=0;j<this.dimension;j++){
-				tempv[i][j] = this.getData(i,j);
-			}
-		}
-		double tempdetv = 1;
-		//対角成分にゼロがなくなるように行を交換。なくならなければ行列式はゼロ。
-		for(int i=0;i<this.dimension;i++){
-			boolean zeroflag = false;
-			if(tempv[i][i] == 0){
-				zeroflag = true;
-				for(int j=i;j<this.dimension;j++){
-					if(tempv[j][j] != 0){
-						double[] temp = tempv[i];
-						tempv[i] = tempv[j];
-						tempv[j] = temp;
-						tempdetv *= -1;
-						zeroflag = false;
-					}
-				}
-				if(zeroflag == true){
-					return 0;
-				}
-			}
-		}
-		//行列を三角行列に変換
-
-		for(int i=0;i<this.dimension;i++){
-			for(int j=0;j<this.dimension;j++){
-				if(i<j){
-					double buf = tempv[j][i] / tempv[i][i];
-					for(int k=0;k<this.dimension;k++){
-						tempv[j][k] -= tempv[i][k] * buf;
-					}
-				}
-			}
-		}
-		//三角行列の行列式は対角成分の積
-		for(int i=0;i<this.dimension;i++){
-			tempdetv *= tempv[i][i];
-		}
-		return tempdetv;
-	}
-*/
 	//修正版行列式
 
 	public double getDetV(){
@@ -338,16 +290,21 @@ public class MyMatrix{
 		for(int i=0;i<this.dimension;i++){
 			output *= tempv[i][i];
 		}
+		//求まった行列式が下界より小さい場合はゼロとする
+		if(output < INFERIOR){
+			return 0;
+		}
 		return output;
 	}
 
 
-
-	//逆行列
+	//改良版逆行列
 	public MyMatrix inv(){
 		MyMatrix output = new MyMatrix(this.dimension);
 
+		//掃き出し用の行列を準備する
 		double[][] temp = new double[this.dimension][2*this.dimension];
+
 		for(int i=0;i<this.dimension;i++){
 			for(int j=0;j<this.dimension;j++){
 				temp[i][j] = this.getData(i, j);
@@ -356,8 +313,8 @@ public class MyMatrix{
 		for(int t=0;t<this.dimension;t++){
 			temp[t][t+this.dimension] = 1;
 		}
-		//はき出し法を行って逆行列を求める
-		//対角成分にゼロがなくなるように行を交換。なくならなければ逆行列なし。
+
+		//対角部分が非ゼロの行を持ってくる．持って来れないなら逆行列なし
 		for(int i=0;i<this.dimension;i++){
 			boolean zeroflag = false;
 			if(temp[i][i] == 0){
@@ -371,34 +328,24 @@ public class MyMatrix{
 					}
 				}
 				if(zeroflag == true){
-//デバッグ
-					System.out.println("ほら見てよダメじゃん");
-					this.show();
+					System.out.println("これが戦犯やで！");
 					System.out.println("DET="+this.getDetV());
-					try {
-						Thread.sleep(10000);
-					} catch (InterruptedException e) {
-						// TODO 自動生成された catch ブロック
-						e.printStackTrace();
-					}
-//デバッグここまで
+					this.show();
 					return null;
 				}
 			}
-		}
-		//行基本変形
-		for(int i=0;i<this.dimension;i++){
-			//対角成分を1にする
-			double edge = temp[i][i];
-			for(int j=0;j<2*this.dimension;j++){
-				temp[i][j] /= edge;
+			//対角部分が1になるように行を割り算
+			double buf = temp[i][i];
+			for(int k=0;k<2*this.dimension;k++){
+				temp[i][k] /= buf;
 			}
-			//他の行から引く
-			for(int k=0;k<this.dimension;k++){
-				if(k!=i){
-					double rate = temp[k][i];
-					for(int j=0;j<2*this.dimension;j++){
-						temp[k][j] -= temp[i][j] * rate;
+
+			//i列の他の成分がゼロになるように引き算
+			for(int j=0;j<this.dimension;j++){
+				if(j!=i){
+					buf = temp[j][i];
+					for(int k=0;k<2*this.dimension;k++){
+						temp[j][k] -= temp[i][k] * buf;
 					}
 				}
 			}
@@ -410,6 +357,7 @@ public class MyMatrix{
 		}
 		return output;
 	}
+
 	//標準出力
 	public void show(){
 		for(int i=0;i<this.dimension;i++){
