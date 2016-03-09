@@ -14,6 +14,11 @@ public class MyMatrix{
 		MyMatrix mat1 = new MyMatrix(dim);
 		MyMatrix mat2 = new MyMatrix(dim);
 		MyMatrix means = new MyMatrix(dim);
+
+		//出力クラス
+		MyIO io = new MyIO();
+		io.writeFile("test.txt");
+
 		//行列式が1になる行列とは珍しいものなのかを試行
 		//この実験から，行列式は大抵の場合，e14~e17程度のスケールとなることが判明
 /*
@@ -89,52 +94,73 @@ public class MyMatrix{
 		//ガウス誤差との積を求める
 		//平均とりまくる．たまに出力する
 
-		for(int time=0;time<100;time++){
-			while(true){
-				count++;
+		//同じ計算を20回繰り返す
+		for(int T=0;T<20;T++){
+			count = 0;
+			means = new MyMatrix(dim);
+			for(int time=0;time<8;time++){
 				while(true){
-					for(int i=0;i<dim;i++){
-						for(int j=0;j<dim;j++){
-							mat1.setData(i, j, (int)(Math.random()*200));
+					count++;
+					while(true){
+						for(int i=0;i<dim;i++){
+							for(int j=0;j<dim;j++){
+								mat1.setData(i, j, (int)(Math.random()*200));
+							}
+						}
+						if(mat1.getDetV() != 0){
+							break;
 						}
 					}
-					if(mat1.getDetV() != 0){
+
+					mat1 = mat1.inv();
+
+					for(int i=0;i<dim;i++){
+						for(int j=0;j<dim;j++){
+							double rand = Math.random();
+							double x = -100;
+							double gauss = 0;
+							while(true){
+								gauss += Math.exp(-x*x / (2*variance)) / Math.sqrt(2*Math.PI*variance);
+								if(rand < gauss){
+									mat2.setData(i, j, (int)x);
+									break;
+								}
+								else{
+									x++;
+								}
+							}
+						}
+					}
+					//平均を更新
+					means = means.mult(count-1).add(mat1.mult(mat2)).mult((double)1/count);
+
+					//平均を更新
+					//一定回数で出力
+					if(count >= Math.pow(10, time)){
 						break;
 					}
 				}
-
-				mat1 = mat1.inv();
-
+				//出力誤差の平均を求める
+				double sum = 0;
 				for(int i=0;i<dim;i++){
 					for(int j=0;j<dim;j++){
-						double rand = Math.random();
-						double x = -100;
-						double gauss = 0;
-						while(true){
-							gauss += Math.exp(-x*x / (2*variance)) / Math.sqrt(2*Math.PI*variance);
-							if(rand < gauss){
-								mat2.setData(i, j, (int)x);
-								break;
-							}
-							else{
-								x++;
-							}
-						}
+						sum += means.getData(i, j);
 					}
 				}
-				//平均を更新
-				means = means.mult(count-1).add(mat1.mult(mat2)).mult((double)1/count);
+				sum /= dim*dim;
 
-				//平均を更新
-				//一定回数で出力
-				if(count == Math.pow(10, time+1)/*100000*time+1*/){
-					break;
+				int temp = 0;
+				io.print("TIME,1");
+				while(temp < time){
+					io.print("0");
+					temp++;
 				}
+				io.println(",MEAN,"+sum);
+				//means.show();
+				io.execute();
 			}
-			System.out.println("TIME:"+time);
-			means.show();
 		}
-
+		io.close();
 	}
 
 
