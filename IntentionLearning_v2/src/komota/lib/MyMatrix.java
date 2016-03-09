@@ -102,7 +102,9 @@ class MyMatrix{
 						break;
 					}
 				}
+
 				mat1 = mat1.inv();
+
 				for(int i=0;i<dim;i++){
 					for(int j=0;j<dim;j++){
 						double rand = Math.random();
@@ -120,7 +122,6 @@ class MyMatrix{
 						}
 					}
 				}
-
 				//平均を更新
 				means = means.mult(count-1).add(mat1.mult(mat2)).mult((double)1/count);
 
@@ -347,5 +348,18 @@ class MyMatrix{
 			System.out.println();
 		}
 		System.out.println();
+	}
+
+	//NaNになっている要素が存在するか判定
+	//主にデバッグで使用する
+	public boolean isNaN(){
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				if(Double.isNaN(this.getData(i,j)) == true){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
