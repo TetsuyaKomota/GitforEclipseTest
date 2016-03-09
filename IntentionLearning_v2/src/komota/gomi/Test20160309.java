@@ -9,9 +9,9 @@ public class Test20160309 {
 
 		int dim = 3;
 
-		test.matrix1 = test.new MyMatrix(dim);
-		test.matrix2 = test.new MyMatrix(dim);
-		test.matrix3 = test.new MyMatrix(dim);
+		test.matrix1 = test.new MyMetrics(dim);
+		test.matrix2 = test.new MyMetrics(dim);
+		test.matrix3 = test.new MyMetrics(dim);
 
 		for(int i=0;i<dim;i++){
 			for(int j=0;j<dim;j++){
@@ -57,34 +57,39 @@ public class Test20160309 {
 		System.out.println("逆行列");
 		test.matrix3 = test.matrix2.inv();
 		test.matrix3.show();
-
+		System.out.println("逆行列かけると単位行列になる");
+		test.matrix3 = test.matrix2.inv();
+		test.matrix2.mult(test.matrix3).show();
+		System.out.println("逆行列の逆行列は元の行列");
+		test.matrix3 = test.matrix3.inv();
+		test.matrix3.show();
 
 
 	}
 
 
 	//後で消す
-	MyMatrix matrix1;
-	MyMatrix matrix2;
-	MyMatrix matrix3;
+	MyMetrics matrix1;
+	MyMetrics matrix2;
+	MyMetrics matrix3;
 
 
 
 	//真面目に行列を実装しよう
 	//正方行列限定
-	class MyMatrix{
+	class MyMetrics{
 		//次元
 		int dimension;
 		//行列値
 		private double[][] data;
 
 		//コンストラクタ
-		public MyMatrix(int dimension){
+		public MyMetrics(int dimension){
 			this.dimension = dimension;
 			this.data = new double[dimension][dimension];
 		}
 		//コンストラクタで数値を代入することもできる
-		public MyMatrix(int dimension,double[][] inputs){
+		public MyMetrics(int dimension,double[][] inputs){
 			this(dimension);
 			//入力行列が読み込み可能かどうか
 			if(inputs == null || inputs[0] == null){
@@ -121,8 +126,8 @@ public class Test20160309 {
 
 		//行列の演算
 		//加算
-		public MyMatrix add(MyMatrix input){
-			MyMatrix output = new MyMatrix(this.dimension);
+		public MyMetrics add(MyMetrics input){
+			MyMetrics output = new MyMetrics(this.dimension);
 			for(int i=0;i<this.dimension;i++){
 				for(int j=0;j<this.dimension;j++){
 					output.setData(i, j, this.getData(i,j)+input.getData(i, j));
@@ -131,8 +136,8 @@ public class Test20160309 {
 			return output;
 		}
 		//減算
-		public MyMatrix sub(MyMatrix input){
-			MyMatrix output = new MyMatrix(this.dimension);
+		public MyMetrics sub(MyMetrics input){
+			MyMetrics output = new MyMetrics(this.dimension);
 			for(int i=0;i<this.dimension;i++){
 				for(int j=0;j<this.dimension;j++){
 					output.setData(i, j, this.getData(i,j)-input.getData(i, j));
@@ -141,8 +146,8 @@ public class Test20160309 {
 			return output;
 		}
 		//乗算
-		public MyMatrix mult(MyMatrix input){
-			MyMatrix output = new MyMatrix(this.dimension);
+		public MyMetrics mult(MyMetrics input){
+			MyMetrics output = new MyMetrics(this.dimension);
 			for(int i=0;i<this.dimension;i++){
 				for(int j=0;j<this.dimension;j++){
 					for(int m=0;m<this.dimension;m++){
@@ -153,8 +158,8 @@ public class Test20160309 {
 			return output;
 		}
 		//転置
-		public MyMatrix trans(){
-			MyMatrix output = new MyMatrix(this.dimension);
+		public MyMetrics trans(){
+			MyMetrics output = new MyMetrics(this.dimension);
 			for(int i=0;i<this.dimension;i++){
 				for(int j=0;j<this.dimension;j++){
 					output.setData(i, j, this.getData(j,i));
@@ -209,8 +214,8 @@ public class Test20160309 {
 			return tempdetv;
 		}
 		//逆行列
-		public MyMatrix inv(){
-			MyMatrix output = new MyMatrix(this.dimension);
+		public MyMetrics inv(){
+			MyMetrics output = new MyMetrics(this.dimension);
 
 			double[][] temp = new double[this.dimension][2*this.dimension];
 			for(int i=0;i<this.dimension;i++){
