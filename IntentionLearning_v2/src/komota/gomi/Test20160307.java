@@ -1,15 +1,15 @@
 package komota.gomi;
 
-public class MatrixTest {
+public class Test20160307 {
 
 	public static void main(String[] args){
 		int M = 10;
-		MatrixTest test = new MatrixTest(M);
+		Test20160307 test = new Test20160307(M);
 //		test.tensorx.show();
 //		test.tensorx.checkI();
 		System.out.println("実験するよ～");
 		for(int num = 1;num<10000000;num*=10){
-			test = new MatrixTest(num);
+			test = new Test20160307(num);
 			test.tensorx.setX(100);
 			test.tensoralpha.setAlpha(10);
 			double temp = 0;
@@ -32,7 +32,7 @@ public class MatrixTest {
 	Tensor tensorx;
 	Tensor tensoralpha;
 	//コンストラクタ
-	public MatrixTest(int M){
+	public Test20160307(int M){
 		this.M = M;
 		this.tensorx = new Tensor();
 		this.tensoralpha = new Tensor();
@@ -59,8 +59,8 @@ public class MatrixTest {
 
 		//コンストラクタ
 		public Tensor(){
-			this.dimension = MatrixTest.this.dimension;
-			this.M = MatrixTest.this.M;
+			this.dimension = Test20160307.this.dimension;
+			this.M = Test20160307.this.M;
 			this.tens = new double[M][dimension][dimension];
 		}
 		//ゲッター
