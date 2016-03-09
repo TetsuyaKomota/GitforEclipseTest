@@ -3,10 +3,10 @@ package komota.lib;
 
 //真面目に行列を実装しよう
 //正方行列限定
-class MyMatrix{
+public class MyMatrix{
 
 	public static void main(String[] args){
-		int dim = 8;
+		int dim = 3;
 		int count = 0;
 		int check = 1;
 		double mean = 0;
@@ -238,7 +238,11 @@ class MyMatrix{
 		return output;
 	}
 	//行列式
+/*
 	public double getDetV(){
+
+		//※※アルゴリズムに問題があることが判明したので修正中
+
 		double[][] tempv = new double[this.dimension][this.dimension];
 		//分散行列を変更しないようにコピー
 		for(int i=0;i<this.dimension;i++){
@@ -267,6 +271,7 @@ class MyMatrix{
 			}
 		}
 		//行列を三角行列に変換
+
 		for(int i=0;i<this.dimension;i++){
 			for(int j=0;j<this.dimension;j++){
 				if(i<j){
@@ -283,6 +288,61 @@ class MyMatrix{
 		}
 		return tempdetv;
 	}
+*/
+	//修正版行列式
+
+	public double getDetV(){
+		double output = 1;
+		/*
+		 * 1. i=0
+		 * 2. i行i列が非ゼロになるように行れ替え．それができないなら戻り値0
+		 * 3. i列のi+1以上の行の成分がゼロになるように基本変形
+		 * 4. i++して2.へ
+		 *
+		 */
+		//行列値をコピー
+		double[][] tempv = new double[this.dimension][this.dimension];
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				tempv[i][j] = this.getData(i, j);
+			}
+		}
+		for(int i=0;i<this.dimension;i++){
+			//2.
+			boolean zeroflag = false;
+			if(tempv[i][i] == 0){
+				zeroflag = true;
+				for(int j=i;j<this.dimension;j++){
+					if(tempv[j][i] != 0){
+						double[] temp = tempv[i];
+						tempv[i] = tempv[j];
+						tempv[j] = temp;
+						output *= -1;
+						zeroflag = false;
+					}
+				}
+				if(zeroflag == true){
+					return 0;
+				}
+			}
+			//3.
+			for(int j=i+1;j<this.dimension;j++){
+				double buf = tempv[j][i] / tempv[i][i];
+				for(int k=0;k<this.dimension;k++){
+					tempv[j][k] -= tempv[i][k] * buf;
+				}
+			}
+			//4.
+		}
+		//三角行列の行列式は対角成分の積
+		for(int i=0;i<this.dimension;i++){
+			output *= tempv[i][i];
+		}
+		return output;
+	}
+
+
+
 	//逆行列
 	public MyMatrix inv(){
 		MyMatrix output = new MyMatrix(this.dimension);
@@ -303,7 +363,7 @@ class MyMatrix{
 			if(temp[i][i] == 0){
 				zeroflag = true;
 				for(int j=i;j<this.dimension;j++){
-					if(temp[j][j] != 0){
+					if(temp[j][i] != 0){
 						double[] templine = temp[i];
 						temp[i] = temp[j];
 						temp[j] = templine;
@@ -311,6 +371,17 @@ class MyMatrix{
 					}
 				}
 				if(zeroflag == true){
+//デバッグ
+					System.out.println("ほら見てよダメじゃん");
+					this.show();
+					System.out.println("DET="+this.getDetV());
+					try {
+						Thread.sleep(10000);
+					} catch (InterruptedException e) {
+						// TODO 自動生成された catch ブロック
+						e.printStackTrace();
+					}
+//デバッグここまで
 					return null;
 				}
 			}
