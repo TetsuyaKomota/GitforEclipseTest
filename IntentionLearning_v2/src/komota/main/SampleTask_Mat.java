@@ -40,7 +40,7 @@ public class SampleTask_Mat extends MyFrame{
 //		this.tpr = new TestPatternRecognition();
 		this.tasktitle = "動作名";
 		this.howtouse = "1,2:logdata学習 3:再現 4:識別用学習 5:押しちゃダメ 6:*** 7:ランダマイズ 8:順序問題,学習データ量テスト 9:データセット生成";
-		setOutputFile("logdata.txt");
+//		setOutputFile("logdata.txt");
 		initialize();
 	}
 

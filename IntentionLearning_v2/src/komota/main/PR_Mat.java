@@ -103,6 +103,8 @@ public class PR_Mat extends MyPR{
 				}
 			}
 		}
+		System.out.println("学習しました");
+		this.X.approximate().show();
 	}
 
 
@@ -132,6 +134,8 @@ public class PR_Mat extends MyPR{
 		int[] selected = new int[2];
 		selected[0] = re[1];
 		selected[1] = re[2];
+		System.out.println("再現結果は("+selected[0] + "," + selected[1] + ")です");
+
 		frame.setSecondSelected(selected);
 	}
 
