@@ -40,14 +40,14 @@ public class SampleTask_Mat extends MyFrame{
 //		this.tpr = new TestPatternRecognition();
 		this.tasktitle = "動作名";
 		this.howtouse = "1,2:logdata学習 3:再現 4:識別用学習 5:押しちゃダメ 6:*** 7:ランダマイズ 8:順序問題,学習データ量テスト 9:データセット生成";
-//		setOutputFile("logdata.txt");
+		setOutputFile("logdata.txt");
 		initialize();
 	}
 
 	@Override
 	public void initialize(){
 		super.initialize();
-		setOutputFile("logdata.txt");
+//		setOutputFile("logdata.txt");
 		for(int i=0;i<this.panels.length;i++){
 			for(int j=0;j<this.panels[0].length;j++){
 				this.panels[i][j].setStatus(0);

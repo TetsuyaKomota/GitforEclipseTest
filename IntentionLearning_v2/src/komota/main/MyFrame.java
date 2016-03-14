@@ -115,6 +115,8 @@ public class MyFrame extends JFrame{
 		this.addKeyListener(new MyKeyListener());
 		this.addMouseListener(new MyMouseListener());
 
+		this.setOutputFile();
+
 		this.t = new Timer();
 		t.schedule(new RenderTask(), 0,12);
 
