@@ -47,7 +47,7 @@ public class PR_Mat extends MyPR{
 		int num = this.logdata_mat[0].numberoffeatures;
 		this.X = new MyMatrix(num);
 		//平均をいっぱいとる.とりあえず5回
-		for(int t=0;t<5;t++){
+		for(int t=0;t<56;t++){
 
 			int shift = 0;
 			while(true){
