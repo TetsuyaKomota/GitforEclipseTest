@@ -2,6 +2,8 @@ package komota.gomi;
 
 import komota.lib.MyIO;
 import komota.lib.MyMatrix;
+import komota.main.MyPR;
+import komota.main.PR_Mat;
 
 public class Test20160314 {
 
@@ -37,6 +39,17 @@ public class Test20160314 {
 		testmat2.mult(testmat1.inv()).show();
 		//概数化のテスト
 		testmat2.mult(testmat1.inv()).approximate().show();
+
+
+		//線形代数モデルのテスト
+		MyPR pr = new MyPR("logdata.txt");
+		//pr.show();
+		System.out.println("ここは越えたよ");
+
+		PR_Mat prmat = new PR_Mat("logdata.txt");
+		System.out.println("ここも越えたよ");
+
+		prmat.show();
 
 	}
 
