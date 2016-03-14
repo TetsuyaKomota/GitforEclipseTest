@@ -101,6 +101,110 @@ public class MyIO {
 		return line;
 	}
 
+	//ファイル行列読み込み
+	//引数に与えた行列IDが振られた行列を読みこみファイルから探す．
+	/*
+	 * ファイルは以下のようにフォーマットされているとする
+	 * Mat_ID:(int id)
+	 * dim:(int dimension)
+	 * x00,x01,...,x0n
+	 * x10,x11,...,x1n
+	 * .
+	 * .
+	 * .
+	 * xm0,xm1,..,xmn
+	 * end_Mat:(int id)
+	 */
+	public MyMatrix readMatrix(int Mat_ID){
+		double[][] read = null;
+		int dim = 0;
+
+		//ファイルを読みこみ直す
+		BufferedReader tempbr = null;
+		File file = new File("log/"+this.file_IN);
+		for(int t=0;t<1000;t++){
+			try {
+				tempbr = new BufferedReader(new FileReader(file));
+			} catch (FileNotFoundException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+			if(this.br != null){
+				break;
+			}
+		}
+		//与えられた行列番号を探す
+		String line = null;
+		while(true){
+			line = null;
+			try {
+				line = tempbr.readLine();
+			} catch (IOException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+			if(line == null){
+				return null;
+			}
+			else if(line.split(":")[0].equals("Mat_ID") && Integer.parseInt(line.split(":")[1]) == Mat_ID){
+				break;
+			}
+		}
+		//Mat_IDの次はdimがかかれているはずなので，それを読み取る
+		line = null;
+		try {
+			line = tempbr.readLine();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		if(line == null){
+			return null;
+		}
+		else if(line.split(":")[0].equals("dim")){
+			dim = Integer.parseInt(line.split(":")[1]);
+			read = new double[dim][dim];
+		}
+		else{
+			return null;
+		}
+		//endが来るまで読み取り
+		int count = 0;
+		while(true){
+			line = null;
+			try {
+				line = tempbr.readLine();
+			} catch (IOException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+			if(line == null){
+				return null;
+			}
+			else if(line.split(":").equals("end_Mat") && Integer.parseInt(line.split(":")[1]) == Mat_ID){
+				break;
+			}
+			else if(count >= dim){
+				break;
+			}
+			String[] splitted = line.split(",");
+			for(int idx=0;idx<dim;idx++){
+				read[count][idx] = Integer.parseInt(splitted[idx]);
+			}
+			count++;
+		}
+
+		try {
+			tempbr.close();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		MyMatrix output = new MyMatrix(dim,read);
+		return output;
+	}
+
 	//ファイル行書き出し
 	public void println(String line){
 		if(this.pw != null){
