@@ -21,6 +21,10 @@ public class Statics {
 	public static final int STATUS = 3;
 	public static final int FEATURE = 4;
 
+	//定数
+	//外数値にする際の最小値
+	public static final double MIN_APPROX = 0.0001;
+
 	//ログデータの最大数
 	public static final int MAX_NUMBEROFLOG = 2000;
 	/**

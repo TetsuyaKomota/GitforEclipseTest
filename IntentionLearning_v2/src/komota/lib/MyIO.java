@@ -114,6 +114,8 @@ public class MyIO {
 	 * .
 	 * xm0,xm1,..,xmn
 	 * end_Mat:(int id)
+	 *
+	 * タブは使用可能
 	 */
 	public MyMatrix readMatrix(int Mat_ID){
 		double[][] read = null;
@@ -189,7 +191,7 @@ public class MyIO {
 			}
 			String[] splitted = line.split(",");
 			for(int idx=0;idx<dim;idx++){
-				read[count][idx] = Integer.parseInt(splitted[idx]);
+				read[count][idx] = Integer.parseInt(splitted[idx].replace("	", ""));
 			}
 			count++;
 		}

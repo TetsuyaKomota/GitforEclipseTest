@@ -1,5 +1,7 @@
 package komota.lib;
 
+import komota.main.Statics;
+
 
 //真面目に行列を実装しよう
 //正方行列限定
@@ -394,6 +396,26 @@ public class MyMatrix{
 		}
 		System.out.println();
 	}
+
+	//概数化
+	public MyMatrix approximate(){
+		MyMatrix output = new MyMatrix(this.dimension);
+
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				double temp1 = this.data[i][j] / Statics.MIN_APPROX;
+				int temp2 = (int)(temp1*10)%10;
+				if(temp2 >= 5){
+					temp1++;
+				}
+				temp2 = (int)temp1;
+				output.setData(i, j, (double)temp2*Statics.MIN_APPROX);
+			}
+		}
+
+		return output;
+	}
+
 
 	//NaNになっている要素が存在するか判定
 	//主にデバッグで使用する

@@ -23,14 +23,21 @@ public class Test20160314 {
 
 		//行列読み込みのテスト
 		MyIO testio = new MyIO();
-		testio.readFile("test.txt");
-		MyMatrix testmat = testio.readMatrix(1);
-		if(testmat != null){
-			testmat.show();
+		testio.readFile("20160314/mats.txt");
+		MyMatrix testmat1 = testio.readMatrix(1);
+		MyMatrix testmat2 = testio.readMatrix(2);
+		if(testmat1 != null && testmat2 != null){
+			testmat1.show();
+			testmat2.show();
 		}
 		else{
 			System.out.println("へたくそ！");
 		}
+
+		testmat2.mult(testmat1.inv()).show();
+		//概数化のテスト
+		testmat2.mult(testmat1.inv()).approximate().show();
+
 	}
 
 }
