@@ -33,7 +33,7 @@ public class PR_Mat extends MyPR{
 			if(this.logdata[idx] == null){
 				break;
 			}
-			this.logdata_mat[idx] = new StepLog_Mat(num,this.logdata[idx]);
+			this.logdata_mat[idx] = new StepLog_Mat(2*num+1,this.logdata[idx]);
 			idx++;
 		}
 	}
@@ -111,24 +111,37 @@ public class PR_Mat extends MyPR{
 	//再現
 	@Override
 	public void reproduction(MyFrame frame){
-		//現状態は最後のstartログに記録されているという前提を使う
-		int[] ts = null;
-		int count = 0;
-		while(true){
-			if(this.logdata_mat[count] == null){
-				break;
+		//現状態は最後のstartログに記録されているという前提を使得ないので，盤面から取得する
+		int[] ts = new int[this.logdata_mat[0].numberoffeatures];
+
+		ts[0] = 1;
+		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+				if(frame.panels[i][j].getStatus() != 0){
+					ts[2*frame.panels[i][j].getStatus()-1] = i;
+					ts[2*frame.panels[i][j].getStatus()] = j;
+				}
 			}
-			else if(this.logdata_mat[count].getType() == Statics.START){
-				ts = this.logdata_mat[count].getStepStatusField();
-			}
-			count++;
 		}
+
+		for(int i=0;i<ts.length;i++){
+			System.out.print(ts[i]+" ");
+		}
+		System.out.println();
+
 		int[] re = new int[ts.length];
+
+
 		for(int i=0;i<ts.length;i++){
 			for(int j=0;j<ts.length;j++){
-				re[j] += this.X.getData(i, j) * ts[j];
+				re[i] += this.X.approximate().getData(i, j) * ts[j];
 			}
 		}
+
+		for(int i=0;i<ts.length;i++){
+			System.out.print(re[i]+" ");
+		}
+		System.out.println();
 
 		//赤の位置は(re[1],re[2])になっているはずなので
 		int[] selected = new int[2];
