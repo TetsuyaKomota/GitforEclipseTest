@@ -1,186 +1,38 @@
 package komota.lib;
 
-import komota.main.Statics;
+import java.text.DecimalFormat;
 
+import komota.main.Statics;
 
 //真面目に行列を実装しよう
 //正方行列限定
+/**
+ * 行列クラス
+ * @author komota
+ * @version 1.0
+ */
 public class MyMatrix{
 
-	public static void main(String[] args){
-		int dim = 3;
-		int count = 0;
-		int check = 1;
-		double mean = 0;
-		double variance = 10;
-		MyMatrix mat1 = new MyMatrix(dim);
-		MyMatrix mat2 = new MyMatrix(dim);
-		MyMatrix means = new MyMatrix(dim);
+	//フィールド
 
-		//出力クラス
-		MyIO io = new MyIO();
-		io.writeFile("test.txt");
-
-		//行列式が1になる行列とは珍しいものなのかを試行
-		//この実験から，行列式は大抵の場合，e14~e17程度のスケールとなることが判明
-/*
-		while(true){
-			count++;
-			for(int i=0;i<dim;i++){
-				for(int j=0;j<dim;j++){
-					mat1.setData(i, j, (int)(Math.random()*200));
-				}
-			}
-			if(Math.abs(mat1.getDetV()) <= 10000 && Math.abs(mat1.getDetV()) >= 0.000001){
-				break;
-			}
-			else{
-				//行列式の平均を求めてみよう
-				mean *= count-1;
-				mean += mat1.getDetV();
-				mean /= count;
-			}
-			if(count == 1000*check){
-				check++;
-				System.out.println("done:"+1000*check + "  DET:"+ mat1.getDetV() + "  mean(DET):"+mean);
-			}
-		}
-		System.out.println(count + ": DET="+mat1.getDetV());
-		mat1.show();
-		mat1.inv().show();
-*/
-		//逆行列の成分に，元の行列の成分の最大値を超えるような成分が出現することは珍しいものなのかを試行
-		//この実験から，元行列の最大の成分の平方根サイズでもあまり現れないことが分かった
-/*
-		double max;
-
-		while(true){
-			count++;
-			while(true){
-				max = 0;
-				for(int i=0;i<dim;i++){
-					for(int j=0;j<dim;j++){
-						mat1.setData(i, j, (int)(Math.random()*200));
-						if(mat1.getData(i, j)>max){
-							max = mat1.getData(i, j);
-						}
-					}
-				}
-				if(mat1.getDetV() != 0){
-					break;
-				}
-			}
-			mat1 = mat1.inv();
-			boolean flag = false;
-			for(int i=0;i<dim;i++){
-				for(int j=0;j<dim;j++){
-					if(Math.abs(mat1.getData(i, j)) > Math.sqrt(max)){
-						flag = true;
-					}
-				}
-			}
-			if(flag == true){
-				break;
-			}
-			else if(count == 1000*check){
-				check++;
-				System.out.println("done:"+1000*check + "  DET:"+ mat1.getDetV());
-			}
-		}
-		System.out.println(count + ": MAX="+max + ": DET="+mat1.getDetV());
-//		mat1.inv().show();
-//		mat1.show();
-*/
-		//200*200空間の教示データをランダム生成
-		//逆行列化
-		//ガウス誤差との積を求める
-		//平均とりまくる．たまに出力する
-
-		//同じ計算を20回繰り返す
-		for(int T=0;T<20;T++){
-			count = 0;
-			means = new MyMatrix(dim);
-			for(int time=0;time<8;time++){
-				while(true){
-					count++;
-					while(true){
-						for(int i=0;i<dim;i++){
-							for(int j=0;j<dim;j++){
-								mat1.setData(i, j, (int)(Math.random()*200));
-							}
-						}
-						if(mat1.getDetV() != 0){
-							break;
-						}
-					}
-
-					mat1 = mat1.inv();
-
-					for(int i=0;i<dim;i++){
-						for(int j=0;j<dim;j++){
-							double rand = Math.random();
-							double x = -100;
-							double gauss = 0;
-							while(true){
-								gauss += Math.exp(-x*x / (2*variance)) / Math.sqrt(2*Math.PI*variance);
-								if(rand < gauss){
-									mat2.setData(i, j, (int)x);
-									break;
-								}
-								else{
-									x++;
-								}
-							}
-						}
-					}
-					//平均を更新
-					means = means.mult(count-1).add(mat1.mult(mat2)).mult((double)1/count);
-
-					//平均を更新
-					//一定回数で出力
-					if(count >= Math.pow(10, time)){
-						break;
-					}
-				}
-				//出力誤差の平均を求める
-				double sum = 0;
-				for(int i=0;i<dim;i++){
-					for(int j=0;j<dim;j++){
-						sum += means.getData(i, j);
-					}
-				}
-				sum /= dim*dim;
-
-				int temp = 0;
-				io.print("TIME,1");
-				while(temp < time){
-					io.print("0");
-					temp++;
-				}
-				io.println(",MEAN,"+sum);
-				//means.show();
-				io.execute();
-			}
-		}
-		io.close();
-	}
-
-
-	//定数
-	//行列式の切り捨て境界.これより小さな行列式はゼロとして扱う
-	final double INFERIOR = 0.00000001;
-
-	//次元
+	/** 次元*/
 	int dimension;
-	//行列値
+	/** 行列値*/
 	private double[][] data;
 
-	//コンストラクタ
+	/**
+	 * コンストラクタ
+	 * @param dimension 行列の次元
+	 */
 	public MyMatrix(int dimension){
 		this.dimension = dimension;
 		this.data = new double[dimension][dimension];
 	}
-	//コンストラクタで数値を代入することもできる
+	/**
+	 * コンストラクタ
+	 * @param dimension 行列の次元
+	 * @param inputs 行列の初期値．行列サイズより小さい配列を代入した場合，0を補完する．行列サイズより大きい配列を代入した場合，範囲外の数値を無視して代入する．
+	 */
 	public MyMatrix(int dimension,double[][] inputs){
 		this(dimension);
 		//入力行列が読み込み可能かどうか
@@ -190,12 +42,18 @@ public class MyMatrix{
 		for(int i=0;i<inputs.length;i++){
 			for(int j=0;j<inputs[0].length;j++){
 				//既に行列値にはゼロが代入されているはずなので，そのままinputsのある分だけ代入させればいい
-				this.data[i][j] = inputs[i][j];
+				if(i<this.dimension && j<this.dimension){
+					this.data[i][j] = inputs[i][j];
+				}
 			}
 		}
 	}
-	//行列値のセッター
-	//(開始点，入力行列).基本的には0,0,dimension*dimensionサイズの行列 という引数
+	/**
+	 * 行列値のセッター.行列値すべてまたは一部分を同時に代入できる．
+	 * @param startg 代入開始点の行番号
+	 * @param startr 代入開始点の列番号
+	 * @param inputs 代入値．代入開始点に対して，行列の範囲外にあたる数値は無視して代入する．
+	 */
 	public void setData(int startg,int startr,double[][] inputs){
 		for(int i=startg;i<this.dimension;i++){
 			for(int j=startr;j<this.dimension;j++){
@@ -203,21 +61,38 @@ public class MyMatrix{
 			}
 		}
 	}
-	//行列値一か所のみのセッター
+	/**
+	 * 行列値セッター.選択した要素のみの代入
+	 * @param gyou 代入点の行番号
+	 * @param retsu 代入点の列番号
+	 * @param input 代入値
+	 */
 	public void setData(int gyou,int retsu,double input){
 		this.data[gyou][retsu] = input;
 	}
-	//行列値のゲッター
+	/**
+	 * 行列値のゲッター
+	 * @return 行列値配列
+	 */
 	public double[][] getData(){
 		return this.data;
 	}
-	//行列値一か所のみのゲッター
+	/**
+	 * 行列値一か所のみのゲッター
+	 * @param gyou 行番号
+	 * @param retsu 列番号
+	 * @return 行列値
+	 */
 	public double getData(int gyou,int retsu){
 		return this.data[gyou][retsu];
 	}
 
 	//行列の演算
-	//加算
+	/**
+	 * 加算
+	 * @param input 加算行列
+	 * @return 引数に与えた行列と足し合わせた行列
+	 */
 	public MyMatrix add(MyMatrix input){
 		MyMatrix output = new MyMatrix(this.dimension);
 		for(int i=0;i<this.dimension;i++){
@@ -227,7 +102,11 @@ public class MyMatrix{
 		}
 		return output;
 	}
-	//減算
+	/**
+	 * 減算
+	 * @param input 減算行列
+	 * @return 引数に与えた行列を引いた行列
+	 */
 	public MyMatrix sub(MyMatrix input){
 		MyMatrix output = new MyMatrix(this.dimension);
 		for(int i=0;i<this.dimension;i++){
@@ -237,7 +116,11 @@ public class MyMatrix{
 		}
 		return output;
 	}
-	//乗算
+	/**
+	 * 乗算
+	 * @param input 乗算行列
+	 * @return 引数に与えた行列を右から掛け合わせた行列
+	 */
 	public MyMatrix mult(MyMatrix input){
 		MyMatrix output = new MyMatrix(this.dimension);
 		for(int i=0;i<this.dimension;i++){
@@ -249,7 +132,11 @@ public class MyMatrix{
 		}
 		return output;
 	}
-	//定数倍
+	/**
+	 * 定数倍
+	 * @param input 乗算定数
+	 * @return 各要素を引数に与えた定数倍した行列
+	 */
 	public MyMatrix mult(double input){
 		MyMatrix output = new MyMatrix(this.dimension);
 		for(int i=0;i<this.dimension;i++){
@@ -259,7 +146,10 @@ public class MyMatrix{
 		}
 		return output;
 	}
-	//転置
+	/**
+	 * 転置
+	 * @return この行列を転置した行列
+	 */
 	public MyMatrix trans(){
 		MyMatrix output = new MyMatrix(this.dimension);
 		for(int i=0;i<this.dimension;i++){
@@ -269,8 +159,10 @@ public class MyMatrix{
 		}
 		return output;
 	}
-	//修正版行列式
-
+	/**
+	 * 行列式を求める.Statics.MIN_DETERMINANT未満である場合は 0 を返す.
+	 * @return この行列の行列式
+	 */
 	public double getDetV(){
 		double output = 1;
 		/*
@@ -319,14 +211,17 @@ public class MyMatrix{
 			output *= tempv[i][i];
 		}
 		//求まった行列式が下界より小さい場合はゼロとする
-		if(output < INFERIOR){
+		if(output < Statics.MIN_DETERMINANT){
 			return 0;
 		}
 		return output;
 	}
 
 
-	//改良版逆行列
+	/**
+	 * 逆行列
+	 * @return 個の行列の逆行列.正則でない場合は null を返す.
+	 */
 	public MyMatrix inv(){
 		MyMatrix output = new MyMatrix(this.dimension);
 
@@ -386,7 +281,9 @@ public class MyMatrix{
 		return output;
 	}
 
-	//標準出力
+	/**
+	 * コンソールに行列値を標準出力する
+	 */
 	public void show(){
 		for(int i=0;i<this.dimension;i++){
 			for(int j=0;j<this.dimension;j++){
@@ -397,18 +294,33 @@ public class MyMatrix{
 		System.out.println();
 	}
 
-	//概数化
+	/**
+	 * コンソールに，行列値を小数点第2位までの概数で標準出力する
+	 */
+	public void show_approximately(){
+		DecimalFormat df = new DecimalFormat("0.00");
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				System.out.print(df.format(this.getData(i, j)) + " ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+
+	/**
+	 * 行列値を，Statics.MIN_APPROX未満を四捨五入して概数化する．このメソッドのみでは細かい数値が残ってしまう場合があるため，使用には注意が必要.
+	 * @return 個の行列を概数化した行列
+	 */
 	public MyMatrix approximate(){
 		MyMatrix output = new MyMatrix(this.dimension);
 
 		for(int i=0;i<this.dimension;i++){
 			for(int j=0;j<this.dimension;j++){
 				double temp1 = this.data[i][j] / Statics.MIN_APPROX;
-				int temp2 = (int)(temp1*10)%10;
-				if(temp2 >= 5){
-					temp1++;
-				}
-				temp2 = (int)temp1;
+
+				int temp2 = (int) Math.round(temp1);
+
 				output.setData(i, j, (double)temp2*Statics.MIN_APPROX);
 			}
 		}
@@ -417,7 +329,10 @@ public class MyMatrix{
 	}
 
 
-	//NaNになっている要素が存在するか判定
+	/**
+	 * NaNになっている要素が存在するか判定する
+	 * @return NaNになっている要素がある場合はtrue，そうでないならばfalse
+	 */
 	//主にデバッグで使用する
 	public boolean isNaN(){
 		for(int i=0;i<this.dimension;i++){

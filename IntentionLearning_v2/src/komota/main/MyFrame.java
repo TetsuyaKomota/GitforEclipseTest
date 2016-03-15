@@ -41,7 +41,7 @@ public class MyFrame extends JFrame{
 	static Color colorofselectedspace = new Color(255,100,200);
 
 	/**
-	 * @param args 使用しないよ
+	 * @param args 使用しない
 	 */
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -72,7 +72,7 @@ public class MyFrame extends JFrame{
 	public String howtouse = "SPACE:exchange the first clicked and the second clicked.   G:finish the task.";
 
 	/** 出力先ファイル*/
-	String file_name = "test.txt";
+	String file_name = "logdata.txt";
 	/** ファイル出力用クラス*/
 	PrintWriter pw;
 
@@ -653,7 +653,7 @@ public class MyFrame extends JFrame{
 	 * @author komota
 	 *
 	 */
-	class MyPanel {
+	public class MyPanel {
 
 		//フィールド
 		/**
