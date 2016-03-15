@@ -38,6 +38,11 @@ public class MyIO {
 	public MyIO(){
 	}
 
+	//出力ストリームのゲッター
+	public PrintWriter getPrintWriter(){
+		return this.pw;
+	}
+
 	//ファイル読み込み準備
 	public boolean readFile(String file_IN){
 

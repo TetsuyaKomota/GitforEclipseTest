@@ -22,6 +22,7 @@ public class Test20160315 {
 
 		//出力クラス
 		MyIO io = new MyIO();
+		io.readFile("test.txt");
 		io.writeFile("test.txt");
 
 		//行列式が1になる行列とは珍しいものなのかを試行
@@ -100,6 +101,7 @@ public class Test20160315 {
 		//平均とりまくる．たまに出力する
 
 		//同じ計算を20回繰り返す
+/*
 		for(int T=0;T<20;T++){
 			count = 0;
 			means = new MyMatrix(dim);
@@ -166,6 +168,10 @@ public class Test20160315 {
 			}
 		}
 		io.close();
+*/
+		mat1 = io.readMatrix(0);
+		mat1.show();
+		mat1.mult(3).outputMatrix(io, 1);
 	}
 
 }

@@ -308,6 +308,49 @@ public class MyMatrix{
 		System.out.println();
 	}
 
+
+	/**
+	 * 行列値をファイル出力する
+	 * @param io 入出力クラス
+	 * @param id 行列ID
+	 */
+	public void outputMatrix(MyIO io,int id){
+		io.println("Mat_ID:"+id);
+		io.println("dim:"+this.dimension);
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				io.print(this.getData(i,j)+"\t");
+				if(j<this.dimension-1){
+					io.print(",");
+				}
+			}
+			io.println("");
+		}
+		io.println("end_Mat:"+id);
+		io.execute();
+	}
+	/**
+	 * 行列値の概数値をファイル出力する
+	 * @param io 入出力クラス
+	 * @param id 行列ID
+	 */
+	public void outputMatrix_approximately(MyIO io,int id){
+		DecimalFormat df = new DecimalFormat("0.00");
+		io.println("Mat_ID:"+id);
+		io.println("dim:"+this.dimension);
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				io.print(df.format(this.getData(i,j))+"\t");
+				if(j<this.dimension-1){
+					io.print(",");
+				}
+			}
+			io.println("");
+		}
+		io.println("end_Mat:"+id);
+		io.execute();
+	}
+
 	/**
 	 * 行列値を，Statics.MIN_APPROX未満を四捨五入して概数化する．このメソッドのみでは細かい数値が残ってしまう場合があるため，使用には注意が必要.
 	 * @return 個の行列を概数化した行列

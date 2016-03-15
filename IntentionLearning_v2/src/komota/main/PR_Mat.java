@@ -91,6 +91,8 @@ public class PR_Mat extends MyPR{
 				if(tempstarts.getDetV() != 0){
 					MyMatrix tempresults = tempgoals.mult(tempstarts.inv());
 
+
+
 					X = X.mult(t);
 					X = X.add(tempresults);
 					X = X.mult((double)1/(t+1));
