@@ -24,8 +24,9 @@ public class DataSetGenerator extends MyFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("データジェネレート！");
+		//（おそらく）NextGaussianをintにキャストして使っているので，分散の有効桁数は高々小数2桁まで
 //		this.generate_MOVE_THE_CENTER(this, 2);
-//		this.generate_RIGHT_TO_BLUE(this, 2);
+		this.generate_RIGHT_TO_BLUE(this, 0.03);
 //		this.generate_NEAR_BY_ORANGE(this, 2);
 //		this.generate_AWAY_FROM_GREEN(this, 2);
 //		this.generate_MAKE_THE_SIGNAL(this, 2);
@@ -33,9 +34,19 @@ public class DataSetGenerator extends MyFrame{
 //		this.generate_RIGHT_TO_(DataSetGenerator.YELLOW, this, 2);
 //		this.generate_NEAR_BY_(DataSetGenerator.YELLOW, this, 2);
 //		this.generate_AWAY_FROM_(DataSetGenerator.YELLOW, this, 2);
-		this.generate_MAKE_THE_SIG_(DataSetGenerator.YELLOW, DataSetGenerator.GREEN, this, 2);
+//		this.generate_MAKE_THE_SIG_(DataSetGenerator.YELLOW, DataSetGenerator.GREEN, this, 2);
 //		this.generate_MAKE_THE_TRI_(DataSetGenerator.YELLOW, DataSetGenerator.BLUE, this, 2);
 		System.out.println("データジェネレート完了！");
+		try {
+			System.out.println("logdata.txtには"+this.countGoal("logdata.txt")+"個のデータが存在します");
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+	}
+	@Override
+	public void functionPlugin2(){
 		try {
 			System.out.println("logdata.txtには"+this.countGoal("logdata.txt")+"個のデータが存在します");
 		} catch (IOException e) {

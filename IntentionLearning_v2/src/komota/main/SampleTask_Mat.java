@@ -145,11 +145,9 @@ public class SampleTask_Mat extends MyFrame{
 	@Override
 	public void functionPlugin1(){
 		System.out.println("各パターン認識クラスのインスタンスを生成");
-//		this.pr_mat = new PR_Mat();
+		this.pr_mat = new PR_Mat();
 //		this.pr_mat = new PR_Mat("dataset/log_RIGHT_TO_BLUE.txt");
-		this.pr_mat = new PR_Mat("dataset/log_NEAR_BY_ORANGE.txt");
-//		this.pr_mat = new PR_Mat("20160315/RtB_500_e0.5.txt");
-//		this.pr_mat = new PR_Mat("20160315/RtB_500_e0.txt");
+//		this.pr_mat = new PR_Mat("dataset/log_NEAR_BY_ORANGE.txt");
 		System.out.println("インスタンスを生成しました");
 	}
 	@Override
