@@ -171,7 +171,7 @@ public class Test20160315 {
 */
 		mat1 = io.readMatrix(0);
 		mat1.show();
-		mat1.mult(3).outputMatrix(io, 1);
+		io.printMatrix(mat1.mult(3), 1);
 	}
 
 }

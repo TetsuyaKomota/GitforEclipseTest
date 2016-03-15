@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 
 public class MyIO {
 
@@ -250,6 +251,41 @@ public class MyIO {
 			this.pw.print(Double);
 		}
 	}
+
+	//ファイル行列書き出し
+	public void printMatrix(MyMatrix mat,int id){
+		this.println("Mat_ID:"+id);
+		this.println("dim:"+mat.dimension);
+		for(int i=0;i<mat.dimension;i++){
+			for(int j=0;j<mat.dimension;j++){
+				this.print(mat.getData(i,j)+"\t");
+				if(j<mat.dimension-1){
+					this.print(",");
+				}
+			}
+			this.println("");
+		}
+		this.println("end_Mat:"+id);
+		this.execute();
+	}
+	//ファイル行列書き出し（概数化）
+	public void printMatrix_approximately(MyMatrix mat,int id){
+		DecimalFormat df = new DecimalFormat("0.00");
+		this.println("Mat_ID:"+id);
+		this.println("dim:"+mat.dimension);
+		for(int i=0;i<mat.dimension;i++){
+			for(int j=0;j<mat.dimension;j++){
+				this.print(df.format(mat.getData(i,j))+"\t");
+				if(j<mat.dimension-1){
+					this.print(",");
+				}
+			}
+			this.println("");
+		}
+		this.println("end_Mat:"+id);
+		this.execute();
+	}
+
 
 	//ファイル書き出し完了処理
 	//（なぜか）クローズ処理を実行しないと書きだされないため，一度クローズしてすぐさま同じファイルを開き直す．

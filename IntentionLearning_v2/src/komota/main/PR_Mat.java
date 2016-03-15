@@ -1,5 +1,6 @@
 package komota.main;
 
+import komota.lib.MyIO;
 import komota.lib.MyMatrix;
 
 public class PR_Mat extends MyPR{
@@ -44,6 +45,10 @@ public class PR_Mat extends MyPR{
 	//学習
 	@Override
 	public void learnfromLog(){
+
+		MyIO io = new MyIO();
+		io.writeFile("20160315/testoutputmatrix.txt");
+
 		int num = this.logdata_mat[0].numberoffeatures;
 		this.X = new MyMatrix(num);
 		//平均をいっぱいとる.とりあえず5回
@@ -91,11 +96,16 @@ public class PR_Mat extends MyPR{
 				if(tempstarts.getDetV() != 0){
 					MyMatrix tempresults = tempgoals.mult(tempstarts.inv());
 
-
+					io.println(t+"回目の教示データ行列");
+					io.printMatrix_approximately(tempresults, t);
 
 					X = X.mult(t);
 					X = X.add(tempresults);
 					X = X.mult((double)1/(t+1));
+
+					io.println(t+"回目の教示データ適用後のX");
+					io.printMatrix_approximately(X, t);
+
 
 					break;
 				}
