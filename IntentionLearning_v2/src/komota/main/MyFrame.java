@@ -41,7 +41,7 @@ public class MyFrame extends JFrame{
 	static Color colorofselectedspace = new Color(255,100,200);
 
 	/**
-	 * @param args 使用しない
+	 * @param args 使用しないよ
 	 */
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
