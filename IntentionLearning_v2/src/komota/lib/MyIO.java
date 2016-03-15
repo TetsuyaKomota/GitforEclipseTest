@@ -218,9 +218,36 @@ public class MyIO {
 			this.pw.println(line);
 		}
 	}
+	public void println(int integer){
+		if(this.pw != null){
+			this.pw.println(integer);
+		}
+	}
+	public void println(double Double){
+		if(this.pw != null){
+			this.pw.println(Double);
+		}
+	}
+	public void println(){
+		if(this.pw != null){
+			this.pw.println();
+		}
+	}
+
+	//ファイル書き出し
 	public void print(String str){
 		if(this.pw != null){
 			this.pw.print(str);
+		}
+	}
+	public void print(int integer){
+		if(this.pw != null){
+			this.pw.print(integer);
+		}
+	}
+	public void print(double Double){
+		if(this.pw != null){
+			this.pw.print(Double);
 		}
 	}
 

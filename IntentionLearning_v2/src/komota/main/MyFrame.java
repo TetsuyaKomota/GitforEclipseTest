@@ -8,15 +8,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
+
+import komota.lib.MyIO;
 
 /**
  * 意図理解実験シミュレータ
@@ -74,7 +71,10 @@ public class MyFrame extends JFrame{
 	/** 出力先ファイル*/
 	String file_name = "logdata.txt";
 	/** ファイル出力用クラス*/
-	PrintWriter pw;
+//	PrintWriter pw;
+
+	/** ファイル入出力用クラス*/
+	MyIO io;
 
 	/** タイマークラス*/
 	Timer t;
@@ -166,6 +166,7 @@ public class MyFrame extends JFrame{
 	 */
 	@Deprecated
 	public void setOutputFile(){
+/*
 		File file = null;
 		while(file == null || file.exists() == false){
 			try {
@@ -179,6 +180,9 @@ public class MyFrame extends JFrame{
 			}
 			file = new File("log/"+file_name);
 		}
+*/
+		this.io = new MyIO();
+		this.io.writeFile(this.file_name);
 	}
 	/**
 	 * 出力先ファイル名を変更
@@ -238,16 +242,16 @@ public class MyFrame extends JFrame{
 	 * @param command ログデータの先頭に付与するコマンド
 	 */
 	private void outputLog(String command){
-		pw.print(command);
+		this.io.print(command);
 		for(int i=0;i<MyFrame.this.panels.length;i++){
 			for(int j=0;j<MyFrame.this.panels[0].length;j++){
-				pw.print(MyFrame.this.panels[i][j].status);
+				this.io.print(MyFrame.this.panels[i][j].status);
 				if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
-					pw.print(",");
+					this.io.print(",");
 				}
 			}
 		}
-		pw.println();
+		this.io.println();
 	}
 	/**
 	 * 初期状態を出力する．主に初期化直後に使用する
@@ -272,14 +276,14 @@ public class MyFrame extends JFrame{
 	 * @param out 出力文字列
 	 */
 	public void outputResult(String out){
-		this.pw.print(out);
+		this.io.print(out);
 	}
 	/**
 	 * 出力先ファイルへ文字列を出力する汎用メソッド．出力後に改行する．主に計算結果などを出力するのに使用する．コマンドなどのフォーマットは行わないので使用する場合は書式に注意すること．
 	 * @param out 出力文字列
 	 */
 	public void outputlnResult(String out){
-		this.pw.println(out);
+		this.io.println(out);
 	}
 	/* *************************************************************************************************************************** */
 

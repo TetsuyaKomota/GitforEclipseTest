@@ -180,7 +180,7 @@ public class MyPR {
 			}
 		}
 		//計算結果をresult.txtに出力する
-		frame.pw.println(
+		frame.io.println(
 				"result,"+output
 				);
 		//盤面をいじくってしまっているので、最後にinitializeを実行する
