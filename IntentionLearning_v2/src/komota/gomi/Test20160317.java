@@ -3,7 +3,6 @@ package komota.gomi;
 import komota.lib.MyIO;
 import komota.lib.MyMatrix;
 import komota.supers.AdjustedVisualSOINN;
-import soinn.SOINN;
 
 public class Test20160317 {
 
@@ -24,7 +23,7 @@ public class Test20160317 {
 		System.out.println();
 
 		//SOINNを試す
-		SOINN soinn = new SOINN(121,1000,5);
+		ExtendedSOINN soinn = new ExtendedSOINN(121,1000,5);
 		AdjustedVisualSOINN frame = new AdjustedVisualSOINN(soinn,"VisualSOINN",50,50,50,true);
 
 		io.readFile("20160317/testoutputmatrix.txt");
@@ -34,9 +33,11 @@ public class Test20160317 {
 
 
 			if(mat1 != null){
+				//まったく同じデータではノードが死んでしまうので，微妙な揺らぎを補正
+				//実際は行列自体が全くきれいなものになってしまうことこそ問題なので，その原因を探すこと
 				for(int i=0;i<mat1.getDimension();i++){
 					for(int j=0;j<mat1.getDimension();j++){
-						mat1.setData(i, j, mat1.getData(i,j)+(Math.random()-0.5)*0.01);
+						mat1.setData(i, j, mat1.getData(i,j)+(Math.random()-0.5)*0.0001);
 					}
 				}
 				vec1 = mat1.vectorize();
@@ -51,6 +52,9 @@ public class Test20160317 {
 
 		if(soinn.getClassNum() == 1){
 			System.out.println("やったね！");
+			vec1 = soinn.getNodeMean(0);
+			mat1 = new MyMatrix(11,vec1);
+			mat1.show_approximately();
 		}
 		else{
 			System.out.println("ふぇぇ．．"+soinn.getClassNum()+"個だよ...");
