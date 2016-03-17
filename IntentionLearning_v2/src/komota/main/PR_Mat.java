@@ -47,7 +47,7 @@ public class PR_Mat extends MyPR{
 	public void learnfromLog(){
 
 		MyIO io = new MyIO();
-		io.writeFile("20160315/testoutputmatrix.txt");
+		io.writeFile("20160317/testoutputmatrix.txt");
 
 		int num = this.logdata_mat[0].numberoffeatures;
 		this.X = new MyMatrix(num);
@@ -104,7 +104,7 @@ public class PR_Mat extends MyPR{
 					X = X.mult((double)1/(t+1));
 
 					io.println(t+"回目の教示データ適用後のX");
-					io.printMatrix_approximately(X, t);
+					io.printMatrix_approximately(X, 200+t);
 
 
 					break;
