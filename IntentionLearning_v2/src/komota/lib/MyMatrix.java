@@ -64,6 +64,13 @@ public class MyMatrix{
 		}
 	}
 	/**
+	 * 次元のゲッター
+	 * @return この行列の次元
+	 */
+	public int getDimension(){
+		return this.dimension;
+	}
+	/**
 	 * 行列値のセッター.行列値すべてまたは一部分を同時に代入できる．
 	 * @param startg 代入開始点の行番号
 	 * @param startr 代入開始点の列番号

@@ -31,7 +31,14 @@ public class Test20160317 {
 
 		for(int idx=0;idx<70;idx++){
 			mat1 = io.readMatrix(idx);
+
+
 			if(mat1 != null){
+				for(int i=0;i<mat1.getDimension();i++){
+					for(int j=0;j<mat1.getDimension();j++){
+						mat1.setData(i, j, mat1.getData(i,j)+(Math.random()-0.5)*0.01);
+					}
+				}
 				vec1 = mat1.vectorize();
 				soinn.inputSignal(vec1);
 				soinn.classify();
@@ -48,6 +55,34 @@ public class Test20160317 {
 		else{
 			System.out.println("ふぇぇ．．"+soinn.getClassNum()+"個だよ...");
 		}
+
+/*
+		soinn = new SOINN(3,10,5);
+		for(int i=0;i<100;i++){
+			double[] vec = new double[3];
+			vec[0] = 3;
+			vec[1] = 3;
+			vec[2] = 3;
+
+			soinn.inputSignal(vec);
+			soinn.classify();
+			System.out.println(i+"番目のデータを入れたときは"+ soinn.getClassNum()+"個だよ");
+
+		}
+		soinn.removeUnnecessaryNode();
+		soinn.classify();
+
+
+		if(soinn.getClassNum() == 1){
+			System.out.println("やったね！");
+		}
+		else{
+			System.out.println("ふぇぇ．．"+soinn.getClassNum()+"個だよ...");
+		}
+*/
+
 	}
+
+
 
 }
