@@ -49,6 +49,21 @@ public class MyMatrix{
 		}
 	}
 	/**
+	 * コンストラクタ
+	 * @param dimension 行列の次元
+	 * @param vector 行列の初期値ベクトル．行列の要素数と同じ要素数のベクトルでない場合は初期値ゼロの行列になる
+	 */
+	public MyMatrix(int dimension,double[] vector){
+		this(dimension);
+		//入力ベクトルが読み込み可能かどうか
+		if(vector.length != this.dimension*this.dimension){
+			return;
+		}
+		for(int i=0;i<vector.length;i++){
+			this.data[i/this.dimension][i%this.dimension] = vector[i];
+		}
+	}
+	/**
 	 * 行列値のセッター.行列値すべてまたは一部分を同時に代入できる．
 	 * @param startg 代入開始点の行番号
 	 * @param startr 代入開始点の列番号
@@ -344,5 +359,16 @@ public class MyMatrix{
 			}
 		}
 		return false;
+	}
+
+	//行ごとに区切って一列に並べたベクトルに変換する
+	public double[] vectorize(){
+		double[] output = new double[this.dimension*this.dimension];
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				output[i*this.dimension + j] = this.data[i][j];
+			}
+		}
+		return output;
 	}
 }

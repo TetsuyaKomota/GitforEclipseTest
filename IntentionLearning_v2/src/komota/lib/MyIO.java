@@ -197,7 +197,7 @@ public class MyIO {
 			}
 			String[] splitted = line.split(",");
 			for(int idx=0;idx<dim;idx++){
-				read[count][idx] = Integer.parseInt(splitted[idx].replace("	", ""));
+				read[count][idx] = Double.parseDouble(splitted[idx].replace("	", ""));
 			}
 			count++;
 		}
