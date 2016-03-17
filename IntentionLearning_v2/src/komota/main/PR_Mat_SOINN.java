@@ -129,7 +129,14 @@ public class PR_Mat_SOINN extends MyPR{
 				}
 			}
 		}
-		this.X = new MyMatrix(num,soinn.getNodeMean(0));
+		soinn.classify();
+		double[] vec = soinn.getNodeMean(0);
+		System.out.println("SOINN学習結果");
+		for(int n = 0;n<vec.length;n++){
+			System.out.print(vec[n]+" ");
+		}
+		System.out.println();
+		this.X = new MyMatrix(num,vec);
 		System.out.println("学習しました");
 		this.X.approximate().show_approximately();
 	}

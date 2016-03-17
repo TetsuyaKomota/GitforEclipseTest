@@ -24,7 +24,7 @@ public class ExtendedSOINN extends SOINN {
 				count++;
 			}
 		}
-
+		System.out.println("[ExtendedSOINN]getNodeMean:the number of Node in Class:"+classID+" is "+count);
 		return output;
 	}
 
