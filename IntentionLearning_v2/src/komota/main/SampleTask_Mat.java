@@ -22,6 +22,7 @@ public class SampleTask_Mat extends MyFrame{
 	//解析クラス
 //	TestPatternRecognition tpr;
 	PR_Mat pr_mat;
+	PR_Mat_SOINN pr_mat_soinn;
 
 	//PR_100_FE pr_FE;
 
@@ -144,7 +145,7 @@ public class SampleTask_Mat extends MyFrame{
 	}
 	@Override
 	public void functionPlugin1(){
-		System.out.println("各パターン認識クラスのインスタンスを生成");
+		System.out.println("パターン認識クラスのインスタンスを生成");
 		this.pr_mat = new PR_Mat();
 //		this.pr_mat = new PR_Mat("dataset/log_RIGHT_TO_BLUE.txt");
 //		this.pr_mat = new PR_Mat("dataset/log_NEAR_BY_ORANGE.txt");
@@ -160,5 +161,24 @@ public class SampleTask_Mat extends MyFrame{
 	public void functionPlugin3(){
 		System.out.println("学習結果から、動作を再現");
 		this.pr_mat.reproduction(this);
+	}
+	@Override
+	public void functionPlugin4(){
+		System.out.println("パターン認識クラス(SOINN付き)のインスタンスを生成");
+		this.pr_mat_soinn = new PR_Mat_SOINN();
+//		this.pr_mat = new PR_Mat("dataset/log_RIGHT_TO_BLUE.txt");
+//		this.pr_mat = new PR_Mat("dataset/log_NEAR_BY_ORANGE.txt");
+		System.out.println("インスタンスを生成しました");
+	}
+	@Override
+	public void functionPlugin5(){
+		System.out.println("ログデータから学習");
+		this.pr_mat_soinn.learnfromLog();
+		//this.pr_FE.learnfromLog();
+	}
+	@Override
+	public void functionPlugin6(){
+		System.out.println("学習結果から、動作を再現");
+		this.pr_mat_soinn.reproduction(this);
 	}
 }

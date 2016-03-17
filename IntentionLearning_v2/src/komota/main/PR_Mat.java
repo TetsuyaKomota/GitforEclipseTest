@@ -96,15 +96,15 @@ public class PR_Mat extends MyPR{
 				if(tempstarts.getDetV() != 0){
 					MyMatrix tempresults = tempgoals.mult(tempstarts.inv());
 
-					io.println(t+"回目の教示データ行列");
-					io.printMatrix_approximately(tempresults, t);
+//					io.println(t+"回目の教示データ行列");
+//					io.printMatrix_approximately(tempresults, t);
 
 					X = X.mult(t);
 					X = X.add(tempresults);
 					X = X.mult((double)1/(t+1));
 
-					io.println(t+"回目の教示データ適用後のX");
-					io.printMatrix_approximately(X, 200+t);
+//					io.println(t+"回目の教示データ適用後のX");
+//					io.printMatrix_approximately(X, 200+t);
 
 
 					break;
