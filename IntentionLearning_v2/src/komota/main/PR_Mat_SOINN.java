@@ -102,14 +102,14 @@ public class PR_Mat_SOINN extends MyPR{
 
 					io.println(t+"回目の教示データ行列");
 					io.printMatrix_approximately(tempresults, t);
-
+/*
 					for(int i=0;i<tempresults.getDimension();i++){
 						for(int j=0;j<tempresults.getDimension();j++){
 							//揺らぎ
 							tempresults.setData(i, j, tempresults.getData(i,j)+(Math.random()-0.5)*0.00001);
 						}
 					}
-
+*/
 /*
 					X = X.mult(t);
 					X = X.add(tempresults);
