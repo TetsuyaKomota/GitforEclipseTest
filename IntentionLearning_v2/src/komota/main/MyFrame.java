@@ -544,7 +544,10 @@ public class MyFrame extends JFrame{
 			//文字情報の描画
 			g.setColor(MyFrame.colorofstring);
 			g.drawString(MyFrame.this.expranation, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 10);
-			g.drawString("fps:"+MyFrame.this.getFrameRate(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)-30, Statics.SIZE_FRAME/2 + 10);
+			g.drawString("frame:"+MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+10);
+			g.drawString("time :"+MyFrame.this.getFrameTime(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+30);
+			g.drawString("fps  :"+MyFrame.this.getFrameRate(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+50);
+			g.drawString("fps_m:"+MyFrame.this.getFrameTime()/MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+70);
 			g.drawString(MyFrame.this.tasktitle, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 30);
 			g.drawString(MyFrame.this.howtouse, Statics.SIZE_FRAME, Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+40);
 
