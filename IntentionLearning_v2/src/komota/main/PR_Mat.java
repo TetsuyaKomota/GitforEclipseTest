@@ -1,9 +1,35 @@
 package komota.main;
 
-import komota.lib.MyIO;
 import komota.lib.MyMatrix;
 
 public class PR_Mat extends MyPR{
+
+/*
+	public static void main(String[] args){
+		int[] test = {
+				1,1,1,1,1,1,1,1,1,1,
+				1,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,
+				};
+		MyMatrix mat1 = new MyMatrix(11);
+		MyMatrix mat2 = new MyMatrix(11);
+
+		PR_Mat pr = new PR_Mat();
+
+		int[] idx = pr.localize(test);
+		pr.covine(mat1, mat2, idx);
+		mat1.show_approximately();
+		mat2.show_approximately();
+	}
+*/
+
+
 
 	//卒論の改良用の線形代数モデル．
 	//データの保持形式がMyPRと異なるが，使用する特徴量はとりあえず物体の座標成分のみ
@@ -41,7 +67,7 @@ public class PR_Mat extends MyPR{
 	public PR_Mat(){
 		this("logdata.txt");
 	}
-
+/*
 	//学習
 	@Override
 	public void learnfromLog(){
@@ -117,6 +143,130 @@ public class PR_Mat extends MyPR{
 		}
 		System.out.println("学習しました");
 		this.X.approximate().show_approximately();
+	}
+*/
+
+	//学習メソッドの改良版テスト．logdataの使い方を改善
+	@Override
+	public void learnfromLog(){
+		int num = this.logdata_mat[0].numberoffeatures;
+		this.X = new MyMatrix(num);
+
+		MyMatrix starts = new MyMatrix(num);
+		MyMatrix goals = new MyMatrix(num);
+
+		int learntime = 0;
+
+		int numberofdata = 30;
+
+		int[] selected = new int[numberofdata];
+
+		int r = 1;
+		int c = 0;
+
+		while(learntime < 10){
+			for(int i=0;i<selected.length;i++){
+				selected[i] = 0;
+			}
+			for(int i=0;i<num;i++){
+				int temp = (i * r + c) % numberofdata;
+				selected[temp] = 1;
+			}
+
+			this.covine(starts, goals, this.localize(selected));
+
+			if(starts.getDetV() != 0){
+
+				MyMatrix tempresults = goals.mult(starts.inv());
+
+				X = X.mult(learntime);
+				X = X.add(tempresults);
+				X = X.mult((double)1/(learntime+1));
+
+				learntime++;
+			}
+			else{
+				System.out.println("正則じゃないよ");
+			}
+
+			r++;
+			if(r >= num){
+				r = 0;
+				c++;
+			}
+		}
+		System.out.println("学習しました");
+		this.X.approximate().show_approximately();
+	}
+
+
+	//与えられた番号のベクトルのIDベクトルを返す
+	//selectedはm個のデータ中i番目のデータを使用する場合は1，使用しないデータの場合は0が入った配列
+	private int[] localize(int[] selected){
+		int[] output = new int[selected.length];
+
+		for(int i=0;i<output.length;i++){
+			output[i] = -1;
+		}
+
+		int token = -1;
+		int count = -1;
+
+		for(int t=0;t<selected.length;t++){
+			if(selected[t] == 1){
+				while(true){
+					token++;
+					if(this.logdata_mat[token].getType() == Statics.GOAL){
+						count++;
+						if(count == t){
+							output[t] = token;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		return output;
+	}
+
+	//与えられた番号のベクトルを組み合わせた行列を返す
+	//idxはm個のデータ中i番目のデータを使用する場合，idx[i]にi番目のデータのIDが入っていて，j番目が使用しないデータの場合はidx[j]に-1が入っているような配列
+	private void covine(MyMatrix starts,MyMatrix goals,int[] idx){
+		//idxが必要次元なければ何もしない
+		if(idx == null){
+			return;
+		}
+		int count = 0;
+		for(int i=0;i<idx.length;i++){
+			if(idx[i] != -1){
+				count++;
+			}
+		}
+		if(count != starts.getDimension()){
+			return;
+		}
+
+		//idxを参照して必要なデータをピッキングする
+		count = 0;
+		for(int i=0;i<idx.length;i++){
+			if(idx[i] != -1){
+				//直前のstartログを探す
+				int j = idx[i];
+				while(true){
+					j--;
+					if(this.logdata_mat[j].getType() == Statics.START){
+						break;
+					}
+				}
+				for(int k=0;k<this.logdata_mat[0].numberoffeatures;k++){
+					starts.setData(k,count,this.logdata_mat[j].getStepStatusField()[k]);
+					goals.setData(k,count,this.logdata_mat[idx[i]].getStepStatusField()[k]);
+				}
+				count++;
+			}
+		}
+
 	}
 
 
