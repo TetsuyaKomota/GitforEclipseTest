@@ -1,6 +1,9 @@
 package komota.main;
 
 public class Statics {
+	//設定フレームレート
+	public static final int FRAME_RATE = 60;
+
 	//パネルの行、列数
 	public static final int NUMBEROFPANEL = 200;
 	//定数

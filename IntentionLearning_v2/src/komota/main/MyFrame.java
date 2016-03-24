@@ -44,7 +44,6 @@ public class MyFrame extends JFrame{
 		// TODO 自動生成されたメソッド・スタブ
 		@SuppressWarnings("unused")
 		MyFrame frame = new MyFrame();
-		//frame.panels[0][0].setStatus(1);
 	}
 
 	//フィールド
@@ -70,20 +69,31 @@ public class MyFrame extends JFrame{
 
 	/** 出力先ファイル*/
 	String file_name = "logdata.txt";
-	/** ファイル出力用クラス*/
-//	PrintWriter pw;
 
 	/** ファイル入出力用クラス*/
 	MyIO io;
 
+	/* プライベートフィールド */
+
 	/** タイマークラス*/
-	Timer t;
+	private Timer t;
+
+	/** 累計フレーム数*/
+	private int framecount;
+
+	/** シミュレータ実行時の時間*/
+	private long framestarttime;
+
+	/** 実行フレームレート*/
+	private long frame_rate;
 
 	/**
 	 * コンストラクタ
 	 */
 
 	public MyFrame(){
+		this.framestarttime = System.currentTimeMillis();
+		this.frame_rate = Statics.FRAME_RATE;
 		this.setTitle("IntentionLearning v2.0");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -118,7 +128,7 @@ public class MyFrame extends JFrame{
 		this.setOutputFile();
 
 		this.t = new Timer();
-		t.schedule(new RenderTask(), 0,12);
+		t.schedule(new RenderTask(), 0,Math.round((double)1000/Statics.FRAME_RATE));
 
 		this.initialize();
 	}
@@ -157,6 +167,27 @@ public class MyFrame extends JFrame{
 	 */
 	public int[] getSecondSelected(){
 		return this.secondselected;
+	}
+	/**
+	 * シミュレータを実行してからの累計フレーム数のゲッター
+	 * @return シミュレータを実行してからの累計フレーム数
+	 */
+	public int getFrameCount(){
+		return this.framecount;
+	}
+	/**
+	 * シミュレータを実行してからの累計経過時間のゲッター
+	 * @return シミュレータを実行してからの累計経過時間
+	 */
+	public long getFrameTime(){
+		return (System.currentTimeMillis() - this.framestarttime);
+	}
+	/**
+	 * 現在の実行フレームレートのゲッター
+	 * @return 実行フレームレート
+	 */
+	public long getFrameRate(){
+		return this.frame_rate;
 	}
 
 	/**
@@ -476,12 +507,36 @@ public class MyFrame extends JFrame{
 	 */
 	class RenderTask extends TimerTask{
 
+		/*プライベートフィールド*/
+		/** 直前のフレームの開始時刻*/
+		long lasttime;
+		/** 最新のフレームの開始時刻*/
+		long starttime;
+
+		/**
+		 * コンストラクタ
+		 */
+		RenderTask(){
+			this.starttime = System.currentTimeMillis() - (long)((double)1000/Statics.FRAME_RATE);
+		}
+
 		@Override
 		/**
 		 * runメソッド．主に描画を行う．
 		 */
 		public void run() {
 			// TODO 自動生成されたメソッド・スタブ
+
+			//直前のフレーム開始からこのフレーム開始までの時刻の差がフレームタイムになる．
+			this.lasttime = this.starttime;
+			this.starttime = System.currentTimeMillis();
+
+			//フレームレートを推定
+			MyFrame.this.frame_rate = Math.round((double)1000 / (this.starttime - this.lasttime));
+
+			//累計フレーム数をインクリメント
+			MyFrame.this.framecount++;
+
 			Graphics2D g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
 			//背景の描画
 			g.setColor(MyFrame.background);
@@ -489,6 +544,7 @@ public class MyFrame extends JFrame{
 			//文字情報の描画
 			g.setColor(MyFrame.colorofstring);
 			g.drawString(MyFrame.this.expranation, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 10);
+			g.drawString("fps:"+MyFrame.this.getFrameRate(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)-30, Statics.SIZE_FRAME/2 + 10);
 			g.drawString(MyFrame.this.tasktitle, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 30);
 			g.drawString(MyFrame.this.howtouse, Statics.SIZE_FRAME, Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+40);
 
