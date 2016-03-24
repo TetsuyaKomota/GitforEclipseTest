@@ -109,6 +109,25 @@ public class MyMatrix{
 		return this.data[gyou][retsu];
 	}
 
+	/**
+	 * 二つの行列が等しいかを判定する
+	 * @param input 等しいか判定する行列
+	 * @return 等しい場合はtrue，そうでないならfalse
+	 */
+	public boolean isEqual(MyMatrix input){
+		if(this.dimension != input.dimension){
+			return false;
+		}
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				if(this.getData(i, j) != input.getData(i, j)){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	//行列の演算
 	/**
 	 * 加算
@@ -298,6 +317,23 @@ public class MyMatrix{
 		for(int i=0;i<this.dimension;i++){
 			for(int j=0;j<this.dimension;j++){
 				output.setData(i, j, temp[i][j+this.dimension]);
+			}
+		}
+		return output;
+	}
+
+	//ノルム計算
+	/**
+	 * 最大ノルムを出力する.すなわち，この行列の全要素のうち，絶対値の最も大きい要素の絶対値を出力する
+	 * @return 個の行列の最大ノルム
+	 */
+	public double getMaxNorm(){
+		double output = 0;
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				if(output < Math.abs(this.getData(i, j))){
+					output = Math.abs(this.getData(i, j));
+				}
 			}
 		}
 		return output;
