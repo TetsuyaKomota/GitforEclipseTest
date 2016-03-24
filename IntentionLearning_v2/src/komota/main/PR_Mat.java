@@ -4,32 +4,6 @@ import komota.lib.MyMatrix;
 
 public class PR_Mat extends MyPR{
 
-/*
-	public static void main(String[] args){
-		int[] test = {
-				1,1,1,1,1,1,1,1,1,1,
-				1,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,
-				0,0,0,0,0,0,0,0,0,0,
-				};
-		MyMatrix mat1 = new MyMatrix(11);
-		MyMatrix mat2 = new MyMatrix(11);
-
-		PR_Mat pr = new PR_Mat();
-
-		int[] idx = pr.localize(test);
-		pr.covine(mat1, mat2, idx);
-		mat1.show_approximately();
-		mat2.show_approximately();
-	}
-*/
-
-
 
 	//卒論の改良用の線形代数モデル．
 	//データの保持形式がMyPRと異なるが，使用する特徴量はとりあえず物体の座標成分のみ
@@ -67,84 +41,6 @@ public class PR_Mat extends MyPR{
 	public PR_Mat(){
 		this("logdata.txt");
 	}
-/*
-	//学習
-	@Override
-	public void learnfromLog(){
-
-		MyIO io = new MyIO();
-		io.writeFile("20160317/testoutputmatrix.txt");
-
-		int num = this.logdata_mat[0].numberoffeatures;
-		this.X = new MyMatrix(num);
-		//平均をいっぱいとる.とりあえず5回
-		for(int t=0;t<66;t++){
-
-			int shift = 0;
-			while(true){
-				MyMatrix tempstarts = new MyMatrix(num);
-				MyMatrix tempgoals = new MyMatrix(num);
-
-				//教示データ行列を作成する
-				//教示データは上から10使用し，tごとに下にずらしていく
-				int count = 0;
-				int idx = 0;
-				while(count < t + shift){
-					if(this.logdata_mat[idx].getType() == Statics.GOAL){
-						count++;
-					}
-					idx++;
-				}
-				count = 0;
-				int[] ts = null;
-				while(true){
-					//startログの場合，更新する
-					if(this.logdata_mat[idx].getType() == Statics.START){
-						ts = this.logdata_mat[idx].getStepStatusField();
-					}
-					//goalログの場合，直前のstartログとともにtemp行列に代入する
-					else if(this.logdata_mat[idx].getType() == Statics.GOAL){
-						for(int i=0;i<num;i++){
-							tempstarts.setData(i, count, ts[i]);
-							tempgoals.setData(i,count,this.logdata_mat[idx].getStepStatusField()[i]);
-						}
-						count++;
-					}
-					//ログをnum個取得したら(temp行列が完成したら)ループを抜ける
-					if(count >= num){
-						break;
-					}
-					else{
-						idx++;
-					}
-				}
-				//正則であるかチェック．正則でない場合，ログとして不成立
-				if(tempstarts.getDetV() != 0){
-					MyMatrix tempresults = tempgoals.mult(tempstarts.inv());
-
-//					io.println(t+"回目の教示データ行列");
-//					io.printMatrix_approximately(tempresults, t);
-
-					X = X.mult(t);
-					X = X.add(tempresults);
-					X = X.mult((double)1/(t+1));
-
-//					io.println(t+"回目の教示データ適用後のX");
-//					io.printMatrix_approximately(X, 200+t);
-
-
-					break;
-				}
-				else{
-					System.out.println("正則でない");
-					shift++;
-				}
-			}
-		}
-		System.out.println("学習しました");
-		this.X.approximate().show_approximately();
-	}
-*/
 
 	//学習メソッドの改良版テスト．logdataの使い方を改善
 	@Override
@@ -157,7 +53,13 @@ public class PR_Mat extends MyPR{
 
 		int learntime = 0;
 
-		int numberofdata = 30;
+		//データ量を数える
+		int numberofdata = 0;
+		for(int i=0;i<this.logdata_mat.length;i++){
+			if(this.logdata_mat[i] != null && this.logdata_mat[i].getType() == Statics.GOAL){
+				numberofdata++;
+			}
+		}
 
 		int[] selected = new int[numberofdata];
 
@@ -202,7 +104,7 @@ public class PR_Mat extends MyPR{
 
 	//与えられた番号のベクトルのIDベクトルを返す
 	//selectedはm個のデータ中i番目のデータを使用する場合は1，使用しないデータの場合は0が入った配列
-	private int[] localize(int[] selected){
+	int[] localize(int[] selected){
 		int[] output = new int[selected.length];
 
 		for(int i=0;i<output.length;i++){
@@ -232,7 +134,7 @@ public class PR_Mat extends MyPR{
 
 	//与えられた番号のベクトルを組み合わせた行列を返す
 	//idxはm個のデータ中i番目のデータを使用する場合，idx[i]にi番目のデータのIDが入っていて，j番目が使用しないデータの場合はidx[j]に-1が入っているような配列
-	private void covine(MyMatrix starts,MyMatrix goals,int[] idx){
+	void covine(MyMatrix starts,MyMatrix goals,int[] idx){
 		//idxが必要次元なければ何もしない
 		if(idx == null){
 			return;
