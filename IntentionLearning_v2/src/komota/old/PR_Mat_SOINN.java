@@ -1,7 +1,13 @@
-package komota.main;
+package komota.old;
 
 import komota.lib.MyMatrix;
+import komota.main.ExtendedSOINN;
+import komota.main.Statics;
+import komota.old.PR_Mat.StepLog_Mat;
 
+
+//状態空間ベースのログを使用する旧バージョン．MyFrame側では既にその形でのログは取れなくなっているため，このクラスは現在使用できない
+@Deprecated
 public class PR_Mat_SOINN extends PR_Mat{
 
 	//卒論の改良用の線形代数モデル．

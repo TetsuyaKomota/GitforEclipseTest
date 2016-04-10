@@ -2,8 +2,8 @@ package komota.gomi;
 
 import komota.lib.MyIO;
 import komota.lib.MyMatrix;
-import komota.main.MyPR;
-import komota.main.PR_Mat;
+import komota.old.MyPR;
+import komota.old.PR_Mat;
 
 public class Test20160314 {
 

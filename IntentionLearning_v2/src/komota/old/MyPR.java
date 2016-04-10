@@ -1,4 +1,4 @@
-package komota.main;
+package komota.old;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,8 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import komota.main.MyFrame;
+import komota.main.Statics;
 
 
+
+//状態空間ベースのログを使用する旧バージョン．MyFrame側では既にその形でのログは取れなくなっているため，このクラスは現在使用できない
+@Deprecated
 public class MyPR {
 
 	//ログデータに基づく機械学習を行うテンプレ。これを継承する。
@@ -171,8 +176,8 @@ public class MyPR {
 					}
 				}
 				//再現したsecondselectedとのずれを求める
-				double diserror = Math.sqrt((frame.secondselected[0]-truepoint[0])*(frame.secondselected[0]-truepoint[0]) + (frame.secondselected[1]-truepoint[1])*(frame.secondselected[1]-truepoint[1]));
-				System.out.println("step:"+t+"  true:"+truepoint[0]+","+truepoint[1]+" select:"+frame.secondselected[0]+","+frame.secondselected[1]+" error:"+diserror);
+				double diserror = Math.sqrt((frame.getSecondSelected()[0]-truepoint[0])*(frame.getSecondSelected()[0]-truepoint[0]) + (frame.getSecondSelected()[1]-truepoint[1])*(frame.getSecondSelected()[1]-truepoint[1]));
+				System.out.println("step:"+t+"  true:"+truepoint[0]+","+truepoint[1]+" select:"+frame.getSecondSelected()[0]+","+frame.getSecondSelected()[1]+" error:"+diserror);
 				//outputの更新。outputはdiserrorの平均値にする
 				System.out.println("[MyPR]evaluate:count:"+count);
 				output = ((double)count/(count+1))*output + ((double)1/(count+1))*diserror;
@@ -180,7 +185,7 @@ public class MyPR {
 			}
 		}
 		//計算結果をresult.txtに出力する
-		frame.io.println(
+		frame.getMyIO().println(
 				"result,"+output
 				);
 		//盤面をいじくってしまっているので、最後にinitializeを実行する

@@ -1,8 +1,13 @@
-package komota.main;
+package komota.old;
 
 import komota.lib.MyIO;
 import komota.lib.MyMatrix;
+import komota.main.MyFrame;
+import komota.main.Statics;
 
+
+//状態空間ベースのログを使用する旧バージョン．MyFrame側では既にその形でのログは取れなくなっているため，このクラスは現在使用できない
+@Deprecated
 public class PR_Mat extends MyPR{
 
 
