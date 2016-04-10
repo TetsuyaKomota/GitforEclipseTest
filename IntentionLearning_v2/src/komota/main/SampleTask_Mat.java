@@ -32,6 +32,8 @@ public class SampleTask_Mat extends MyFrame{
 	PR_Mat pr_mat;
 	PR_Mat_SOINN pr_mat_soinn;
 
+	MyPR_v2 pr_v2;
+
 	//PR_100_FE pr_FE;
 
 	//識別結果
@@ -199,6 +201,11 @@ public class SampleTask_Mat extends MyFrame{
 		this.tasktitle = "学習結果から、動作を再現";
 		this.expranation = "";
 		this.pr_mat_soinn.reproduction(this);
+	}
+	@Override
+	public void functionPlugin7(){
+		this.pr_v2 = new MyPR_v2(5,"logdata.txt");
+		pr_v2.show();
 	}
 
 	/* 2016/ 4/10              ******************************************************************************************** */
