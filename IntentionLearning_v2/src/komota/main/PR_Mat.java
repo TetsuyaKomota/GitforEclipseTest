@@ -278,7 +278,7 @@ public class PR_Mat extends MyPR{
 
 				double distance = 0;
 				for(int i=0;i<prediction.length;i++){
-					distance += (prediction[i] - logdata_mat[i].getStepStatus(i)) * (prediction[i] - logdata_mat[i].getStepStatus(i));
+					distance += (prediction[i] - logdata_mat[t].getStepStatus(i)) * (prediction[i] - logdata_mat[t].getStepStatus(i));
 				}
 				distance = Math.sqrt(distance);
 
