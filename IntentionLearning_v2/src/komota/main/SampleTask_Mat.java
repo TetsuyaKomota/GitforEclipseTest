@@ -192,4 +192,25 @@ public class SampleTask_Mat extends MyFrame{
 		this.expranation = "";
 		this.pr_mat_soinn.reproduction(this);
 	}
+
+	/* 2016/ 4/10              ******************************************************************************************** */
+
+	@Override
+	public void functionPluginQ(){
+		int count = 20;
+		for(int t=0;t<count;t++){
+
+		}
+	}
+	@Override
+	public void functionPluginW(){
+		int maxnum = 200;
+	}
+	@Override
+	public void functionPluginE(){
+		int maxagemax = 20;
+		int maxlamda = 20;
+	}
+
+	/* ******************************************************************************************************************** */
 }
