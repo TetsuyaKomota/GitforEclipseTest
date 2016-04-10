@@ -297,6 +297,7 @@ public class PR_Mat extends MyPR{
 		if(initialize == true){
 			frame.initialize();
 		}
+		System.out.println("おわったよぉ～～！");
 		return output;
 	}
 	public double evaluate(MyFrame frame){

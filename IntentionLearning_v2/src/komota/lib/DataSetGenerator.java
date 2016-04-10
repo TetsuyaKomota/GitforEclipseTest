@@ -17,9 +17,10 @@ public class DataSetGenerator extends MyFrame{
 	public static void main(String[] args){
 
 		DataSetGenerator g = new DataSetGenerator();
-		g.numberofdataset = 30;
+		g.numberofdataset = 300;
 
 	}
+
 
 	@Override
 	public void functionPlugin1(){
@@ -81,8 +82,12 @@ public class DataSetGenerator extends MyFrame{
 	Random rand;
 
 	//コンストラクタ
-	public DataSetGenerator(){
+	public DataSetGenerator(int numberofdata){
+		this.numberofdataset = numberofdata;
 		this.rand = new Random();
+	}
+	public DataSetGenerator(){
+		this(10);
 	}
 
 

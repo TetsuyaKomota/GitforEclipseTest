@@ -1,9 +1,12 @@
 package komota.main;
 
+import komota.lib.DataSetGenerator;
+
 
 public class SampleTask_Mat extends MyFrame{
 
 	public static void main(String[] args){
+		@SuppressWarnings("unused")
 		SampleTask_Mat task = new SampleTask_Mat();
 	}
 
@@ -197,10 +200,16 @@ public class SampleTask_Mat extends MyFrame{
 
 	@Override
 	public void functionPluginQ(){
-		this.pr_mat_soinn.evaluate(this, true);
+		for(int t=0;t<100;t++){
+			Statics.NUMBEROFMATRIXS++;
+			this.pr_mat_soinn.evaluate(this,false);
+		}
+		Statics.NUMBEROFMATRIXS-=100;
 	}
 	@Override
 	public void functionPluginW(){
+		DataSetGenerator generator = new DataSetGenerator(300);
+		generator.functionPlugin1();
 	}
 	@Override
 	public void functionPluginE(){

@@ -43,7 +43,7 @@ public class PR_Mat_SOINN extends PR_Mat{
 		int num = this.logdata_mat[0].numberoffeatures;
 		this.X = new MyMatrix(num);
 
-		ExtendedSOINN soinn = new ExtendedSOINN(num*num,1000,5);
+		ExtendedSOINN soinn = new ExtendedSOINN(num*num,10000,5);
 
 		MyMatrix starts = new MyMatrix(num);
 		MyMatrix goals = new MyMatrix(num);
