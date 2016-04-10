@@ -189,6 +189,13 @@ public class MyFrame extends JFrame{
 	public long getFrameRate(){
 		return this.frame_rate;
 	}
+	/**
+	 * 入出力クラスのゲッター
+	 * @return 入出力クラス
+	 */
+	public MyIO getMyIO(){
+		return this.io;
+	}
 
 	/**
 	 * 出力先ファイル名を変更

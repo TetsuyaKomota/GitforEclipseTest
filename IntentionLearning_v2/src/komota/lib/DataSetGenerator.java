@@ -44,6 +44,7 @@ public class DataSetGenerator extends MyFrame{
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+		this.getMyIO().close();
 
 	}
 	@Override

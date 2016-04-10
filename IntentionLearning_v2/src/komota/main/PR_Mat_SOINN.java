@@ -83,13 +83,13 @@ public class PR_Mat_SOINN extends PR_Mat{
 				learntime++;
 			}
 			else{
-				System.out.println("正則じゃないよ");
+				//System.out.println("正則じゃないよ");
 			}
 
-			r++;
-			if(r >= num){
-				r = 0;
-				c++;
+			c++;
+			if(c >= num){
+				c = 0;
+				r++;
 			}
 		}
 		soinn.classify();
@@ -102,4 +102,6 @@ public class PR_Mat_SOINN extends PR_Mat{
 		this.X = new MyMatrix(num,vec);
 		System.out.println("学習しました");
 		this.X.approximate().show_approximately();
-	}}
+	}
+
+}

@@ -1,6 +1,9 @@
 package komota.main;
 
+import java.io.File;
+
 import komota.lib.DataSetGenerator;
+import komota.lib.MyIO;
 
 
 public class SampleTask_Mat extends MyFrame{
@@ -200,19 +203,59 @@ public class SampleTask_Mat extends MyFrame{
 
 	@Override
 	public void functionPluginQ(){
-		for(int t=0;t<100;t++){
+		int old = Statics.NUMBEROFMATRIXS;
+		for(int t=0;t<20;t++){
 			Statics.NUMBEROFMATRIXS++;
 			this.pr_mat_soinn.evaluate(this,false);
 		}
-		Statics.NUMBEROFMATRIXS-=100;
+		Statics.NUMBEROFMATRIXS = old;
 	}
 	@Override
 	public void functionPluginW(){
 		DataSetGenerator generator = new DataSetGenerator(300);
+		generator.getMyIO().writeFile("outputfromRandomizer.txt");
 		generator.functionPlugin1();
 	}
 	@Override
 	public void functionPluginE(){
+		//とりあえず，SOINNに入れるデータの数を増やすことで精度がどのように変化するかの実験を繰り返す
+		//resultへの出力クラスを作っておく．（データ間のパーティションとか入れるため）
+		MyIO io_E = new MyIO();
+		io_E.writeFile("result.txt");
+		//データセットジェネレータの生成
+		DataSetGenerator generator = new DataSetGenerator(300);
+		generator.setVisible(false);
+		this.setVisible(false);
+
+		for(int time = 0 ; time < 500 ; time++){
+
+			io_E.println("*********************************************");
+			io_E.execute();
+
+			//新しいデータセットを作成するため，古いほうを消す
+			File dfile = new File("log/outputfromRandomizer.txt");
+			if (dfile.exists()){
+				if (dfile.delete()){
+					System.out.println("ファイルを削除しました");
+				}else{
+					System.out.println("ファイルの削除に失敗しました");
+				}
+			}else{
+				System.out.println("ファイルが見つかりません");
+			}
+			//データジェネレート
+			generator.getMyIO().writeFile("outputfromRandomizer.txt");
+			generator.functionPlugin1();
+
+			//実験
+			//使用するデータの読みこみ先を変更しておく
+			System.out.println("パターン認識クラスのインスタンスを生成");
+			this.pr_mat_soinn = new PR_Mat_SOINN("outputfromRandomizer.txt");
+			System.out.println("インスタンスを生成しました");
+			this.functionPluginQ();
+
+		}
+
 	}
 	@Override
 	public void functionPluginR(){
