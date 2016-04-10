@@ -6,6 +6,8 @@ public class Statics {
 
 	//パネルの行、列数
 	public static final int NUMBEROFPANEL = 200;
+	//パネル種類数
+	public static final int NUMBEROFKIND = 9;
 	//定数
 	//パネルサイズ
 	public static int SIZE_PANEL = 200;

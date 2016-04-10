@@ -281,6 +281,8 @@ public class MyFrame extends JFrame{
 	 */
 	private void outputLog(String command){
 		this.io.print(command);
+
+/*
 		for(int i=0;i<MyFrame.this.panels.length;i++){
 			for(int j=0;j<MyFrame.this.panels[0].length;j++){
 				this.io.print(MyFrame.this.panels[i][j].status);
@@ -289,25 +291,48 @@ public class MyFrame extends JFrame{
 				}
 			}
 		}
+*/
+
+		int idx = 1;
+		int[] statuses = new int[2 * Statics.NUMBEROFKIND + 1];
+		statuses[0] = 1;
+		while(true){
+			for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+				for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+					if(this.panels[i][j].getStatus() == idx){
+						statuses[2*idx-1] = i;
+						statuses[2*idx] = j;
+					}
+				}
+			}
+			idx++;
+			if(idx > Statics.NUMBEROFKIND){
+				break;
+			}
+		}
+		for(int i=0;i<statuses.length;i++){
+			this.io.print(","+statuses[i]);
+		}
 		this.io.println();
+		this.io.execute();
 	}
 	/**
 	 * 初期状態を出力する．主に初期化直後に使用する
 	 */
 	public void outputStart(){
-		outputLog("start ,");
+		outputLog("start ");
 	}
 	/**
 	 * 途中状態を出力する.
 	 */
 	public void outputStatus(){
-		outputLog("status,");
+		outputLog("status");
 	}
 	/**
 	 * ゴール時に最終状態を出力する.
 	 */
 	public void outputGoal(){
-		outputLog("goal  ,");
+		outputLog("goal  ");
 	}
 	/**
 	 * 出力先ファイルへ文字列を出力する汎用メソッド．主に計算結果などを出力するのに使用する．コマンドなどのフォーマットは行わないので使用する場合は書式に注意すること．
