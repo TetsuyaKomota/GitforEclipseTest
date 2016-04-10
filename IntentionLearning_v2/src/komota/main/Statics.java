@@ -30,6 +30,10 @@ public class Statics {
 	//概数値にする際の最小値
 	public static final double MIN_APPROX = 0.0001;
 
+	//定数
+	//PR_Mat_SOINNにおける行列作成回数
+	public static final int NUMBEROFMATRIXS = 10;
+
 	//ログデータの最大数
 	public static final int MAX_NUMBEROFLOG = 20000;
 	/**

@@ -75,7 +75,7 @@ public class PR_Mat extends MyPR{
 				selected[temp] = 1;
 			}
 
-			this.covine(starts, goals, this.localize(selected));
+			this.contain(starts, goals, this.localize(selected));
 
 			if(starts.getDetV() != 0){
 
@@ -102,7 +102,7 @@ public class PR_Mat extends MyPR{
 	}
 
 
-	//与えられた番号のベクトルのIDベクトルを返す
+	//与えられた番号のベクトルのID列を返す
 	//selectedはm個のデータ中i番目のデータを使用する場合は1，使用しないデータの場合は0が入った配列
 	int[] localize(int[] selected){
 		int[] output = new int[selected.length];
@@ -134,7 +134,7 @@ public class PR_Mat extends MyPR{
 
 	//与えられた番号のベクトルを組み合わせた行列を返す
 	//idxはm個のデータ中i番目のデータを使用する場合，idx[i]にi番目のデータのIDが入っていて，j番目が使用しないデータの場合はidx[j]に-1が入っているような配列
-	void covine(MyMatrix starts,MyMatrix goals,int[] idx){
+	void contain(MyMatrix starts,MyMatrix goals,int[] idx){
 		//idxが必要次元なければ何もしない
 		if(idx == null){
 			return;

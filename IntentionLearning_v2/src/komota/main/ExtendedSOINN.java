@@ -1,4 +1,4 @@
-package komota.gomi;
+package komota.main;
 
 import soinn.SOINN;
 

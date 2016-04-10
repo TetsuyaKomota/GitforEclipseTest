@@ -2,6 +2,7 @@ package komota.gomi;
 
 import komota.lib.MyIO;
 import komota.lib.MyMatrix;
+import komota.main.ExtendedSOINN;
 import komota.supers.AdjustedVisualSOINN;
 
 public class Test20160317 {

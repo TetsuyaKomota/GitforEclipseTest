@@ -1,6 +1,5 @@
 package komota.main;
 
-import komota.gomi.ExtendedSOINN;
 import komota.lib.MyMatrix;
 
 public class PR_Mat_SOINN extends PR_Mat{
@@ -64,7 +63,7 @@ public class PR_Mat_SOINN extends PR_Mat{
 		int r = 1;
 		int c = 0;
 
-		while(learntime < 10){
+		while(learntime < Statics.NUMBEROFMATRIXS){
 			for(int i=0;i<selected.length;i++){
 				selected[i] = 0;
 			}
@@ -73,7 +72,7 @@ public class PR_Mat_SOINN extends PR_Mat{
 				selected[temp] = 1;
 			}
 
-			this.covine(starts, goals, this.localize(selected));
+			this.contain(starts, goals, this.localize(selected));
 
 			if(starts.getDetV() != 0){
 
