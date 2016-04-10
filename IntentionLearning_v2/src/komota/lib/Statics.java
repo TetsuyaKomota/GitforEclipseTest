@@ -1,4 +1,4 @@
-package komota.main;
+package komota.lib;
 
 public class Statics {
 	//設定フレームレート

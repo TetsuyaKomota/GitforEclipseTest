@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import komota.main.MyFrame;
-import komota.main.Statics;
+import komota.lib.Statics;
+import komota.supers.MyFrame;
 
 
 

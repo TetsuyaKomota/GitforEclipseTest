@@ -1,4 +1,4 @@
-package komota.main;
+package komota.supers;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -14,6 +14,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 
 import komota.lib.MyIO;
+import komota.lib.Statics;
 
 /**
  * 意図理解実験シミュレータ

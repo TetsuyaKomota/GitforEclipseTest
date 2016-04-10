@@ -6,8 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
-import komota.main.MyFrame;
-import komota.main.Statics;
+import komota.supers.MyFrame;
 
 
 public class DataSetGenerator extends MyFrame{

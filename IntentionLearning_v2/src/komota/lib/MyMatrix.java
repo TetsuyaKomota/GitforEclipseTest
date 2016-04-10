@@ -2,7 +2,6 @@ package komota.lib;
 
 import java.text.DecimalFormat;
 
-import komota.main.Statics;
 
 //真面目に行列を実装しよう
 //正方行列限定

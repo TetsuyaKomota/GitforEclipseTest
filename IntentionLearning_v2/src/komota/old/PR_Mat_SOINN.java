@@ -1,8 +1,8 @@
 package komota.old;
 
 import komota.lib.MyMatrix;
+import komota.lib.Statics;
 import komota.main.ExtendedSOINN;
-import komota.main.Statics;
 import komota.old.PR_Mat.StepLog_Mat;
 
 

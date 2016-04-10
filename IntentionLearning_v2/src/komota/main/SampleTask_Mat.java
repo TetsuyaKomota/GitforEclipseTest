@@ -4,8 +4,11 @@ import java.io.File;
 
 import komota.lib.DataSetGenerator;
 import komota.lib.MyIO;
+import komota.lib.Statics;
 import komota.old.PR_Mat;
 import komota.old.PR_Mat_SOINN;
+import komota.supers.MyFrame;
+import komota.supers.MyPR_v2;
 
 
 public class SampleTask_Mat extends MyFrame{

@@ -2,8 +2,8 @@ package komota.old;
 
 import komota.lib.MyIO;
 import komota.lib.MyMatrix;
-import komota.main.MyFrame;
-import komota.main.Statics;
+import komota.lib.Statics;
+import komota.supers.MyFrame;
 
 
 //状態空間ベースのログを使用する旧バージョン．MyFrame側では既にその形でのログは取れなくなっているため，このクラスは現在使用できない

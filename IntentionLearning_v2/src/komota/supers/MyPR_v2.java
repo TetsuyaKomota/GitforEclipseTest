@@ -1,6 +1,7 @@
-package komota.main;
+package komota.supers;
 
 import komota.lib.MyIO;
+import komota.lib.Statics;
 
 public class MyPR_v2 {
 
@@ -44,6 +45,16 @@ public class MyPR_v2 {
 			}
 		}
 	}
+	//学習機構。オーバーライドする
+	public void learnfromLog(){
+	}
+	//再現。オーバーライドする
+	public void reproduction(MyFrame frame){
+	}
+	//学習結果リセット。オーバーライドする
+	public void initialize(){
+	}
+
 
 	//表示．デバッグ用
 	public void show(){
