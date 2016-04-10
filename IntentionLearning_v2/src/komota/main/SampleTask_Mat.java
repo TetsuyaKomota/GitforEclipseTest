@@ -197,19 +197,22 @@ public class SampleTask_Mat extends MyFrame{
 
 	@Override
 	public void functionPluginQ(){
-		int count = 20;
-		for(int t=0;t<count;t++){
-
-		}
+		this.pr_mat_soinn.evaluate(this, true);
 	}
 	@Override
 	public void functionPluginW(){
-		int maxnum = 200;
 	}
 	@Override
 	public void functionPluginE(){
-		int maxagemax = 20;
-		int maxlamda = 20;
+	}
+	@Override
+	public void functionPluginR(){
+	}
+	@Override
+	public void functionPluginT(){
+	}
+	@Override
+	public void functionPluginY(){
 	}
 
 	/* ******************************************************************************************************************** */

@@ -1,5 +1,6 @@
 package komota.main;
 
+import komota.lib.MyIO;
 import komota.lib.MyMatrix;
 
 public class PR_Mat extends MyPR{
@@ -226,6 +227,80 @@ public class PR_Mat extends MyPR{
 				break;
 			}
 		}
+	}
+
+	//クロスバリデーションを行って学習結果の評価を行う
+	@Override
+	public double evaluate(MyFrame frame,boolean initialize){
+
+		MyIO io = new MyIO();
+		io.writeFile("result.txt");
+
+		double output = 0;
+		//交差回数
+		int count = 0;
+
+		int t=0;
+		int T=0;
+		for(t=0;t<this.logdata.length;t++){
+			//ログ読み切ったら終了
+			//交差回数が使用データ量を上回った場合も終了
+			if(this.logdata[t] == null || count > Statics.NUMBEROFEVALUATION){
+				break;
+			}
+			//"goal"データが来るまで回す
+			if(this.logdata[t].getType() != Statics.GOAL){
+			}
+			else{
+				//直前の"start"データが来るまで戻る
+				T = t;
+				while(this.logdata[T].getType() != Statics.START){
+					T--;
+				}
+				//logdata[t]のタイプを一時的にstatusに変換し、学習が行われないようにする
+				logdata[t].setType(Statics.STATUS);
+				//学習を行う
+				learnfromLog();
+				//logdata[t]のタイプをgoalに戻す
+				logdata[t].setType(Statics.GOAL);
+
+				//推定出力を求める
+				int[] prediction = new int[this.X.getDimension()];
+				int[] ts = logdata_mat[T].getStepStatusField();
+
+				for(int i=0;i<ts.length;i++){
+					for(int j=0;j<ts.length;j++){
+						prediction[i] += this.X.approximate().getData(i, j) * ts[j];
+					}
+				}
+
+				//再現したpredictionとのずれを求める
+
+				double distance = 0;
+				for(int i=0;i<prediction.length;i++){
+					distance += (prediction[i] - logdata_mat[i].getStepStatus(i)) * (prediction[i] - logdata_mat[i].getStepStatus(i));
+				}
+				distance = Math.sqrt(distance);
+
+				output = (output * count + distance)/(count + 1);
+				count++;
+			}
+		}
+		//計算結果をresult.txtに出力する
+		io.println(
+				"result,"+output
+				);
+		io.execute();
+
+		//盤面をいじくってしまっているので、最後にinitializeを実行する
+		//条件を変えながら評価値を何度も計算する場合、initializeによるstartログ発生が煩わしいため、引数でinitializeを行わないようにできる
+		if(initialize == true){
+			frame.initialize();
+		}
+		return output;
+	}
+	public double evaluate(MyFrame frame){
+		return evaluate(frame,true);
 	}
 
 

@@ -33,6 +33,8 @@ public class Statics {
 	//定数
 	//PR_Mat_SOINNにおける行列作成回数
 	public static final int NUMBEROFMATRIXS = 10;
+	//PR_Mat_SOINNのクロスバリデーション使用データ量
+	public static int NUMBEROFEVALUATION = 200;
 
 	//ログデータの最大数
 	public static final int MAX_NUMBEROFLOG = 20000;
