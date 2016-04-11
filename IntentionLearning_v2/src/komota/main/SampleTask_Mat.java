@@ -207,8 +207,8 @@ public class SampleTask_Mat extends MyFrame{
 	}
 	@Override
 	public void functionPlugin7(){
-		this.pr_v2 = new MyPR_v2(5,"logdata.txt");
-		pr_v2.show();
+//		this.pr_v2 = new MyPR_v2(5,"logdata.txt");
+//		pr_v2.show();
 	}
 
 	/* 2016/ 4/10              ******************************************************************************************** */

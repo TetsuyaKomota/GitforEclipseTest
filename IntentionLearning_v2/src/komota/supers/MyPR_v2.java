@@ -3,7 +3,7 @@ package komota.supers;
 import komota.lib.MyIO;
 import komota.lib.Statics;
 
-public class MyPR_v2 {
+public abstract class MyPR_v2 {
 
 	//特徴量ベースで書かれた新しいログフォーマットに対応したPRクラス
 	//ログデータはインスタンス生成時点で前後状態対で保持する
@@ -15,6 +15,9 @@ public class MyPR_v2 {
 	//ログデータ
 	StepLog[] logdata;
 
+	//ログデータ数
+	int numberoflog;
+
 	//入出力クラス
 	MyIO io;
 
@@ -23,13 +26,13 @@ public class MyPR_v2 {
 
 		this.numofobjects = numofobjects;
 		this.logdata = new StepLog[Statics.MAX_NUMBEROFLOG];
+		this.numberoflog = 0;
 		this.io = new MyIO();
 
 		this.io.readFile(filename);
 
 		String templine = null;
 		String tempstart = null;
-		int count = 0;
 
 		while(true){
 			templine = this.io.readLine();
@@ -40,20 +43,41 @@ public class MyPR_v2 {
 				tempstart = templine;
 			}
 			else if(templine.split(",")[0].equals("goal  ") == true){
-				this.logdata[count] = new StepLog(count,tempstart,templine);
-				count++;
+				this.logdata[this.numberoflog] = new StepLog(this.numberoflog,tempstart,templine);
+				this.numberoflog++;
 			}
 		}
 	}
+
+	//ゲッター，セッター
+	public double[][] getLogData(int stepID){
+		double[][] output = new double[2][];
+
+		output[0] = this.logdata[stepID].startlog;
+		output[1] = this.logdata[stepID].goallog;
+
+		return output;
+	}
+	public double[] getStartLog(int stepID){
+		return this.logdata[stepID].startlog;
+	}
+	public double[] getGoalLog(int stepID){
+		return this.logdata[stepID].goallog;
+	}
+	public int getNumberofObjects(){
+		return this.numofobjects;
+	}
+	public int getNumberofLog(){
+		return this.numberoflog;
+	}
+
+
 	//学習機構。オーバーライドする
-	public void learnfromLog(){
-	}
+	public abstract void learnfromLog();
 	//再現。オーバーライドする
-	public void reproduction(MyFrame frame){
-	}
+	public abstract void reproduction(MyFrame frame);
 	//学習結果リセット。オーバーライドする
-	public void initialize(){
-	}
+	public abstract void initialize();
 
 
 	//表示．デバッグ用

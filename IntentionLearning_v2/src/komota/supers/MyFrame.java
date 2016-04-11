@@ -283,17 +283,6 @@ public class MyFrame extends JFrame{
 	private void outputLog(String command){
 		this.io.print(command);
 
-/*
-		for(int i=0;i<MyFrame.this.panels.length;i++){
-			for(int j=0;j<MyFrame.this.panels[0].length;j++){
-				this.io.print(MyFrame.this.panels[i][j].status);
-				if(i<MyFrame.this.panels.length-1 || j<MyFrame.this.panels.length-1){
-					this.io.print(",");
-				}
-			}
-		}
-*/
-
 		int idx = 1;
 		int[] statuses = new int[2 * Statics.NUMBEROFKIND + 1];
 		statuses[0] = 1;
