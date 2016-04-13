@@ -40,6 +40,18 @@ public class Statics {
 
 	//ログデータの最大数
 	public static final int MAX_NUMBEROFLOG = 20000;
+
+	//以下PRv2_GA
+	//エージェント数
+	public static final int GA_NUMBEROFAGENTS = 100;
+	//エリート率
+	public static final double GA_ELITE_RATE = 0.2;
+	//変位率
+	public static final double GA_METAMORPHOSE_RATE = 0.1;
+	//学習終了閾値
+	public static final double GA_THRETHOLD = 0.01;
+
+
 	/**
 	 * @param args
 	 */
