@@ -125,15 +125,20 @@ public class SampleTask_Matv2 extends MyFrame{
 
 	@Override
 	public void functionPlugin1(){
+		System.out.println("PRクラス生成");
 		this.pr = new PRv2_Mat_SOINN(5,"logdata.txt");
+		System.out.println("PRクラス生成完了");
 	}
 
 	@Override
 	public void functionPlugin2(){
+		System.out.println("学習開始");
 		this.pr.learnfromLog();
+		System.out.println("学習完了");
 	}
 	@Override
 	public void functionPlugin3(){
+		System.out.println("動作再現");
 		this.pr.reproduction(this);
 	}
 
