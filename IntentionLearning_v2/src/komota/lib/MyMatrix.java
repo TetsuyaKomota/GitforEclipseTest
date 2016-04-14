@@ -173,6 +173,28 @@ public class MyMatrix{
 		return output;
 	}
 	/**
+	 * ベクトルとの乗算
+	 * @param input 乗算ベクトル
+	 * @return 乗算ベクトルを右からかけ合わせたベクトル
+	 */
+	public double[] multwithVec(double[] input){
+
+		if(input.length != this.getDimension()){
+			System.out.println("行列とベクトルの次元が違うよ");
+			return null;
+		}
+
+		double[] output = new double[input.length];
+
+		for(int i=0;i<output.length;i++){
+			for(int j=0;j<output.length;j++){
+				output[i] += this.getData(i, j) * input[j];
+			}
+		}
+
+		return output;
+	}
+	/**
 	 * 定数倍
 	 * @param input 乗算定数
 	 * @return 各要素を引数に与えた定数倍した行列
