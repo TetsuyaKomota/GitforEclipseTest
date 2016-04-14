@@ -13,6 +13,7 @@ public class SampleTask_Matv2 extends MyFrame{
 
 	//解析クラス
 	PRv2_Mat_SOINN pr;
+	PRv2_GA pr_ga;
 
 	//コンストラクタ
 	public SampleTask_Matv2(){
@@ -141,7 +142,23 @@ public class SampleTask_Matv2 extends MyFrame{
 		System.out.println("動作再現");
 		this.pr.reproduction(this);
 	}
-
+	@Override
+	public void functionPlugin4(){
+		System.out.println("PRクラス生成");
+		this.pr_ga = new PRv2_GA(5,"logdata.txt");
+		System.out.println("PRクラス生成完了");
+	}
+	@Override
+	public void functionPlugin5(){
+		System.out.println("学習開始");
+		this.pr_ga.learnfromLog();
+		System.out.println("学習完了");
+	}
+	@Override
+	public void functionPlugin6(){
+		System.out.println("動作再現");
+		this.pr_ga.reproduction(this);
+	}
 
 
 }
