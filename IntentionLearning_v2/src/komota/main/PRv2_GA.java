@@ -105,6 +105,7 @@ public class PRv2_GA extends MyPR_v2{
 			//currentagent[0]が現状最適なエージェントになったはずなので，閾値検証
 			if(debug_current < 0 || debug_current > distance[0]){
 				System.out.println("current evaluation point:"+distance[0]+" calculation time:"+debug_count);
+				currentagent[0].show_approximately();
 				debug_current = distance[0];
 				debug_count = 0;
 			}
@@ -158,7 +159,8 @@ public class PRv2_GA extends MyPR_v2{
 				check = (int)(Statics.GA_METAMORPHOSE_RATE * Statics.GA_NUMBEROFAGENTS);
 				while(temp < check){
 					MyMatrix mat = tempmat[temp];
-					mat.setData((int)(d*Math.random()),(int)(d*Math.random()), (int)(Statics.NUMBEROFPANEL * Math.random()));
+					//mat.setData((int)(d*Math.random()),(int)(d*Math.random()), (int)(2 * Statics.NUMBEROFPANEL * Math.random() - Statics.NUMBEROFPANEL)/10);
+					mat.setData((int)(d*Math.random()),(int)(d*Math.random()), (int)(2 * Statics.NUMBEROFPANEL * Math.random() - Statics.NUMBEROFPANEL)/10 + mat.getData((int)(d*Math.random()),(int)(d*Math.random())));
 					/*
 					 * ここ嘘かも
 					 */
@@ -169,7 +171,8 @@ public class PRv2_GA extends MyPR_v2{
 				//H.
 				if(Statics.GA_NUMBEROFAGENTS - numberofnext % 2 == 1){
 					MyMatrix mat = tempmat[numberofnext];
-					mat.setData((int)(d*Math.random()),(int)(d*Math.random()), (int)(Statics.NUMBEROFPANEL * Math.random()));
+					//mat.setData((int)(d*Math.random()),(int)(d*Math.random()), (int)(2 * Statics.NUMBEROFPANEL * Math.random() - Statics.NUMBEROFPANEL)/10);
+					mat.setData((int)(d*Math.random()),(int)(d*Math.random()), (int)(2 * Statics.NUMBEROFPANEL * Math.random() - Statics.NUMBEROFPANEL)/10 + mat.getData((int)(d*Math.random()),(int)(d*Math.random())));
 					/*
 					 * ここ嘘かも
 					 */
@@ -184,7 +187,12 @@ public class PRv2_GA extends MyPR_v2{
 					MyMatrix mat2 = tempmat[tempmat.length-temp-2];
 
 					int swapidx = (int)(d*Math.random());
-					double[] swap = mat1.getData()[swapidx];
+					double[] swap = new double[d];
+
+					for(int i=0;i<d;i++){
+						swap[i] = mat1.getData()[swapidx][i];
+					}
+
 					for(int i=0;i<d;i++){
 						mat1.setData(swapidx, i, mat2.getData(swapidx, i));
 						mat2.setData(swapidx, i, swap[i]);
