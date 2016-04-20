@@ -65,6 +65,8 @@ public class PRv2_GA extends MyPR_v2{
 				}
 				double[] tempstart = new double[this.getStartLog(0).length+1/*定数項分*/];
 				tempstart[0] = 1;
+
+				distance = new double[Statics.GA_NUMBEROFAGENTS];
 				for(int i=1;i<tempstart.length;i++){
 					tempstart[i] = this.getStartLog(count)[i-1];
 				}
