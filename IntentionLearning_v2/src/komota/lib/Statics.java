@@ -45,11 +45,11 @@ public class Statics {
 	//エージェント数
 	public static final int GA_NUMBEROFAGENTS = 300;
 	//エリート率
-	public static final double GA_ELITE_RATE = 0.1;
+	public static final double GA_ELITE_RATE = 0.2;
 	//変位率
-	public static final double GA_METAMORPHOSE_RATE = 0.7;
+	public static final double GA_METAMORPHOSE_RATE = 0.8;
 	//学習終了閾値
-	public static final double GA_THRETHOLD = 10;
+	public static final double GA_THRETHOLD = 100000;
 
 
 	/**
