@@ -52,7 +52,7 @@ public class Statics {
 	public static final double GA_THRETHOLD = 100000;
 	public static final double EM_THRETHOLD = 1;
 	//ストライド
-	public static final double EM_STRIDE = 100;
+	public static final double EM_STRIDE = 10;
 	//焼きなまし率
 	public static final double EM_annealing = 1;
 	//更新量限界

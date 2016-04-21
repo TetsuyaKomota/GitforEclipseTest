@@ -50,19 +50,32 @@ public class PRv2_EM extends PRv2_GA{
 		int retsu = -1;
 		int sign = 0;
 
+		double e_prev = 0;
 
 
 		//以下，閾値以下になるまで繰り返し
 		while(true){
 			//以下，評価値が変動しなくなるまで繰り返し
+			this.X = MatFactory.random(this.getStartLog(0).length+1, Statics.NUMBEROFPANEL, Statics.NUMBEROFPANEL);
+			stride = Statics.EM_STRIDE;
+
+			gyou = -1;
+			retsu = -1;
+			sign = 0;
+
+			e_prev = calcE(this.X);
+			e_min = calcE(this.X);
+
 			while(true){
 				//1.
-				double e_prev = e_min;
-				e_min = calcE(this.X);
-				System.out.println("ゆかちん:"+e_min+"     "+e_prev);
+				//System.out.println("ゆかちん:"+e_min+"     "+e_prev);
+
 				if((e_prev - e_min < Statics.EM_PROGRESS_NORMA && e_prev != e_min)|| e_min < Statics.EM_THRETHOLD){
 					break;
 				}
+
+				e_prev = e_min;
+
 				for(int i=0;i<dim;i++){
 					for(int j=0;j<dim;j++){
 						//2-2-1.
@@ -84,7 +97,7 @@ public class PRv2_EM extends PRv2_GA{
 						}
 					}
 				}
-				this.X.setData(gyou, retsu, this.X.getData(gyou,retsu) + sign * Statics.EM_STRIDE);
+				this.X.setData(gyou, retsu, this.X.getData(gyou,retsu) + sign * stride);
 				stride *= Statics.EM_annealing;
 			}
 			if(e_min < Statics.EM_THRETHOLD){
