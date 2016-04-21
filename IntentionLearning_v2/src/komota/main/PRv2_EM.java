@@ -99,9 +99,9 @@ public class PRv2_EM extends PRv2_GA{
 				}
 				/*@*/if(gyou == -1 && retsu == -1){
 					System.out.println("ぼっかーん");
+					stride *= Statics.EM_annealing;
 				}
 				this.X.setData(gyou, retsu, this.X.getData(gyou,retsu) + sign * stride);
-				stride *= Statics.EM_annealing;
 			}
 			if(e_min < Statics.EM_THRETHOLD){
 				break;

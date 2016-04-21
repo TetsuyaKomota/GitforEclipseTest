@@ -1,5 +1,6 @@
 package komota.main;
 
+import komota.lib.MyIO;
 import komota.lib.Statics;
 import komota.supers.MyFrame;
 
@@ -178,6 +179,21 @@ public class SampleTask_Matv2 extends MyFrame{
 	public void functionPlugin9(){
 		System.out.println("動作再現");
 		this.pr_em.reproduction(this);
+	}
+	@Override
+	public void functionPluginQ(){
+		MyIO io_Q = new MyIO();
+		io_Q.writeFile("20160421/result_Q.txt");
+
+		int count = 0;
+		while(count<100){
+			count++;
+			functionPlugin8();
+			io_Q.println("****COUNT:"+count);
+			io_Q.printMatrix_approximately(pr_em.X, count);
+			io_Q.println("****e_min:"+pr_em.calcE(pr_em.X));
+			io_Q.println("*************************************");
+		}
 	}
 
 
