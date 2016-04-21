@@ -109,38 +109,4 @@ public class PRv2_EM extends PRv2_GA{
 		}
 
 	}
-
-
-
-	//ログデータと渡した行列による推定結果との誤差を出力
-	double calcE(MyMatrix X){
-		double output = 0;
-
-		for(int t=0;t<this.getNumberofLog();t++){
-			double temp1 = 0;
-			for(int i=0;i<X.getDimension();i++){
-				double temp2 = 0;
-				for(int j=0;j<X.getDimension();j++){
-					if(j==0){
-						temp2 += X.getData(i, j);
-					}
-					else{
-						temp2 += X.getData(i, j) * this.getStartLog(t)[j-1];
-					}
-				}
-				if(i==0){
-					temp2 -= 1;
-				}
-				else{
-					temp2 -= this.getGoalLog(t)[i-1];
-				}
-				temp1 += temp2*temp2;
-			}
-			output += Math.sqrt(temp1);
-		}
-		output /= this.getNumberofLog();
-
-		return output;
-	}
-
 }
