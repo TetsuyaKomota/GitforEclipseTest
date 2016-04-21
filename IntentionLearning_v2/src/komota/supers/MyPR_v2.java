@@ -107,7 +107,6 @@ public abstract class MyPR_v2 {
 			output += Math.sqrt(temp1);
 		}
 		output /= this.getNumberofLog();
-
 		return output;
 	}
 

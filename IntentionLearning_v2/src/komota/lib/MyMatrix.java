@@ -89,7 +89,9 @@ public class MyMatrix{
 	 * @param input 代入値
 	 */
 	public void setData(int gyou,int retsu,double input){
-		this.data[gyou][retsu] = input;
+		if(gyou >= 0 && retsu >= 0 && gyou < this.dimension && retsu < this.dimension){
+			this.data[gyou][retsu] = input;
+		}
 	}
 	/**
 	 * 行列値のゲッター
@@ -102,10 +104,17 @@ public class MyMatrix{
 	 * 行列値一か所のみのゲッター
 	 * @param gyou 行番号
 	 * @param retsu 列番号
-	 * @return 行列値
+	 * @return 行列値.引数が不適切な場合はコンソールにエラー出力して0を返す
 	 */
 	public double getData(int gyou,int retsu){
-		return this.data[gyou][retsu];
+
+		if(gyou >= 0 && retsu >= 0 && gyou < this.dimension && retsu < this.dimension){
+			return this.data[gyou][retsu];
+		}
+		else{
+			System.out.println("[MyMatrix]getData:Error:invalid input:"+gyou+","+retsu);
+			return 0;
+		}
 	}
 
 	/**

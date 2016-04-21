@@ -136,6 +136,7 @@ public class SampleTask_Matv2 extends MyFrame{
 	public void functionPlugin2(){
 		System.out.println("学習開始");
 		this.pr.learnfromLog();
+		this.pr.calcE(this.pr.X);
 		System.out.println("学習完了");
 	}
 	@Override
@@ -153,6 +154,7 @@ public class SampleTask_Matv2 extends MyFrame{
 	public void functionPlugin5(){
 		System.out.println("学習開始");
 		this.pr_ga.learnfromLog();
+		this.pr_ga.calcE(this.pr_ga.X);
 		System.out.println("学習完了");
 	}
 	@Override
