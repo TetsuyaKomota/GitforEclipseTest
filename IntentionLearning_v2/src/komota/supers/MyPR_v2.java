@@ -89,19 +89,13 @@ public abstract class MyPR_v2 {
 			for(int i=0;i<X.getDimension();i++){
 				double temp2 = 0;
 				for(int j=0;j<X.getDimension();j++){
-					if(j==0){
-						temp2 += X.getData(i, j);
-					}
-					else{
-						temp2 += X.getData(i, j) * this.getStartLog(t)[j-1];
-					}
+					
+						temp2 += X.getData(i, j) * this.getStartLog(t)[j];
+					
 				}
-				if(i==0){
-					temp2 -= 1;
-				}
-				else{
-					temp2 -= this.getGoalLog(t)[i-1];
-				}
+				
+					temp2 -= this.getGoalLog(t)[i];
+				
 				temp1 += temp2*temp2;
 			}
 			output += Math.sqrt(temp1);

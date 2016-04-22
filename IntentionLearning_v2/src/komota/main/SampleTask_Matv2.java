@@ -182,18 +182,33 @@ public class SampleTask_Matv2 extends MyFrame{
 	}
 	@Override
 	public void functionPluginQ(){
+		System.out.println("EMアルゴリズムでの学習テスト");
 		MyIO io_Q = new MyIO();
-		io_Q.writeFile("20160421/result_Q.txt");
+		io_Q.writeFile("result_Q.txt");
 
 		int count = 0;
-		while(count<100){
+		long starttime = 0;
+		while(count<5){
 			count++;
+			Statics.EM_THRETHOLD /= 10;
+			starttime = System.currentTimeMillis();
 			functionPlugin8();
 			io_Q.println("****COUNT:"+count);
 			io_Q.printMatrix_approximately(pr_em.X, count);
 			io_Q.println("****e_min:"+pr_em.calcE(pr_em.X));
+			io_Q.println("****time[s]:"+ (double)(System.currentTimeMillis() - starttime)/1000);
 			io_Q.println("*************************************");
+			io_Q.execute();
 		}
+		System.out.println("テスト終了");
+	}
+
+	@Override
+	public void functionPluginW(){
+		MyIO io = new MyIO();
+		io.readFile("20160421/result_Q.txt");
+
+		this.pr_em.X = io.readMatrix(1).approximate();
 	}
 
 
