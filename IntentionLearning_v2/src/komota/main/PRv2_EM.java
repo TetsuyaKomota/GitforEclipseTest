@@ -66,7 +66,7 @@ public class PRv2_EM extends PRv2_GA{
 				//1.
 				//System.out.println("ゆかちん:"+e_min+"     "+e_prev);
 				System.out.println("current e_min:"+e_min+"  stride:"+stride);
-				if(/*(e_prev - e_min < Statics.EM_PROGRESS_NORMA && e_prev != e_min)||*/ e_min < Statics.EM_THRETHOLD){
+				if(stride < 0.00001 || e_min < Statics.EM_THRETHOLD){
 					break;
 				}
 
