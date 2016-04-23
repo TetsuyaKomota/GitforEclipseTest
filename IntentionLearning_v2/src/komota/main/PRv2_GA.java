@@ -13,7 +13,7 @@ public class PRv2_GA extends MyPR_v2{
 
 	//フィールド
 	//学習結果行列
-	MyMatrix X;
+	//MyMatrix X;
 
 	public PRv2_GA(int numofobjects, String filename) {
 		super(numofobjects, filename);

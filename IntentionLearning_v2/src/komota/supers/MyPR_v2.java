@@ -22,6 +22,8 @@ public abstract class MyPR_v2 {
 	//入出力クラス
 	MyIO io;
 
+	public MyMatrix X;
+
 	//コンストラクタ
 	public MyPR_v2(int numofobjects,String filename){
 
@@ -71,6 +73,12 @@ public abstract class MyPR_v2 {
 	public int getNumberofLog(){
 		return this.numberoflog;
 	}
+	public void setX(MyMatrix input){
+		this.X = input;
+	}
+	public MyMatrix getX(){
+		return this.X;
+	}
 
 
 	//学習機構。オーバーライドする
@@ -89,13 +97,13 @@ public abstract class MyPR_v2 {
 			for(int i=0;i<X.getDimension();i++){
 				double temp2 = 0;
 				for(int j=0;j<X.getDimension();j++){
-					
+
 						temp2 += X.getData(i, j) * this.getStartLog(t)[j];
-					
+
 				}
-				
+
 					temp2 -= this.getGoalLog(t)[i];
-				
+
 				temp1 += temp2*temp2;
 			}
 			output += Math.sqrt(temp1);
