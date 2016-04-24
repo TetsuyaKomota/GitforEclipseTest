@@ -114,26 +114,26 @@ public class Test20160423 extends MyFrame{
 
 	@Override
 	public void functionPlugin1(){
-		this.em = new PRv2_EM(5,"logdata.txt");
+		this.em = new PRv2_EM(5,"20160421/BACKUP_logdata.txt");
 	}
 	@Override
 	public void functionPlugin2(){
 		MyIO io = new MyIO();
-		io.readFile("result_Q.txt");
+		io.readFile("20160421/result_Q.txt");
 		this.em.setX(io.readMatrix(1).approximate());
 		this.em.reproduction(this);
 	}
 	@Override
 	public void functionPlugin3(){
 		MyIO io = new MyIO();
-		io.readFile("result_Q.txt");
+		io.readFile("20160421/result_Q.txt");
 		this.em.setX(io.readMatrix(2).approximate());
 		this.em.reproduction(this);
 	}
 	@Override
 	public void functionPlugin4(){
 		MyIO io = new MyIO();
-		io.readFile("result_Q.txt");
+		io.readFile("20160421/result_Q.txt");
 		this.em.setX(io.readMatrix(3).approximate());
 		this.em.reproduction(this);
 	}
