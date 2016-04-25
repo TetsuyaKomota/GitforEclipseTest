@@ -141,4 +141,8 @@ public class Test20160423 extends MyFrame{
 	public void functionPlugin5(){
 		System.out.println("calcE:"+em.calcE(em.getX()));
 	}
+	@Override
+	public void functionPlugin6(){
+		this.em = new PRv2_EM(5,"logdata.txt");
+	}
 }
