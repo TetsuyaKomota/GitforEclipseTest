@@ -16,7 +16,7 @@ public class DataSetGenerator extends MyFrame{
 	public static void main(String[] args){
 
 		DataSetGenerator g = new DataSetGenerator();
-		g.numberofdataset = 5;
+		g.numberofdataset = 300;
 
 	}
 

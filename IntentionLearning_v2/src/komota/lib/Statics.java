@@ -50,7 +50,7 @@ public class Statics {
 	public static final double GA_METAMORPHOSE_RATE = 0.8;
 	//学習終了閾値
 	public static final double GA_THRETHOLD = 100000;
-	public static double EM_THRETHOLD = 1000;
+	public static double EM_THRETHOLD = 10;
 	//ストライド
 	public static final double EM_STRIDE = 100;
 	//焼きなまし率

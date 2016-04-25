@@ -1,6 +1,7 @@
 package komota.main;
 
 import komota.lib.MatFactory;
+import komota.lib.MyIO;
 import komota.lib.MyMatrix;
 import komota.lib.Statics;
 
@@ -57,6 +58,17 @@ public class PRv2_EM extends PRv2_GA{
 		while(true){
 			//以下，評価値が変動しなくなるまで繰り返し
 			this.X = MatFactory.random(this.getStartLog(0).length, Statics.NUMBEROFPANEL, Statics.NUMBEROFPANEL);
+
+			/* *************************************************************** */
+			//デバッグ用
+
+			MyIO io_debug = new MyIO();
+			io_debug.readFile("20160421/result_Q.txt");
+			this.X = io_debug.readMatrix(999);
+			io_debug.close();
+
+			/* *************************************************************** */
+
 			stride = Statics.EM_STRIDE;
 
 			e_prev = calcE(this.X);
