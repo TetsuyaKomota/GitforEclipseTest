@@ -137,4 +137,8 @@ public class Test20160423 extends MyFrame{
 		this.em.setX(io.readMatrix(3).approximate());
 		this.em.reproduction(this);
 	}
+	@Override
+	public void functionPlugin5(){
+		System.out.println("calcE:"+em.calcE(em.getX()));
+	}
 }
