@@ -115,7 +115,7 @@ public class PRv2_EM extends PRv2_GA{
 				}
 				this.X.setData(gyou, retsu, this.X.getData(gyou,retsu) + sign * stride);
 			}
-			if(e_min < Statics.EM_THRETHOLD){
+			if(true || e_min < Statics.EM_THRETHOLD){
 				break;
 			}
 			else{

@@ -90,6 +90,11 @@ public class DataSetGenerator extends MyFrame{
 		this(10);
 	}
 
+	//生成データ量のセッター
+	public void setNumberofData(int num){
+		this.numberofdataset = num;
+	}
+
 
 	@Override
 	public void initialize(){
