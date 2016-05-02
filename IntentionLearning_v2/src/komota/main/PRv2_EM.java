@@ -40,7 +40,7 @@ public class PRv2_EM extends PRv2_GA{
 
 		//0.
 		//this.X = new MyMatrix(this.getStartLog(0).length+1);
-		this.X = MatFactory.random(this.getStartLog(0).length, Statics.NUMBEROFPANEL, Statics.NUMBEROFPANEL);
+		this.X = MatFactory.random(this.getStartLog(0).length, Statics.NUMBEROFPANEL, -Statics.NUMBEROFPANEL);
 		double e_min = 0;
 		double e = 0;
 		double stride = Statics.EM_STRIDE;
@@ -57,13 +57,13 @@ public class PRv2_EM extends PRv2_GA{
 		//以下，閾値以下になるまで繰り返し
 		while(true){
 			//以下，評価値が変動しなくなるまで繰り返し
-			this.X = MatFactory.random(this.getStartLog(0).length, Statics.NUMBEROFPANEL, Statics.NUMBEROFPANEL);
+			this.X = MatFactory.random(this.getStartLog(0).length, Statics.NUMBEROFPANEL, -Statics.NUMBEROFPANEL);
 
 			/* *************************************************************** */
 			//デバッグ用
 
 			MyIO io_debug = new MyIO();
-			io_debug.readFile("20160421/result_Q.txt");
+			io_debug.readFile("20160502/result_Q.txt");
 			this.X = io_debug.readMatrix(999);
 			io_debug.close();
 
