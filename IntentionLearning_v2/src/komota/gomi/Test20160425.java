@@ -119,7 +119,7 @@ public class Test20160425 extends MyFrame{
 		this.em = new PRv2_EM(5,"logdata.txt");
 		DataSetGenerator generator = new DataSetGenerator();
 		MyIO io = new MyIO();
-		io.writeFile("20160425/result.txt");
+		io.writeFile("20160502/result_Q.txt");
 		generator.setNumberofData(10);
 		int count = 0;
 		while(count < 30){
@@ -128,7 +128,9 @@ public class Test20160425 extends MyFrame{
 			this.em = new PRv2_EM(5,"logdata.txt");
 			this.em.learnfromLog();
 			io.println("numberofdata:"+count*10);
+			System.out.println("numberofdata:"+count*10);
 			io.println("e_min:"+em.calcE(this.em.getX()));
+			System.out.println("e_min:"+em.calcE(this.em.getX()));
 			io.execute();
 		}
 		System.out.println("実験しゅうりょう！");
