@@ -40,6 +40,13 @@ public class Maintest {
 		SupervisedGauss gauss2 = new SupervisedGauss();
 
 		samplegauss2 = MyDataFilter.normalization(gauss2.gauss);
+
+		//MovingDataGenerator g = new MovingDataGenerator();
+
+		//g.moveI(100, 1);
+
+		//samplegauss2 = g.dataset;
+
 		SOINN soinn2 = new SOINN(2,100,10);
 
 
@@ -49,7 +56,8 @@ public class Maintest {
 
 		frame2.setDataset(samplegauss2);
 		frame2.setRealtimeFlag(true);
-		frame2.setRandomDataFlag(true);
+		//frame2.setRandomDataFlag(true);
+		frame2.setRandomDataFlag(false);
 
 	}
 
