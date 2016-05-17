@@ -1,6 +1,7 @@
 package komota.gomi;
 
 import komota.lib.DataSetGenerator;
+import komota.lib.MatFactory;
 import komota.lib.MyIO;
 import komota.lib.Statics;
 import komota.main.PRv2_EM;
@@ -119,7 +120,7 @@ public class Test20160425 extends MyFrame{
 		this.em = new PRv2_EM(5,"logdata.txt");
 		DataSetGenerator generator = new DataSetGenerator();
 		MyIO io = new MyIO();
-		io.writeFile("20160502/result_Q.txt");
+		io.writeFile("20160510/result_Q.txt");
 		generator.setNumberofData(10);
 		int count = 0;
 		while(count < 30){
@@ -134,5 +135,13 @@ public class Test20160425 extends MyFrame{
 			io.execute();
 		}
 		System.out.println("実験しゅうりょう！");
+	}
+
+	@Override
+	public void functionPlugin2(){
+		MyIO io = new MyIO();
+		io.writeFile("logdata.txt");
+		io.printMatrix(MatFactory.random(11, 200, -200), 999);
+		io.close();
 	}
 }
