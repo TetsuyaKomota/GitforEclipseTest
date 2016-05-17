@@ -124,6 +124,8 @@ public class Test20160425 extends MyFrame{
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile("20160517/result_Q.txt");
+		io.println("はっじまっるよ～");
+		io.execute();
 		generator.setNumberofData(10);
 		int count = 0;
 		while(count < 30){
