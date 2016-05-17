@@ -80,7 +80,7 @@ public class MyFrame extends JFrame{
 	private Timer t;
 
 	/** 描画フラグ．falseの時は描画しない */
-	boolean renderflag;
+	private boolean renderflag;
 
 	/** 累計フレーム数*/
 	private int framecount;
@@ -173,6 +173,14 @@ public class MyFrame extends JFrame{
 	 */
 	public int[] getSecondSelected(){
 		return this.secondselected;
+	}
+
+	/**
+	 * 描画フラグのセッター
+	 * @param input 描画フラグ
+	 */
+	public void setRenderFlag(boolean input){
+		this.renderflag = input;
 	}
 	/**
 	 * シミュレータを実行してからの累計フレーム数のゲッター
