@@ -118,6 +118,8 @@ public class Test20160425 extends MyFrame{
 	public void functionPlugin1(){
 		//データ量によって収束結果がどう変わるのかを検証する
 		this.em = new PRv2_EM(5,"logdata.txt");
+		//描画を止める
+
 		DataSetGenerator generator = new DataSetGenerator();
 		MyIO io = new MyIO();
 		io.writeFile("20160517/result_Q.txt");
