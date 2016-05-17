@@ -135,6 +135,7 @@ public class Test20160425 extends MyFrame{
 			io.execute();
 		}
 		System.out.println("実験しゅうりょう！");
+		this.expranation = "実験しゅうりょう！！";
 	}
 
 	@Override
