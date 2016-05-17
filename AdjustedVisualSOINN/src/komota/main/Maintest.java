@@ -47,7 +47,7 @@ public class Maintest {
 
 		//samplegauss2 = g.dataset;
 
-		SOINN soinn2 = new SOINN(2,100,10);
+		SOINN soinn2 = new SOINN(2,1000000000,0);
 
 
 		AdjustedVisualSOINN frame2 = new AdjustedVisualSOINN(soinn2);
@@ -56,8 +56,8 @@ public class Maintest {
 
 		frame2.setDataset(samplegauss2);
 		frame2.setRealtimeFlag(true);
-		//frame2.setRandomDataFlag(true);
-		frame2.setRandomDataFlag(false);
+		frame2.setRandomDataFlag(true);
+		//frame2.setRandomDataFlag(false);
 
 	}
 

@@ -18,8 +18,8 @@ public class Gauss {
 			//一様ノイズ
 			if(Math.random() < NOISE){
 				temp = new double[2];
-				temp[0] = Math.random() * 10 + 5;
-				temp[1] = Math.random() * 10 + 5;
+				temp[0] = Math.random() * 20 + 5;
+				temp[1] = Math.random() * 20 + 5;
 				gauss.add(temp);
 			}
 		}
@@ -31,8 +31,8 @@ public class Gauss {
 			//一様ノイズ
 			if(Math.random() < NOISE){
 				temp = new double[2];
-				temp[0] = Math.random() * 10 + 5;
-				temp[1] = Math.random() * 10 + 5;
+				temp[0] = Math.random() * 20 + 5;
+				temp[1] = Math.random() * 20 + 5;
 				gauss.add(temp);
 			}
 		}
@@ -48,8 +48,8 @@ public class Gauss {
 			//一様ノイズ
 			if(Math.random() < NOISE){
 				temp = new double[2];
-				temp[0] = Math.random() * 10 + 5;
-				temp[1] = Math.random() * 10 + 5;
+				temp[0] = Math.random() * 20 + 5;
+				temp[1] = Math.random() * 20 + 5;
 				gauss.add(temp);
 			}
 		}
