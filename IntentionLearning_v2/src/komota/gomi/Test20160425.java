@@ -1,6 +1,7 @@
 package komota.gomi;
 
 import komota.lib.DataSetGenerator;
+import komota.lib.MatFactory;
 import komota.lib.MyIO;
 import komota.lib.Statics;
 import komota.main.PRv2_EM;
@@ -117,9 +118,14 @@ public class Test20160425 extends MyFrame{
 	public void functionPlugin1(){
 		//データ量によって収束結果がどう変わるのかを検証する
 		this.em = new PRv2_EM(5,"logdata.txt");
+		//描画を止める
+		this.setRenderFlag(false);
 		DataSetGenerator generator = new DataSetGenerator();
+		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
-		io.writeFile("20160502/result_Q.txt");
+		io.writeFile("20160517/result_Q.txt");
+		io.println("はっじまっるよ～");
+		io.execute();
 		generator.setNumberofData(10);
 		int count = 0;
 		while(count < 30){
@@ -134,5 +140,14 @@ public class Test20160425 extends MyFrame{
 			io.execute();
 		}
 		System.out.println("実験しゅうりょう！");
+		this.expranation = "実験しゅうりょう！！";
+	}
+
+	@Override
+	public void functionPlugin2(){
+		MyIO io = new MyIO();
+		io.writeFile("logdata.txt");
+		io.printMatrix(MatFactory.random(11, 200, -200), 999);
+		io.close();
 	}
 }

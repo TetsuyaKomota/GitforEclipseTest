@@ -79,6 +79,9 @@ public class MyFrame extends JFrame{
 	/** タイマークラス*/
 	private Timer t;
 
+	/** 描画フラグ．falseの時は描画しない */
+	private boolean renderflag;
+
 	/** 累計フレーム数*/
 	private int framecount;
 
@@ -128,6 +131,8 @@ public class MyFrame extends JFrame{
 
 		this.setOutputFile();
 
+		this.renderflag = true;
+
 		this.t = new Timer();
 		t.schedule(new RenderTask(), 0,Math.round((double)1000/Statics.FRAME_RATE));
 
@@ -168,6 +173,14 @@ public class MyFrame extends JFrame{
 	 */
 	public int[] getSecondSelected(){
 		return this.secondselected;
+	}
+
+	/**
+	 * 描画フラグのセッター
+	 * @param input 描画フラグ
+	 */
+	public void setRenderFlag(boolean input){
+		this.renderflag = input;
 	}
 	/**
 	 * シミュレータを実行してからの累計フレーム数のゲッター
@@ -548,41 +561,42 @@ public class MyFrame extends JFrame{
 		 */
 		public void run() {
 			// TODO 自動生成されたメソッド・スタブ
+			if(MyFrame.this.renderflag == true){
+				//直前のフレーム開始からこのフレーム開始までの時刻の差がフレームタイムになる．
+				this.lasttime = this.starttime;
+				this.starttime = System.currentTimeMillis();
 
-			//直前のフレーム開始からこのフレーム開始までの時刻の差がフレームタイムになる．
-			this.lasttime = this.starttime;
-			this.starttime = System.currentTimeMillis();
+				//フレームレートを推定
+				MyFrame.this.frame_rate = Math.round((double)1000 / (this.starttime - this.lasttime));
 
-			//フレームレートを推定
-			MyFrame.this.frame_rate = Math.round((double)1000 / (this.starttime - this.lasttime));
+				//累計フレーム数をインクリメント
+				MyFrame.this.framecount++;
 
-			//累計フレーム数をインクリメント
-			MyFrame.this.framecount++;
+				Graphics2D g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
+				//背景の描画
+				g.setColor(MyFrame.background);
+				g.fillRect(0, 0, MyFrame.this.getWidth(), MyFrame.this.getHeight());
+				//文字情報の描画
+				g.setColor(MyFrame.colorofstring);
+				g.drawString(MyFrame.this.expranation, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 10);
+				g.drawString("frame:"+MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+10);
+				g.drawString("time :"+MyFrame.this.getFrameTime(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+30);
+				g.drawString("fps  :"+MyFrame.this.getFrameRate(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+50);
+				g.drawString("fps_m:"+MyFrame.this.getFrameTime()/MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+70);
+				g.drawString(MyFrame.this.tasktitle, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 30);
+				g.drawString(MyFrame.this.howtouse, Statics.SIZE_FRAME, Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+40);
 
-			Graphics2D g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
-			//背景の描画
-			g.setColor(MyFrame.background);
-			g.fillRect(0, 0, MyFrame.this.getWidth(), MyFrame.this.getHeight());
-			//文字情報の描画
-			g.setColor(MyFrame.colorofstring);
-			g.drawString(MyFrame.this.expranation, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 10);
-			g.drawString("frame:"+MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+10);
-			g.drawString("time :"+MyFrame.this.getFrameTime(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+30);
-			g.drawString("fps  :"+MyFrame.this.getFrameRate(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+50);
-			g.drawString("fps_m:"+MyFrame.this.getFrameTime()/MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+70);
-			g.drawString(MyFrame.this.tasktitle, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 30);
-			g.drawString(MyFrame.this.howtouse, Statics.SIZE_FRAME, Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+40);
+				g.dispose();
 
-			g.dispose();
-
-			//空白パネルの描画
-			for(int i=0;i<MyFrame.this.panels.length;i++){
-				for(int j=0;j<MyFrame.this.panels[0].length;j++){
-					MyFrame.this.panels[i][j].drawSpace();
+				//空白パネルの描画
+				for(int i=0;i<MyFrame.this.panels.length;i++){
+					for(int j=0;j<MyFrame.this.panels[0].length;j++){
+						MyFrame.this.panels[i][j].drawSpace();
+					}
 				}
+				MyFrame.this.drawObjects();
+				MyFrame.this.buffer.show();
 			}
-			MyFrame.this.drawObjects();
-			MyFrame.this.buffer.show();
 		}
 	}
 
