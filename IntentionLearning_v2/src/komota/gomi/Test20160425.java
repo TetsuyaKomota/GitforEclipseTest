@@ -123,7 +123,7 @@ public class Test20160425 extends MyFrame{
 		DataSetGenerator generator = new DataSetGenerator();
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
-		io.writeFile("20160517/result_Q.txt");
+		io.writeFile("20160518/result_Q.txt");
 		io.println("はっじまっるよ～");
 		io.execute();
 		generator.setNumberofData(10);
@@ -147,7 +147,7 @@ public class Test20160425 extends MyFrame{
 	public void functionPlugin2(){
 		MyIO io = new MyIO();
 		io.writeFile("logdata.txt");
-		io.printMatrix_integer(MatFactory.random(2, 5, 0), 40);
+		io.printMatrix(MatFactory.random(11, 200, -200), 999);
 		io.close();
 	}
 }
