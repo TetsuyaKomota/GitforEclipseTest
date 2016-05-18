@@ -147,7 +147,7 @@ public class Test20160425 extends MyFrame{
 	public void functionPlugin2(){
 		MyIO io = new MyIO();
 		io.writeFile("logdata.txt");
-		io.printMatrix(MatFactory.random(11, 200, -200), 999);
+		io.printMatrix_integer(MatFactory.random(2, 5, 0), 40);
 		io.close();
 	}
 }
