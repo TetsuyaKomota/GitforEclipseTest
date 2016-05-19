@@ -18,6 +18,7 @@ end_Mat:999
 
 はっじまっるよ～
 はっじまっるよ～
+<<<<<<< HEAD
 numberofdata:10
 e_min:5705.148805788109
 numberofdata:20
