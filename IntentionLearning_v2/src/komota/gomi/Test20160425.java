@@ -125,7 +125,7 @@ public class Test20160425 extends MyFrame{
 		DataSetGenerator generator = new DataSetGenerator();
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
-		io.writeFile("20160510/result_Q.txt");
+		io.writeFile("20160517/result_Q.txt");
 		io.println("はっじまっるよ～");
 		io.execute();
 		generator.setNumberofData(10);
