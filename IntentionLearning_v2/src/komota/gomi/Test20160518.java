@@ -8,8 +8,8 @@ public class Test20160518 {
 	public static void main(String[] args){
 		MyIO io = new MyIO();
 		io.readFile("logdata.txt");
-		MyMatrix mat1 = io.readMatrix(30);
-		MyMatrix mat2 = io.readMatrix(40);
+		MyMatrix mat1 = io.readMatrix(10);
+		MyMatrix mat2 = io.readMatrix(30);
 
 		mat1.show();
 		mat2.show();
