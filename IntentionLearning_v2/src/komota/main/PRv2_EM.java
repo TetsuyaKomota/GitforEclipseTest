@@ -63,7 +63,7 @@ public class PRv2_EM extends PRv2_GA{
 			//デバッグ用
 
 			MyIO io_debug = new MyIO();
-			io_debug.readFile("20160502/result_Q.txt");
+			io_debug.readFile("logdata.txt");
 			this.X = io_debug.readMatrix(999);
 			io_debug.close();
 
