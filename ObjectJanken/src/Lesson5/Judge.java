@@ -12,8 +12,18 @@ public class Judge
 	 */
 	void startJanken(Player player1, Player player2)
 	{
+		//初期化する
+		player1.initialize();
+		player2.initialize();
+
 		// ジャンケンの開始を宣言する
 		System.out.println("【ジャンケン開始】\n");
+
+		//*********************************************************************
+		//各プレイヤーのゲーム開始時のセリフを表示する
+		player1.sayStart();
+		player2.sayStart();
+		//*********************************************************************
 
 		// ジャンケンを3回行う
 		for (int cnt = 0; cnt < 3; cnt++)
@@ -31,11 +41,32 @@ public class Judge
 
 				// 勝ったプレイヤーへ結果を伝える
 				winner.notifyResult(true);
+				//**************************************************************
+				//勝利コメントを表示する
+				winner.sayWin();
+				//**************************************************************
+				//**************************************************************
+				//敗北コメントを表示する
+				//winnerであるかどうかはnameの一致で判定する
+				if(winner.getName().equals(player1.getName())==true){
+					player2.sayLose();
+				}
+				else{
+					player1.sayLose();
+				}
+				//**************************************************************
+
+
 			}
 			else
 			{
 				// 引き分けの場合
 				System.out.println("\n引き分けです！\n");
+				//**************************************************************
+				//引き分け時のコメントを表示する
+				player1.sayDraw();
+				player2.sayDraw();
+				//**************************************************************
 			}
 		}
 
@@ -52,10 +83,27 @@ public class Judge
 		if (finalWinner != null)
 		{
 			System.out.println(finalWinner.getName() + "の勝ちです！\n");
+			//**************************************************************
+			//勝者コメントを表示する
+			//finalWinnerであるかどうかはnameの一致で判定する
+			if(finalWinner.getName().equals(player1.getName())==true){
+				player1.sayWinner();
+				player2.sayLoser();
+			}
+			else{
+				player1.sayLoser();
+				player2.sayWinner();
+			}
+			//**************************************************************
 		}
 		else
 		{
 			System.out.println("引き分けです！\n");
+			//**************************************************************
+			//引き分け時のコメントを表示する
+			player1.sayDrawer();
+			player2.sayDrawer();
+			//**************************************************************
 		}
 	}
 
