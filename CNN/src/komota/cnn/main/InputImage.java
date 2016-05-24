@@ -61,7 +61,7 @@ public class InputImage extends Image {
 		double max = 0;
 		for(int j=0;j<this.Y_axis;j++){
 			for(int i=0;i<this.X_axis;i++){
-				this.dots[i][j] = -bimage.getRGB(i, j);
+				this.dots[j][i] = -bimage.getRGB(j, i);
 				if(this.dots[i][j] > max){
 					max = this.dots[i][j];
 				}
@@ -69,7 +69,6 @@ public class InputImage extends Image {
 		}
 		for(int j=0;j<this.Y_axis;j++){
 			for(int i=0;i<this.X_axis;i++){
-//				System.out.println(this.dots[i][j]);
 				if(this.dots[i][j] < 0)this.dots[i][j] = 0;
 				this.dots[i][j] = 1-(this.dots[i][j]/max);
 			}
