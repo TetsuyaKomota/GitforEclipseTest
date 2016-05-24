@@ -50,3 +50,25 @@ e_min:21.041929739568804
 
 ※※やり直した結果
 上記の初期状態で実験
+はっじまっるよ～
+はっじまっるよ～
+numberofdata:10
+e_min:8942.041888032676
+numberofdata:20
+e_min:3679.1413892876953
+numberofdata:30
+e_min:843.7094676692468
+numberofdata:40
+e_min:24.351818797815124
+numberofdata:50
+e_min:19.732607075596857
+numberofdata:60
+e_min:19.857551799118724
+numberofdata:70
+e_min:21.242402850067396
+numberofdata:80
+e_min:21.84879276291901
+numberofdata:90
+e_min:22.46642886989485
+numberofdata:100
+e_min:23.040575336762885
