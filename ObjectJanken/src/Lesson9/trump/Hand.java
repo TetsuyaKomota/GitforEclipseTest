@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Hand
 {
 	/** 手札にあるカードを保持するためのリスト */
-	private ArrayList hand_ = new ArrayList();
+	private ArrayList<Card> hand_ = new ArrayList<Card>();
 
 	/**
 	 * カードを加える。<br>

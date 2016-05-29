@@ -11,7 +11,7 @@ import Lesson9.trump.Table;
 public class OldMaidTable implements Table
 {
     /** 捨てられたカードを保持しておくためのリスト */
-    private ArrayList disposedCards_ = new ArrayList();
+    private ArrayList<Card> disposedCards_ = new ArrayList<Card>();
 
     /**
      * カードを捨てる。
