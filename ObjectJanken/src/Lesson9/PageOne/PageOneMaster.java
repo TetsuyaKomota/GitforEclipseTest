@@ -23,6 +23,7 @@ public class PageOneMaster extends Master
      * 7枚ずつ配るためにオーバーライドした
      * @see trump.Master#prepareGame(trump.Hand)
      */
+	@Override
     public void prepareGame(Hand cards)
     {
         System.out.println("【カードを配ります】");

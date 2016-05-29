@@ -34,6 +34,9 @@ public class PageOnePlayer extends Player
     public void receiveCard(Card card)
     {
     	//課題：適当な命令を記述する
+
+    	//ただ受け取ればいいので，スーパークラスのreceiveCard()をそのまま使用する
+    	super.receiveCard(card);
     }
 
     /**
@@ -44,6 +47,37 @@ public class PageOnePlayer extends Player
     public void play(Player nextPlayer)
     {
     	//課題：適当な命令を記述する
+
+    	//パスがない以外は7並べと同じ処理でいい
+        // 現在の手札を表示する
+        System.out.println("  " + myHand_);
+
+        // 現在の手札からテーブルに出せるものを探す
+        Card[] candidate = rule_.findCandidate(myHand_, table_);
+
+        // 候補がある場合はテーブルに出す
+        if (candidate != null)
+        {
+            System.out.println("  " + candidate[0] + "を置きました。\n");
+            table_.putCard(candidate);
+
+            // テーブルの状態を表示する
+            System.out.println(table_);
+
+            // 手札がなくなったら、上がりを宣言する
+            if (myHand_.getNumberOfCards() == 0)
+            {
+                master_.declareWin(this);
+            }
+        }
+        else
+        {
+            // テーブルに出せるカードがなかった場合、パスする
+
+        	((PageOneMaster)this.master_).pass(this);
+
+        }
+
     }
 
 }
