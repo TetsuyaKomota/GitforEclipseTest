@@ -22,15 +22,20 @@ public class PageOne
         // ルールの生成
         Rule rule = new PageOneRule();
 
+        //ユーザールールの生成
+        Rule rule_user = new PageOneRule_forUser();
+
         // プレイヤーの生成
         Player murata = new PageOnePlayer("村田", master, table, rule);
         Player yamada = new PageOnePlayer("山田", master, table, rule);
         Player saito  = new PageOnePlayer("斎藤", master, table, rule);
+        Player user   = new PageOnePlayer("俺様", master, table, rule_user);
 
         // プレイヤーを登録
         master.registerPlayer(murata);
         master.registerPlayer(yamada);
         master.registerPlayer(saito);
+        master.registerPlayer(user);
 
         // トランプを生成する
         Hand trump = createTrump();
