@@ -9,7 +9,7 @@ public class PRv2_Mat_SOINN extends MyPR_v2{
 
 	//フィールド
 	//学習した行列
-	MyMatrix X;
+	//MyMatrix X;
 
 	//コンストラクタ
 	public PRv2_Mat_SOINN(int numofobjects, String filename) {
