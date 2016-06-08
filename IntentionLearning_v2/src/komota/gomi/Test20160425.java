@@ -4,13 +4,13 @@ import komota.lib.DataSetGenerator;
 import komota.lib.MatFactory;
 import komota.lib.MyIO;
 import komota.lib.Statics;
-import komota.main.PRv2_Mat_SOINN;
+import komota.main.PRv2_EM;
 import komota.supers.MyFrame;
 
 public class Test20160425 extends MyFrame{
 
-	//PRv2_EM em;
-	PRv2_Mat_SOINN em;
+	PRv2_EM em;
+	//PRv2_Mat_SOINN em;
 
 	public static void main(String[] args){
 		Test20160425 frame = new Test20160425();
@@ -118,14 +118,14 @@ public class Test20160425 extends MyFrame{
 	@Override
 	public void functionPlugin1(){
 		//データ量によって収束結果がどう変わるのかを検証する
-		//this.em = new PRv2_EM(5,"logdata.txt");
-		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		this.em = new PRv2_EM(5,"logdata.txt");
+		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 		//描画を止める
 		this.setRenderFlag(false);
 		DataSetGenerator generator = new DataSetGenerator();
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
-		io.writeFile("20160519/result_Mat_SOINN.txt");
+		io.writeFile("20160608/result.txt");
 		io.println("はっじまっるよ～");
 		io.execute();
 		generator.setNumberofData(10);
@@ -133,8 +133,8 @@ public class Test20160425 extends MyFrame{
 		while(count < 30){
 			count++;
 			generator.functionPlugin1();
-			//this.em = new PRv2_EM(5,"logdata.txt");
-			this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+			this.em = new PRv2_EM(5,"logdata.txt");
+			//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 
 			this.em.learnfromLog();
 			io.println("numberofdata:"+count*10);

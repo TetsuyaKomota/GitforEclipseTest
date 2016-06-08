@@ -27,7 +27,7 @@ public class DataSetGenerator extends MyFrame{
 		//（おそらく）NextGaussianをintにキャストして使っているので，分散の有効桁数は高々小数2桁まで
 //		this.generate_MOVE_THE_CENTER(this, 2);
 //		this.generate_RIGHT_TO_BLUE(this, 0.2);
-		this.generate_NEAR_BY_ORANGE(this, 0.2);
+//		this.generate_NEAR_BY_ORANGE(this, 0.2);
 //		this.generate_AWAY_FROM_GREEN(this, 2);
 //		this.generate_MAKE_THE_SIGNAL(this, 2);
 //		this.generate_MAKE_THE_TRIANGLE(this, 2);
@@ -36,6 +36,7 @@ public class DataSetGenerator extends MyFrame{
 //		this.generate_AWAY_FROM_(DataSetGenerator.YELLOW, this, 2);
 //		this.generate_MAKE_THE_SIG_(DataSetGenerator.YELLOW, DataSetGenerator.GREEN, this, 2);
 //		this.generate_MAKE_THE_TRI_(DataSetGenerator.YELLOW, DataSetGenerator.BLUE, this, 2);
+		this.generate_NEAR_BY_ORANGE_3D_(this, 0.2);
 		System.out.println("データジェネレート完了！");
 		try {
 			System.out.println("logdata.txtには"+this.countGoal("logdata.txt")+"個のデータが存在します");
@@ -462,6 +463,161 @@ public class DataSetGenerator extends MyFrame{
 
 
 	}
+	//NEAR_BY_ORANGE（3次元）の自動生成(2Dシミュレータを用いて3Dデータの実験を行うための暫定的なもの．3Dシミュレータが完成したら使用しないこと)
+	public void generate_NEAR_BY_ORANGE_3D(MyFrame frame,double variance){
+
+
+		int[] temperror = new int[2];
+		int[] selected= new int[2];
+		int[] secondselected= new int[2];
+		int[] tempred = new int[2];
+		int[] temporange = new int[2];
+
+		int count = 0;
+
+		while(count < numberofdataset){
+
+			//赤と青両方を動かせたかのフラグ
+			boolean flag = false;
+
+			//startログを生成
+			frame.initialize();
+			//selected,secondselectedを初期化
+			selected[0] = -1;
+			selected[1] = -1;
+			secondselected[0] = -1;
+			secondselected[1] = -1;
+			tempred[0] = -1;
+			tempred[1] = -1;
+			temporange[0] = -1;
+			temporange[1] = -1;
+			frame.setSelected(selected);
+			frame.setSecondSelected(secondselected);
+
+			//トラジェクタと青いオブジェクトを検索
+			for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+				for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+					if(frame.getPanels()[i][j].getStatus() == 1){
+						selected[0] = i;
+						selected[1] = j;
+						frame.setSelected(selected);
+						tempred[0] = i;
+						tempred[1] = j;
+					}
+					else if(frame.getPanels()[i][j].getStatus() == 5){
+
+						temperror[0] = (int)nextError(variance);
+						temperror[1] = (int)nextError(variance);
+
+						temporange[0] = i;
+						temporange[1] = j;
+					}
+				}
+			}
+			int[] tempsecondselected = new int[2];
+			tempsecondselected[0] = (int)((double)(tempred[0]+temporange[0])/2+0.5) + temperror[0];
+			tempsecondselected[1] = (int)((double)(tempred[1]+temporange[1])/2+0.5) + temperror[1];
+
+		}
+	}
+
+	public void generate_NEAR_BY_ORANGE_3D_(MyFrame frame, double variance){
+
+		int count = 0;
+		//本来の赤(status = 1)の2次元と青(status = 2)の行次元を赤の3次元として利用する
+		int[] red = new int[3];
+		//ゴミ
+		int blue = 0;
+		//本来の橙(status = 5)の2次元と緑(status = 4)の列次元を橙の3次元として利用する
+		int[] moving = new int[3];
+
+		int[] temperror = new int[3];
+
+		while(count < numberofdataset){
+
+			//赤と青が両方動かせたかのフラグ
+			boolean flag = false;
+
+			frame.initialize();
+			for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+				for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+					if(frame.getPanels()[i][j].getStatus() == 5/*orange*/){
+						moving[1] = i;
+						moving[2] = j;
+					}
+					else if(frame.getPanels()[i][j].getStatus() == 4/*green*/){
+						moving[0] = j;
+					}
+					else if(frame.getPanels()[i][j].getStatus() == 1/*red*/){
+						red[0] = i;
+						red[1] = j;
+					}
+					else if(frame.getPanels()[i][j].getStatus() == 2/*blue*/){
+						red[2] = i;
+						blue = j;
+					}
+				}
+			}
+
+			temperror[0] = (int)nextError(variance);
+			temperror[1] = (int)nextError(variance);
+			temperror[2] = (int)nextError(variance);
+
+			//pushSelect()を2回実行することによって赤と青を移動する
+			int[] tempselected = new int[2];
+			tempselected[0] = red[0];
+			tempselected[1] = red[1];
+			frame.setSelected(tempselected);
+
+			int[] tempsecondselected = new int[2];
+			tempsecondselected[0] = (int)((double)(red[0]+moving[0])/2+0.5) + temperror[0];
+			tempsecondselected[1] = (int)((double)(red[1]+moving[1])/2+0.5) + temperror[1];
+			if(		  tempsecondselected[0] > 0
+					&&tempsecondselected[1] > 0
+					&&tempsecondselected[0] < Statics.NUMBEROFPANEL - 2
+					&&tempsecondselected[1] < Statics.NUMBEROFPANEL - 2
+					){
+				frame.setSecondSelected(tempsecondselected);
+			}
+
+			//トラジェクタと目標位置がセットされたはずなので、移動する
+			if(frame.getSecondSelected()[0] > 0 && frame.getSecondSelected()[1] > 0){
+				frame.pushSPACE();
+				frame.pushGoal();
+				flag = true;
+			}
+
+			tempselected = new int[2];
+			tempselected[0] = red[2];
+			tempselected[1] = blue;
+			frame.setSelected(tempselected);
+
+			tempsecondselected = new int[2];
+			tempsecondselected[0] = (int)((double)(red[2]+moving[2])/2+0.5) + temperror[2];
+			tempsecondselected[1] = blue;
+			if(		  tempsecondselected[0] > 0
+					&&tempsecondselected[1] > 0
+					&&tempsecondselected[0] < Statics.NUMBEROFPANEL - 2
+					&&tempsecondselected[1] < Statics.NUMBEROFPANEL - 2
+					){
+				frame.setSecondSelected(tempsecondselected);
+			}
+
+			//トラジェクタと目標位置がセットされたはずなので、移動する
+			if(frame.getSecondSelected()[0] > 0 && frame.getSecondSelected()[1] > 0){
+				frame.pushSPACE();
+				frame.pushGoal();
+				if(flag == true){
+					count++;
+				}
+			}
+
+
+
+		}
+
+	}
+
 	//AWAY_FROM_GREENの自動生成
 	public void generate_AWAY_FROM_GREEN(MyFrame frame,double variance){
 
