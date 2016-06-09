@@ -15,3 +15,16 @@ end_Mat:999
 
 上記の初期状態で実験
 
+はっじまっるよ～
+numberofdata:10
+e_min:10792.425908311223
+numberofdata:20
+e_min:721.2784092299188
+numberofdata:30
+e_min:222.48786654298013
+numberofdata:40
+e_min:159.75961419713005
+numberofdata:50
+e_min:20.927684121379688
+numberofdata:60
+e_min:19.97742357895621
