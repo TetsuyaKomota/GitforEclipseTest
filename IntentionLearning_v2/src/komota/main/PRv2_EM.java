@@ -1,7 +1,6 @@
 package komota.main;
 
 import komota.lib.MatFactory;
-import komota.lib.MyIO;
 import komota.lib.MyMatrix;
 import komota.lib.Statics;
 
@@ -59,14 +58,15 @@ public class PRv2_EM extends PRv2_GA{
 			//以下，評価値が変動しなくなるまで繰り返し
 			this.X = MatFactory.random(this.getStartLog(0).length, Statics.NUMBEROFPANEL, -Statics.NUMBEROFPANEL);
 
+
 			/* *************************************************************** */
 			//デバッグ用
-
+/*
 			MyIO io_debug = new MyIO();
 			io_debug.readFile("logdata.txt");
 			this.X = io_debug.readMatrix(999);
 			io_debug.close();
-
+*/
 			/* *************************************************************** */
 
 			stride = Statics.EM_STRIDE;
@@ -76,7 +76,6 @@ public class PRv2_EM extends PRv2_GA{
 
 			while(true){
 				//1.
-				//System.out.println("ゆかちん:"+e_min+"     "+e_prev);
 				System.out.println("current e_min:"+e_min+"  stride:"+stride);
 				if(stride < 0.00001 || e_min < Statics.EM_THRETHOLD){
 					break;
@@ -109,19 +108,12 @@ public class PRv2_EM extends PRv2_GA{
 						}
 					}
 				}
-				/*@*/if(gyou == -1 && retsu == -1){
-					System.out.println("ぼっかーん");
+				if(gyou == -1 && retsu == -1){
+					System.out.println("annealing");
 					stride *= Statics.EM_annealing;
 				}
 				this.X.setData(gyou, retsu, this.X.getData(gyou,retsu) + sign * stride);
 			}
-			if(true || e_min < Statics.EM_THRETHOLD){
-				break;
-			}
-			else{
-				System.out.println("収束結果は "+e_min+" となりましたが，もっと頑張れると思うのでもう一度計算します");
-			}
 		}
-
 	}
 }
