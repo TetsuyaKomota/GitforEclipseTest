@@ -17,7 +17,8 @@ public class Test20160612 extends J4KSDK{
 		}
 
 		Test20160612 kinect = new Test20160612();
-		kinect.start(J4KSDK.COLOR|J4KSDK.INFRARED|J4KSDK.DEPTH|J4KSDK.SKELETON);
+		kinect.start(J4KSDK.COLOR|J4KSDK.DEPTH|J4KSDK.SKELETON);
+		kinect.showViewerDialog();
 		while(true){
 			try {
 				Thread.sleep(100);
@@ -32,17 +33,13 @@ public class Test20160612 extends J4KSDK{
 	@Override
 	public void onColorFrameEvent(byte[] arg0) {
 		// TODO 自動生成されたメソッド・スタブ
-		System.out.print("Color を受け取ったよ！");
-		for(int i=0;i<arg0.length;i++){
-			System.out.print(",  "+arg0[i]);
-		}
-		System.out.println();
+		System.out.println("Color を受け取ったよ！arg0:"+arg0.length);
 	}
 
 	@Override
 	public void onDepthFrameEvent(short[] arg0, byte[] arg1, float[] arg2, float[] arg3) {
 		// TODO 自動生成されたメソッド・スタブ
-		System.out.print("Depth を受け取ったよ！arg0:"+arg0.length);
+		System.out.println("Depth を受け取ったよ！arg0:"+arg0.length);
 /*
   		for(int i=0;i<arg0.length;i++){
 
@@ -55,7 +52,23 @@ public class Test20160612 extends J4KSDK{
 	@Override
 	public void onSkeletonFrameEvent(boolean[] arg0, float[] arg1, float[] arg2, byte[] arg3) {
 		// TODO 自動生成されたメソッド・スタブ
-		System.out.println("Skeleton を受け取ったよ！");
+		if(arg0 == null){
+			System.out.println("arg0はぬる！");
+		}
+		if(arg1 == null){
+			System.out.println("arg1はぬる！");
+		}
+		if(arg2 == null){
+			System.out.println("arg2はぬる！");
+		}
+		if(arg3 == null){
+			System.out.println("arg3はぬる！");
+		}
+		System.out.println("Skeleton を受け取ったよ！arg0:"+arg0.length+"  arg1:"+arg1.length+"  arg3:"+arg3.length);
+		for(int i=0;i<arg0.length;i++){
+			System.out.print(arg0[i]+" ");
+		}
+		System.out.println();
 	}
 
 }
