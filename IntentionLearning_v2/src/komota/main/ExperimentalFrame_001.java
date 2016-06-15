@@ -138,6 +138,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 			this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 
 			this.em.learnfromLog();
+
+			//resultは「[データ量],[再代入誤り率],[汎化誤差]」という並び
 			io.print(count*10+",");
 			System.out.println("numberofdata:"+count*10);
 			io.println(em.calcE(this.em.getX()));
