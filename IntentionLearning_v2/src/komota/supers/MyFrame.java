@@ -14,6 +14,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 
 import komota.lib.MyIO;
+import komota.lib.MyMatrix;
 import komota.lib.Statics;
 
 /**
@@ -145,6 +146,21 @@ public class MyFrame extends JFrame{
 	 */
 	public MyPanel[][] getPanels(){
 		return this.panels;
+	}
+	/**
+	 * 状態空間を行列で返すゲッター
+	 * @return 状態空間の行列表現
+	 */
+	@Deprecated
+	public MyMatrix getStatusMatrix(){
+		MyMatrix output = new MyMatrix(Statics.NUMBEROFPANEL);
+		//状態空間の行列表現はこんな形じゃないので修正して
+		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+				output.setData(i, j, this.getPanels()[i][j].getStatus());
+			}
+		}
+		return output;
 	}
 	/**
 	 * 選択オブジェクトのセッター
