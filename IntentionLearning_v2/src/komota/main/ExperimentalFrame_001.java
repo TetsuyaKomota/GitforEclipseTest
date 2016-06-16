@@ -1,7 +1,7 @@
 
 package komota.main;
 
-import komota.lib.DataSetGenerator;
+import komota.lib.DataSetGenerator_v2;
 import komota.lib.MatFactory;
 import komota.lib.MyIO;
 import komota.lib.MyMatrix;
@@ -153,13 +153,21 @@ public class ExperimentalFrame_001 extends MyFrame{
 /* *********************************************************************************************************************** */
 
 	@Override
+	public void functionPlugin4(){
+		//this.em = new PRv2_EM(5,"logdata.txt");
+		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		this.em.show();
+	}
+
+	@Override
 	public void functionPluginQ(){
 		//データ量によって収束結果がどう変わるのかを検証する
 		//this.em = new PRv2_EM(5,"logdata.txt");
 		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 		//描画を止める
 		this.setRenderFlag(false);
-		DataSetGenerator generator = new DataSetGenerator();
+		//DataSetGenerator generator = new DataSetGenerator();
+		DataSetGenerator_v2 generator = new DataSetGenerator_v2("NbO",0);
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile(resultfile);
@@ -178,11 +186,15 @@ public class ExperimentalFrame_001 extends MyFrame{
 			//resultは「[データ量],[再代入誤り率],[汎化誤差]」という並び
 			io.print(count*10+",");
 			System.out.println("numberofdata:"+count*10);
-			io.println(em.calcE(this.em.getX()));
+			io.print(em.calcE(this.em.getX())+",");
 			System.out.println("e_min:"+em.calcE(this.em.getX()));
 		/* ************************************************************************************** */
 			//汎化誤差を求める
-			//1.
+			MyIO grtrh_i = new MyIO();
+			grtrh_i.readFile("generator_grtrh/grtrh_2D_NbO.txt");
+			MyMatrix grtrh = grtrh_i.readMatrix(666);
+			io.println(em.getX().sub(grtrh).getMaxNorm());
+			System.out.println("error from grtrh:"+em.getX().sub(grtrh).getMaxNorm());
 		/* ************************************************************************************** */
 			io.execute();
 		}

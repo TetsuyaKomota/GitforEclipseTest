@@ -13,6 +13,7 @@ public class PRv2_Mat_SOINN extends MyPR_v2{
 	//コンストラクタ
 	public PRv2_Mat_SOINN(int numofobjects, String filename) {
 		super(numofobjects, filename);
+		//super(filename);
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.X = new MyMatrix(this.getStartLog(0).length);
 	}
