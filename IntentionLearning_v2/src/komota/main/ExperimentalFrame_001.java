@@ -156,7 +156,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 	public void functionPluginQ(){
 		//データ量によって収束結果がどう変わるのかを検証する
 		//this.em = new PRv2_EM(5,"logdata.txt");
-		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 		//描画を止める
 		this.setRenderFlag(false);
 		DataSetGenerator generator = new DataSetGenerator();
@@ -188,13 +188,18 @@ public class ExperimentalFrame_001 extends MyFrame{
 		}
 		System.out.println("実験しゅうりょう！");
 		this.expranation = "実験しゅうりょう！！";
+		this.setRenderFlag(true);
 	}
 
 	@Override
-	public void functionPluginW(){
+	public void functionPlugin9(){
 		MyIO io = new MyIO();
 		io.writeFile("logdata.txt");
 		io.printMatrix(MatFactory.random(11, 200, -200), 999);
 		io.close();
+	}
+	@Override
+	public void functionPluginW(){
+		this.em.reproduction(this);
 	}
 }

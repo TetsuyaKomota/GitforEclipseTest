@@ -65,7 +65,7 @@ public class PRv2_Mat_SOINN extends MyPR_v2{
 
 		//2.
 		while(true){
-			if(learningtime > Statics.NUMBEROFMATRIXS || stride >= dimension){
+			if(/*learningtime > Statics.NUMBEROFMATRIXS || */stride >= dimension){
 				break;
 			}
 			//2-1.
@@ -82,8 +82,10 @@ public class PRv2_Mat_SOINN extends MyPR_v2{
 			//2-2.
 			if(starts.getDetV() != 0){
 				x = goals.mult(starts.inv());
-				soinn.inputSignal(x.vectorize());
-				learningtime++;
+				if(x != null){
+					soinn.inputSignal(x.vectorize());
+					learningtime++;
+				}
 			}
 
 			//2-3.
@@ -102,6 +104,15 @@ public class PRv2_Mat_SOINN extends MyPR_v2{
 		soinn.classify();
 		//5.
 		double[] vec = soinn.getNodeMean(0);
+/*
+		MyMatrix temp = new MyMatrix(dimension,vec);
+		this.X = new MyMatrix(Statics.NUMBEROFFEATURES+1);
+		for(int i=0;i<temp.getDimension();i++){
+			for(int j=0;j<temp.getDimension();j++){
+				this.X.setData(i, j, temp.getData(i, j));
+			}
+		}
+*/
 		this.X = new MyMatrix(dimension,vec);
 		System.out.println("学習しました");
 		this.X.approximate().show_approximately();

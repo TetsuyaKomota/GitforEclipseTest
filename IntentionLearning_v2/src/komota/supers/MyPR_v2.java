@@ -89,7 +89,13 @@ public abstract class MyPR_v2 {
 
 	//再現．単純な行列計算で実現
 	public void reproduction(MyFrame frame){
-		frame.setStatusforMatrix(this.getX().mult(frame.getStatusforMatrix()));
+		MyMatrix temp = new MyMatrix(Statics.NUMBEROFFEATURES+1);
+		for(int i=0;i<this.getX().getDimension();i++){
+			for(int j=0;j<this.getX().getDimension();j++){
+				temp.setData(i, j, this.getX().getData(i, j));
+			}
+		}
+		frame.setStatusforMatrix(temp.mult(frame.getStatusforMatrix()));
 	}
 
 	//ログデータと渡した行列による推定結果との誤差を出力

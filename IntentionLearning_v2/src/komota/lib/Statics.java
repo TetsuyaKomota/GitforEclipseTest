@@ -38,7 +38,7 @@ public class Statics {
 
 	//定数
 	//PR_Mat_SOINNにおける行列作成回数
-	public static int NUMBEROFMATRIXS = 20;
+	public static int NUMBEROFMATRIXS = 100;
 	//PR_Mat_SOINNのクロスバリデーション使用データ量
 	public static int NUMBEROFEVALUATION = 2;
 
