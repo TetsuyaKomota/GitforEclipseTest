@@ -22,6 +22,7 @@ public abstract class MyPR_v2 {
 	//入出力クラス
 	MyIO io;
 
+	//学習結果
 	public MyMatrix X;
 
 	//コンストラクタ
