@@ -147,11 +147,33 @@ public class MyFrame extends JFrame{
 	public MyPanel[][] getPanels(){
 		return this.panels;
 	}
+	public void setStatusforMatrix(MyMatrix input,int numofobject){
+
+		if(input.getDimension() != 2*Statics.NUMBEROFKIND+1){
+			System.out.println("[MyFrame]setStatusforMatrix:入力行列のサイズが不正です");
+			return;
+		}
+		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+				this.getPanels()[i][j].setStatus(0);
+			}
+		}
+		int idx = 1;
+		while(true){
+
+			this.getPanels()[(int)input.getData(2*idx-1,0)][(int)input.getData(2*idx, 0)].setStatus(idx);
+
+			idx++;
+			if(idx > numofobject){
+				break;
+			}
+		}
+	}
 	/**
 	 * 状態空間を行列で返すゲッター
 	 * @return 状態空間の行列表現
 	 */
-	public MyMatrix getStatusMatrix(){
+	public MyMatrix getStatusforMatrix(){
 /*
 		MyMatrix output = new MyMatrix(Statics.NUMBEROFPANEL);
 		//状態空間の行列表現はこんな形じゃないので修正して
