@@ -154,7 +154,7 @@ public class Test20160425 extends MyFrame{
 		DataSetGenerator generator = new DataSetGenerator();
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
-		io.writeFile("20160609/result_Mat_SOINN.txt");
+		io.writeFile("20160616/result_Mat_SOINN.txt");
 		io.println("はっじまっるよ～");
 		io.execute();
 		generator.setNumberofData(10);
