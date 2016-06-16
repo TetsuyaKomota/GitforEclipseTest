@@ -2,7 +2,6 @@ package komota.main;
 
 import komota.lib.MyMatrix;
 import komota.lib.Statics;
-import komota.supers.MyFrame;
 import komota.supers.MyPR_v2;
 
 public class PRv2_Mat_SOINN extends MyPR_v2{
@@ -107,7 +106,7 @@ public class PRv2_Mat_SOINN extends MyPR_v2{
 		System.out.println("学習しました");
 		this.X.approximate().show_approximately();
 	}
-
+/*
 	@Override
 	public void reproduction(MyFrame frame) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -150,7 +149,7 @@ public class PRv2_Mat_SOINN extends MyPR_v2{
 			frame.panels[(int)(goal[2*i-1]+0.5)][(int)(goal[2*i]+0.5)].setStatus(i);
 		}
 	}
-
+*/
 	@Override
 	public void initialize() {
 		// TODO 自動生成されたメソッド・スタブ

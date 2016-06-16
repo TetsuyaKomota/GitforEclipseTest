@@ -84,10 +84,13 @@ public abstract class MyPR_v2 {
 
 	//学習機構。オーバーライドする
 	public abstract void learnfromLog();
-	//再現。オーバーライドする
-	public abstract void reproduction(MyFrame frame);
 	//学習結果リセット。オーバーライドする
 	public abstract void initialize();
+
+	//再現．単純な行列計算で実現
+	public void reproduction(MyFrame frame){
+		frame.setStatusforMatrix(this.getX().mult(frame.getStatusforMatrix()));
+	}
 
 	//ログデータと渡した行列による推定結果との誤差を出力
 	public double calcE(MyMatrix X){
