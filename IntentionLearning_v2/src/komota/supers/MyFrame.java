@@ -92,6 +92,9 @@ public class MyFrame extends JFrame{
 	/** 実行フレームレート*/
 	private long frame_rate;
 
+	/** オブジェクト数*/
+	private int numofobject;
+
 	/**
 	 * コンストラクタ
 	 */
@@ -127,6 +130,8 @@ public class MyFrame extends JFrame{
 		this.secondselected[0] = -1;
 		this.secondselected[1] = -1;
 
+		this.numofobject = -1;
+
 		this.addKeyListener(new MyKeyListener());
 		this.addMouseListener(new MyMouseListener());
 
@@ -153,6 +158,7 @@ public class MyFrame extends JFrame{
 	 */
 	@Deprecated
 	public MyMatrix getStatusMatrix(){
+/*
 		MyMatrix output = new MyMatrix(Statics.NUMBEROFPANEL);
 		//状態空間の行列表現はこんな形じゃないので修正して
 		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
@@ -160,6 +166,27 @@ public class MyFrame extends JFrame{
 				output.setData(i, j, this.getPanels()[i][j].getStatus());
 			}
 		}
+*/
+		MyMatrix output = new MyMatrix(2*Statics.NUMBEROFKIND+1);
+
+		output.setData(0, 0, 1);
+
+		int idx = 1;
+		while(true){
+			for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+				for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+					if(this.getPanels()[i][j].getStatus() == idx){
+						output.setData(2*idx-1, 0, i);
+						output.setData(2*idx, 0, j);
+					}
+				}
+			}
+			idx++;
+			if(idx > Statics.NUMBEROFKIND){
+				break;
+			}
+		}
+
 		return output;
 	}
 	/**
