@@ -132,6 +132,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 	public void functionPlugin3(){
 		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 		em.learnfromLog();
+		//再代入
+		System.out.println("e_min:"+em.calcE(this.em.getX()));
 		//再現
 		MyMatrix temp = new MyMatrix(19);
 		for(int i=0;i<em.getX().getDimension();i++){
