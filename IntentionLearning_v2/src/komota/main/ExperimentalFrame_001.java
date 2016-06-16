@@ -12,8 +12,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 	//結果書き出し先ファイル名
 	String resultfile = "20160609/result_Mat_SOINN.txt";
 
-	//PRv2_EM em;
-	PRv2_Mat_SOINN em;
+	PRv2_EM em;
+	//PRv2_Mat_SOINN em;
 
 	public static void main(String[] args){
 		ExperimentalFrame_001 frame = new ExperimentalFrame_001();
@@ -130,7 +130,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 	}
 	@Override
 	public void functionPlugin3(){
-		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		this.em = new PRv2_EM(5,"logdata.txt");
 		em.learnfromLog();
 		//再代入
 		System.out.println("e_min:"+em.calcE(this.em.getX()));
@@ -152,8 +153,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 	@Override
 	public void functionPluginQ(){
 		//データ量によって収束結果がどう変わるのかを検証する
-		//this.em = new PRv2_EM(5,"logdata.txt");
-		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		this.em = new PRv2_EM(5,"logdata.txt");
+		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 		//描画を止める
 		this.setRenderFlag(false);
 		DataSetGenerator generator = new DataSetGenerator();
@@ -167,8 +168,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 		while(count < 10){
 			count++;
 			generator.functionPlugin1();
-			//this.em = new PRv2_EM(5,"logdata.txt");
-			this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+			this.em = new PRv2_EM(5,"logdata.txt");
+			//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 
 			this.em.learnfromLog();
 
