@@ -127,7 +127,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile(resultfile);
-		io.println("以下実験結果です．[データ量],[学習精度]");
+		io.println("以下実験結果です．[データ量],[再代入誤差],[汎化誤差]");
 		io.execute();
 		generator.setNumberofData(10);
 		int count = 0;
@@ -142,8 +142,11 @@ public class ExperimentalFrame_001 extends MyFrame{
 			//resultは「[データ量],[再代入誤り率],[汎化誤差]」という並び
 			io.print(count*10+",");
 			System.out.println("numberofdata:"+count*10);
-			io.println(em.calcE(this.em.getX()));
+			io.print(em.calcE(this.em.getX()));
 			System.out.println("e_min:"+em.calcE(this.em.getX()));
+		/* ************************************************************************************** */
+			//汎化誤差を求める
+		/* ************************************************************************************** */
 			io.execute();
 		}
 		System.out.println("実験しゅうりょう！");

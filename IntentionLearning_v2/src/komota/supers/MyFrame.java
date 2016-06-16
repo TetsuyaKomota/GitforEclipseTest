@@ -92,9 +92,6 @@ public class MyFrame extends JFrame{
 	/** 実行フレームレート*/
 	private long frame_rate;
 
-	/** オブジェクト数*/
-	private int numofobject;
-
 	/**
 	 * コンストラクタ
 	 */
@@ -130,8 +127,6 @@ public class MyFrame extends JFrame{
 		this.secondselected[0] = -1;
 		this.secondselected[1] = -1;
 
-		this.numofobject = -1;
-
 		this.addKeyListener(new MyKeyListener());
 		this.addMouseListener(new MyMouseListener());
 
@@ -156,7 +151,6 @@ public class MyFrame extends JFrame{
 	 * 状態空間を行列で返すゲッター
 	 * @return 状態空間の行列表現
 	 */
-	@Deprecated
 	public MyMatrix getStatusMatrix(){
 /*
 		MyMatrix output = new MyMatrix(Statics.NUMBEROFPANEL);
@@ -188,6 +182,21 @@ public class MyFrame extends JFrame{
 		}
 
 		return output;
+	}
+	/**
+	 * オブジェクト数のカウンタ．実行時の環境のオブジェクト数をカウントして返す
+	 * @return
+	 */
+	public int countNumberofObject(){
+		int counter = 0;
+		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+				if(this.getPanels()[i][j].getStatus() != 0){
+					counter++;
+				}
+			}
+		}
+		return counter;
 	}
 	/**
 	 * 選択オブジェクトのセッター
