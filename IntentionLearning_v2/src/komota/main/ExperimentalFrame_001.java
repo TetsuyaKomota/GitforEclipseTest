@@ -3,6 +3,7 @@ package komota.main;
 import komota.lib.DataSetGenerator;
 import komota.lib.MatFactory;
 import komota.lib.MyIO;
+import komota.lib.MyMatrix;
 import komota.lib.Statics;
 import komota.supers.MyFrame;
 
@@ -115,6 +116,19 @@ public class ExperimentalFrame_001 extends MyFrame{
 
 		this.outputStart();
 	}
+/* *********************************************************************************************************************** */
+	//ベクトル読み込み書き出しのテスト．すぐ消していい
+	MyMatrix temp = null;
+	@Override
+	public void functionPlugin1(){
+		temp = this.getStatusforMatrix();
+		temp.show();
+	}
+	@Override
+	public void functionPlugin2(){
+		this.setStatusforMatrix(temp, this.countNumberofObject());
+	}
+/* *********************************************************************************************************************** */
 
 	@Override
 	public void functionPluginQ(){
@@ -146,6 +160,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 			System.out.println("e_min:"+em.calcE(this.em.getX()));
 		/* ************************************************************************************** */
 			//汎化誤差を求める
+			//1.
 		/* ************************************************************************************** */
 			io.execute();
 		}
