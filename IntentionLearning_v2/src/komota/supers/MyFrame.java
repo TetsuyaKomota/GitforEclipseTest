@@ -154,7 +154,7 @@ public class MyFrame extends JFrame{
 	 */
 	public void setStatusforMatrix(MyMatrix input,int numofobject){
 
-		if(input.getDimension() != 2*Statics.NUMBEROFKIND+1){
+		if(input.getDimension() != Statics.NUMBEROFFEATURES+1){
 			System.out.println("[MyFrame]setStatusforMatrix:入力行列のサイズが不正です");
 			return;
 		}
@@ -191,7 +191,7 @@ public class MyFrame extends JFrame{
 			}
 		}
 */
-		MyMatrix output = new MyMatrix(2*Statics.NUMBEROFKIND+1);
+		MyMatrix output = new MyMatrix(Statics.NUMBEROFFEATURES+1);
 
 		output.setData(0, 0, 1);
 
@@ -379,7 +379,7 @@ public class MyFrame extends JFrame{
 		this.io.print(command);
 
 		int idx = 1;
-		int[] statuses = new int[2 * Statics.NUMBEROFKIND + 1];
+		int[] statuses = new int[Statics.NUMBEROFFEATURES + 1];
 		statuses[0] = 1;
 		while(true){
 			for(int i=0;i<Statics.NUMBEROFPANEL;i++){

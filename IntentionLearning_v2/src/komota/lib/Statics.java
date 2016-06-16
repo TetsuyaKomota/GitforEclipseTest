@@ -7,7 +7,11 @@ public class Statics {
 	//パネルの行、列数
 	public static final int NUMBEROFPANEL = 200;
 	//パネル種類数
+	//パネル数に対する特徴量の数をいろいろ変えたいことから，これを使った実装はなくす．代わりにNUMBEROFFEATURESを用いる実装に変更すること
+	@Deprecated
 	public static final int NUMBEROFKIND = 9;
+	//特徴量数．9オブジェクト2次元回転なしなら 18
+	public static final int NUMBEROFFEATURES = 18;
 	//定数
 	//パネルサイズ
 	public static int SIZE_PANEL = 200;
