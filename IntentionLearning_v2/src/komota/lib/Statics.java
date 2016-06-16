@@ -1,6 +1,10 @@
 package komota.lib;
 
 public class Statics {
+
+	//デバッグモードフラグ．これを true にすると，いろんなメソッドの内部情報を標準出力するようにする．原因不明のエラーに遭遇したらとりあえずこれを true にしてみる
+	public static final boolean __DEBUG_MODE__ = false;
+
 	//設定フレームレート
 	public static final int FRAME_RATE = 60;
 

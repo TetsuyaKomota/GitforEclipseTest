@@ -350,6 +350,7 @@ public class MyMatrix{
 	 * 逆行列
 	 * @return 個の行列の逆行列.正則でない場合は null を返す.
 	 */
+	@SuppressWarnings("unused")
 	public MyMatrix inv(){
 		MyMatrix output = new MyMatrix(this.dimension);
 
@@ -379,9 +380,11 @@ public class MyMatrix{
 					}
 				}
 				if(zeroflag == true){
-					System.out.println("これが戦犯やで！");
-					System.out.println("DET="+this.getDetV());
-					this.show();
+					if(Statics.__DEBUG_MODE__ == true){
+						System.out.println("これが戦犯やで！");
+						System.out.println("DET="+this.getDetV());
+						this.show();
+					}
 					return null;
 				}
 			}
