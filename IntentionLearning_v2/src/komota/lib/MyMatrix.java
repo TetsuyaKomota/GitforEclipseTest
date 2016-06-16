@@ -168,10 +168,13 @@ public class MyMatrix{
 	/**
 	 * 乗算
 	 * @param input 乗算行列
-	 * @return 引数に与えた行列を右から掛け合わせた行列
+	 * @return 引数に与えた行列を右から掛け合わせた行列.inputがnullの場合はnullを返す．
 	 */
 	public MyMatrix mult(MyMatrix input){
 		MyMatrix output = new MyMatrix(this.dimension);
+		if(input == null){
+			return null;
+		}
 		for(int i=0;i<this.dimension;i++){
 			for(int j=0;j<this.dimension;j++){
 				for(int m=0;m<this.dimension;m++){
