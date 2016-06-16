@@ -167,7 +167,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		//描画を止める
 		this.setRenderFlag(false);
 		//DataSetGenerator generator = new DataSetGenerator();
-		DataSetGenerator_v2 generator = new DataSetGenerator_v2("NbO",0);
+		DataSetGenerator_v2 generator = new DataSetGenerator_v2("NbO",0.1);
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile(resultfile);
@@ -175,7 +175,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		io.execute();
 		generator.setNumberofData(10);
 		int count = 0;
-		while(count < 100){
+		while(count < 10){
 			count++;
 			generator.functionPlugin1();
 			//this.em = new PRv2_EM(5,"logdata.txt");

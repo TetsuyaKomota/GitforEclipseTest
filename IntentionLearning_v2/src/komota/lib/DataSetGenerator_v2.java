@@ -10,7 +10,7 @@ public class DataSetGenerator_v2 extends DataSetGenerator{
 	double variance;
 
 	public static void main(String[] args){
-		DataSetGenerator_v2 frame = new DataSetGenerator_v2("NbO",0.0);
+		DataSetGenerator_v2 frame = new DataSetGenerator_v2("NbO",0.1);
 	}
 
 	//コンストラクタ
