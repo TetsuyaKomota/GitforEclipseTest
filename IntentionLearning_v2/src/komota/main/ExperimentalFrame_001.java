@@ -128,6 +128,23 @@ public class ExperimentalFrame_001 extends MyFrame{
 	public void functionPlugin2(){
 		this.setStatusforMatrix(temp, this.countNumberofObject());
 	}
+	@Override
+	public void functionPlugin3(){
+		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		em.learnfromLog();
+		//再現
+		MyMatrix temp = new MyMatrix(19);
+		for(int i=0;i<em.getX().getDimension();i++){
+			for(int j=0;j<em.getX().getDimension();j++){
+				temp.setData(i, j, em.getX().getData(i, j));
+			}
+		}
+		MyMatrix temp2 = this.getStatusforMatrix();
+		temp2.show();
+		temp2 = temp.mult(this.getStatusforMatrix());
+		temp2.show();
+		this.setStatusforMatrix(temp2);
+	}
 /* *********************************************************************************************************************** */
 
 	@Override

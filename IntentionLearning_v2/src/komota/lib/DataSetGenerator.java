@@ -26,8 +26,8 @@ public class DataSetGenerator extends MyFrame{
 		System.out.println("データジェネレート！");
 		//（おそらく）NextGaussianをintにキャストして使っているので，分散の有効桁数は高々小数2桁まで
 //		this.generate_MOVE_THE_CENTER(this, 2);
-//		this.generate_RIGHT_TO_BLUE(this, 0.2);
-		this.generate_NEAR_BY_ORANGE(this, 0.2);
+		this.generate_RIGHT_TO_BLUE(this, 0.2);
+//		this.generate_NEAR_BY_ORANGE(this, 0.2);
 //		this.generate_AWAY_FROM_GREEN(this, 2);
 //		this.generate_MAKE_THE_SIGNAL(this, 2);
 //		this.generate_MAKE_THE_TRIANGLE(this, 2);
