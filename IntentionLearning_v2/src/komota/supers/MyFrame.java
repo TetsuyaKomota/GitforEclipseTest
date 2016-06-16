@@ -147,6 +147,11 @@ public class MyFrame extends JFrame{
 	public MyPanel[][] getPanels(){
 		return this.panels;
 	}
+	/**
+	 * 引数で与えたベクトル（一列にデータを入れた行列）で環境のオブジェクトを配置する．
+	 * @param input 状態空間ベクトル
+	 * @param numofobject オブジェクト数
+	 */
 	public void setStatusforMatrix(MyMatrix input,int numofobject){
 
 		if(input.getDimension() != 2*Statics.NUMBEROFKIND+1){
@@ -168,6 +173,9 @@ public class MyFrame extends JFrame{
 				break;
 			}
 		}
+	}
+	public void setStatusforMatrix(MyMatrix input){
+		this.setStatusforMatrix(input, this.countNumberofObject());
 	}
 	/**
 	 * 状態空間を行列で返すゲッター
