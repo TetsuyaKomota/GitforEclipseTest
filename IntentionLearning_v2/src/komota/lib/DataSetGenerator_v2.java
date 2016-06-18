@@ -10,7 +10,7 @@ public class DataSetGenerator_v2 extends DataSetGenerator{
 	double variance;
 
 	public static void main(String[] args){
-		DataSetGenerator_v2 frame = new DataSetGenerator_v2("NbO",0.1);
+		DataSetGenerator_v2 frame = new DataSetGenerator_v2("2D_NbO",0.1);
 	}
 
 	//コンストラクタ
@@ -21,9 +21,13 @@ public class DataSetGenerator_v2 extends DataSetGenerator{
 
 	public void setGrandTruth(String cmd){
 		MyIO io = new MyIO();
-		io.readFile("generator_grtrh/grtrh_2D_"+cmd+".txt");
+		io.readFile("generator_grtrh/grtrh_"+cmd+".txt");
 		this.grtrh = io.readMatrix(666);
 		io.close();
+	}
+	//汎化誤差を求める際に，Grand truth を利用するときに使うゲッター
+	public MyMatrix getGrandTruth(){
+		return this.grtrh;
 	}
 
 	public MyMatrix teach(){
