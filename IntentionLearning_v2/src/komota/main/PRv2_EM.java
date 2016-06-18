@@ -17,25 +17,25 @@ public class PRv2_EM extends PRv2_GA{
 	public void learnfromLog(){
 		// TODO 自動生成されたメソッド・スタブ
 
-/*
- * 0. エージェント X を生成．初期値はゼロ行列
- * 1. e_min ← mean(X * start - goal)
- * 2. 繰り返し
- * 		2-1. e_min が閾値以下なら3.へ
- * 		2-2. for i,j
- * 			2-2-1. X_temp(i,j) ← X + X^str(i行j列要素だけ str であとはゼロ)
- * 			2-2-2. e ← mean(X_temp * start - goal)
- * 			2-2-3. if e < e_min
- * 				2-2-3-1. gyou,retsu ← i,j
- * 				2-2-3-2. e_min ← e
- * 			2-2-4. X_temp(i,j) ← X - X^str(i行j列要素だけ str であとはゼロ)
- * 			2-2-5. e ← mean(X_temp * start - goal)
- * 			2-2-6. if e < e_min
- * 				2-2-6-1. gyou,retsu ← i,j
- * 				2-2-6-2. e_min ← e
- * 		2-3. X ← X_temp(gyou,retsu) ※正負に注意
- * 3. X を出力
- * */
+		/*
+		 * 0. エージェント X を生成．初期値はゼロ行列
+		 * 1. e_min ← mean(X * start - goal)
+		 * 2. 繰り返し
+		 * 		2-1. e_min が閾値以下なら3.へ
+		 * 		2-2. for i,j
+		 * 			2-2-1. X_temp(i,j) ← X + X^str(i行j列要素だけ str であとはゼロ)
+		 * 			2-2-2. e ← mean(X_temp * start - goal)
+		 * 			2-2-3. if e < e_min
+		 * 				2-2-3-1. gyou,retsu ← i,j
+		 * 				2-2-3-2. e_min ← e
+		 * 			2-2-4. X_temp(i,j) ← X - X^str(i行j列要素だけ str であとはゼロ)
+		 * 			2-2-5. e ← mean(X_temp * start - goal)
+		 * 			2-2-6. if e < e_min
+		 * 				2-2-6-1. gyou,retsu ← i,j
+		 * 				2-2-6-2. e_min ← e
+		 * 		2-3. X ← X_temp(gyou,retsu) ※正負に注意
+		 * 3. X を出力
+		 * */
 
 		//0.
 		//this.X = new MyMatrix(this.getStartLog(0).length+1);
@@ -54,66 +54,66 @@ public class PRv2_EM extends PRv2_GA{
 
 
 		//以下，閾値以下になるまで繰り返し
-		while(true){
-			//以下，評価値が変動しなくなるまで繰り返し
-			this.X = MatFactory.random(this.getStartLog(0).length, Statics.NUMBEROFPANEL, -Statics.NUMBEROFPANEL);
+		//		while(true){
+		//以下，評価値が変動しなくなるまで繰り返し
+		this.X = MatFactory.random(this.getStartLog(0).length, Statics.NUMBEROFPANEL, -Statics.NUMBEROFPANEL);
 
 
-			/* *************************************************************** */
-			//デバッグ用
-/*
+		/* *************************************************************** */
+		//デバッグ用
+		/*
 			MyIO io_debug = new MyIO();
 			io_debug.readFile("logdata.txt");
 			this.X = io_debug.readMatrix(999);
 			io_debug.close();
-*/
-			/* *************************************************************** */
+		 */
+		/* *************************************************************** */
 
-			stride = Statics.EM_STRIDE;
+		stride = Statics.EM_STRIDE;
 
-			e_prev = calcE(this.X);
-			e_min = calcE(this.X);
+		e_prev = calcE(this.X);
+		e_min = calcE(this.X);
 
-			while(true){
-				//1.
-				System.out.println("current e_min:"+e_min+"  stride:"+stride);
-				if(stride < 0.00001 || e_min < Statics.EM_THRETHOLD){
-					break;
-				}
+		while(true){
+			//1.
+			System.out.println("current e_min:"+e_min+"  stride:"+stride);
+			if(stride < 0.00001 || e_min < Statics.EM_THRETHOLD){
+				break;
+			}
 
-				gyou = -1;
-				retsu = -1;
-				sign = 0;
+			gyou = -1;
+			retsu = -1;
+			sign = 0;
 
-				e_prev = e_min;
+			e_prev = e_min;
 
-				for(int i=0;i<dim;i++){
-					for(int j=0;j<dim;j++){
-						//2-2-1.
-						X_temp = new MyMatrix(dim);
-						X_temp.setData(i, j, stride);
-						e = calcE(this.X.add(X_temp));
-						if(e < e_min){
-							e_min = e;
-							gyou = i;
-							retsu = j;
-							sign = 1;
-						}
-						e = calcE(this.X.sub(X_temp));
-						if(e < e_min){
-							e_min = e;
-							gyou = i;
-							retsu = j;
-							sign = -1;
-						}
+			for(int i=0;i<dim;i++){
+				for(int j=0;j<dim;j++){
+					//2-2-1.
+					X_temp = new MyMatrix(dim);
+					X_temp.setData(i, j, stride);
+					e = calcE(this.X.add(X_temp));
+					if(e < e_min){
+						e_min = e;
+						gyou = i;
+						retsu = j;
+						sign = 1;
+					}
+					e = calcE(this.X.sub(X_temp));
+					if(e < e_min){
+						e_min = e;
+						gyou = i;
+						retsu = j;
+						sign = -1;
 					}
 				}
-				if(gyou == -1 && retsu == -1){
-					System.out.println("annealing");
-					stride *= Statics.EM_annealing;
-				}
-				this.X.setData(gyou, retsu, this.X.getData(gyou,retsu) + sign * stride);
 			}
+			if(gyou == -1 && retsu == -1){
+				System.out.println("annealing");
+				stride *= Statics.EM_annealing;
+			}
+			this.X.setData(gyou, retsu, this.X.getData(gyou,retsu) + sign * stride);
 		}
+		//		}
 	}
 }

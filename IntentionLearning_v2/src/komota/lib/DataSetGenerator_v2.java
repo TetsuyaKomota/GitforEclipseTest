@@ -23,6 +23,7 @@ public class DataSetGenerator_v2 extends DataSetGenerator{
 		MyIO io = new MyIO();
 		io.readFile("generator_grtrh/grtrh_2D_"+cmd+".txt");
 		this.grtrh = io.readMatrix(666);
+		io.close();
 	}
 
 	public MyMatrix teach(){
