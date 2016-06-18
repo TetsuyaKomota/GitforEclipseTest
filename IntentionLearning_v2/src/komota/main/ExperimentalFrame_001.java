@@ -11,10 +11,10 @@ import komota.supers.MyFrame;
 public class ExperimentalFrame_001 extends MyFrame{
 
 	//結果書き出し先ファイル名
-	String resultfile = "20160618/result_Mat_SOINN_3D_NbO.txt";
+	String resultfile = "20160618/result_EM_3D_NbO.txt";
 
-	//PRv2_EM em;
-	PRv2_Mat_SOINN em;
+	PRv2_EM em;
+	//PRv2_Mat_SOINN em;
 
 	public static void main(String[] args){
 		ExperimentalFrame_001 frame = new ExperimentalFrame_001();
@@ -131,8 +131,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 	}
 	@Override
 	public void functionPlugin3(){
-		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
-		//this.em = new PRv2_EM(5,"logdata.txt");
+		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		this.em = new PRv2_EM(5,"logdata.txt");
 
 		em.learnfromLog();
 		System.out.println("e_min:"+em.calcE(this.em.getX()));
@@ -154,8 +154,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 
 	@Override
 	public void functionPlugin4(){
-		//this.em = new PRv2_EM(5,"logdata.txt");
-		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		this.em = new PRv2_EM(5,"logdata.txt");
+		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 		this.em.show();
 	}
 
@@ -178,8 +178,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 		while(count < 10){
 			count++;
 			generator.functionPlugin1();
-			//this.em = new PRv2_EM(5,"logdata.txt");
-			this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+			this.em = new PRv2_EM(5,"logdata.txt");
+			//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 
 			this.em.learnfromLog();
 

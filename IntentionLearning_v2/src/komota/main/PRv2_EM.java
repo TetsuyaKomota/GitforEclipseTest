@@ -93,14 +93,14 @@ public class PRv2_EM extends PRv2_GA{
 					X_temp = new MyMatrix(dim);
 					X_temp.setData(i, j, stride);
 					e = calcE(this.X.add(X_temp));
-					if(e < e_min){
+					if(e /**/+Statics.EM_PROGRESS_NORMA/**/ < e_min){
 						e_min = e;
 						gyou = i;
 						retsu = j;
 						sign = 1;
 					}
 					e = calcE(this.X.sub(X_temp));
-					if(e < e_min){
+					if(e /**/+Statics.EM_PROGRESS_NORMA/**/ < e_min){
 						e_min = e;
 						gyou = i;
 						retsu = j;
