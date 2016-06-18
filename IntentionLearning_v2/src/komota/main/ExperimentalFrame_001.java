@@ -183,18 +183,6 @@ public class ExperimentalFrame_001 extends MyFrame{
 
 			this.em.learnfromLog();
 
-			/* ************************************************* */
-			System.out.println("超えたで");
-			while(count<100){
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO 自動生成された catch ブロック
-					e.printStackTrace();
-				}
-			}
-			/* ************************************************* */
-
 			//resultは「[データ量],[再代入誤り率],[汎化誤差]」という並び
 			io.print(count*10+",");
 			System.out.println("numberofdata:"+count*10);
