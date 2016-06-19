@@ -164,6 +164,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 	public void functionPlugin8(){
 		//logdataを削除
 		//this.em.io.close();
+		this.getMyIO().close();
 		File file = new File("log/logdata.txt");
 		if (file.exists()){
 			if (file.delete()){
@@ -258,6 +259,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 			for(int t=0;t<3;t++){
 				//logdataを削除
 				//this.em.io.close();
+				this.getMyIO().close();
+				g.getMyIO().close();
 				file = new File("log/logdata.txt");
 				if (file.exists()){
 					if (file.delete()){
@@ -271,8 +274,12 @@ public class ExperimentalFrame_001 extends MyFrame{
 				//logdataを生成
 				tempio.writeFile("logdata.txt");
 				tempio.close();
+				this.setOutputFile("logdata.txt");
+				g.setOutputFile("logdata.txt");
+
 				//目印
 				out_E.println("result,numofdata:"+numofdata*10);
+				out_E.execute();
 				//データ生成
 				g.functionPlugin1();
 				//学習
@@ -282,11 +289,12 @@ public class ExperimentalFrame_001 extends MyFrame{
 				double error = this.em.calcE(this.em.getX());
 				//再現成功か判定
 				int check = 0;
-				if(error > 3*Math.sqrt(0.2)+1){
+				if(error > /*3*Math.sqrt(0.2)+1*/ 30){
 					check = 1;
 				}
 				//書き出し
 				out_E.println(check);
+				out_E.execute();
 
 			}
 		}
