@@ -1,6 +1,8 @@
 
 package komota.main;
 
+import java.io.File;
+
 import komota.lib.DataSetGenerator_v2;
 import komota.lib.MatFactory;
 import komota.lib.MyIO;
@@ -225,8 +227,9 @@ public class ExperimentalFrame_001 extends MyFrame{
 
 
 
-/*
+
 		//結果を出力するファイルの生成
+/*
 	      PrintWriter pw_Q = null;
 	      FileOutputStream fos_Q = null;
 		try {
@@ -244,20 +247,22 @@ public class ExperimentalFrame_001 extends MyFrame{
 			}
 			e.printStackTrace();
 		}
+*/
+		MyIO out_E = new MyIO();
+		MyIO tempio = new MyIO();
+		out_E.writeFile("20160620/result_E.txt");
 
-		//誤差を0～10まで（0.5刻み）変化させて再現誤差を評価する
-		DataSetGenerator_v2 g = new DataSetGenerator_v2();
-		for(int error=0;error<21;error++){
-			//各誤差を50回ずつ計算
-			for(int t=0;t<50;t++){
-				this.pw.println("result,error:"+(double)error/2);
-				add_Q(g,(double)error/2);
-				this.functionPlugin1();
-				this.functionPlugin2();
-				add_Q_Learn((double)error/2,pw_Q);
+		File file;
+		//データ量を10～100まで（10刻み）変化させて再現誤差を評価する
+		DataSetGenerator_v2 g = new DataSetGenerator_v2("2D_NbO",0.2);
+		for(int numofdata=1;numofdata<11;numofdata++){
+			//生成データ量を設定する
+			g.setNumberofData(numofdata*10);
+			//各誤差を3回ずつ計算
+			for(int t=0;t<3;t++){
 				//logdataを削除
-				this.pw.close();
-				file = new File("log/"+this.file_name);
+				//this.em.io.close();
+				file = new File("log/logdata.txt");
 				if (file.exists()){
 					if (file.delete()){
 						System.out.println("ログファイルを削除しました");
@@ -268,21 +273,31 @@ public class ExperimentalFrame_001 extends MyFrame{
 					System.out.println("ファイルが見つかりません");
 				}
 				//logdataを生成
-				this.setOutputFile("logdata.txt");
+				tempio.writeFile("logdata.txt");
+				tempio.close();
+				//目印
+				out_E.println("result,numofdata:"+numofdata*10);
+				//データ生成
+				g.functionPlugin1();
+				//学習
+				this.em = new PRv2_EM(5,"logdata.txt");
+				this.em.learnfromLog();
+				//再現誤差を計算
+				double error = this.em.calcE(this.em.getX());
+				//再現成功か判定
+				int check = 0;
+				if(error > 3*Math.sqrt(0.2)+1){
+					check = 1;
+				}
+				//書き出し
+				out_E.println(check);
+
 			}
-			pw_Q.println("padding,999");
-		}
-		pw_Q.close();
-		try {
-			fos_Q.close();
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
 		}
 		//LogRandomizer r = new LogRandomizer();
 		//r.encodeToCSV("output_Q.txt", "output_Q.csv");
 		System.out.println("計算終わったよ～");
-*/
+
 
 	}
 }

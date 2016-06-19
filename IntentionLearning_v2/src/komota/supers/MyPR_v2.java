@@ -20,7 +20,7 @@ public abstract class MyPR_v2 {
 	int numberoflog;
 
 	//入出力クラス
-	MyIO io;
+	private MyIO io;
 
 	//学習結果
 	public MyMatrix X;
@@ -51,6 +51,7 @@ public abstract class MyPR_v2 {
 				this.numberoflog++;
 			}
 		}
+		this.io.close();
 	}
 
 	//ゲッター，セッター
