@@ -222,8 +222,67 @@ public class ExperimentalFrame_001 extends MyFrame{
 		 *
 		 */
 
-		for(int t=0;t<10;t++){
 
+
+
+/*
+		//結果を出力するファイルの生成
+	      PrintWriter pw_Q = null;
+	      FileOutputStream fos_Q = null;
+		try {
+		      fos_Q = new FileOutputStream("log/output_Q.txt",true);
+		      OutputStreamWriter osw_Q = new OutputStreamWriter(fos_Q);
+		      pw_Q = new PrintWriter(osw_Q);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			System.out.println("ファイルなし");
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e1) {
+				// TODO 自動生成された catch ブロック
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
 		}
+
+		//誤差を0～10まで（0.5刻み）変化させて再現誤差を評価する
+		DataSetGenerator_v2 g = new DataSetGenerator_v2();
+		for(int error=0;error<21;error++){
+			//各誤差を50回ずつ計算
+			for(int t=0;t<50;t++){
+				this.pw.println("result,error:"+(double)error/2);
+				add_Q(g,(double)error/2);
+				this.functionPlugin1();
+				this.functionPlugin2();
+				add_Q_Learn((double)error/2,pw_Q);
+				//logdataを削除
+				this.pw.close();
+				file = new File("log/"+this.file_name);
+				if (file.exists()){
+					if (file.delete()){
+						System.out.println("ログファイルを削除しました");
+					}else{
+						System.out.println("ログファイルの削除に失敗しました");
+					}
+				}else{
+					System.out.println("ファイルが見つかりません");
+				}
+				//logdataを生成
+				this.setOutputFile("logdata.txt");
+			}
+			pw_Q.println("padding,999");
+		}
+		pw_Q.close();
+		try {
+			fos_Q.close();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		//LogRandomizer r = new LogRandomizer();
+		//r.encodeToCSV("output_Q.txt", "output_Q.csv");
+		System.out.println("計算終わったよ～");
+*/
+
 	}
 }
