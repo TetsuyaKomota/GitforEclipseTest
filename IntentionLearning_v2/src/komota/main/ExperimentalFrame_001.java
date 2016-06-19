@@ -161,6 +161,26 @@ public class ExperimentalFrame_001 extends MyFrame{
 		this.em.show();
 	}
 	@Override
+	public void functionPlugin8(){
+		//logdataを削除
+		//this.em.io.close();
+		File file = new File("log/logdata.txt");
+		if (file.exists()){
+			if (file.delete()){
+				System.out.println("ログファイルを削除しました");
+			}else{
+				System.out.println("ログファイルの削除に失敗しました");
+			}
+		}else{
+			System.out.println("ファイルが見つかりません");
+		}
+		//logdataを生成
+		MyIO tempio = new MyIO();
+		tempio.writeFile("logdata.txt");
+		tempio.close();
+
+	}
+	@Override
 	public void functionPlugin9(){
 		MyIO io = new MyIO();
 		io.writeFile("logdata.txt");
@@ -224,30 +244,6 @@ public class ExperimentalFrame_001 extends MyFrame{
 		 *
 		 */
 
-
-
-
-
-		//結果を出力するファイルの生成
-/*
-	      PrintWriter pw_Q = null;
-	      FileOutputStream fos_Q = null;
-		try {
-		      fos_Q = new FileOutputStream("log/output_Q.txt",true);
-		      OutputStreamWriter osw_Q = new OutputStreamWriter(fos_Q);
-		      pw_Q = new PrintWriter(osw_Q);
-		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			System.out.println("ファイルなし");
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e1) {
-				// TODO 自動生成された catch ブロック
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		}
-*/
 		MyIO out_E = new MyIO();
 		MyIO tempio = new MyIO();
 		out_E.writeFile("20160620/result_E.txt");
