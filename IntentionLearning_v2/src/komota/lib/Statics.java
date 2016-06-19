@@ -62,9 +62,9 @@ public class Statics {
 	//ストライド
 	public static final double EM_STRIDE = 100;//100
 	//焼きなまし率
-	public static final double EM_annealing = 0.99;//0.999
+	public static final double EM_annealing = 0.999;//0.999
 	//更新量限界
-	public static final double EM_PROGRESS_NORMA = 0.001;
+	public static final double EM_PROGRESS_NORMA = 0.0001;
 
 	/**
 	 * @param args
