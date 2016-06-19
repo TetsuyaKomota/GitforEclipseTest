@@ -11,7 +11,7 @@ import komota.supers.MyFrame;
 public class ExperimentalFrame_001 extends MyFrame{
 
 	//結果書き出し先ファイル名
-	String resultfile = "20160617/result_EM.txt";
+	String resultfile = "20160618/result_EM_3D_NbO.txt";
 
 	PRv2_EM em;
 	//PRv2_Mat_SOINN em;
@@ -158,6 +158,14 @@ public class ExperimentalFrame_001 extends MyFrame{
 		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 		this.em.show();
 	}
+	@Override
+	public void functionPlugin9(){
+		MyIO io = new MyIO();
+		io.writeFile("logdata.txt");
+		io.printMatrix(MatFactory.random(11, 200, -200), 999);
+		io.close();
+	}
+
 
 	@Override
 	public void functionPluginQ(){
@@ -167,7 +175,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		//描画を止める
 		this.setRenderFlag(false);
 		//DataSetGenerator generator = new DataSetGenerator();
-		DataSetGenerator_v2 generator = new DataSetGenerator_v2("NbO",0.1);
+		DataSetGenerator_v2 generator = new DataSetGenerator_v2("3D_NbO",0.1);
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile(resultfile);
@@ -190,12 +198,9 @@ public class ExperimentalFrame_001 extends MyFrame{
 			System.out.println("e_min:"+em.calcE(this.em.getX()));
 		/* ************************************************************************************** */
 			//汎化誤差を求める
-			MyIO grtrh_i = new MyIO();
-			grtrh_i.readFile("generator_grtrh/grtrh_2D_NbO.txt");
-			MyMatrix grtrh = grtrh_i.readMatrix(666);
+			MyMatrix grtrh = generator.getGrandTruth();
 			io.println(em.getX().sub(grtrh).getMaxNorm());
 			System.out.println("error from grtrh:"+em.getX().sub(grtrh).getMaxNorm());
-			grtrh_i.close();
 		/* ************************************************************************************** */
 			io.execute();
 		}
@@ -205,14 +210,20 @@ public class ExperimentalFrame_001 extends MyFrame{
 	}
 
 	@Override
-	public void functionPlugin9(){
-		MyIO io = new MyIO();
-		io.writeFile("logdata.txt");
-		io.printMatrix(MatFactory.random(11, 200, -200), 999);
-		io.close();
-	}
-	@Override
 	public void functionPluginW(){
 		this.em.reproduction(this);
+	}
+
+	@Override
+	public void functionPluginE(){
+		//卒論との比較実験を行う
+		/*
+		 * 必要データ量のみに着目して実験を行う
+		 *
+		 */
+
+		for(int t=0;t<10;t++){
+
+		}
 	}
 }
