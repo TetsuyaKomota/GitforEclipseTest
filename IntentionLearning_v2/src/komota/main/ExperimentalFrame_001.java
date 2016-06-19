@@ -158,6 +158,14 @@ public class ExperimentalFrame_001 extends MyFrame{
 		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 		this.em.show();
 	}
+	@Override
+	public void functionPlugin9(){
+		MyIO io = new MyIO();
+		io.writeFile("logdata.txt");
+		io.printMatrix(MatFactory.random(11, 200, -200), 999);
+		io.close();
+	}
+
 
 	@Override
 	public void functionPluginQ(){
@@ -202,14 +210,20 @@ public class ExperimentalFrame_001 extends MyFrame{
 	}
 
 	@Override
-	public void functionPlugin9(){
-		MyIO io = new MyIO();
-		io.writeFile("logdata.txt");
-		io.printMatrix(MatFactory.random(11, 200, -200), 999);
-		io.close();
-	}
-	@Override
 	public void functionPluginW(){
 		this.em.reproduction(this);
+	}
+
+	@Override
+	public void functionPluginE(){
+		//卒論との比較実験を行う
+		/*
+		 * 必要データ量のみに着目して実験を行う
+		 *
+		 */
+
+		for(int t=0;t<10;t++){
+
+		}
 	}
 }
