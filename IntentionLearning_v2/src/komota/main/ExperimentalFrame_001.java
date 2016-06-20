@@ -247,7 +247,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 
 		MyIO out_E = new MyIO();
 		MyIO tempio = new MyIO();
-		out_E.writeFile("20160620/result_E.txt");
+		out_E.writeFile("20160620/result_E_2.txt");
 
 		File file;
 		//データ量を10～100まで（10刻み）変化させて再現誤差を評価する
@@ -289,7 +289,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 				double error = this.em.calcE(this.em.getX());
 				//再現成功か判定
 				int check = 0;
-				if(error > /*3*Math.sqrt(0.2)+1*/ 30){
+				if(error > /*3*Math.sqrt(0.2)+1*/ 60){
 					check = 1;
 				}
 				//書き出し
