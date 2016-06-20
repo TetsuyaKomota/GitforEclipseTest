@@ -281,7 +281,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 				out_E.println("result,numofdata:"+numofdata*10);
 				out_E.execute();
 				//データ生成
-				g.functionPlugin1();
+				g.functionPlugin2();
 				//学習
 				this.em = new PRv2_EM(5,"logdata.txt");
 				this.em.learnfromLog();
