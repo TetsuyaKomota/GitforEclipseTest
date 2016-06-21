@@ -252,6 +252,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		File file;
 		//データ量を10～100まで（10刻み）変化させて再現誤差を評価する
 		DataSetGenerator_v2 g = new DataSetGenerator_v2("2D_NbO",0.2);
+		while(tempio!=null){/////////////////////////////
 		for(int numofdata=1;numofdata<11;numofdata++){
 			//生成データ量を設定する
 			g.setNumberofData(numofdata*10);
@@ -289,15 +290,16 @@ public class ExperimentalFrame_001 extends MyFrame{
 				double error = this.em.calcE(this.em.getX());
 				//再現成功か判定
 				int check = 0;
-				if(error > /*3*Math.sqrt(0.2)+1*/ 60){
+				if(error > /*3*Math.sqrt(0.2)+1*/ 70){
 					check = 1;
 				}
 				//書き出し
 				out_E.println(check);
 				out_E.execute();
-
 			}
+			}////////////++++////////////////
 		}
+			
 		//LogRandomizer r = new LogRandomizer();
 		//r.encodeToCSV("output_Q.txt", "output_Q.csv");
 		System.out.println("計算終わったよ～");
