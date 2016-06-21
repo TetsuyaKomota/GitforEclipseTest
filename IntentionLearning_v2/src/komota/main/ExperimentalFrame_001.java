@@ -256,7 +256,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 			//生成データ量を設定する
 			g.setNumberofData(numofdata*10);
 			//各誤差を3回ずつ計算
-			for(int t=0;t<3;t++){
+			for(int t=0;t<1;t++){
 				//logdataを削除
 				//this.em.io.close();
 				this.getMyIO().close();
@@ -289,7 +289,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 				double error = this.em.calcE(this.em.getX());
 				//再現成功か判定
 				int check = 0;
-				if(error > /*3*Math.sqrt(0.2)+1*/ 30){
+				if(error > /*3*Math.sqrt(0.2)+1*/ 70){
 					check = 1;
 				}
 				//書き出し
