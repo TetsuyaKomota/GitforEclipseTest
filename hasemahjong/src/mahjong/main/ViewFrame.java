@@ -64,51 +64,51 @@ public class ViewFrame extends JFrame{
 		//手牌表示１
 		for(int i=0;i<this.players[0].getHand().getNumberOfHais();i++){
 			g.setColor(haicolor);
-			//g.fillRect(120+41*i, 700, 40, 60);
+			//g.fillRect(120+45*i, 700, 40, 60);
 			g.setColor(moji);
-			//g.drawString(this.players[0].getHand().lookHai(i).toString(), 120+41*i, 700);
-			g.drawImage(this.players[0].getHand().lookHai(i).getImage(),220+41*i, 900, null);
+			//g.drawString(this.players[0].getHand().lookHai(i).toString(), 120+45*i, 700);
+			g.drawImage(this.players[0].getHand().lookHai(i).getImage(),220+45*i, 900, null);
 		}
 		//手牌表示２
 		for(int i=0;i<this.players[1].getHand().getNumberOfHais();i++){
 			g.setColor(haicolor);
-			//g.fillRect(694, 660 - 41*i, 60, 40);
+			//g.fillRect(694, 660 - 45*i, 60, 40);
 			g.setColor(moji);
 
 			AffineTransform oldtr = g.getTransform();
 			AffineTransform newtr = new AffineTransform();
-			newtr.setToRotation(-90*Math.PI/180, 894 + 20, 760 - 41*i + 20);
+			newtr.setToRotation(-90*Math.PI/180, 894 + 20, 760 - 45*i + 20);
 
 			g.setTransform(newtr);
-			g.drawImage(this.players[1].getHand().lookHai(i).getImage(),894, 760 - 41*i, null);
+			g.drawImage(this.players[1].getHand().lookHai(i).getImage(),894, 760 - 45*i, null);
 			g.setTransform(oldtr);
 		}
 		//手牌表示３
 		for(int i=0;i<this.players[2].getHand().getNumberOfHais();i++){
 			g.setColor(haicolor);
-			//g.fillRect(654-41*i, 66, 40, 60);
+			//g.fillRect(654-45*i, 66, 40, 60);
 			g.setColor(moji);
 
 			AffineTransform oldtr = g.getTransform();
 			AffineTransform newtr = new AffineTransform();
-			newtr.setToRotation(-180*Math.PI/180, 754-41*i + 20, 86 + 20);
+			newtr.setToRotation(-180*Math.PI/180, 754-45*i + 20, 86 + 20);
 
 			g.setTransform(newtr);
-			g.drawImage(this.players[2].getHand().lookHai(i).getImage(),754-41*i, 86, null);
+			g.drawImage(this.players[2].getHand().lookHai(i).getImage(),754-45*i, 86, null);
 			g.setTransform(oldtr);
 
 		}
 		//手牌表示４
 		for(int i=0;i<this.players[3].getHand().getNumberOfHais();i++){
 			g.setColor(haicolor);
-			//g.fillRect(60, 126+41*i, 60, 40);
+			//g.fillRect(60, 126+45*i, 60, 40);
 			g.setColor(moji);
 			AffineTransform oldtr = g.getTransform();
 			AffineTransform newtr = new AffineTransform();
-			newtr.setToRotation(-270*Math.PI/180, 70 + 20, 236+41*i + 20);
+			newtr.setToRotation(-270*Math.PI/180, 70 + 20, 236+45*i + 20);
 
 			g.setTransform(newtr);
-			g.drawImage(this.players[3].getHand().lookHai(i).getImage(),60, 226+41*i, null);
+			g.drawImage(this.players[3].getHand().lookHai(i).getImage(),60, 226+45*i, null);
 			g.setTransform(oldtr);
 
 		}
@@ -117,8 +117,8 @@ public class ViewFrame extends JFrame{
 		//河表示1
 		for(int i=0;i<this.table[0].kawa.size();i++){
 			g.setColor(haicolor);
-			g.drawImage(this.table[0].kawa.get(i).getImage(),377 + 41 * (i % 6), 660 + 61 * (i / 6), null);
-			//g.fillRect(377 + 41 * (i % 6), 660 + 61 * (i / 6), 40, 60);
+			g.drawImage(this.table[0].kawa.get(i).getImage(),377 + 100 * (i % 6), 660 + 61 * (i / 6), null);
+			//g.fillRect(377 + 100 * (i % 6), 660 + 61 * (i / 6), 40, 60);
 		}
 		//河表示2
 		for(int i=0;i<this.table[1].kawa.size();i++){
@@ -126,11 +126,11 @@ public class ViewFrame extends JFrame{
 
 			AffineTransform oldtr = g.getTransform();
 			AffineTransform newtr = new AffineTransform();
-			newtr.setToRotation(-90*Math.PI/180, 660 + 61 * (i / 6) + 20, 623 - 41 * (i % 6) + 30);
+			newtr.setToRotation(-90*Math.PI/180, 660 + 61 * (i / 6) + 20, 623 - 100 * (i % 6) + 30);
 
 			g.setTransform(newtr);
-			g.drawImage(this.table[1].kawa.get(i).getImage(),660 + 61 * (i / 6),623 - 41 * (i % 6), null);
-			//g.fillRect(660 + 61 * (i / 6),623 - 41 * (i % 6), 40, 60);
+			g.drawImage(this.table[1].kawa.get(i).getImage(),660 + 61 * (i / 6),623 - 100 * (i % 6), null);
+			//g.fillRect(660 + 61 * (i / 6),623 - 100 * (i % 6), 40, 60);
 			g.setTransform(oldtr);
 		}
 		//河表示3
@@ -139,11 +139,11 @@ public class ViewFrame extends JFrame{
 
 			AffineTransform oldtr = g.getTransform();
 			AffineTransform newtr = new AffineTransform();
-			newtr.setToRotation(-180*Math.PI/180, 623 - 41 * (i % 6) + 20, 340 - 61 * (i / 6) + 30);
+			newtr.setToRotation(-180*Math.PI/180, 623 - 100 * (i % 6) + 20, 340 - 61 * (i / 6) + 30);
 
 			g.setTransform(newtr);
-			g.drawImage(this.table[2].kawa.get(i).getImage(), 623 - 41 * (i % 6), 340 - 61 * (i / 6), null);
-			//g.fillRect( 623 - 41 * (i % 6), 340 - 61 * (i / 6), 40, 60);
+			g.drawImage(this.table[2].kawa.get(i).getImage(), 623 - 100 * (i % 6), 340 - 61 * (i / 6), null);
+			//g.fillRect( 623 - 100 * (i % 6), 340 - 61 * (i / 6), 40, 60);
 			g.setTransform(oldtr);
 		}
 		//河表示4
@@ -152,11 +152,11 @@ public class ViewFrame extends JFrame{
 
 			AffineTransform oldtr = g.getTransform();
 			AffineTransform newtr = new AffineTransform();
-			newtr.setToRotation(-270*Math.PI/180, 340 - 61 * (i / 6) + 20, 377 + 41 * (i % 6) + 30);
+			newtr.setToRotation(-270*Math.PI/180, 340 - 61 * (i / 6) + 20, 377 + 100 * (i % 6) + 30);
 
 			g.setTransform(newtr);
-			g.drawImage(this.table[3].kawa.get(i).getImage(), 340 - 61 * (i / 6) , 377 + 41 * (i % 6), null);
-			//g.fillRect( 340 - 61 * (i / 6) , 377 + 41 * (i % 6), 40, 60);
+			g.drawImage(this.table[3].kawa.get(i).getImage(), 340 - 61 * (i / 6) , 377 + 100 * (i % 6), null);
+			//g.fillRect( 340 - 61 * (i / 6) , 377 + 100 * (i % 6), 40, 60);
 			g.setTransform(oldtr);
 		}
 
@@ -171,10 +171,10 @@ public class ViewFrame extends JFrame{
 		Hai[] dora = this.master.getDora();
 		for(int i=0;i<4;i++){
 			if(dora[i] != null){
-				g.drawImage(dora[i].getImage(),this.getWidth()/2-82+41*i,this.getHeight()/2+10,null);
+				g.drawImage(dora[i].getImage(),this.getWidth()/2-82+45*i,this.getHeight()/2+10,null);
 			}
 			else{
-				g.drawImage(Hai.images[37],this.getWidth()/2-82+41*i,this.getHeight()/2+10,null);
+				g.drawImage(Hai.images[37],this.getWidth()/2-82+45*i,this.getHeight()/2+10,null);
 			}
 		}
 
