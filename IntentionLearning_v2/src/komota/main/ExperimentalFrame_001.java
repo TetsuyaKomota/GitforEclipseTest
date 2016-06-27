@@ -16,7 +16,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 	String resultfile = "20160627/result_EM_2D_NbO.txt";
 
 	//PRv2_EM em;
-	PRv2_Mat_SOINN em;
+	//PRv2_Mat_SOINN em;
+	PRv2_Mat_SOINN_v2 em;
 
 	public static void main(String[] args){
 		ExperimentalFrame_001 frame = new ExperimentalFrame_001();
@@ -133,7 +134,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 	}
 	@Override
 	public void functionPlugin3(){
-		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		this.em = new PRv2_Mat_SOINN_v2(5,"logdata.txt");
 		//this.em = new PRv2_EM(5,"logdata.txt");
 
 		em.learnfromLog();
@@ -157,7 +159,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 	@Override
 	public void functionPlugin4(){
 		//this.em = new PRv2_EM(5,"logdata.txt");
-		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		this.em = new PRv2_Mat_SOINN_v2(5,"logdata.txt");
 		this.em.show();
 	}
 	@Override
@@ -198,7 +201,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		//描画を止める
 		this.setRenderFlag(false);
 		//DataSetGenerator generator = new DataSetGenerator();
-		DataSetGenerator_v2 generator = new DataSetGenerator_v2("2D_NbO",0.1);
+		DataSetGenerator_v2 generator = new DataSetGenerator_v2("2D_NbO",0.0);
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile(resultfile);
@@ -210,7 +213,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 			count++;
 			generator.functionPlugin1();
 			//this.em = new PRv2_EM(5,"logdata.txt");
-			this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+			//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+			this.em = new PRv2_Mat_SOINN_v2(5,"logdata.txt");
 
 			this.em.learnfromLog();
 
@@ -285,7 +289,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 				g.functionPlugin2();
 				//学習
 				//this.em = new PRv2_EM(5,"logdata.txt");
-				this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+				//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+				this.em = new PRv2_Mat_SOINN_v2(5,"logdata.txt");
 				this.em.learnfromLog();
 				//再現誤差を計算
 				double error = this.em.calcE(this.em.getX());
@@ -349,7 +354,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 			//もう10データ生成し，Mat_SOINNで学習
 			g.functionPlugin1();
 
-			this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+			//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+			this.em = new PRv2_Mat_SOINN_v2(5,"logdata.txt");
 
 			this.em.learnfromLog();
 

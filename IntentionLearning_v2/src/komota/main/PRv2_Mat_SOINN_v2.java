@@ -2,6 +2,8 @@ package komota.main;
 
 import komota.lib.MyMatrix;
 import komota.lib.Statics;
+import komota.soinn.KomotaSOINN;
+import komota.soinn.KomotaSOINN_Euclidean;
 import komota.supers.MyPR_v2;
 
 public class PRv2_Mat_SOINN_v2 extends MyPR_v2{
@@ -62,11 +64,12 @@ public class PRv2_Mat_SOINN_v2 extends MyPR_v2{
 		MyMatrix goals = new MyMatrix(dimension);
 		MyMatrix x = new MyMatrix(dimension);
 
-		ExtendedSOINN soinn = new ExtendedSOINN(dimension*dimension,1000,1000);
+		KomotaSOINN soinn = new KomotaSOINN_Euclidean(dimension*dimension,1000,1000);
+		//KomotaSOINN soinn = new KomotaSOINN_CosSimilarity(dimension*dimension,1000,1000);
 
 		//2.
 		while(true){
-			if(/*learningtime > Statics.NUMBEROFMATRIXS || */stride >= dimension){
+			if(stride >= dimension){
 				break;
 			}
 			//2-1.
@@ -84,6 +87,7 @@ public class PRv2_Mat_SOINN_v2 extends MyPR_v2{
 			if(starts.getDetV() != 0){
 				x = goals.mult(starts.inv());
 				if(x != null){
+					x.show_approximately();
 					soinn.inputSignal(x.vectorize());
 					learningtime++;
 				}
@@ -104,11 +108,22 @@ public class PRv2_Mat_SOINN_v2 extends MyPR_v2{
 		}
 		//4.
 		soinn.removeUnnecessaryNode();
+		soinn.removeUnnecessaryNode();
+		soinn.removeUnnecessaryNode();
 		soinn.classify();
 		//5.
-		//SOINNのクラス数がちゃんと一つになっているか確認
-		System.out.println("Number of Class at SOINN:"+soinn.getClassNum());
-		double[] vec = soinn.getNodeMean(0);
+		//double[] vec = soinn.getNodeMean(0);
+
+		double[] vec = new double[dimension*dimension];
+		int nodenum = soinn.getNodeNum(false);
+
+		//孤立ノード削除後の全ノードの平均を獲得し，学習結果とする
+		for(int j=0;j<vec.length;j++){
+			for(int i=0;i<nodenum;i++){
+				vec[j] += soinn.getNode(i).getSignal()[j];
+			}
+			vec[j] /= nodenum;
+		}
 
 		this.X = new MyMatrix(dimension,vec);
 		System.out.println("学習しました");
