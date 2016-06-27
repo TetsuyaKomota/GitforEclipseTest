@@ -211,7 +211,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		int count = 0;
 		while(count < 10){
 			count++;
-			generator.functionPlugin1();
+			//generator.functionPlugin1();
 			//this.em = new PRv2_EM(5,"logdata.txt");
 			//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 			this.em = new PRv2_Mat_SOINN_v2(5,"logdata.txt");

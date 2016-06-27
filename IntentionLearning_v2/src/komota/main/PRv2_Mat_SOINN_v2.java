@@ -1,5 +1,6 @@
 package komota.main;
 
+import komota.lib.DataSetGenerator_v2;
 import komota.lib.MyMatrix;
 import komota.lib.Statics;
 import komota.soinn.KomotaSOINN;
@@ -9,7 +10,18 @@ import komota.supers.MyPR_v2;
 public class PRv2_Mat_SOINN_v2 extends MyPR_v2{
 
 	public static void main(String[] args){
-
+		//データ自体の誤りチェック
+		DataSetGenerator_v2 g = new DataSetGenerator_v2("2D_NbO", 0);
+		g.setNumberofData(100);
+		//g.functionPlugin1();
+		PRv2_Mat_SOINN_v2 pr = new PRv2_Mat_SOINN_v2(5,"logdata.txt");
+		int count=0;
+		for(int i=0;i<pr.getNumberofLog();i++){
+			if(g.isTrueLog(pr.getStartLog(i), pr.getGoalLog(i)) == false){
+				count++;
+			}
+		}
+		System.out.println("The Number of Error Data is :"+count);
 	}
 
 
@@ -87,7 +99,6 @@ public class PRv2_Mat_SOINN_v2 extends MyPR_v2{
 			if(starts.getDetV() != 0){
 				x = goals.mult(starts.inv());
 				if(x != null){
-					x.show_approximately();
 					soinn.inputSignal(x.vectorize());
 					learningtime++;
 				}

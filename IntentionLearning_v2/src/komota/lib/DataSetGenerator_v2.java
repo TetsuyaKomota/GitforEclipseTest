@@ -2,6 +2,8 @@ package komota.lib;
 
 import java.io.IOException;
 
+import komota.main.PRv2_Mat_SOINN_v2;
+
 public class DataSetGenerator_v2 extends DataSetGenerator{
 
 	//grand truth
@@ -64,6 +66,28 @@ public class DataSetGenerator_v2 extends DataSetGenerator{
 		return next;
 	}
 
+	//引数で与えたstartログとgoalログが，このジェネレータから生成されたデータとして正しければ true を返す
+	//とりあえず分散はゼロで動かすこと前提，閾値は手打ち
+	public boolean isTrueLog(double[] start,double[] goal){
+		double[] exstart = new double[this.grtrh.dimension];
+		double[] exgoal = new double[this.grtrh.dimension];
+		for(int i=0;i<start.length;i++){
+			exstart[i] = start[i];
+			exgoal[i] = goal[i];
+		}
+		double[] temp = this.grtrh.multwithVec(exstart);
+		double error = 0;
+		for(int i=0;i<temp.length;i++){
+			error += Math.abs(temp[i] - exgoal[i]);
+		}
+		if(error < 1.0000){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 	@Override
 	public void functionPlugin1(){
 		System.out.println("データジェネレート2！");
@@ -116,7 +140,33 @@ public class DataSetGenerator_v2 extends DataSetGenerator{
 			e.printStackTrace();
 		}
 		this.getMyIO().close();
-
 	}
-
+	@Override
+	public void functionPlugin3(){
+		//startログから，grand truth を用いて作成される int にならされてないログデータを作る
+		PRv2_Mat_SOINN_v2 pr = new PRv2_Mat_SOINN_v2(5,"logdata.txt");
+		MyIO io = new MyIO();
+		io.writeFile("20160627/generate_func3.txt");
+		for(int i=0;i<pr.getNumberofLog();i++){
+			double[] exstart = new double[this.grtrh.dimension];
+			double[] exgoal = new double[this.grtrh.dimension];
+			for(int j=0;j<pr.getStartLog(i).length;j++){
+				exstart[j] = pr.getStartLog(i)[j];
+			}
+			exgoal = this.grtrh.multwithVec(exstart);
+			io.print("start ");
+			for(int j=0;j<exstart.length;j++){
+				io.print(","+exstart[j]);
+			}
+			io.println();
+			io.print("goal  ");
+			for(int j=0;j<exstart.length;j++){
+				io.print(","+exgoal[j]);
+			}
+			io.println();
+		}
+		io.execute();
+		io.close();
+		System.out.println("おっけー");
+	}
 }
