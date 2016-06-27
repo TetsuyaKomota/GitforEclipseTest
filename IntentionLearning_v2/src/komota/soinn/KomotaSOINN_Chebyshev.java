@@ -19,7 +19,7 @@ public class KomotaSOINN_Chebyshev extends KomotaSOINN{
 		{
 			//sum += (signal1[i] - signal2[i]) * (signal1[i] - signal2[i]);
 			if(max < (signal1[i] - signal2[i]) * (signal1[i] - signal2[i])){
-
+				max = (signal1[i] - signal2[i]) * (signal1[i] - signal2[i]);
 			}
 		}
 
