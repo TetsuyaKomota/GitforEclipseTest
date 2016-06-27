@@ -13,10 +13,10 @@ import komota.supers.MyFrame;
 public class ExperimentalFrame_001 extends MyFrame{
 
 	//結果書き出し先ファイル名
-	String resultfile = "20160618/result_EM_3D_NbO.txt";
+	String resultfile = "20160627/result_EM_2D_NbO.txt";
 
-	PRv2_EM em;
-	//PRv2_Mat_SOINN em;
+	//PRv2_EM em;
+	PRv2_Mat_SOINN em;
 
 	public static void main(String[] args){
 		ExperimentalFrame_001 frame = new ExperimentalFrame_001();
@@ -133,8 +133,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 	}
 	@Override
 	public void functionPlugin3(){
-		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
-		this.em = new PRv2_EM(5,"logdata.txt");
+		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		//this.em = new PRv2_EM(5,"logdata.txt");
 
 		em.learnfromLog();
 		System.out.println("e_min:"+em.calcE(this.em.getX()));
@@ -156,8 +156,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 
 	@Override
 	public void functionPlugin4(){
-		this.em = new PRv2_EM(5,"logdata.txt");
-		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+		//this.em = new PRv2_EM(5,"logdata.txt");
+		this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 		this.em.show();
 	}
 	@Override
@@ -198,7 +198,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		//描画を止める
 		this.setRenderFlag(false);
 		//DataSetGenerator generator = new DataSetGenerator();
-		DataSetGenerator_v2 generator = new DataSetGenerator_v2("3D_NbO",0.1);
+		DataSetGenerator_v2 generator = new DataSetGenerator_v2("2D_NbO",0.1);
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile(resultfile);
@@ -209,8 +209,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 		while(count < 10){
 			count++;
 			generator.functionPlugin1();
-			this.em = new PRv2_EM(5,"logdata.txt");
-			//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+			//this.em = new PRv2_EM(5,"logdata.txt");
+			this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 
 			this.em.learnfromLog();
 
@@ -284,7 +284,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 				//データ生成
 				g.functionPlugin2();
 				//学習
-				this.em = new PRv2_EM(5,"logdata.txt");
+				//this.em = new PRv2_EM(5,"logdata.txt");
+				this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
 				this.em.learnfromLog();
 				//再現誤差を計算
 				double error = this.em.calcE(this.em.getX());
@@ -299,11 +300,77 @@ public class ExperimentalFrame_001 extends MyFrame{
 			}
 			}////////////++++////////////////
 		}
-			
+
 		//LogRandomizer r = new LogRandomizer();
 		//r.encodeToCSV("output_Q.txt", "output_Q.csv");
 		System.out.println("計算終わったよ～");
 
 
+	}
+
+
+	@Override
+	public void functionPluginR(){
+		System.out.println("Mat_SOINNの初期データ量問題，初期20データで失敗するまで回す実験");
+
+		MyIO out_E = new MyIO();
+		MyIO tempio = new MyIO();
+		out_E.writeFile("20160627/result_R.txt");
+		DataSetGenerator_v2 g = new DataSetGenerator_v2("2D_NbO",0.2);
+		File file;
+
+		int count = 0;
+
+		while(true){
+			count++;
+			//logdataを削除
+			//this.em.io.close();
+			this.getMyIO().close();
+			g.getMyIO().close();
+			file = new File("log/logdata.txt");
+			if (file.exists()){
+				if (file.delete()){
+					System.out.println("ログファイルを削除しました");
+				}else{
+					System.out.println("ログファイルの削除に失敗しました");
+				}
+			}else{
+				System.out.println("ファイルが見つかりません");
+			}
+			//logdataを生成
+			tempio.writeFile("logdata.txt");
+			tempio.close();
+			this.setOutputFile("logdata.txt");
+			g.setOutputFile("logdata.txt");
+
+			//ジェネレータで10データ生成
+			g.functionPlugin1();
+
+			//もう10データ生成し，Mat_SOINNで学習
+			g.functionPlugin1();
+
+			this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
+
+			this.em.learnfromLog();
+
+			//resultは「[データ量],[再代入誤り率],[汎化誤差]」という並び
+			out_E.print(em.calcE(this.em.getX())+",");
+			System.out.println("e_min:"+em.calcE(this.em.getX()));
+		/* ************************************************************************************** */
+			//汎化誤差を求める
+			MyMatrix grtrh = g.getGrandTruth();
+			out_E.println(em.getX().sub(grtrh).getMaxNorm());
+			System.out.println("error from grtrh:"+em.getX().sub(grtrh).getMaxNorm());
+		/* ************************************************************************************** */
+			out_E.execute();
+
+			//汎化誤差が閾値以上だった時，終了する
+			if(em.getX().sub(grtrh).getMaxNorm() > 100){
+				break;
+			}
+		}
+		//countを出力する
+		System.out.println("count:"+count);
+		out_E.println("count:"+count);
 	}
 }

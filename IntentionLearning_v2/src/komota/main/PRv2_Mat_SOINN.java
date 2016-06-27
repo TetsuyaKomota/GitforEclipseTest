@@ -98,70 +98,23 @@ public class PRv2_Mat_SOINN extends MyPR_v2{
 			}
 		}
 		//3.
+		System.out.println("[PRv2_Mat_SOINN]learnfromLog:learningtime:"+learningtime);
 		if(learningtime <= Statics.NUMBEROFMATRIXS){
 			System.out.println("データが足りてないよ！");
 		}
 		//4.
+		//soinn.removeUnnecessaryNode();
 		soinn.classify();
 		//5.
+		//SOINNのクラス数がちゃんと一つになっているか確認
+		System.out.println("Number of Class at SOINN:"+soinn.getClassNum());
 		double[] vec = soinn.getNodeMean(0);
-/*
-		MyMatrix temp = new MyMatrix(dimension,vec);
-		this.X = new MyMatrix(Statics.NUMBEROFFEATURES+1);
-		for(int i=0;i<temp.getDimension();i++){
-			for(int j=0;j<temp.getDimension();j++){
-				this.X.setData(i, j, temp.getData(i, j));
-			}
-		}
-*/
+
 		this.X = new MyMatrix(dimension,vec);
 		System.out.println("学習しました");
 		this.X.approximate().show_approximately();
 	}
-/*
-	@Override
-	public void reproduction(MyFrame frame) {
-		// TODO 自動生成されたメソッド・スタブ
 
-		//盤面から状態を取得する
-		double[] current = new double[this.getStartLog(0).length];
-		int idx = 1;
-		current[0] = 1;
-		while(true){
-			for(int i=0;i<Statics.NUMBEROFPANEL;i++){
-				for(int j=0;j<Statics.NUMBEROFPANEL;j++){
-					if(frame.panels[i][j].getStatus() == idx){
-						current[2*idx-1] = i;
-						current[2*idx] = j;
-					}
-				}
-			}
-			idx++;
-			if(idx > Statics.NUMBEROFKIND){
-				break;
-			}
-		}
-		//Xをかけて推定目標を求める
-		double[] goal = new double[this.getStartLog(0).length];
-		for(int i=0;i<goal.length;i++){
-			for(int j=0;j<current.length;j++){
-				goal[i] += this.X.getData(i, j) * current[j];
-			}
-		}
-		//得られた推定目標に盤面を合わせる
-		for(int i=0;i<goal.length;i++){
-			System.out.print(goal[i]+",");
-		}
-		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
-			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
-				frame.panels[i][j].setStatus(0);
-			}
-		}
-		for(int i=1;i<=this.getNumberofObjects();i++){
-			frame.panels[(int)(goal[2*i-1]+0.5)][(int)(goal[2*i]+0.5)].setStatus(i);
-		}
-	}
-*/
 	@Override
 	public void initialize() {
 		// TODO 自動生成されたメソッド・スタブ
