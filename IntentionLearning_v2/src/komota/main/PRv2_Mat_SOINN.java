@@ -6,6 +6,11 @@ import komota.supers.MyPR_v2;
 
 public class PRv2_Mat_SOINN extends MyPR_v2{
 
+
+	/*
+	 * くそバカだったので,リニューアルすることにした．こっちは使用しないこと
+	 */
+
 	//フィールド
 	//学習した行列
 	//MyMatrix X;
