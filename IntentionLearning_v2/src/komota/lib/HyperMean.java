@@ -53,13 +53,13 @@ public class HyperMean {
 
 	//定数
 	//外れ値閾値
-	private static final double threshold = 0.1;
+	private static final double threshold = 0.4;
 
 	//フィールド
 	//入力ベクトル集合
 	private ArrayList<double[]> data;
 	//ベクトル長さ
-	private int datalength = -1;
+	private int datalength = 0;
 
 	//コンストラクタ
 	public HyperMean(){
@@ -68,9 +68,9 @@ public class HyperMean {
 
 	//データインプット
 	public void addData(double[] input){
-		if(this.datalength == -1 || this.datalength == input.length){
+		if(this.datalength == 0 || this.datalength == input.length){
 			this.data.add(input);
-			if(this.datalength == -1){
+			if(this.datalength == 0){
 				this.datalength = input.length;
 			}
 		}
@@ -84,7 +84,7 @@ public class HyperMean {
 		double [] output = new double[this.datalength];
 
 		//最大外れ値を取り除いた際の平均値移動量が閾値未満になるまで繰り返す
-		while(true){
+		while(this.data.size() > 1){
 			//平均を計算する
 			double[] before = this.getMean_Euclidean(this.data);
 			//平均から最も離れたデータを探す
@@ -103,7 +103,6 @@ public class HyperMean {
 			double improve = this.getDistance_Euclidean(before, after);
 			//閾値以上なら取り除いたデータを削除し，最初に戻る
 			if(improve >= HyperMean.threshold){
-				System.out.println("[HyperMean]getHyperMean:外れ値除去による平均強度向上");
 			}
 			//閾値未満なら取り除いたデータを入れ直し，ループを終了する
 			else{
