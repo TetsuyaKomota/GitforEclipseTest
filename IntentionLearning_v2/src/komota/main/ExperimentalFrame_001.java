@@ -209,7 +209,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		io.execute();
 		generator.setNumberofData(10);
 		int count = 0;
-		while(count < 10){
+		while(count < 1){
 			count++;
 			//generator.functionPlugin1();
 			//this.em = new PRv2_EM(5,"logdata.txt");

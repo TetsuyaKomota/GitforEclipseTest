@@ -4,7 +4,7 @@ import komota.lib.DataSetGenerator_v2;
 import komota.lib.MyMatrix;
 import komota.lib.Statics;
 import komota.soinn.KomotaSOINN;
-import komota.soinn.KomotaSOINN_Euclidean;
+import komota.soinn.KomotaSOINN_Chebyshev;
 import komota.supers.MyPR_v2;
 
 public class PRv2_Mat_SOINN_v2 extends MyPR_v2{
@@ -76,7 +76,8 @@ public class PRv2_Mat_SOINN_v2 extends MyPR_v2{
 		MyMatrix goals = new MyMatrix(dimension);
 		MyMatrix x = new MyMatrix(dimension);
 
-		KomotaSOINN soinn = new KomotaSOINN_Euclidean(dimension*dimension,1000,1000);
+		//KomotaSOINN soinn = new KomotaSOINN_Euclidean(dimension*dimension,1000,1000);
+		KomotaSOINN soinn = new KomotaSOINN_Chebyshev(dimension*dimension,1000,1000);
 		//KomotaSOINN soinn = new KomotaSOINN_CosSimilarity(dimension*dimension,1000,1000);
 
 		//2.
@@ -99,8 +100,75 @@ public class PRv2_Mat_SOINN_v2 extends MyPR_v2{
 			if(starts.getDetV() != 0){
 				x = goals.mult(starts.inv());
 				if(x != null){
+
+					//以下コメントアウト部分は，SOINNに代入する行列 x をあらかじめ選別してあげればうまくいくのかを実験したもの．
+					//この結果から，SOINNがノイズをうまく除去できていれば，いい学習が行えることが分かった
+					//つまり，今からやるべきはSOINNの中身を工夫すること．
+
+					/* ****************************************************************************************************************************
+					//x を表示し，SOINNに入力するかしないか選べるようにする．
+					x.show_approximately();
+					String sin = null;
+					BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+					try {
+						sin = br.readLine();
+					} catch (IOException e) {
+						// TODO 自動生成された catch ブロック
+						e.printStackTrace();
+					}
+					if(sin.equals("a")){
+						soinn.inputSignal(x.vectorize());
+						learningtime++;
+					}
+					/* ****************************************************************************************************************************
+					//手作業があまりに面倒だったので，for文でチェックする
+					boolean tflag = true;
+					double threshold = 0.2;
+					for(int ti=0;ti<x.getDimension();ti++){
+						for(int tj=0;tj<x.getDimension();tj++){
+							if(ti == 1 && tj == 1){
+								if(Math.abs(x.getData(ti, tj) - 0.5) > threshold){
+									tflag = false;
+								}
+							}
+							else if(ti == 1 && tj == x.getDimension() - 2){
+								if(Math.abs(x.getData(ti, tj) - 0.5) > threshold){
+									tflag = false;
+								}
+							}
+							else if(ti == 2 && tj == 2){
+								if(Math.abs(x.getData(ti, tj) - 0.5) > threshold){
+									tflag = false;
+								}
+							}
+							else if(ti == 2 && tj == x.getDimension() - 1){
+								if(Math.abs(x.getData(ti, tj) - 0.5) > threshold){
+									tflag = false;
+								}
+							}
+							else if(ti == tj){
+								if(Math.abs(x.getData(ti, tj) - 1.0) > threshold){
+									tflag = false;
+								}
+							}
+							else if(ti != 0 && tj != 0){
+								if(Math.abs(x.getData(ti, tj) - 0.0) > threshold){
+									tflag = false;
+								}
+							}
+						}
+					}
+					if(tflag == true){
+						soinn.inputSignal(x.vectorize());
+						learningtime++;
+					}
+
+					/* **************************************************************************************************************************** */
+					//x.show_approximately();
 					soinn.inputSignal(x.vectorize());
 					learningtime++;
+					/* **************************************************************************************************************************** */
+
 				}
 			}
 

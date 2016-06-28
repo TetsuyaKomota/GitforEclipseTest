@@ -12,7 +12,7 @@ public class DataSetGenerator_v2 extends DataSetGenerator{
 	double variance;
 
 	public static void main(String[] args){
-		DataSetGenerator_v2 frame = new DataSetGenerator_v2("2D_NbO",0.1);
+		DataSetGenerator_v2 frame = new DataSetGenerator_v2("2D_NbO",0.2);
 	}
 
 	//コンストラクタ
