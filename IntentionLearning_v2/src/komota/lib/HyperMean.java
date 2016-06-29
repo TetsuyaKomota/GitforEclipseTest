@@ -1,3 +1,4 @@
+
 package komota.lib;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class HyperMean {
 
 	//定数
 	//外れ値閾値
-	private static final double threshold = 0.1;
+	private static final double threshold = 0.2;
 
 	//フィールド
 	//入力ベクトル集合

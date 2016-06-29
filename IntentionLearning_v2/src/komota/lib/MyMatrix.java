@@ -429,6 +429,17 @@ public class MyMatrix{
 		return output;
 	}
 
+	public double getMeanNorm(){
+		double output = 0;
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				output += this.getData(i, j)*this.getData(i, j);
+			}
+		}
+		output = Math.sqrt(output);
+		return output;
+	}
+
 	/**
 	 * コンソールに行列値を標準出力する
 	 */
