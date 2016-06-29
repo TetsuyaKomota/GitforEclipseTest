@@ -208,7 +208,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile(resultfile);
-		io.println("以下実験結果です．[データ量],[再代入誤差],[汎化誤差]");
+		io.println("以下実験結果です．[データ量],[再代入誤差],[汎化誤差(最大ノルム)],[汎化誤差(平均ノルム)]");
 		io.execute();
 		generator.setNumberofData(10);
 		int count = 0;
@@ -230,7 +230,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		/* ************************************************************************************** */
 			//汎化誤差を求める
 			MyMatrix grtrh = generator.getGrandTruth();
-			io.println(em.getX().sub(grtrh).getMaxNorm());
+			io.println(em.getX().sub(grtrh).getMaxNorm() + "," + em.getX().sub(grtrh).getMeanNorm());
 			System.out.println("error from grtrh:"+em.getX().sub(grtrh).getMaxNorm());
 		/* ************************************************************************************** */
 			io.execute();
