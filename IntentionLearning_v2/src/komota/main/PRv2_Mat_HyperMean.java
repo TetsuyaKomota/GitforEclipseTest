@@ -92,6 +92,7 @@ public class PRv2_Mat_HyperMean extends MyPR_v2{
 				x = goals.mult(starts.inv());
 				if(x != null){
 					hm.addData(x.vectorize());
+					learningtime++;
 				}
 			}
 
