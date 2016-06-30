@@ -54,7 +54,7 @@ public class HyperMean {
 
 	//定数
 	//外れ値閾値
-	private static final double threshold = 0.3;
+	private static final double threshold = 0.05;
 
 	//フィールド
 	//入力ベクトル集合
