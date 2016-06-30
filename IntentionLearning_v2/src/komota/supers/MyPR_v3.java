@@ -10,8 +10,12 @@ public abstract class MyPR_v3 {
 	//ログデータはインスタンス生成時点で前後状態対で保持する
 
 	//フィールド
-	//空間中のオブジェクト数
-	int numofobjects;
+	//空間中のオブジェクト数は v3 では考慮しない． v3 は完全に特徴量ベースのみで考える
+	//v3 では，存在しないオブジェクトの特徴量を考慮しない．それは MyFrame 内であらかじめ削除されていることを前提とする
+	//int numofobjects;
+
+	//特徴量数
+	int numoffeatures;
 
 	//ログデータ
 	StepLog[] logdata;
@@ -23,7 +27,7 @@ public abstract class MyPR_v3 {
 	MyIO io;
 
 	//学習結果
-	public MyMatrix X;
+	private MyMatrix X;
 
 	//コンストラクタ
 	public MyPR_v3(String filename){
@@ -50,7 +54,7 @@ public abstract class MyPR_v3 {
 				this.numberoflog++;
 			}
 		}
-		this.numofobjects = this.getStartLog(0).length;
+		this.numoffeatures = this.getStartLog(0).length;
 	}
 
 	//ゲッター，セッター
@@ -68,8 +72,8 @@ public abstract class MyPR_v3 {
 	public double[] getGoalLog(int stepID){
 		return this.logdata[stepID].goallog;
 	}
-	public int getNumberofObjects(){
-		return this.numofobjects;
+	public int getNumberofFeatures(){
+		return this.numoffeatures;
 	}
 	public int getNumberofLog(){
 		return this.numberoflog;
@@ -94,16 +98,16 @@ public abstract class MyPR_v3 {
 
 
 	//ログデータと渡した行列による推定結果との誤差を出力
-	public double calcE(MyMatrix X){
+	public double calcE(){
 		double output = 0;
 
 		for(int t=0;t<this.getNumberofLog();t++){
 			double temp1 = 0;
-			for(int i=0;i<X.getDimension();i++){
+			for(int i=0;i<this.X.getDimension();i++){
 				double temp2 = 0;
-				for(int j=0;j<X.getDimension();j++){
+				for(int j=0;j<this.X.getDimension();j++){
 
-						temp2 += X.getData(i, j) * this.getStartLog(t)[j];
+						temp2 += this.X.getData(i, j) * this.getStartLog(t)[j];
 
 				}
 
@@ -116,33 +120,6 @@ public abstract class MyPR_v3 {
 		output /= this.getNumberofLog();
 		return output;
 	}
-
-
-
-	//表示．デバッグ用
-	public void show(){
-		int idx = 0;
-		while(true){
-			if(this.logdata[idx] == null){
-				break;
-			}
-			System.out.println(idx+"番目のデータの中身は");
-			System.out.print("初期状態が");
-			for(int i=0;i<numofobjects;i++){
-				System.out.print(","+this.logdata[idx].startlog[i]);
-			}
-			System.out.println();
-			System.out.print("目標状態が");
-			for(int i=0;i<numofobjects;i++){
-				System.out.print(","+this.logdata[idx].goallog[i]);
-			}
-			System.out.println("です");
-			idx++;
-		}
-	}
-
-
-
 
 	//ログデータを表す内部クラス
 	class StepLog{
@@ -157,8 +134,11 @@ public abstract class MyPR_v3 {
 		//コンストラクタ
 		StepLog(int id,String start,String goal){
 			this.step = id;
-			this.startlog = new double[Statics.NUMBEROFFEATURES + 1];
-			this.goallog = new double[Statics.NUMBEROFFEATURES + 1];
+
+			int length = start.split(",").length - 1;
+
+			this.startlog = new double[length];
+			this.goallog = new double[length];
 
 			//初期状態の獲得
 			String[] temp = start.split(",");

@@ -16,6 +16,10 @@ public class Statics {
 	public static final int NUMBEROFKIND = 9;
 	//特徴量数．9オブジェクト2次元回転なしなら 18
 	public static final int NUMBEROFFEATURES = 18;
+
+
+
+
 	//定数
 	//パネルサイズ
 	public static int SIZE_PANEL = 200;
