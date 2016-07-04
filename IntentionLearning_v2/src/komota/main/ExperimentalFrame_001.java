@@ -13,7 +13,7 @@ import komota.supers.MyFrame;
 public class ExperimentalFrame_001 extends MyFrame{
 
 	//結果書き出し先ファイル名
-	String resultfile = "20160704/result_EM_2D_NbO_075.txt";
+	String resultfile = "20160704/result_EM_2D_NbO_200.txt";
 
 	//PRv2_EM em;
 	//PRv2_Mat_SOINN em;
