@@ -13,7 +13,7 @@ import komota.supers.MyFrame;
 public class ExperimentalFrame_001 extends MyFrame{
 
 	//結果書き出し先ファイル名
-	String resultfile = "20160706/result_EM_2D_NbO_400.txt";
+	String resultfile = "20160706/result_per_100.txt";
 
 	//PRv2_EM em;
 	//PRv2_Mat_SOINN em;
@@ -212,7 +212,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		io.execute();
 		generator.setNumberofData(10);
 		int count = 0;
-		while(count < 200){
+		while(count < 100){
 			count++;
 			generator.functionPlugin1();
 			//this.em = new PRv2_EM(5,"logdata.txt");
