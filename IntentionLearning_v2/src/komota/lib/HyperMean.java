@@ -54,7 +54,7 @@ public class HyperMean {
 
 	//定数
 	//外れ値閾値
-	private static final double threshold = 0.2;
+	private static final double threshold = 0.05;
 
 	//フィールド
 	//入力ベクトル集合
@@ -112,6 +112,7 @@ public class HyperMean {
 			//閾値未満なら取り除いたデータを入れ直し，ループを終了する
 			else{
 				//this.data.add(escdata);
+				System.out.println("[HyperMean]getHyperMean:残ったデータ量:"+this.data.size());
 				while(garbage.size() > 0){
 					this.data.add(garbage.remove(0));
 				}
@@ -119,9 +120,6 @@ public class HyperMean {
 				break;
 			}
 		}
-
-		System.out.println("[HyperMean]getHyperMean:残ったデータ量:"+this.data.size());
-
 		return output;
 	}
 
