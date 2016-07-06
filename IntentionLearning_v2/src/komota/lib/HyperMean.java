@@ -84,6 +84,9 @@ public class HyperMean {
 	public double[] getHyperMean(){
 		double [] output = new double[this.datalength];
 
+		//取り除いた外れ値データ．最後に data に返す
+		ArrayList<double[]> garbage = new ArrayList<double[]>();
+
 		//最大外れ値を取り除いた際の平均値移動量が閾値未満になるまで繰り返す
 		while(this.data.size() > 1){
 			//平均を計算する
@@ -98,7 +101,8 @@ public class HyperMean {
 				}
 			}
 			//それを取り除き，もう一度平均を計算する
-			double[] escdata = this.data.remove(idx);
+			//double[] escdata = this.data.remove(idx);
+			garbage.add(this.data.remove(idx));
 			double[] after = this.getMean_Euclidean(this.data);
 			//最初に求めた平均との差を求める
 			double improve = this.getDistance_Euclidean(before, after);
@@ -107,7 +111,10 @@ public class HyperMean {
 			}
 			//閾値未満なら取り除いたデータを入れ直し，ループを終了する
 			else{
-				this.data.add(escdata);
+				//this.data.add(escdata);
+				while(garbage.size() > 0){
+					this.data.add(garbage.remove(0));
+				}
 				output = before;
 				break;
 			}
