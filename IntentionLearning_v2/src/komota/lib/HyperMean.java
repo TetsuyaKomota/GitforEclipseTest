@@ -59,16 +59,26 @@ public class HyperMean {
 	//ベクトル長さ
 	private int datalength = 0;
 	//残すデータの割合
-	private double percentage;
+	private static double percentage;
 
 
 	//コンストラクタ
 	public HyperMean(double percentage){
-		this.percentage = percentage;
+		HyperMean.percentage = percentage;
 		this.data = new ArrayList<double[]>();
 	}
 	public HyperMean(){
-		this(0.1);
+		this(HyperMean.percentage);
+	}
+
+	//割合のセッター
+	public static void setPercentage(double percentage){
+		if(percentage > 1){
+			HyperMean.percentage = 1;
+		}
+		else{
+			HyperMean.percentage = percentage;
+		}
 	}
 
 	//データインプット

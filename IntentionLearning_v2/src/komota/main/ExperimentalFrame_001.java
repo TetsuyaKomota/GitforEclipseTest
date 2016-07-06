@@ -4,6 +4,7 @@ package komota.main;
 import java.io.File;
 
 import komota.lib.DataSetGenerator_v2;
+import komota.lib.HyperMean;
 import komota.lib.MatFactory;
 import komota.lib.MyIO;
 import komota.lib.MyMatrix;
@@ -13,7 +14,7 @@ import komota.supers.MyFrame;
 public class ExperimentalFrame_001 extends MyFrame{
 
 	//結果書き出し先ファイル名
-	String resultfile = "20160706/result_per_100.txt";
+	String resultfile = "20160706/result_per_050~450.txt";
 
 	//PRv2_EM em;
 	//PRv2_Mat_SOINN em;
@@ -208,8 +209,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile(resultfile);
-		io.println("以下実験結果です．[データ量],[再代入誤差],[汎化誤差(最大ノルム)],[汎化誤差(平均ノルム)]");
-		io.execute();
+//		io.println("以下実験結果です．[データ量],[再代入誤差],[汎化誤差(最大ノルム)],[汎化誤差(平均ノルム)]");
+//		io.execute();
 		generator.setNumberofData(10);
 		int count = 0;
 		while(count < 100){
@@ -242,7 +243,37 @@ public class ExperimentalFrame_001 extends MyFrame{
 
 	@Override
 	public void functionPluginW(){
-		this.em.reproduction(this);
+
+		MyIO io = new MyIO();
+		io.writeFile(resultfile);
+
+		File file;
+		MyIO tempio = new MyIO();
+
+		for(int i=1;i<10;i++){
+			io.println("per,"+i*0.5);
+			io.execute();
+			HyperMean.setPercentage(i*0.05);
+			//logdataを削除
+			//this.em.io.close();
+			this.getMyIO().close();
+			file = new File("log/logdata.txt");
+			if (file.exists()){
+				if (file.delete()){
+					System.out.println("ログファイルを削除しました");
+				}else{
+					System.out.println("ログファイルの削除に失敗しました");
+				}
+			}else{
+				System.out.println("ファイルが見つかりません");
+			}
+			//logdataを生成
+			tempio.writeFile("logdata.txt");
+			tempio.close();
+			this.setOutputFile("logdata.txt");
+			this.functionPluginQ();
+		}
+
 	}
 
 	@Override
