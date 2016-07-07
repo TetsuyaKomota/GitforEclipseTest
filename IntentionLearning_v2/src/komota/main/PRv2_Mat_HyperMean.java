@@ -110,6 +110,11 @@ public class PRv2_Mat_HyperMean extends MyPR_v2{
 
 		this.X = new MyMatrix(dimension,vec);
 
+		//定数項部分は四捨五入する
+		for(int i=0;i<this.X.getDimension();i++){
+			this.X.setData(i, 0, (this.X.getData(i,0)+0.5)-(this.X.getData(i,0)+0.5)%1);
+		}
+
 		//4.
 		System.out.println("学習しました");
 		this.X.approximate().show_approximately();

@@ -14,7 +14,7 @@ import komota.supers.MyFrame;
 public class ExperimentalFrame_001 extends MyFrame{
 
 	//結果書き出し先ファイル名
-	String resultfile = "20160706/result_per_050~450.txt";
+	String resultfile = "20160707/gomi.txt";
 
 	//PRv2_EM em;
 	//PRv2_Mat_SOINN em;
@@ -122,42 +122,24 @@ public class ExperimentalFrame_001 extends MyFrame{
 
 		this.outputStart();
 	}
-/* *********************************************************************************************************************** */
-	//ベクトル読み込み書き出しのテスト．すぐ消していい
-	MyMatrix temp = null;
+
 	@Override
 	public void functionPlugin1(){
-		temp = this.getStatusforMatrix();
-		temp.show();
+		DataSetGenerator_v2 generator = new DataSetGenerator_v2("2D_NbO",0.1);
+
+		generator.functionPlugin1();
+		generator.functionPlugin1();
+
 	}
+
 	@Override
 	public void functionPlugin2(){
-		this.setStatusforMatrix(temp, this.countNumberofObject());
-	}
-	@Override
-	public void functionPlugin3(){
-		//this.em = new PRv2_Mat_SOINN(5,"logdata.txt");
-		//this.em = new PRv2_Mat_SOINN_v2(5,"logdata.txt");
-		//this.em = new PRv2_EM(5,"logdata.txt");
+
 		this.em = new PRv2_Mat_HyperMean(5,"logdata.txt");
-
-		em.learnfromLog();
-		System.out.println("e_min:"+em.calcE(this.em.getX()));
-
-		//再現
-		MyMatrix temp = new MyMatrix(19);
-		for(int i=0;i<em.getX().getDimension();i++){
-			for(int j=0;j<em.getX().getDimension();j++){
-				temp.setData(i, j, em.getX().getData(i, j));
-			}
-		}
-		MyMatrix temp2 = this.getStatusforMatrix();
-		temp2.show();
-		temp2 = temp.mult(this.getStatusforMatrix());
-		temp2.show();
-		this.setStatusforMatrix(temp2);
+		this.em.learnfromLog();
+		this.em.reproduction(this);
 	}
-/* *********************************************************************************************************************** */
+
 
 	@Override
 	public void functionPlugin4(){
@@ -207,7 +189,7 @@ public class ExperimentalFrame_001 extends MyFrame{
 		//描画を止める
 		this.setRenderFlag(false);
 		//DataSetGenerator generator = new DataSetGenerator();
-		DataSetGenerator_v2 generator = new DataSetGenerator_v2("2D_NbO",0.0);
+		DataSetGenerator_v2 generator = new DataSetGenerator_v2("2D_NbO",2);
 		generator.setRenderFlag(false);
 		MyIO io = new MyIO();
 		io.writeFile(resultfile);
@@ -417,5 +399,9 @@ public class ExperimentalFrame_001 extends MyFrame{
 		//countを出力する
 		System.out.println("count:"+count);
 		out_E.println("count:"+count);
+	}
+	@Override
+	public void functionPluginT(){
+		this.em.reproduction(this);
 	}
 }

@@ -59,7 +59,7 @@ public class HyperMean {
 	//ベクトル長さ
 	private int datalength = 0;
 	//残すデータの割合
-	private static double percentage;
+	private static double percentage = 0.1;
 
 
 	//コンストラクタ
