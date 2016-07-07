@@ -167,6 +167,8 @@ public class ExperimentalFrame_001 extends MyFrame{
 		this.em = new PRv2_Mat_HyperMean(5,"logdata.txt");
 		this.em.show();
 	}
+
+
 	@Override
 	public void functionPlugin8(){
 		//logdataを削除
