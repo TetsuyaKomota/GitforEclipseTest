@@ -72,7 +72,47 @@ public class Test20160726 extends MyFrame{
 	@Override
 	public void functionPlugin3(){
 		int count = 0;
-		while(count++ < 100){
+		while(count++ < 85){
+			int redg = -1;
+			int redr = -1;
+			int yellowg = -1;
+			int yellowr = -1;
+
+			for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+				for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+					if(this.getPanels()[i][j].getStatus() == 1){
+						redg = i;
+						redr = j;
+					}
+					if(this.getPanels()[i][j].getStatus() == 3){
+						yellowg = i;
+						yellowr = j;
+					}
+					if(redg != -1 && yellowg != -1){
+						break;
+					}
+				}
+				if(redg != -1 && yellowg != -1){
+					break;
+				}
+			}
+			int[] selected = new int[2];
+			selected[0] = redg;
+			selected[1] = redr;
+			this.setSelected(selected);
+			selected = new int[2];
+			selected[0] = (redg+yellowg)/2;
+			selected[1] = (redr+yellowr)/2;
+			this.setSecondSelected(selected);
+			this.pushSPACE();
+			this.pushGoal();
+		}
+		System.out.println("[Test20160726]functionPlugin3:終わったよ～ん");
+	}
+	@Override
+	public void functionPlugin4(){
+		int count = 0;
+		while(count++ < 5){
 			int redg = -1;
 			int redr = -1;
 			int yellowg = -1;

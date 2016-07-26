@@ -73,7 +73,7 @@ public class PRv2_Mat_HyperMean extends MyPR_v2{
 
 		//2.
 		while(true){
-			if(stride >= dimension){
+			if(stride >= /*dimension*/ this.getNumberofLog()){
 				break;
 			}
 			//2-1.
