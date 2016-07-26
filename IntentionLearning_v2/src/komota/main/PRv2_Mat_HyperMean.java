@@ -72,8 +72,9 @@ public class PRv2_Mat_HyperMean extends MyPR_v2{
 		HyperMean hm = new HyperMean();
 
 		//2.
+/**/
 		while(true){
-			if(stride >= /*dimension*/ this.getNumberofLog()){
+			if(stride >= this.getNumberofLog()){
 				break;
 			}
 			//2-1.
@@ -104,6 +105,38 @@ public class PRv2_Mat_HyperMean extends MyPR_v2{
 				stride++;
 			}
 		}
+/**/
+/*
+ * 可能なすべての組み合わせを試行するモード．やってみたら85データでメモリ不足になったし，全通りやらなくとも結果自体はちゃんと出るので，必要になるまではコメントアウト
+		CombinationCounter counter = new CombinationCounter();
+		while(true){
+			int[] chosen = counter.pickNextCombination();
+			if(chosen == null){
+				break;
+			}
+
+			for(int i=0;i<dimension;i++){
+				double[] temps = this.getStartLog(chosen[i]);
+				double[] tempg = this.getGoalLog(chosen[i]);
+
+				for(int j=0;j<dimension;j++){
+					starts.setData(j, i, temps[j]);
+					goals.setData(j, i, tempg[j]);
+				}
+			}
+
+			//2-2.
+			if(starts.getDetV() != 0){
+				x = goals.mult(starts.inv());
+				if(x != null){
+					hm.addData(x.vectorize());
+					learningtime++;
+				}
+			}
+		}
+*/
+
+
 		System.out.println("[PRv2_Mat_HyperMean]learnfromLog:learningtime:"+learningtime);
 		//3.
 		double[] vec = hm.getHyperMean();
@@ -124,5 +157,51 @@ public class PRv2_Mat_HyperMean extends MyPR_v2{
 	public void initialize() {
 		// TODO 自動生成されたメソッド・スタブ
 
+	}
+
+	class CombinationCounter{
+		int n;
+		int r;
+		int[] currentchosen;
+		//コンストラクタ
+		CombinationCounter(){
+			this.n = PRv2_Mat_HyperMean.this.getNumberofLog();
+			this.r = PRv2_Mat_HyperMean.this.getStartLog(0).length;
+			this.currentchosen = new int[this.r];
+			if(this.n < this.r){
+				this.currentchosen[0] = 99999999;
+			}
+			else{
+				for(int i=0;i<this.r;i++){
+					this.currentchosen[i] = i;
+				}
+			}
+		}
+
+		int[] pickNextCombination(){
+			int[] output = new int[this.r];
+
+			//組み合わせがすべて取り終わっている場合，nullを返す
+			if(this.currentchosen[0] >= this.n - this.r){
+				return null;
+			}
+
+			//現在の組み合わせの「次」を求める
+			for(int i=this.r-1;i>=0;i--){
+				if(this.currentchosen[i] < (this.n-1) - (this.r - i - 1)){
+					this.currentchosen[i]++;
+					for(int j=0;j<this.r-i;j++){
+						this.currentchosen[i+j] = this.currentchosen[i]+j;
+					}
+					break;
+				}
+			}
+			for(int i=0;i<this.r;i++){
+				System.out.print(this.currentchosen[i] + " ");
+				output[i] = this.currentchosen[i];
+			}
+			System.out.println();
+			return output;
+		}
 	}
 }
