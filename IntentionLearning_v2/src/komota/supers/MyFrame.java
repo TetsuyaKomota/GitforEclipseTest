@@ -476,6 +476,8 @@ public class MyFrame extends JFrame{
 					case 9:
 						g.setColor(Color.black);
 						break;
+					default:
+						g.setColor(new Color((tempstatus*19)%255,(tempstatus*23)%255,(tempstatus*29)%255));
 					}
 					g.fillRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*j - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*i - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT);
 
