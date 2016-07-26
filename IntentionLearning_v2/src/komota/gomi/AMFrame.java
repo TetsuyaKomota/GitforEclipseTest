@@ -112,7 +112,7 @@ public class AMFrame extends JFrame{
 				temp.setData(i*NUMBEROFPANELS + j, 0, this.panels[i][j].state);
 			}
 		}
-		this.memory = this.memory.add(temp.mult(temp.trans()).sub(MatFactory.unit(NUMBEROFPANELS*NUMBEROFPANELS)));
+		this.memory = this.memory.add(temp.mult(temp.trans()).sub(MatFactory.unit(NUMBEROFPANELS*NUMBEROFPANELS)).mult((double)1/NUMBEROFPANELS));
 	}
 	void associate(){
 		MyMatrix temp = new MyMatrix(NUMBEROFPANELS*NUMBEROFPANELS);
