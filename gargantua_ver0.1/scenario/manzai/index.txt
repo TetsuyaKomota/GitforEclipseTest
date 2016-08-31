@@ -1,0 +1,4 @@
+init>>>backbroung = kaeri.jpg; chara = [hitoA_0, , ,hitoA_4];
+text>>>テストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテストテスト
+text>>>テスト終了
+next>>>scenario2.txt
