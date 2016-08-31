@@ -1,6 +1,9 @@
 package komota.libs;
 
 public class Statics {
+	//デバッグモードフラグ．これを true にすると，いろんなメソッドの内部情報を標準出力するようにする．原因不明のエラーに遭遇したらとりあえずこれを true にしてみる
+	public static final boolean __DEBUG_MODE__ = false;
+
 	//画面サイズ
 	public static final int WINDOW_WIDTH 	= 1200;
 	public static final int WINDOW_HEIGHT 	= 675;
@@ -31,5 +34,11 @@ public class Statics {
 	public static final int MANZAI_CHARA_FACE_ANGRY 	= 2;
 	public static final int MANZAI_CHARA_FACE_SAD 		= 3;
 	public static final int MANZAI_CHARA_FACE_KOMARI 	= 4;
+
+	//行列に関する定数
+	public static final double MATRIX_MIN_DETERMINANT = 0.00000001;
+	//概数値にする際の最小値
+	public static final double MATRIX_MIN_APPROX = 0.0001;
+
 
 }

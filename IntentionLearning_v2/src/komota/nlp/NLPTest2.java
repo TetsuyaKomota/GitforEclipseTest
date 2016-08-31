@@ -1,9 +1,21 @@
 package komota.nlp;
 
+import java.util.List;
 import java.util.Set;
 
 import edu.cmu.lti.jawjaw.JAWJAW;
+import edu.cmu.lti.jawjaw.db.SenseDAO;
+import edu.cmu.lti.jawjaw.db.SynlinkDAO;
+import edu.cmu.lti.jawjaw.db.SynsetDAO;
+import edu.cmu.lti.jawjaw.db.SynsetDefDAO;
+import edu.cmu.lti.jawjaw.db.WordDAO;
+import edu.cmu.lti.jawjaw.pobj.Lang;
 import edu.cmu.lti.jawjaw.pobj.POS;
+import edu.cmu.lti.jawjaw.pobj.Sense;
+import edu.cmu.lti.jawjaw.pobj.Synlink;
+import edu.cmu.lti.jawjaw.pobj.Synset;
+import edu.cmu.lti.jawjaw.pobj.SynsetDef;
+import edu.cmu.lti.jawjaw.pobj.Word;
 
 public class NLPTest2 {
 	private static void run( String word, POS pos ) {
@@ -54,10 +66,30 @@ public class NLPTest2 {
 
 		System.out.println( "translations of "+word+" : \t"+ translations );
 	}
+
+	private static void run2( String word, POS pos ) {
+		// 日本語 WordNet に直接アクセスし、生データを処理
+		List<Word> words = WordDAO.findWordsByLemmaAndPos(word, pos);
+		List<Sense> senses = SenseDAO.findSensesByWordid( words.get(0).getWordid() );
+		String synsetId = senses.get(0).getSynset();
+		Synset synset = SynsetDAO.findSynsetBySynset( synsetId );
+		SynsetDef synsetDef = SynsetDefDAO.findSynsetDefBySynsetAndLang(synsetId, Lang.eng);
+		List<Synlink> synlinks = SynlinkDAO.findSynlinksBySynset( synsetId );
+		// 結果表示
+		System.out.println( words.get(0) );
+		System.out.println( senses.get(0) );
+		System.out.println( synset );
+		System.out.println( synsetDef );
+		System.out.println( synlinks.get(0) );
+	}
+
 	public static void main(String[] args) {
 		// "買収"(動詞)という単語から得られる関係の一部をデモします
 		NLPTest2.run( "買収", POS.v );
 		System.out.println("*******************************************************************************************************************************");
-		NLPTest2.run( "ジャガイモ", POS.n );
+		NLPTest2.run( "ブドウ", POS.n );
+		System.out.println("*******************************************************************************************************************************");
+		NLPTest2.run2( "自然言語処理", POS.n );
+
 	}
 }
