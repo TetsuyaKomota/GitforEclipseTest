@@ -1,13 +1,25 @@
 package komota.lib;
 
 public class Statics {
+
+	//デバッグモードフラグ．これを true にすると，いろんなメソッドの内部情報を標準出力するようにする．原因不明のエラーに遭遇したらとりあえずこれを true にしてみる
+	public static final boolean __DEBUG_MODE__ = false;
+
 	//設定フレームレート
 	public static final int FRAME_RATE = 60;
 
 	//パネルの行、列数
-	public static final int NUMBEROFPANEL = 200;
+	public static final int NUMBEROFPANEL = 400;
 	//パネル種類数
-	public static final int NUMBEROFKIND = 9;
+	//パネル数に対する特徴量の数をいろいろ変えたいことから，これを使った実装はなくす．代わりにNUMBEROFFEATURESを用いる実装に変更すること
+	@Deprecated
+	public static final int NUMBEROFKIND = 40;
+	//特徴量数．9オブジェクト2次元回転なしなら 18
+	public static final int NUMBEROFFEATURES = 80;
+
+
+
+
 	//定数
 	//パネルサイズ
 	public static int SIZE_PANEL = 200;
@@ -34,7 +46,7 @@ public class Statics {
 
 	//定数
 	//PR_Mat_SOINNにおける行列作成回数
-	public static int NUMBEROFMATRIXS = 2;
+	public static int NUMBEROFMATRIXS = 100;
 	//PR_Mat_SOINNのクロスバリデーション使用データ量
 	public static int NUMBEROFEVALUATION = 2;
 
@@ -52,11 +64,11 @@ public class Statics {
 	public static final double GA_THRETHOLD = 100000;
 	public static double EM_THRETHOLD = 10;
 	//ストライド
-	public static final double EM_STRIDE = 100;
+	public static final double EM_STRIDE = 100;//100
 	//焼きなまし率
-	public static final double EM_annealing = 0.999;
+	public static final double EM_annealing = 0.999;//0.999
 	//更新量限界
-	public static final double EM_PROGRESS_NORMA = 0.001;
+	public static final double EM_PROGRESS_NORMA = 0.0001;
 
 	/**
 	 * @param args

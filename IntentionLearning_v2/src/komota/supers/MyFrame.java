@@ -14,6 +14,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 
 import komota.lib.MyIO;
+import komota.lib.MyMatrix;
 import komota.lib.Statics;
 
 /**
@@ -79,6 +80,9 @@ public class MyFrame extends JFrame{
 	/** タイマークラス*/
 	private Timer t;
 
+	/** 描画フラグ．falseの時は描画しない */
+	private boolean renderflag;
+
 	/** 累計フレーム数*/
 	private int framecount;
 
@@ -128,6 +132,8 @@ public class MyFrame extends JFrame{
 
 		this.setOutputFile();
 
+		this.renderflag = true;
+
 		this.t = new Timer();
 		t.schedule(new RenderTask(), 0,Math.round((double)1000/Statics.FRAME_RATE));
 
@@ -140,6 +146,87 @@ public class MyFrame extends JFrame{
 	 */
 	public MyPanel[][] getPanels(){
 		return this.panels;
+	}
+	/**
+	 * 引数で与えたベクトル（一列にデータを入れた行列）で環境のオブジェクトを配置する．
+	 * @param input 状態空間ベクトル
+	 * @param numofobject オブジェクト数
+	 */
+	public void setStatusforMatrix(MyMatrix input,int numofobject){
+
+		if(input.getDimension() != Statics.NUMBEROFFEATURES+1){
+			System.out.println("[MyFrame]setStatusforMatrix:入力行列のサイズが不正です");
+			return;
+		}
+		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+				this.getPanels()[i][j].setStatus(0);
+			}
+		}
+		int idx = 1;
+		while(true){
+
+			this.getPanels()[(int)input.getData(2*idx-1,0)][(int)input.getData(2*idx, 0)].setStatus(idx);
+
+			idx++;
+			if(idx > numofobject){
+				break;
+			}
+		}
+	}
+	public void setStatusforMatrix(MyMatrix input){
+		this.setStatusforMatrix(input, this.countNumberofObject());
+	}
+	/**
+	 * 状態空間を行列で返すゲッター
+	 * @return 状態空間の行列表現
+	 */
+	public MyMatrix getStatusforMatrix(){
+/*
+		MyMatrix output = new MyMatrix(Statics.NUMBEROFPANEL);
+		//状態空間の行列表現はこんな形じゃないので修正して
+		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+				output.setData(i, j, this.getPanels()[i][j].getStatus());
+			}
+		}
+*/
+		MyMatrix output = new MyMatrix(Statics.NUMBEROFFEATURES+1);
+
+		output.setData(0, 0, 1);
+
+		int idx = 1;
+		while(true){
+			for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+				for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+					if(this.getPanels()[i][j].getStatus() == idx){
+						output.setData(2*idx-1, 0, i);
+						output.setData(2*idx, 0, j);
+					}
+				}
+			}
+			idx++;
+			if(idx > Statics.NUMBEROFKIND){
+				break;
+			}
+		}
+
+		return output;
+	}
+	/**
+	 * オブジェクト数のカウンタ．実行時の環境のオブジェクト数をカウントして返す
+	 * @return
+	 */
+	public int countNumberofObject(){
+		int counter = 0;
+		for(int i=0;i<Statics.NUMBEROFPANEL;i++){
+			for(int j=0;j<Statics.NUMBEROFPANEL;j++){
+				if(this.getPanels()[i][j].getStatus() != 0){
+					counter++;
+				}
+			}
+		}
+		return counter;
 	}
 	/**
 	 * 選択オブジェクトのセッター
@@ -168,6 +255,14 @@ public class MyFrame extends JFrame{
 	 */
 	public int[] getSecondSelected(){
 		return this.secondselected;
+	}
+
+	/**
+	 * 描画フラグのセッター
+	 * @param input 描画フラグ
+	 */
+	public void setRenderFlag(boolean input){
+		this.renderflag = input;
 	}
 	/**
 	 * シミュレータを実行してからの累計フレーム数のゲッター
@@ -284,7 +379,7 @@ public class MyFrame extends JFrame{
 		this.io.print(command);
 
 		int idx = 1;
-		int[] statuses = new int[2 * Statics.NUMBEROFKIND + 1];
+		int[] statuses = new int[Statics.NUMBEROFFEATURES + 1];
 		statuses[0] = 1;
 		while(true){
 			for(int i=0;i<Statics.NUMBEROFPANEL;i++){
@@ -381,6 +476,8 @@ public class MyFrame extends JFrame{
 					case 9:
 						g.setColor(Color.black);
 						break;
+					default:
+						g.setColor(new Color((tempstatus*19)%255,(tempstatus*23)%255,(tempstatus*29)%255));
 					}
 					g.fillRect(Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*j - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,Statics.SIZE_FRAME+(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*i - ((Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT)/2,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT,(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)*Statics.SIZE_OBJECT);
 
@@ -548,41 +645,42 @@ public class MyFrame extends JFrame{
 		 */
 		public void run() {
 			// TODO 自動生成されたメソッド・スタブ
+			if(MyFrame.this.renderflag == true){
+				//直前のフレーム開始からこのフレーム開始までの時刻の差がフレームタイムになる．
+				this.lasttime = this.starttime;
+				this.starttime = System.currentTimeMillis();
 
-			//直前のフレーム開始からこのフレーム開始までの時刻の差がフレームタイムになる．
-			this.lasttime = this.starttime;
-			this.starttime = System.currentTimeMillis();
+				//フレームレートを推定
+				MyFrame.this.frame_rate = Math.round((double)1000 / (this.starttime - this.lasttime));
 
-			//フレームレートを推定
-			MyFrame.this.frame_rate = Math.round((double)1000 / (this.starttime - this.lasttime));
+				//累計フレーム数をインクリメント
+				MyFrame.this.framecount++;
 
-			//累計フレーム数をインクリメント
-			MyFrame.this.framecount++;
+				Graphics2D g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
+				//背景の描画
+				g.setColor(MyFrame.background);
+				g.fillRect(0, 0, MyFrame.this.getWidth(), MyFrame.this.getHeight());
+				//文字情報の描画
+				g.setColor(MyFrame.colorofstring);
+				g.drawString(MyFrame.this.expranation, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 10);
+				g.drawString("frame:"+MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+10);
+				g.drawString("time :"+MyFrame.this.getFrameTime(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+30);
+				g.drawString("fps  :"+MyFrame.this.getFrameRate(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+50);
+				g.drawString("fps_m:"+MyFrame.this.getFrameTime()/MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+70);
+				g.drawString(MyFrame.this.tasktitle, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 30);
+				g.drawString(MyFrame.this.howtouse, Statics.SIZE_FRAME, Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+40);
 
-			Graphics2D g = (Graphics2D)MyFrame.this.buffer.getDrawGraphics();
-			//背景の描画
-			g.setColor(MyFrame.background);
-			g.fillRect(0, 0, MyFrame.this.getWidth(), MyFrame.this.getHeight());
-			//文字情報の描画
-			g.setColor(MyFrame.colorofstring);
-			g.drawString(MyFrame.this.expranation, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 10);
-			g.drawString("frame:"+MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+10);
-			g.drawString("time :"+MyFrame.this.getFrameTime(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+30);
-			g.drawString("fps  :"+MyFrame.this.getFrameRate(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+50);
-			g.drawString("fps_m:"+MyFrame.this.getFrameTime()/MyFrame.this.getFrameCount(), Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+5, Statics.SIZE_FRAME+70);
-			g.drawString(MyFrame.this.tasktitle, Statics.SIZE_FRAME, Statics.SIZE_FRAME/2 + 30);
-			g.drawString(MyFrame.this.howtouse, Statics.SIZE_FRAME, Statics.SIZE_FRAME+Statics.NUMBEROFPANEL*(Statics.SIZE_PANEL+Statics.SIZE_SEPALATOR)+40);
+				g.dispose();
 
-			g.dispose();
-
-			//空白パネルの描画
-			for(int i=0;i<MyFrame.this.panels.length;i++){
-				for(int j=0;j<MyFrame.this.panels[0].length;j++){
-					MyFrame.this.panels[i][j].drawSpace();
+				//空白パネルの描画
+				for(int i=0;i<MyFrame.this.panels.length;i++){
+					for(int j=0;j<MyFrame.this.panels[0].length;j++){
+						MyFrame.this.panels[i][j].drawSpace();
+					}
 				}
+				MyFrame.this.drawObjects();
+				MyFrame.this.buffer.show();
 			}
-			MyFrame.this.drawObjects();
-			MyFrame.this.buffer.show();
 		}
 	}
 

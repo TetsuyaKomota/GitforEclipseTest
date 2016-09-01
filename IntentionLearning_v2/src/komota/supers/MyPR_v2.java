@@ -20,8 +20,9 @@ public abstract class MyPR_v2 {
 	int numberoflog;
 
 	//入出力クラス
-	MyIO io;
+	private MyIO io;
 
+	//学習結果
 	public MyMatrix X;
 
 	//コンストラクタ
@@ -50,6 +51,7 @@ public abstract class MyPR_v2 {
 				this.numberoflog++;
 			}
 		}
+		this.io.close();
 	}
 
 	//ゲッター，セッター
@@ -83,10 +85,19 @@ public abstract class MyPR_v2 {
 
 	//学習機構。オーバーライドする
 	public abstract void learnfromLog();
-	//再現。オーバーライドする
-	public abstract void reproduction(MyFrame frame);
 	//学習結果リセット。オーバーライドする
 	public abstract void initialize();
+
+	//再現．単純な行列計算で実現
+	public void reproduction(MyFrame frame){
+		MyMatrix temp = new MyMatrix(Statics.NUMBEROFFEATURES+1);
+		for(int i=0;i<this.getX().getDimension();i++){
+			for(int j=0;j<this.getX().getDimension();j++){
+				temp.setData(i, j, this.getX().getData(i, j));
+			}
+		}
+		frame.setStatusforMatrix(temp.mult(frame.getStatusforMatrix()));
+	}
 
 	//ログデータと渡した行列による推定結果との誤差を出力
 	public double calcE(MyMatrix X){

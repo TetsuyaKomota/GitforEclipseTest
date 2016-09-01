@@ -3,7 +3,6 @@ package komota.main;
 import komota.lib.MatFactory;
 import komota.lib.MyMatrix;
 import komota.lib.Statics;
-import komota.supers.MyFrame;
 import komota.supers.MyPR_v2;
 
 public class PRv2_GA extends MyPR_v2{
@@ -213,7 +212,7 @@ public class PRv2_GA extends MyPR_v2{
 		//currentagent[0]が最適な行列
 		this.X = currentagent[0];
 	}
-
+/*
 	@Override
 	public void reproduction(MyFrame frame) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -256,7 +255,7 @@ public class PRv2_GA extends MyPR_v2{
 			frame.panels[(int)(goal[2*i-1]+0.5)][(int)(goal[2*i]+0.5)].setStatus(i);
 		}
 	}
-
+*/
 	@Override
 	public void initialize() {
 		// TODO 自動生成されたメソッド・スタブ

@@ -168,10 +168,13 @@ public class MyMatrix{
 	/**
 	 * 乗算
 	 * @param input 乗算行列
-	 * @return 引数に与えた行列を右から掛け合わせた行列
+	 * @return 引数に与えた行列を右から掛け合わせた行列.inputがnullの場合はnullを返す．
 	 */
 	public MyMatrix mult(MyMatrix input){
 		MyMatrix output = new MyMatrix(this.dimension);
+		if(input == null){
+			return null;
+		}
 		for(int i=0;i<this.dimension;i++){
 			for(int j=0;j<this.dimension;j++){
 				for(int m=0;m<this.dimension;m++){
@@ -203,6 +206,60 @@ public class MyMatrix{
 
 		return output;
 	}
+
+	/**
+	 * 畳込み計算して結果を行列で返す
+	 * @param patch 畳込みパッチ
+	 * @param stride ストライド
+	 * @param isZeropadding ゼロパディングをするかどうか．ゼロパディングをする場合，出力サイズはストライド1で入力サイズと同じになる
+	 * @return 引数に与えたパッチで畳込計算した結果の行列
+	 */
+	public MyMatrix convolution(MyMatrix patch, double stride, boolean isZeropadding){
+		MyMatrix output;
+		if(isZeropadding == true){
+			output = new MyMatrix((int)(this.getDimension()/stride));
+		}
+		else{
+			output = new MyMatrix((int)((this.getDimension() - (patch.getDimension()-1))/stride));
+		}
+
+		for(int i=0;i<output.getDimension();i++){
+			for(int j=0;j<output.getDimension();j++){
+				double temp = 0;
+
+				//パディングあり
+				if(isZeropadding == true){
+					for(int ki=0;ki<patch.getDimension();ki++){
+						for(int kj=0;kj<patch.getDimension();kj++){
+							//このif文がゼロパディング
+							if(
+									((int)(i*stride)-patch.getDimension()/2)+ki >= 0
+									&& ((int)(j*stride)-patch.getDimension()/2)+kj >= 0
+									&& ((int)(i*stride)-patch.getDimension()/2)+ki < this.getDimension()
+									&& ((int)(j*stride)-patch.getDimension()/2)+kj < this.getDimension()
+								){
+								temp += this.getData(((int)(i*stride)-patch.getDimension()/2)+ki,((int)(j*stride)-patch.getDimension()/2)+kj) * patch.getData(ki, kj);
+							}
+						}
+					}
+				}
+				//パディングなし
+				else{
+					for(int ki=0;ki<patch.getDimension();ki++){
+						for(int kj=0;kj<patch.getDimension();kj++){
+							if((int)(i*stride)+ki < this.getDimension() && (int)(j*stride)+kj< this.getDimension()){
+								temp += this.getData((int)(i*stride)+ki, (int)(j*stride)+kj)*patch.getData(ki, kj);
+							}
+						}
+					}
+				}
+
+				output.setData(i, j, temp);
+			}
+		}
+		return output;
+	}
+
 	/**
 	 * 定数倍
 	 * @param input 乗算定数
@@ -293,6 +350,7 @@ public class MyMatrix{
 	 * 逆行列
 	 * @return 個の行列の逆行列.正則でない場合は null を返す.
 	 */
+	@SuppressWarnings("unused")
 	public MyMatrix inv(){
 		MyMatrix output = new MyMatrix(this.dimension);
 
@@ -322,9 +380,11 @@ public class MyMatrix{
 					}
 				}
 				if(zeroflag == true){
-					System.out.println("これが戦犯やで！");
-					System.out.println("DET="+this.getDetV());
-					this.show();
+					if(Statics.__DEBUG_MODE__ == true){
+						System.out.println("これが戦犯やで！");
+						System.out.println("DET="+this.getDetV());
+						this.show();
+					}
 					return null;
 				}
 			}
@@ -366,6 +426,17 @@ public class MyMatrix{
 				}
 			}
 		}
+		return output;
+	}
+
+	public double getMeanNorm(){
+		double output = 0;
+		for(int i=0;i<this.dimension;i++){
+			for(int j=0;j<this.dimension;j++){
+				output += this.getData(i, j)*this.getData(i, j);
+			}
+		}
+		output = Math.sqrt(output);
 		return output;
 	}
 

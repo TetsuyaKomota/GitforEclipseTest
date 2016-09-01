@@ -285,6 +285,22 @@ public class MyIO {
 		this.println("end_Mat:"+id);
 		this.execute();
 	}
+	//ファイル行列書き出し（整数化）
+	public void printMatrix_integer(MyMatrix mat,int id){
+		this.println("Mat_ID:"+id);
+		this.println("dim:"+mat.dimension);
+		for(int i=0;i<mat.dimension;i++){
+			for(int j=0;j<mat.dimension;j++){
+				this.print((int)mat.getData(i,j)+"\t");
+				if(j<mat.dimension-1){
+					this.print(",");
+				}
+			}
+			this.println("");
+		}
+		this.println("end_Mat:"+id);
+		this.execute();
+	}
 
 
 	//ファイル書き出し完了処理

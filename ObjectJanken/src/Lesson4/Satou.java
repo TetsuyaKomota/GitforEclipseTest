@@ -12,6 +12,7 @@ public class Satou extends Player{
 		this.setWinnersComment("メロンパンって日本発祥なんだよ！");
 		this.setLosersComment("カツオは釣り上げた直後だけ横縞が縦縞に変わるんだよ！");
 		this.setDrawersComment("リアルゴールドにブラックライトを当てると光るんだぜ!");
+
 	}
 
 	@Override
