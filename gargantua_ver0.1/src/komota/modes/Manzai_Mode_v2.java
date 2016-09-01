@@ -56,8 +56,19 @@ public abstract class Manzai_Mode_v2 extends Mode{
 		}
 		//一行読み込み
 		String line = this.io.readLine();
+		//コマンドは以下の文法で書かれる
+		//(コマンド)>>>(引数キー) = (引数値),(引数キー) = (引数値),(引数キー) = (引数値),...
+		//よって，まずは文法通りに書かれている引数を配列に整理してから各コマンドのメソッドに渡す
+		String[][] params = new String[10][2];
+		//params[0][0] = (コマンド)
+		//params[i][0] = (引数キー) params[i][1] = (引数値)
+		params[0][0] = line.split(">>>")[0];
+		for(int i=1;i<=line.split(">>>")[1].split(",").length;i++){
+			params[i][0] = line.split(">>>")[1].split(",")[i].split(" = ")[0];
+			params[i][1] = line.split(">>>")[1].split(",")[i].split(" = ")[1];
+		}
 		//command の内容によって動作を変更する
-		switch(line.split(">>>")[0]){
+		switch(params[0][0]){
 		//初期化コマンドであった場合,初期化を実行する
 		case "init":
 			break;
@@ -70,6 +81,22 @@ public abstract class Manzai_Mode_v2 extends Mode{
 		//command がない場合，エラーログを残してその行は無視する
 		default:
 			System.out.println("[Manzai_Mode_v2]command:command not found. ::"+line);
+		}
+	}
+
+	//以下，シナリオファイルからのコマンドによって呼び出されるメソッド
+	//init コマンドで実行する初期化メソッド
+	//background : 背景画像のファイル名, chara : 初期化時に描画するキャラクタのファイル名．漫才モードでは4箇所まで人を描画できるので4ファイル代入できる形式
+	void command_init(String[][] params){
+		int idx = 1;
+		while(idx < params.length && params[idx] != null){
+			switch(params[idx][1]){
+			case "background":
+				break;
+			case "chara":
+				break;
+			}
+			idx++;
 		}
 	}
 
