@@ -10,8 +10,8 @@ public class Satou extends Player{
 		this.setLoseComment("たくあんって100ボルトの電圧をかけると光るんだってよ！");
 		this.setDrawComment("消しゴムを凍らせると爆発するぞ！");
 		this.setWinnersComment("メロンパンって日本発祥なんだよ！");
-		this.setLosersComment("ちんこ");
-		this.setDrawersComment("うんこ");
+		this.setLosersComment("カツオは釣り上げた直後だけ横縞が縦縞に変わるんだよ！");
+		this.setDrawersComment("リアルゴールドにブラックライトを当てると光るんだぜ!");
 	}
 
 	@Override
