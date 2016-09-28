@@ -58,7 +58,7 @@ public class KinectViewerApp extends DWApp implements ChangeListener
 	ViewerPanel3D main_panel;
 	JSlider elevation_angle;
 	JCheckBox near_mode;
-	JCheckBox seated_skeleton;
+	// JCheckBox seated_skeleton;
 	JCheckBox show_infrared;
 	JButton turn_off;
 	JComboBox depth_resolution;
@@ -94,11 +94,11 @@ public class KinectViewerApp extends DWApp implements ChangeListener
 		near_mode.setSelected(false);
 		near_mode.addActionListener(this);
 		if(myKinect.getDeviceType()!=J4KSDK.MICROSOFT_KINECT_1) near_mode.setEnabled(false);
-
+/*
 		seated_skeleton=new JCheckBox("Seated skeleton");
 		seated_skeleton.addActionListener(this);
 		if(myKinect.getDeviceType()!=J4KSDK.MICROSOFT_KINECT_1) seated_skeleton.setEnabled(false);
-
+*/
 		elevation_angle=new JSlider();
 		elevation_angle.setMinimum(-27);
 		elevation_angle.setMaximum(27);
@@ -157,7 +157,9 @@ public class KinectViewerApp extends DWApp implements ChangeListener
 		controls.add(depth_resolution);
 		controls.add(mask_players);
 		controls.add(near_mode);
+/*
 		controls.add(seated_skeleton);
+*/
 		accelerometer=new JLabel("0,0,0");
 		controls.add(accelerometer);
 
@@ -182,6 +184,7 @@ public class KinectViewerApp extends DWApp implements ChangeListener
 		p_root.add(main_panel, BorderLayout.CENTER);
 		p_root.add(controls, BorderLayout.SOUTH);
 
+		myKinect.setSeatedSkeletonTracking(true);
 	}
 
 	public void GUIclosing()
@@ -213,7 +216,9 @@ public class KinectViewerApp extends DWApp implements ChangeListener
 		myKinect.start(flags);
 		if(show_video.isSelected())myKinect.computeUV(true);
 		else myKinect.computeUV(false);
-		if(seated_skeleton.isSelected())myKinect.setSeatedSkeletonTracking(true);
+/*
+ * 		if(seated_skeleton.isSelected())myKinect.setSeatedSkeletonTracking(true);
+ */
 		if(near_mode.isSelected()) myKinect.setNearMode(true);
 	}
 
@@ -232,11 +237,13 @@ public class KinectViewerApp extends DWApp implements ChangeListener
 			if(near_mode.isSelected()) myKinect.setNearMode(true);
 			else myKinect.setNearMode(false);
 		}
+/*
 		else if(e.getSource()==seated_skeleton)
 		{
 			if(seated_skeleton.isSelected()) myKinect.setSeatedSkeletonTracking(true);
 			else myKinect.setSeatedSkeletonTracking(false);
 		}
+*/
 		else if(e.getSource()==show_infrared)
 		{
 			resetKinect();

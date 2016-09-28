@@ -139,6 +139,57 @@ public class ViewerPanel3D extends OpenGLPanel
 	    		{
 	    			skeletons[i].draw(gl);
 	    			skeletons[i].increaseTimesDrawn();
+
+	    			System.out.print("HEAD:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.HEAD)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
+	    			System.out.print("NECK:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.NECK)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
+	    			System.out.print("SHOULDER_LEFT:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.SHOULDER_LEFT)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
+	    			System.out.print("ELBOW_LEFT:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.ELBOW_LEFT)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
+	    			System.out.print("WRIST_LEFT:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.WRIST_LEFT)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
+	    			System.out.print("HAND_LEFT:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.HAND_LEFT)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
+	    			System.out.print("SHOULDER_RIGHT:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.SHOULDER_RIGHT)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
+	    			System.out.print("ELBOW_RIGHT:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.ELBOW_RIGHT)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
+	    			System.out.print("WRIST_RIGHT:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.WRIST_RIGHT)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
+	    			System.out.print("HAND_RIGHT:");
+	    			for(int t=0;t<3;t++){
+	    				System.out.print(" "+(skeletons[i].get3DJoint(Skeleton.HAND_RIGHT)[t] - skeletons[i].get3DJoint(Skeleton.NECK)[t]));
+	    			}
+	    			System.out.println();
 	    		}
 	    	}
 
