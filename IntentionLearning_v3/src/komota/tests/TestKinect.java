@@ -17,29 +17,21 @@ public class TestKinect extends J4KSDK{
 		}
 
 		TestKinect kinect = new TestKinect();
+		kinect.setSeatedSkeletonTracking(true);
 		kinect.start(J4KSDK.COLOR|J4KSDK.DEPTH|J4KSDK.SKELETON);
 		kinect.showViewerDialog();
-		while(true){
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
-			System.out.println("ひでぶ");
-		}
 	}
 
 	@Override
 	public void onColorFrameEvent(byte[] arg0) {
 		// TODO 自動生成されたメソッド・スタブ
-		System.out.println("Color を受け取ったよ！arg0:"+arg0.length);
+		// System.out.println("Color を受け取ったよ！arg0:"+arg0.length);
 	}
 
 	@Override
 	public void onDepthFrameEvent(short[] arg0, byte[] arg1, float[] arg2, float[] arg3) {
 		// TODO 自動生成されたメソッド・スタブ
-		System.out.println("Depth を受け取ったよ！arg0:"+arg0.length);
+		// System.out.println("Depth を受け取ったよ！arg0:"+arg0.length);
 /*
   		for(int i=0;i<arg0.length;i++){
 
@@ -52,6 +44,7 @@ public class TestKinect extends J4KSDK{
 	@Override
 	public void onSkeletonFrameEvent(boolean[] arg0, float[] arg1, float[] arg2, byte[] arg3) {
 		// TODO 自動生成されたメソッド・スタブ
+
 		if(arg0 == null){
 			System.out.println("arg0はぬる！");
 		}
