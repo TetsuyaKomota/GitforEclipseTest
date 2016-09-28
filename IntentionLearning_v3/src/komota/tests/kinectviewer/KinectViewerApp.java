@@ -16,40 +16,6 @@ import edu.ufl.digitalworlds.gui.DWApp;
 import edu.ufl.digitalworlds.j4k.J4K1;
 import edu.ufl.digitalworlds.j4k.J4KSDK;
 
-/*
- * Copyright 2011-2014, Digital Worlds Institute, University of
- * Florida, Angelos Barmpoutis.
- * All rights reserved.
- *
- * When this program is used for academic or research purposes,
- * please cite the following article that introduced this Java library:
- *
- * A. Barmpoutis. "Tensor Body: Real-time Reconstruction of the Human Body
- * and Avatar Synthesis from RGB-D', IEEE Transactions on Cybernetics,
- * October 2013, Vol. 43(5), Pages: 1347-1356.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *     * Redistributions of source code must retain this copyright
- * notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce this
- * copyright notice, this list of conditions and the following disclaimer
- * in the documentation and/or other materials provided with the
- * distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 @SuppressWarnings("serial")
 public class KinectViewerApp extends DWApp implements ChangeListener
 {
@@ -86,19 +52,11 @@ public class KinectViewerApp extends DWApp implements ChangeListener
 			//System.exit(0);
 		}
 
-		//System.out.println(((J4K2)myKinect.getJ4KClass()).getIndex());
-		//myKinect.computeUV(true);
-		//myKinect.setNearMode(true);
-
 		near_mode=new JCheckBox("Near mode");
 		near_mode.setSelected(false);
 		near_mode.addActionListener(this);
 		if(myKinect.getDeviceType()!=J4KSDK.MICROSOFT_KINECT_1) near_mode.setEnabled(false);
-/*
-		seated_skeleton=new JCheckBox("Seated skeleton");
-		seated_skeleton.addActionListener(this);
-		if(myKinect.getDeviceType()!=J4KSDK.MICROSOFT_KINECT_1) seated_skeleton.setEnabled(false);
-*/
+
 		elevation_angle=new JSlider();
 		elevation_angle.setMinimum(-27);
 		elevation_angle.setMaximum(27);
@@ -216,9 +174,6 @@ public class KinectViewerApp extends DWApp implements ChangeListener
 		myKinect.start(flags);
 		if(show_video.isSelected())myKinect.computeUV(true);
 		else myKinect.computeUV(false);
-/*
- * 		if(seated_skeleton.isSelected())myKinect.setSeatedSkeletonTracking(true);
- */
 		if(near_mode.isSelected()) myKinect.setNearMode(true);
 	}
 
@@ -237,13 +192,6 @@ public class KinectViewerApp extends DWApp implements ChangeListener
 			if(near_mode.isSelected()) myKinect.setNearMode(true);
 			else myKinect.setNearMode(false);
 		}
-/*
-		else if(e.getSource()==seated_skeleton)
-		{
-			if(seated_skeleton.isSelected()) myKinect.setSeatedSkeletonTracking(true);
-			else myKinect.setSeatedSkeletonTracking(false);
-		}
-*/
 		else if(e.getSource()==show_infrared)
 		{
 			resetKinect();

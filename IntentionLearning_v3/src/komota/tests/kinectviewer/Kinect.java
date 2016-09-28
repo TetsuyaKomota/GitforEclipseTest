@@ -62,13 +62,6 @@ public class Kinect extends J4KSDK{
 		{
 			viewer.skeletons[i]=Skeleton.getSkeleton(i, flags,positions, orientations,state,this);
 		}
-
-/*
-		for(int i=0;i<positions.length;i++){
-			System.out.print(positions[i] + " ");
-		}
-		System.out.println();
-*/
 	}
 
 	@Override

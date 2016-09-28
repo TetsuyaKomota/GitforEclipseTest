@@ -47,6 +47,7 @@ import edu.ufl.digitalworlds.opengl.OpenGLPanel;
 @SuppressWarnings("serial")
 public class ViewerPanel3D extends OpenGLPanel
 {
+
 	private float view_rotx = 0.0f, view_roty = 0.0f, view_rotz = 0.0f;
 	private int prevMouseX, prevMouseY;
 
