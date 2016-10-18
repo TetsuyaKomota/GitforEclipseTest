@@ -42,7 +42,7 @@ public class Kinect extends J4KSDK{
 		label.setText(((int)(a[0]*100)/100f)+","+((int)(a[1]*100)/100f)+","+((int)(a[2]*100)/100f));
 		DepthMap map=new DepthMap(getDepthWidth(),getDepthHeight(),XYZ);
 
-		map.setMaximumAllowedDeltaZ(0.5);
+		map.setMaximumAllowedDeltaZ(50);
 
 		if(UV!=null && !use_infrared) map.setUV(UV);
 		else if(use_infrared) map.setUVuniform();
@@ -56,22 +56,26 @@ public class Kinect extends J4KSDK{
 
 	@Override
 	public void onSkeletonFrameEvent(boolean[] flags, float[] positions, float[] orientations, byte[] state) {
+		/* ********************************************************************************************************** */
+		/* ここは描画に使う部分．いじらない  ------------------------------------------------------------------------ */
 		if(viewer==null || viewer.skeletons==null)return;
-
-		for(int i=0;i<getSkeletonCountLimit();i++)
-		{
-			viewer.skeletons[i]=Skeleton.getSkeleton(i, flags,positions, orientations,state,this);
-		}
+		for(int i=0;i<getSkeletonCountLimit();i++){viewer.skeletons[i]=Skeleton.getSkeleton(i, flags,positions, orientations,state,this);}
+		/* ********************************************************************************************************** */
 	}
 
 	@Override
 	public void onColorFrameEvent(byte[] data) {
+		/* ********************************************************************************************************** */
+		/* ここは描画に使う部分．いじらない  ------------------------------------------------------------------------ */
 		if(viewer==null || viewer.videoTexture==null || use_infrared) return;
 		viewer.videoTexture.update(getColorWidth(), getColorHeight(), data);
+		/* ********************************************************************************************************** */
 	}
 
 	@Override
 	public void onInfraredFrameEvent(short[] data) {
+		/* ********************************************************************************************************** */
+		/* 赤外線を用いたテクスチャを張る遊びのためだけのメソッドなので現状はいじらなくていい  ---------------------- */
 		if(viewer==null || viewer.videoTexture==null || !use_infrared) return;
 		int sz=getInfraredWidth()*getInfraredHeight();
 		byte bgra[]=new byte[sz*4];
@@ -84,13 +88,14 @@ public class Kinect extends J4KSDK{
 			sv=data[i];
 			iv=sv >= 0 ? sv : 0x10000 + sv;
 			bv=(byte)( (iv & 0xfff8)>>6);
+			//colorメソッドと同じように update メソッドで描画するため，BGRA配列を作ってるだけ．BGRを同じ値にして灰色，Aを0にして不透明を表現してるだけ
 			bgra[idx]=bv;idx++;
 			bgra[idx]=bv;idx++;
 			bgra[idx]=bv;idx++;
 			bgra[idx]=0;idx++;
 		}
-
 		viewer.videoTexture.update(getInfraredWidth(), getInfraredHeight(), bgra);
+		/* ********************************************************************************************************** */
 	}
 
 }
